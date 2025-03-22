@@ -92,7 +92,7 @@ const Sidebar = () => {
           </div>
         </div>
       ) : (
-        <div className="h-full p-2  w-[60px] flex flex-col bg-white">
+        <div className="h-full p-2  w-[60px] min-w-[60px] flex flex-col bg-white">
           <div className="w-full flex items-center justify-center text-gray-700 pb-2 py-3 text-[20px]">
             <span onClick={handleCloseSidebar}>
               <RiExpandRightLine />
