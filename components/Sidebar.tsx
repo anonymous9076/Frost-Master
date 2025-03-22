@@ -20,14 +20,14 @@ const Sidebar = () => {
   return (
     <>
       {active ? (
-        <div className="h-full p-4 w-[20%] min-w-[280px] flex flex-col bg-white">
+        <div className="h-full p-4 w-[15%] min-w-[250px] flex flex-col bg-white">
           <div className="w-full flex items-center justify-end text-gray-700 pb-2  text-[20px]">
             <span onClick={handleCloseSidebar}>
               <RiContractLeftLine />
             </span>{" "}
           </div>
           <div className="py-2 w-full shadow-md rounded-lg text-center bg-blue-400 text-white text-[25px] font-black flex items-center justify-center gap-3">
-            <FaKitchenSet /> Frost Pvt Ltd{" "}
+            <FaKitchenSet />The Frost{" "}
           </div>
           <ul className="flex-1 w-full py-3 m-0 text-gray-700  flex flex-col gap-2 ">
             <li
