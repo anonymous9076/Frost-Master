@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import Sidebar from "@/components/Sidebar";
 import React from "react";
 import { IoIosSearch } from "react-icons/io";
@@ -7,7 +7,6 @@ import { FiEdit } from "react-icons/fi";
 import { BsPerson } from "react-icons/bs";
 import Pagination from "@/components/Pagination";
 const ShowOrders = () => {
-
   const orders = [
     {
       orderId: "ORD123456",
@@ -32,7 +31,7 @@ const ShowOrders = () => {
     },
   ];
 
-  const getStatusColor = (status:any) => {
+  const getStatusColor = (status: any) => {
     switch (status) {
       case "Delivered":
         return "bg-green-200 text-green-500"; // Green for Delivered
@@ -46,12 +45,12 @@ const ShowOrders = () => {
         return "bg-gray-200"; // Gray for other cases
     }
   };
-  const handlePrevPages=()=>{
-    console.log('prev')
-  }
-  const handleNextPages=()=>{
-    console.log('next')
-  }
+  const handlePrevPages = () => {
+    console.log("prev");
+  };
+  const handleNextPages = () => {
+    console.log("next");
+  };
 
   return (
     <div className="h-screen  w-full flex bg-gray-100">
@@ -75,6 +74,7 @@ const ShowOrders = () => {
             <span className="flex items-start flex-col ">
               Date Range
               <select className="bg-gray-100 py-1 px-2 w-[160px] border-2 border-gray-200 rounded-md  ">
+              <option value="">None</option>
                 <option value="Today">Today</option>
                 <option value="Today">Last Week</option>
                 <option value="Today">Last Month</option>
@@ -84,6 +84,7 @@ const ShowOrders = () => {
             <span className="flex items-start flex-col ">
               Order Status
               <select className="bg-gray-100 py-1 px-2 w-[160px] border-2 border-gray-200 rounded-md  ">
+                <option value="">None</option>
                 <option value="Today">Approved</option>
                 <option value="Today">Pending</option>
                 <option value="Today">Delivered</option>
@@ -93,6 +94,7 @@ const ShowOrders = () => {
             <span className="flex items-start flex-col ">
               Payment Status
               <select className="bg-gray-100 py-1 px-2 w-[160px] border-2 border-gray-200 rounded-md  ">
+              <option value="">None</option>
                 <option value="Today">All Payments</option>
                 <option value="Today">Online</option>
                 <option value="Today">Net Banking</option>
@@ -111,37 +113,45 @@ const ShowOrders = () => {
             </ul>
 
             {orders
-              ? orders.splice(0,7).map((item, index) => (
+              ? orders.splice(0, 7).map((item, index) => (
                   <ul
                     className=" my-1 p-0 flex items-center py-3 px-[1.5rem] bg-white rounded-sm shadow-sm  "
                     key={index}
                   >
                     <li className="w-[17%]">#{item.orderId}</li>
-                    <li className="w-[21%] flex h-full gap-1 items-center"><BsPerson></BsPerson> {item.customerName}</li>
+                    <li className="w-[21%] flex h-full gap-1 items-center">
+                      <BsPerson></BsPerson> {item.customerName}
+                    </li>
                     <li className="w-[19%]">{item.orderDate}</li>
                     <li className="w-[17%]">${item.totalAmount}</li>
                     <li className="w-[16%]">
-                      <span className={`w-fit h-fit bg-gray-100 rounded-xl px-4 py-1 ${getStatusColor(
-                item.status
-              )}`}>
-                      {item.status}
+                      <span
+                        className={`w-fit h-fit bg-gray-100 rounded-xl px-4 py-1 ${getStatusColor(
+                          item.status
+                        )}`}
+                      >
+                        {item.status}
                       </span>
-                      </li>
+                    </li>
                     <li className="w-[10%] flex items-center gap-3">
-                      <span className="text-[18px] text-blue-400"><LuEye></LuEye></span>
-                      <span className="text-[16px] text-blue-400"><FiEdit></FiEdit></span>
+                      <span className="text-[18px] text-blue-400">
+                        <LuEye></LuEye>
+                      </span>
+                      <span className="text-[16px] text-blue-400">
+                        <FiEdit></FiEdit>
+                      </span>
                     </li>
                   </ul>
                 ))
               : ""}
-          <div className="  flex items-center justify-between  w-full">
-           <Pagination
-           totalPages={45}
-           currentPage={1}
-           handleNextPages={handleNextPages}
-           handlePrevPages={handlePrevPages}
-           ></Pagination>
-          </div>
+            <div className="  flex items-center justify-between  w-full">
+              <Pagination
+                totalPages={45}
+                currentPage={1}
+                handleNextPages={handleNextPages}
+                handlePrevPages={handlePrevPages}
+              ></Pagination>
+            </div>
           </div>
         </div>
       </div>

@@ -21,7 +21,7 @@ const Sidebar = () => {
     <>
       {active ? (
         <div className="h-full p-4 w-[15%] min-w-[250px] flex flex-col bg-white">
-          <div className="w-full flex items-center justify-end text-gray-700 pb-2  text-[20px]">
+          <div className="w-full flex items-center justify-end text-gray-700 pb-2 text-[20px]">
             <span onClick={handleCloseSidebar}>
               <RiContractLeftLine />
             </span>{" "}
@@ -31,7 +31,7 @@ const Sidebar = () => {
           </div>
           <ul className="flex-1 w-full py-3 m-0 text-gray-700  flex flex-col gap-2 ">
             <li
-            onClick={()=>router.push('/admin/customer')}
+            onClick={()=>router.push('/admin/users')}
               className="py-3  w-full flex items-center px-4 rounded-2xl hover:shadow-lg hover:bg-blue-400 hover:text-white  gap-3 text-[16px] group"
               title="Customers"
             >
@@ -103,7 +103,7 @@ const Sidebar = () => {
           </div>
           <ul className="flex-1 w-full py-3 m-0 text-gray-700  flex flex-col gap-2 ">
             <li
-            onClick={()=>router.push('/admin/customer')}
+            onClick={()=>router.push('/admin/users')}
               className="py-3  w-full flex items-center justify-center rounded-2xl hover:shadow-lg hover:bg-blue-400 hover:text-white  gap-3 text-[16px] group"
               title="Customers"
             >
