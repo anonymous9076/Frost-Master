@@ -29,7 +29,7 @@ const Sidebar = () => {
           <div className="py-2 w-full shadow-md rounded-lg text-center bg-blue-400 text-white text-[25px] font-black flex items-center justify-center gap-3">
             <FaKitchenSet />The Frost{" "}
           </div>
-          <ul className="flex-1 w-full py-3 m-0 text-gray-700  flex flex-col gap-2 ">
+          <ul className="flex-1 cursor-pointer w-full py-3 m-0 text-gray-700  flex flex-col gap-2 ">
             <li
             onClick={()=>router.push('/admin/users')}
               className="py-3  w-full flex items-center px-4 rounded-2xl hover:shadow-lg hover:bg-blue-400 hover:text-white  gap-3 text-[16px] group"

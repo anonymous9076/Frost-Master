@@ -9,10 +9,12 @@ import Pagination from "@/components/Pagination";
 // import { IoReload } from "react-icons/io5";
 import { FaRegTrashAlt } from "react-icons/fa";
 import DeleteModel from "@/components/DeleteModel";
+import AddProductForm from "@/components/AddProductForm";
 
 const ProductManagement = () => {
 
   const [deleteModel,setDeleteModel] = useState<boolean>(false)
+  const [addProduct,setaddProduct] = useState<boolean>(false)
 
   const products = [
     {
@@ -62,9 +64,13 @@ const ProductManagement = () => {
   const handleCloseModel=()=>{
     setDeleteModel(false)
   } 
+  const handleCloseAddProductModel=()=>{
+    setaddProduct(false)
+  } 
 
   return (
     <div className="h-screen  w-full flex bg-gray-100 relative">
+      {addProduct?<AddProductForm handleCloseModel={handleCloseAddProductModel}></AddProductForm>:''}
       {deleteModel?<DeleteModel handleCloseModel={handleCloseModel} category={'Product'}></DeleteModel>:''}
       <Sidebar></Sidebar>
       <div className="flex-1 h-full text-gray-700 ">
@@ -80,7 +86,7 @@ const ProductManagement = () => {
               <IoIosSearch></IoIosSearch>
             </span>
           </span> */}
-          <span className="px-3 py-1 rounded-md bg-blue-400 text-white text-[16px] font-normal hover:shadow-lg hover:translate-0.5 cursor-pointer">+ New Product</span>
+          <span className="px-3 py-1 rounded-md bg-blue-400 text-white text-[16px] font-normal hover:shadow-lg cursor-pointer" onClick={()=>setaddProduct(true)}>+ New Product</span>
         </div>
         <div className="px-[4rem] w-full bg-gray-100 min-w-[900px] overflow-x-auto  h-[92%] py-[2rem] text-[14px] ">
           <div className="bg-white h-[5rem] w-full rounded-lg px-[1.5rem] flex items-center gap-3">
