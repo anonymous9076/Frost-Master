@@ -18,7 +18,7 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
     ratings: 0,
     stock: "",
   });
-  const [dataUploaded, setDataUploaded] = useState<boolean>(true);
+  const [dataUploaded, setDataUploaded] = useState<boolean>(false);
   const [images,setImages]= useState<any>([])
 
   const categories = [
@@ -73,7 +73,7 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
 
 
   return (
-    <div className="min-h-screen flex items-center absolute top-0 left-0 w-full h-screen bg-opacity-90 justify-center bg-gray-900">
+    <div className="min-h-screen flex items-center fixed top-0 left-0 w-full h-screen bg-opacity-90 justify-center bg-gray-900">
       <div className="bg-white h-[95%] px-7 py-4 rounded-lg shadow-2xl min-w-[350px] w-[45%] ">
         <div className="text-2xl font-bold text-blue-400 w-full  mt-4 mb-6  text-center">
           Add New Product
