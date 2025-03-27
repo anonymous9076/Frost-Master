@@ -40,7 +40,7 @@ const showPayments = () => {
   ];
   
 
-  const getStatusColor = (status:any) => {
+  const getStatusColor = (status:string) => {
     switch (status) {
       case "Delivered":
         return "bg-green-200 text-green-500"; // Green for Delivered

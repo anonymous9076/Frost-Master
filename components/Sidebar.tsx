@@ -10,6 +10,7 @@ import { RiExpandRightLine } from "react-icons/ri";
 import { FaKitchenSet } from "react-icons/fa6";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { useRouter } from "next/navigation";
+import { MdOutlineSupportAgent } from "react-icons/md";
 const Sidebar = () => {
   const [active, setActive] = useState(true);
   const router = useRouter();
@@ -20,13 +21,13 @@ const Sidebar = () => {
   return (
     <>
       {active ? (
-        <div className="h-full p-4 w-[15%] min-w-[250px] flex flex-col bg-white">
-          <div className="w-full flex items-center justify-end text-gray-700 pb-2 text-[20px]">
-            <span onClick={handleCloseSidebar}>
+        <div className="h-full p-4 w-[15%] min-w-[250px] relative flex flex-col border-r-2 border-blue-400 transition-all duration-300 ease-in-out   bg-white">
+          <div onClick={handleCloseSidebar} className=" flex items-center absolute top-[40%] right-[-12%] bg-white border-2  rounded-full translate-y-1/2 justify-end   p-3 border-blue-400 text-[25px]">
+            <span className="text-blue-400">
               <RiContractLeftLine />
             </span>{" "}
           </div>
-          <div className="py-2 w-full shadow-md rounded-lg text-center bg-blue-400 text-white text-[25px] font-black flex items-center justify-center gap-3">
+          <div className="py-2 w-full  shadow-md rounded-lg text-center bg-blue-400 text-white text-[25px] font-black flex items-center justify-center gap-3">
             <FaKitchenSet />The Frost{" "}
           </div>
           <ul className="flex-1 cursor-pointer w-full py-3 m-0 text-gray-700  flex flex-col gap-2 ">
@@ -85,6 +86,16 @@ const Sidebar = () => {
               </span>{" "}
               Settings
             </li>
+            <li
+            onClick={()=>router.push('/admin/Enquiry')}
+              className="py-3  w-full flex items-center px-4 rounded-2xl hover:shadow-lg hover:bg-blue-400 hover:text-white  gap-3 text-[16px] group"
+              title="Enquiry"
+            >
+              <span className="group-hover:text-white text-blue-400 text-[22px]">
+                <MdOutlineSupportAgent />
+              </span>{" "}
+              Enquiry
+            </li>
           </ul>
           <div className="py-2 w-full rounded-lg bg-blue-400 font-bold text-center flex gap-2 items-center justify-center text-white">
             {" "}
@@ -92,9 +103,10 @@ const Sidebar = () => {
           </div>
         </div>
       ) : (
-        <div className="h-full p-2  w-[60px] min-w-[60px] flex flex-col bg-white">
-          <div className="w-full flex items-center justify-center text-gray-700 pb-2 py-3 text-[20px]">
-            <span onClick={handleCloseSidebar}>
+        <div className="h-full p-2  w-[60px] min-w-[60px] flex flex-col border-r-2 border-blue-400 transition-all duration-300 ease-in-out relative bg-white">
+          
+          <div onClick={handleCloseSidebar} className=" flex items-center absolute top-[40%] right-[-45%] bg-white border-2  rounded-full translate-y-1/2 justify-end   p-3 border-blue-400 text-[25px]">
+            <span className="text-blue-400">
               <RiExpandRightLine />
             </span>{" "}
           </div>
@@ -149,6 +161,15 @@ const Sidebar = () => {
             >
               <span className="group-hover:text-white text-blue-400 text-[22px]">
                 <LuSettings />
+              </span>{" "}
+            </li>
+            <li
+            onClick={()=>router.push('/admin/Enquiry')}
+              className="py-3  w-full flex items-center justify-center rounded-2xl hover:shadow-lg hover:bg-blue-400 hover:text-white  gap-3 text-[16px] group"
+              title="Enquiry"
+            >
+              <span className="group-hover:text-white text-blue-400 text-[22px]">
+                <MdOutlineSupportAgent />
               </span>{" "}
             </li>
           </ul>

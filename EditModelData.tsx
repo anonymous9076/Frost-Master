@@ -79,4 +79,4 @@ const productFields = [
     "productDescription": "This premium stainless steel cookware set includes multiple pots and pans that are durable, heat-resistant, and easy to clean. Ideal for home chefs looking to elevate their cooking experience."
   }
 
-  export default{ productData,productFields };
+  export default{ productData,productFields }; //default is removed

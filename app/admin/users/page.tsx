@@ -1,7 +1,6 @@
 "use client";
 import Sidebar from "@/components/Sidebar";
 import React,{useState} from "react";
-import { IoIosSearch } from "react-icons/io";
 import { LuEye } from "react-icons/lu";
 import { FiEdit } from "react-icons/fi";
 import { BsPerson } from "react-icons/bs";
@@ -38,7 +37,7 @@ const ShowUsers = () => {
   ];
   
 
-  const getStatusColor = (status: any) => {
+  const getStatusColor = (status: string) => {
     switch (status) {
       case "Delivered":
         return "bg-green-200 text-green-500"; // Green for Delivered
