@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import Sidebar from "@/components/Sidebar";
 import React, { useState } from "react";
@@ -10,11 +11,13 @@ import Pagination from "@/components/Pagination";
 import { FaRegTrashAlt } from "react-icons/fa";
 import DeleteModel from "@/components/DeleteModel";
 import AddProductForm from "@/components/AddProductForm";
-
+import EditProductForm from "@/components/EditProductForm";
+import product from '../../../EditModelData'
 const ProductManagement = () => {
 
-  const [deleteModel,setDeleteModel] = useState<boolean>(false)
-  const [addProduct,setaddProduct] = useState<boolean>(false)
+  const [showModel,setShowModel] = useState<boolean>(false)
+  const [showModel1,setShowModel1] = useState<boolean>(false)
+  const [showModel2,setShowModel2] = useState<boolean>(false)
 
   const products = [
     {
@@ -62,17 +65,25 @@ const ProductManagement = () => {
   }
 
   const handleCloseModel=()=>{
-    setDeleteModel(false)
+    setShowModel(false)
   } 
   const handleCloseAddProductModel=()=>{
-    setaddProduct(false)
+    setShowModel1(false)
   } 
+  const handleCloseEditProductModel=()=>{
+    setShowModel2(false)
+  }
+  const handleUpdateForm=(data:any)=>{
+    console.log(data)
+  }
+  // console.log()
 
   return (
     <div className="h-screen  w-full flex bg-gray-100 relative">
-      {addProduct?<AddProductForm handleCloseModel={handleCloseAddProductModel}></AddProductForm>:''}
-      {deleteModel?<DeleteModel handleCloseModel={handleCloseModel} category={'Product'}></DeleteModel>:''}
-      <Sidebar></Sidebar>
+      {showModel?<DeleteModel handleCloseModel={handleCloseModel} category={'Product'}></DeleteModel>:''}
+      {showModel1?<AddProductForm handleCloseModel={handleCloseAddProductModel}></AddProductForm>:''}
+      {showModel2?<EditProductForm handleCloseModel={handleCloseEditProductModel} fields={product.productFields} data={product.productData} onsubmit={handleUpdateForm} ></EditProductForm>:''}
+      <Sidebar ></Sidebar>
       <div className="flex-1 h-full text-gray-700 ">
         <div className="bg-white w-full h-[8%] px-[4rem] flex items-center text-[20px] font-bold justify-between">
           Products Management Metrics
@@ -86,7 +97,7 @@ const ProductManagement = () => {
               <IoIosSearch></IoIosSearch>
             </span>
           </span> */}
-          <span className="px-3 py-1 rounded-md bg-blue-400 text-white text-[16px] font-normal hover:shadow-lg cursor-pointer" onClick={()=>setaddProduct(true)}>+ New Product</span>
+          <span className="px-3 py-1 rounded-md bg-blue-400 text-white text-[16px] font-normal hover:shadow-lg cursor-pointer" onClick={()=>setShowModel1(true)}>+ New Product</span>
         </div>
         <div className="px-[4rem] w-full bg-gray-100 min-w-[900px] overflow-x-auto  h-[92%] py-[2rem] text-[14px] ">
           <div className="bg-white h-[5rem] w-full rounded-lg px-[1.5rem] flex items-center gap-3">
@@ -146,8 +157,8 @@ const ProductManagement = () => {
                     <li className="w-[12%]">${item.stock}</li>
                     <li className="w-[11%] flex items-center gap-3">
                       {/* <span className="text-[18px] text-blue-400" title="view"><LuEye></LuEye></span> */}
-                      <span className="text-[16px] text-blue-400" title="edit" ><FiEdit></FiEdit></span>
-                      <span className="text-[16px] text-red-400" title="Delete" onClick={()=>setDeleteModel(true)}><FaRegTrashAlt></FaRegTrashAlt></span>
+                      <span className="text-[16px] text-blue-400" title="edit" onClick={()=>setShowModel2(true)}><FiEdit></FiEdit></span>
+                      <span className="text-[16px] text-red-400" title="Delete" onClick={()=>setShowModel(true)}><FaRegTrashAlt></FaRegTrashAlt></span>
                     </li>
                   </ul>
                 ))

@@ -73,23 +73,23 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
 
 
   return (
-    <div className="min-h-screen flex items-center fixed top-0 left-0 w-full h-screen bg-opacity-90 justify-center bg-gray-900">
-      <div className="bg-white h-[95%] px-7 py-4 rounded-lg shadow-2xl min-w-[350px] w-[45%] ">
+    <div className="min-h-screen flex items-center fixed top-0 left-0 w-full h-screen  justify-end bg-black/50">
+      <div className="bg-white h-[100%]  py-4 rounded-lg shadow-2xl min-w-[350px] w-[45%] ">
         <div className="text-2xl font-bold text-blue-400 w-full  mt-4 mb-6  text-center">
           Add New Product
         </div>
         {dataUploaded ? (
-          <>
-          <div className="text-blue-400 border border-blue-400 rounded-lg w-full flex items-center relative justify-center h-[20%]">
+          <div className="px-7 w-full">
+          <div className="text-blue-400 border border-blue-400 rounded-lg w-full flex items-center relative justify-center py-[3rem]">
             <button className="flex items-center gap-1"> <MdOpenInBrowser></MdOpenInBrowser>Browse Images</button>
             <input type="file" multiple onChange={(e)=>handleInputImages(e)} className=" w-full h-full top-0 left-0 bg-red-500 absolute inset-0 opacity-0"></input>
           </div>
           <div className="text-gray-500  space-y-2 my-[2rem]">
           {images&& images.map((item:any,index:any)=>
-            <div key={index} className="w-full flex items-center gap-2 justify-between">
+            <div key={index} className="w-full border border-gray-100 rounded-md px-3 py-2 shadow-md flex items-center gap-2 justify-between">
             <FaImage></FaImage>
             <p className="flex-1">{item.name}</p>
-            <span className="text-red-500" onClick={(e)=>handleRemoveImage(e,item)}><IoMdTrash></IoMdTrash></span>
+            <span className="text-red-500 text-[18px]" onClick={(e)=>handleRemoveImage(e,item)}><IoMdTrash></IoMdTrash></span>
           </div>
           )}
           </div>
@@ -110,13 +110,13 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
                 Submit Form
               </button>
             </div>
-          </>
+          </div>
 
 
         ) : (
           <form
             onSubmit={handleSubmit}
-            className=" flex flex-col gap-3 text-gray-700"
+            className=" flex flex-col overflow-y-auto px-7 text-gray-500 gap-4 h-[90%]"
           >
             {/* Product Title */}
             <div>
@@ -231,7 +231,7 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
                 value={formData.productDescription}
                 onChange={handleChange}
                 required
-                rows={3}
+                rows={4}
                 className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
             </div>
