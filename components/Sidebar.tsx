@@ -87,9 +87,9 @@ const Sidebar = () => {
               Settings
             </li>
             <li
-            onClick={()=>router.push('/admin/Enquiry')}
+            onClick={()=>router.push('/admin/enquiry')}
               className="py-3  w-full flex items-center px-4 rounded-2xl hover:shadow-lg hover:bg-blue-400 hover:text-white  gap-3 text-[16px] group"
-              title="Enquiry"
+              title="enquiry"
             >
               <span className="group-hover:text-white text-blue-400 text-[22px]">
                 <MdOutlineSupportAgent />
@@ -164,9 +164,9 @@ const Sidebar = () => {
               </span>{" "}
             </li>
             <li
-            onClick={()=>router.push('/admin/Enquiry')}
+            onClick={()=>router.push('/admin/enquiry')}
               className="py-3  w-full flex items-center justify-center rounded-2xl hover:shadow-lg hover:bg-blue-400 hover:text-white  gap-3 text-[16px] group"
-              title="Enquiry"
+              title="enquiry"
             >
               <span className="group-hover:text-white text-blue-400 text-[22px]">
                 <MdOutlineSupportAgent />
