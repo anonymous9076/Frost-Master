@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
+import ReactQueryProvider from "./utlis/provider/ReactQueryProvider";
+import UserAuthContextProvider from "./context/UserAuthContextProvider";
+import { ToastContainer } from "react-toastify";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -24,11 +26,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
+      <UserAuthContextProvider>
+        <ReactQueryProvider>
+          <body
+            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          >
+            <ToastContainer />
+
+            {children}
+          </body>
+        </ReactQueryProvider>
+      </UserAuthContextProvider>
     </html>
   );
 }
