@@ -3,9 +3,9 @@ import { FaKitchenSet } from "react-icons/fa6";
 const Navbar = () => {
   return (
     <>
-    <div className='h-[12dvh] w-full bg-white border-2 text-[#4C585B] flex items-center justify-between px-[5rem] border-gray-300'>
+    <div className='h-[10dvh] w-full absolute top-0 left-0 bg-transparent text-white flex items-center justify-between px-[5rem] '>
         <span className='text-[40px]'><FaKitchenSet></FaKitchenSet></span>
-        <div className='text-[#4C585B] flex items-start gap-[45px] text-[20px]'>
+        <div className='text-[#ffffff] flex items-start gap-[45px] text-[16px]'>
             <a href='/customer' className='font-semibold'>Home</a>
             <a href='/about'>About Us</a>
             <a href=''>Our Products</a>

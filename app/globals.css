@@ -7,6 +7,15 @@ li{
   overflow-x: auto;
   overflow-y: hidden;
 }
+.olive{
+  background: #35736E;
+  color: #FFFFFF;
+}
+.light{
+  background: white;
+  color: #171717;
+}
+
 
 @theme inline {
   --color-background: var(--background);
