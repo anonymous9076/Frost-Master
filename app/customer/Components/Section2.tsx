@@ -33,6 +33,7 @@ const Section2 = () => {
           <p className="text-[18px]">
             {"At Forst Master Pvt. Ltd., we bring innovation and efficiency to your kitchen with high-quality, durable, and performance-driven equipment. Whether you're running a professional restaurant, a bustling café, or upgrading your home kitchen, our expertly crafted solutions ensure seamless cooking, refrigeration, food prep, and hygiene management."}
           </p>
+          <button className="olive rounded-md py-2 px-4 mt-[2rem]">Explore More</button>
         </div>
         <div className="w-[50%] grid grid-cols-2 gap-6  p-4">
          {img.map((item,index)=>
