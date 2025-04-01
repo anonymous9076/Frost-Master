@@ -169,6 +169,7 @@ const ProductManagement = () => {
            currentPage={1}
            handleNextPages={handleNextPages}
            handlePrevPages={handlePrevPages}
+           user='admin'
            ></Pagination>
           </div>
           </div>

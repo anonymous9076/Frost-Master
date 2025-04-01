@@ -1,18 +1,16 @@
 import React from "react";
 import Image from "next/image";
-import Navbar from "@/components/Navbar";
-import dotted from "@/Images/dotted.png";
+// import Navbar from "@/components/Navbar";
 
 const Section1 = () => {
   return (
     <div className="min-h-[100dvh] h-fit relative w-full olive ">
-      <Navbar position="none" bg="transparent" text="white" active="/customer" />
       <div className="min-h-[90dvh] h-fit flex flex-col md:flex-row items-center justify-center w-full py-[5rem] ">
         {/* Left side with image */}
         <div className="flex-1 h-full relative">
           <div className="absolute z-10 bottom-[-5rem] lg:block hidden left-0 h-[30vh] md:h-[40dvh] w-[45vw] md:w-[55dvh]">
             <Image
-              src={dotted}
+              src='/Images/dotted.png'
               alt=""
               height={500}
               width={500}
@@ -21,7 +19,7 @@ const Section1 = () => {
           </div>
           <div className="h-full flex items-center justify-center w-full">
             <Image
-              className="h-[80dvh] w-[70dvh] md:w-[80%] min-w-[200px]  relative z-20 rounded-md"
+              className="h-[80dvh] w-[70dvh] md:w-[65%] min-w-[200px]  relative z-20 rounded-md"
               src="https://s3-alpha-sig.figma.com/img/09bf/9265/db5c78d7a92d2b9106eb99db17234f22?Expires=1743379200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=JeMmInaAJEqfsqWKDbyX6wIVVcE3QaaS8sBxD0JN36tTMB3js-Zy5321us813J76XhpryhVt8Rr-A6R~JUZnTpEy5L42O4taf~vUmakIg9kEEfcFP1yRQY9QB-N792u~H12X4nOet1pHvv0XMdzNYjrLxn4UImlyndXFwJIs3N4eY50IUnjJEP1MZtIk03JAKQDepgrfb6BZNl10JG-MRjPwNo9-SeHNRPYsKmSo9yC~dWfzFag4yCm6f9Q~zDwsy6YBGeVkf-mvP4AKIsmbT1NW2iMU8BLGCdjqhdR5gr-2MOO8sVrEIpZf4dhxLYtATAmTG626hLHif9uRSfGLsQ__"
               alt="frost"
               width={500}

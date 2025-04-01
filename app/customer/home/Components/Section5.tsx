@@ -1,16 +1,15 @@
 import React from "react";
 import Image from "next/image";
-import aaa from "../../../Images/aaa.jpeg";
 const Section5 = () => {
   const object = [
-    { image: aaa, title: "Logoipsum" },
-    { image: aaa, title: "Logoipsum" },
-    { image: aaa, title: "Logoipsum" },
-    { image: aaa, title: "Logoipsum" },
-    { image: aaa, title: "Logoipsum" },
-    { image: aaa, title: "Logoipsum" },
-    { image: aaa, title: "Logoipsum" },
-    { image: aaa, title: "Logoipsum" },
+    { image: '/Images/aaa.jpeg', title: "Logoipsum" },
+    { image: '/Images/aaa.jpeg', title: "Logoipsum" },
+    { image: '/Images/aaa.jpeg', title: "Logoipsum" },
+    { image: '/Images/aaa.jpeg', title: "Logoipsum" },
+    { image: '/Images/aaa.jpeg', title: "Logoipsum" },
+    { image: '/Images/aaa.jpeg', title: "Logoipsum" },
+    { image: '/Images/aaa.jpeg', title: "Logoipsum" },
+    { image: '/Images/aaa.jpeg', title: "Logoipsum" },
   ];
   return (
     <div className="olive w-full py-[4rem]">

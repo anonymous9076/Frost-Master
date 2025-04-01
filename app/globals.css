@@ -11,14 +11,18 @@ li{
   background: #35736E;
   color: #FFFFFF;
 }
+.blue{
+  background: #60A5FA;
+  color: #FFFFFF;
+}
 .light{
   background: white;
   color: #171717;
 }
 .active{
-  color: #FFD748;
+  color: #dfb210;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 19px;
 }
 
 
