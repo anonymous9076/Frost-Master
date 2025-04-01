@@ -60,19 +60,17 @@ const ShowOrders = () => {
         <div className="flex-1 h-full text-gray-700 ">
           <div className="bg-white w-full h-[8%] px-[4rem] flex items-center text-[20px] font-bold justify-between">
             Orders
-            <span className="w-fit h-fit relative">
-              <input
-                type="search"
-                className="outline-none py-1 rounded-md px-2 font-normal border-2 text-[15px] border-gray-300 w-[350px]"
-                placeholder="Search Order ID or Customer Name..."
-              ></input>
-              <span className=" absolute right-3 top-[6px] text-gray-500 ">
-                <IoIosSearch></IoIosSearch>
-              </span>
-            </span>
           </div>
           <div className="px-[4rem] w-full bg-gray-100 min-w-[900px] overflow-x-auto  h-[92%] py-[2rem] text-[14px] ">
             <div className="bg-white h-[5rem] w-full rounded-lg px-[1.5rem] flex items-center gap-3">
+              <span className="w-full flex  items-start flex-col ">
+                Search
+                <input
+                  type="search"
+                  placeholder="Search by Customer Name"
+                  className="bg-gray-100 py-1 px-2 w-full border-2 border-gray-200 rounded-md  "
+                ></input>
+              </span>
               <span className="flex items-start flex-col ">
                 Date Range
                 <select className="bg-gray-100 py-1 px-2 w-[160px] border-2 border-gray-200 rounded-md  ">
@@ -90,10 +88,10 @@ const ShowOrders = () => {
                   <option value="Today">Approved</option>
                   <option value="Today">Pending</option>
                   <option value="Today">Delivered</option>
-                  <option value="Today">Rejected</option>
+                  <option value="Today">Cancelled</option>
                 </select>
               </span>
-              <span className="flex items-start flex-col ">
+              {/* <span className="flex items-start flex-col ">
                 Payment Status
                 <select className="bg-gray-100 py-1 px-2 w-[160px] border-2 border-gray-200 rounded-md  ">
                   <option value="">None</option>
@@ -102,7 +100,7 @@ const ShowOrders = () => {
                   <option value="Today">Net Banking</option>
                   <option value="Today">UPI</option>
                 </select>
-              </span>
+              </span> */}
             </div>
             <div className=" h-fit w-full  pt-[2rem]">
               <ul className=" m-0 p-0 flex items-center  px-[1.5rem]">

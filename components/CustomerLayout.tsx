@@ -13,7 +13,7 @@ export default function CustomerLayout({
 
   useEffect(() => {
     if (!user) {
-      router.push("/login");
+      router.push("/signin");
     } else if (userRole !== "customer") {
       router.push("/403");
     }

@@ -2,7 +2,7 @@
 "use client";
 import dynamic from "next/dynamic";
 const Sidebar = dynamic(() => import("@/components/Sidebar"));
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import { IoIosSearch } from "react-icons/io";
 import { LuEye } from "react-icons/lu";
 // import { BsPerson } from "react-icons/bs";
@@ -14,10 +14,17 @@ import AddProductForm from "@/components/AddProductForm";
 import EditProductForm from "@/components/EditProductForm";
 import product from "../../../EditModelData";
 import AdminLayout from "@/components/AdminLayout";
+import { showEnquires } from "@/app/api/Admin/route";
+import { dateFormate } from "@/app/utlis/dateFormate/dateFormating";
 const ProductManagement = () => {
   const [showModel, setShowModel] = useState<boolean>(false);
   const [showModel1, setShowModel1] = useState<boolean>(false);
   const [showModel2, setShowModel2] = useState<boolean>(false);
+  const [enquiries, setEnquiries] = useState([]);
+  const [sortBy, setsortBy] = useState("none");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [totalPages, setTotalPages] = useState(1);
 
   const enquiry = [
     {
@@ -50,12 +57,6 @@ const ProductManagement = () => {
         return "bg-gray-200"; // Gray for other cases
     }
   };
-  const handlePrevPages = () => {
-    console.log("prev");
-  };
-  const handleNextPages = () => {
-    console.log("next");
-  };
 
   const handleCloseModel = () => {
     setShowModel(false);
@@ -69,8 +70,23 @@ const ProductManagement = () => {
   const handleUpdateForm = (data: any) => {
     console.log(data);
   };
-  // console.log()
 
+  function handleOnChange(pageNo: number) {
+    if (pageNo >= 1 && pageNo <= totalPages) {
+      setCurrentPage(pageNo);
+    }
+  }
+  useEffect(() => {
+    setIsLoading(true);
+    async function loadCustomer() {
+      const data = await showEnquires(sortBy, currentPage);
+      console.log(data.data, "customer data");
+      setEnquiries(data.data);
+      setTotalPages(data.totalPages);
+      setIsLoading(false);
+    }
+    loadCustomer();
+  }, [sortBy, currentPage]);
   return (
     <AdminLayout>
       <div className="h-screen  w-full flex bg-gray-100 relative">
@@ -122,70 +138,66 @@ const ProductManagement = () => {
           </div>
           <div className="px-[4rem] w-full bg-gray-100 min-w-[900px] overflow-x-auto  h-[92%] py-[2rem] text-[14px] ">
             <div className="bg-white h-[5rem] w-full rounded-lg px-[1.5rem] flex items-center gap-3">
-              <span className="w-full flex  items-start flex-col ">
+              {/* <span className="w-full flex  items-start flex-col ">
                 Search
                 <input
                   type="search"
                   placeholder="Search by Product Name"
                   className="bg-gray-100 py-1 px-2 w-full border-2 border-gray-200 rounded-md  "
                 ></input>
-              </span>
-              <span className="flex items-start flex-col ">
+              </span> */}
+              {/* <span className="flex items-start flex-col ">
                 Filter by Status
                 <select className="bg-gray-100 py-1 px-2 w-[160px] border-2 border-gray-200 rounded-md  ">
                   <option value="">None</option>
                 </select>
-              </span>
-              <span className="flex items-start flex-col ">
-                Filter by Date
-                <select className="bg-gray-100 py-1 px-2 w-[160px] border-2 border-gray-200 rounded-md  ">
-                  <option value="">None</option>
-                </select>
-              </span>
-              <span className="flex items-start flex-col ">
+              </span> */}
+
+              <span className="flex items-start flex-col outline-none">
                 Sort By
-                <select className="bg-gray-100 py-1 px-2 w-[160px] border-2 border-gray-200 rounded-md  ">
-                  <option value="">None</option>
-                  <option value="Today">Approved</option>
-                  <option value="Today">Pending</option>
-                  <option value="Today">Delivered</option>
-                  <option value="Today">Rejected</option>
+                <select
+                  onChange={(e) => setsortBy(e.target.value)}
+                  className="bg-gray-100 outline-none py-1 px-2 w-[160px] border-2 border-gray-200 rounded-md  "
+                >
+                  <option value="None">None</option>
+                  <option value="resolved">Resolved</option>
+                  <option value="pending">Pending</option>
                 </select>
               </span>
             </div>
             <div className=" h-fit w-full  pt-[2rem]">
               <ul className=" m-0 p-0 flex items-center  px-[1.5rem]">
                 <li className="w-[15%]">Customer</li>
-                <li className="w-[16%]">Order ID</li>
-                <li className="w-[28%]">Subject </li>
+                <li className="w-[16%]">Email</li>
+                <li className="w-[28%]">Phone </li>
                 <li className="w-[15%]">Date</li>
                 <li className="w-[15%]">Status</li>
                 <li className="w-[11%]">Actions</li>
               </ul>
 
-              {enquiry
-                ? enquiry.slice(0, 7).map((item, index) => (
+              {enquiries
+                ? enquiries.map((item: any, index: number) => (
                     <ul
                       className=" my-1 p-0 flex items-center py-3 px-[1.5rem] bg-white rounded-sm shadow-sm  "
                       key={index}
                     >
                       <li className="w-[15%]  whitespace-nowrap overflow-hidden">
-                        {item.customer}
+                        {item?.name}
                       </li>
                       <li className="w-[16%] whitespace-nowrap overflow-hidden">
-                        #{item.orderId}
+                        {item?.email}
                       </li>
                       <li className="w-[28%] flex h-full gap-1 items-center">
-                        {item.subject}
+                        {item?.phone}
                       </li>
-                      <li className="w-[15%]">{item.date}</li>
+                      <li className="w-[15%]">{dateFormate(item.date)}</li>
                       <li className="w-[15%]">
                         <span
                           className={`w-fit h-fit bg-gray-100 rounded-xl px-4 py-1 ${getStatusColor(
-                            item.status
+                            item?.status
                           )}`}
                         >
-                          {item.status}
+                          {item?.status}
                         </span>
                       </li>
                       <li className="w-[11%] flex items-center gap-3">
@@ -208,10 +220,9 @@ const ProductManagement = () => {
                 : ""}
               <div className="  flex items-center justify-between  w-full">
                 <Pagination
-                  totalPages={45}
-                  currentPage={1}
-                  handleNextPages={handleNextPages}
-                  handlePrevPages={handlePrevPages}
+                  totalPages={totalPages}
+                  currentPage={currentPage}
+                  handleOnChange={handleOnChange}
                 ></Pagination>
               </div>
             </div>

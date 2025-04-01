@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import Sidebar from "@/components/Sidebar";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import { IoIosSearch } from "react-icons/io";
 // import { LuEye } from "react-icons/lu";
 import { FiEdit } from "react-icons/fi";
@@ -14,11 +14,16 @@ import AddProductForm from "@/components/AddProductForm";
 import EditProductForm from "@/components/EditProductForm";
 import product from "../../../EditModelData";
 import AdminLayout from "@/components/AdminLayout";
+import { showProducts } from "@/app/api/Admin/route";
 const ProductManagement = () => {
   const [showModel, setShowModel] = useState<boolean>(false);
   const [showModel1, setShowModel1] = useState<boolean>(false);
   const [showModel2, setShowModel2] = useState<boolean>(false);
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [totalPages, setTotalPages] = useState(1);
+  const [searchProduct, setSearchProduct] = useState("");
+  const [productCategory, setProductCategory] = useState("");
   const products = [
     {
       name: "Wireless Headphones 5G.hz",
@@ -57,12 +62,6 @@ const ProductManagement = () => {
         return "bg-gray-200"; // Gray for other cases
     }
   };
-  const handlePrevPages = () => {
-    console.log("prev");
-  };
-  const handleNextPages = () => {
-    console.log("next");
-  };
 
   const handleCloseModel = () => {
     setShowModel(false);
@@ -76,8 +75,23 @@ const ProductManagement = () => {
   const handleUpdateForm = (data: any) => {
     console.log(data);
   };
-  // console.log()
-
+  function handleOnChange(pageNo: number) {
+    if (pageNo >= 1 && pageNo <= totalPages) {
+      setCurrentPage(pageNo);
+    }
+  }
+  // // console.log()
+  useEffect(() => {
+    setIsLoading(true);
+    async function loadCustomer() {
+      const data = await showProducts();
+      // console.log(data.data, "customer data");
+      // setEnquiries(data.data);
+      // setTotalPages(data.totalPages);
+      // setIsLoading(false);
+    }
+    loadCustomer();
+  }, []);
   return (
     <AdminLayout>
       <div className="h-screen  w-full flex bg-gray-100 relative">
@@ -109,7 +123,7 @@ const ProductManagement = () => {
         <Sidebar></Sidebar>
         <div className="flex-1 h-full text-gray-700 ">
           <div className="bg-white w-full h-[8%] px-[4rem] flex items-center text-[20px] font-bold justify-between">
-            Products Management Metrics
+            Products Management
             {/* <span className="w-fit h-fit relative">
             <input
               type="search"
@@ -148,24 +162,13 @@ const ProductManagement = () => {
                   ))}
                 </select>
               </span>
-              <span className="flex items-start flex-col ">
-                Product Status
-                <select className="bg-gray-100 py-1 px-2 w-[160px] border-2 border-gray-200 rounded-md  ">
-                  <option value="">None</option>
-                  <option value="Today">Approved</option>
-                  <option value="Today">Pending</option>
-                  <option value="Today">Delivered</option>
-                  <option value="Today">Rejected</option>
-                </select>
-              </span>
             </div>
             <div className=" h-fit w-full  pt-[2rem]">
               <ul className=" m-0 p-0 flex items-center  px-[1.5rem]">
                 <li className="w-[24%]">Product Name</li>
                 <li className="w-[20%]">Category</li>
                 <li className="w-[15%]">Price </li>
-                <li className="w-[18%]">Status</li>
-                <li className="w-[12%]">Stoke</li>
+                <li className="w-[18%]">Date</li>
                 <li className="w-[11%]">Actions</li>
               </ul>
 
@@ -184,16 +187,8 @@ const ProductManagement = () => {
                       <li className="w-[15%] flex h-full gap-1 items-center">
                         {item.price}
                       </li>
-                      <li className="w-[18%]">
-                        <span
-                          className={`w-fit h-fit bg-gray-100 rounded-xl px-4 py-1 ${getStatusColor(
-                            item.status
-                          )}`}
-                        >
-                          {item.status}
-                        </span>
-                      </li>
-                      <li className="w-[12%]">${item.stock}</li>
+
+                      <li className="w-[12%]">${item.date}</li>
                       <li className="w-[11%] flex items-center gap-3">
                         {/* <span className="text-[18px] text-blue-400" title="view"><LuEye></LuEye></span> */}
                         <span
@@ -218,8 +213,7 @@ const ProductManagement = () => {
                 <Pagination
                   totalPages={45}
                   currentPage={1}
-                  handleNextPages={handleNextPages}
-                  handlePrevPages={handlePrevPages}
+                  handleOnChange={handleOnChange}
                 ></Pagination>
               </div>
             </div>
