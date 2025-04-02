@@ -17,9 +17,7 @@ const Sidebar = () => {
   const { logoutUser } = useContext(UserAuthContext)!;
   const [active, setActive] = useState(true);
   const [activePage, setActivePage] = useState(pathName);
-  const handleCloseSidebar = () => {
-    setActive((curr) => !curr);
-  };
+
   useEffect(() => {
     setActivePage(pathName);
   }, [pathName]);
@@ -35,7 +33,7 @@ const Sidebar = () => {
             </div>
             <span
               className="text-white text-[22px]"
-              onClick={handleCloseSidebar}
+              onClick={() => setActive(false)}
             >
               <TbLayoutSidebarLeftCollapseFilled />
             </span>{" "}
@@ -172,7 +170,7 @@ const Sidebar = () => {
       ) : (
         <div className="h-full w-[60px] min-w-[60px] flex flex-col  transition-all duration-300 ease-in-out relative bg-white">
           <div
-            onClick={handleCloseSidebar}
+            onClick={() => setActive(true)}
             className="py-4 w-full shadow-md bg-blue-400  text-center  text-white text-[25px] font-black flex items-center justify-center gap-3"
           >
             <TbLayoutSidebarLeftExpandFilled />{" "}
@@ -188,7 +186,11 @@ const Sidebar = () => {
               title="Customers"
             >
               {" "}
-              <span className="group-hover:text-white text-blue-400 text-[22px]">
+              <span
+                className={`group-hover:text-white  ${
+                  activePage === "/admin/users" ? " text-white" : "text-black"
+                }  text-[22px]`}
+              >
                 <RiCustomerService2Fill />
               </span>{" "}
             </Link>
@@ -202,7 +204,13 @@ const Sidebar = () => {
               title="Product"
             >
               {" "}
-              <span className="group-hover:text-white text-blue-400 text-[22px] ">
+              <span
+                className={`group-hover:text-white  ${
+                  activePage === "/admin/products"
+                    ? "bg-blue-400 text-white"
+                    : "text-black"
+                }  text-[22px]`}
+              >
                 <AiOutlineProduct />
               </span>{" "}
             </Link>
@@ -216,7 +224,13 @@ const Sidebar = () => {
               title="Orders"
             >
               {" "}
-              <span className="group-hover:text-white text-blue-400 text-[22px]">
+              <span
+                className={`group-hover:text-white  ${
+                  activePage === "/admin/orders"
+                    ? "bg-blue-400 text-white"
+                    : "text-black"
+                }  text-[22px]`}
+              >
                 <MdOutlineShoppingCart />
               </span>{" "}
             </Link>
@@ -230,7 +244,13 @@ const Sidebar = () => {
               title="Payments"
             >
               {" "}
-              <span className="group-hover:text-white text-blue-400 text-[22px]">
+              <span
+                className={`group-hover:text-white  ${
+                  activePage === "/admin/payments"
+                    ? "bg-blue-400 text-white"
+                    : "text-black"
+                }  text-[22px]`}
+              >
                 <MdOutlinePayments />
               </span>{" "}
             </Link>
@@ -254,7 +274,13 @@ const Sidebar = () => {
               }  gap-3 text-[16px] group`}
               title="enquiry"
             >
-              <span className="group-hover:text-white text-blue-400 text-[22px]">
+              <span
+                className={`group-hover:text-white  ${
+                  activePage === "/admin/enquiry"
+                    ? "bg-blue-400 text-white"
+                    : "text-black"
+                }  text-[22px]`}
+              >
                 <MdOutlineSupportAgent />
               </span>{" "}
             </Link>

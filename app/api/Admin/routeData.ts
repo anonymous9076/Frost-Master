@@ -77,6 +77,33 @@ export const showEnquires = async (sortBy: string, pageNo: number) => {
   }
 };
 
+
+// add product feature
+export const addProduct=async()=>{
+  try {
+    
+  } catch (error) {
+    
+  }
+}
+
+// delete product
+export const deleteProduct=async()=>{
+  try {
+    
+  } catch (error) {
+    
+  }
+}
+
+// delete Enquiry
+export const deleteEnquiry=async()=>{
+  try {
+    
+  } catch (error) {
+    
+  }
+}
 // export const showPayments = async () => {
 //   try {
 //   } catch (error) {
