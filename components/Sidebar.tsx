@@ -1,8 +1,7 @@
 "use client";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { RiCustomerService2Fill } from "react-icons/ri";
 import { AiOutlineProduct } from "react-icons/ai";
-import { LuSettings } from "react-icons/lu";
 import { MdOutlinePayments } from "react-icons/md";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { FaKitchenSet } from "react-icons/fa6";
@@ -15,12 +14,15 @@ import UserAuthContext from "@/app/context/userAuthContext";
 import { usePathname } from "next/navigation";
 const Sidebar = () => {
   const pathName = usePathname();
-  const { logoutUser } = useContext(UserAuthContext);
+  const { logoutUser } = useContext(UserAuthContext)!;
   const [active, setActive] = useState(true);
   const [activePage, setActivePage] = useState(pathName);
   const handleCloseSidebar = () => {
     setActive((curr) => !curr);
   };
+  useEffect(() => {
+    setActivePage(pathName);
+  }, [pathName]);
 
   return (
     <>
@@ -178,7 +180,11 @@ const Sidebar = () => {
           <div className="flex-1 w-full py-3 m-0 text-gray-700  flex flex-col gap-2 ">
             <Link
               href="/admin/users"
-              className="py-3  w-[90%] mx-auto flex items-center justify-center rounded-lg hover:shadow-lg hover:bg-blue-400 hover:text-white  gap-3 text-[16px] group"
+              className={`py-3  w-[90%] mx-auto flex items-center justify-center rounded-lg hover:shadow-lg hover:bg-blue-400 hover:text-white ${
+                activePage === "/admin/users"
+                  ? "bg-blue-400 text-white"
+                  : "text-black"
+              }  gap-3 text-[16px] group`}
               title="Customers"
             >
               {" "}
@@ -188,7 +194,11 @@ const Sidebar = () => {
             </Link>
             <Link
               href="/admin/products"
-              className="py-3  w-[90%] mx-auto flex items-center justify-center rounded-lg hover:shadow-lg hover:bg-blue-400 hover:text-white  gap-3 text-[16px] group"
+              className={`py-3  w-[90%] mx-auto flex items-center justify-center rounded-lg hover:shadow-lg hover:bg-blue-400 hover:text-white ${
+                activePage === "/admin/products"
+                  ? "bg-blue-400 text-white"
+                  : "text-black"
+              }  gap-3 text-[16px] group`}
               title="Product"
             >
               {" "}
@@ -198,7 +208,11 @@ const Sidebar = () => {
             </Link>
             <Link
               href="/admin/orders"
-              className="py-3  w-[90%] mx-auto flex items-center justify-center rounded-lg hover:shadow-lg hover:bg-blue-400 hover:text-white  gap-3 text-[16px] group"
+              className={`py-3  w-[90%] mx-auto flex items-center justify-center rounded-lg hover:shadow-lg hover:bg-blue-400 hover:text-white ${
+                activePage === "/admin/orders"
+                  ? "bg-blue-400 text-white"
+                  : "text-black"
+              }  gap-3 text-[16px] group`}
               title="Orders"
             >
               {" "}
@@ -208,7 +222,11 @@ const Sidebar = () => {
             </Link>
             <Link
               href="/admin/payments"
-              className="py-3  w-[90%] mx-auto flex items-center justify-center rounded-lg hover:shadow-lg hover:bg-blue-400 hover:text-white  gap-3 text-[16px] group"
+              className={`py-3  w-[90%] mx-auto flex items-center justify-center rounded-lg hover:shadow-lg hover:bg-blue-400 hover:text-white ${
+                activePage === "/admin/payments"
+                  ? "bg-blue-400 text-white"
+                  : "text-black"
+              }  gap-3 text-[16px] group`}
               title="Payments"
             >
               {" "}
@@ -218,7 +236,9 @@ const Sidebar = () => {
             </Link>
             {/* <Link
               href="/admin/settings"
-              className="py-3  w-[90%] mx-auto flex items-center justify-center rounded-lg hover:shadow-lg hover:bg-blue-400 hover:text-white  gap-3 text-[16px] group"
+              className={`py-3  w-[90%] mx-auto flex items-center justify-center rounded-lg hover:shadow-lg hover:bg-blue-400 hover:text-white activePage === "/admin/enquiry"
+                  ? "bg-blue-400 text-white"
+                  : "text-black"  gap-3 text-[16px] group`}
               title="Settings"
             >
               <span className="group-hover:text-white text-blue-400 text-[22px]">
@@ -227,7 +247,11 @@ const Sidebar = () => {
             </Link> */}
             <Link
               href="/admin/enquiry"
-              className="py-3  w-[90%] mx-auto flex items-center justify-center rounded-lg hover:shadow-lg hover:bg-blue-400 hover:text-white  gap-3 text-[16px] group"
+              className={`py-3  w-[90%] mx-auto flex items-center justify-center rounded-lg hover:shadow-lg hover:bg-blue-400 hover:text-white ${
+                activePage === "/admin/enquiry"
+                  ? "bg-blue-400 text-white"
+                  : "text-black"
+              }  gap-3 text-[16px] group`}
               title="enquiry"
             >
               <span className="group-hover:text-white text-blue-400 text-[22px]">

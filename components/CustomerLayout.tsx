@@ -8,7 +8,7 @@ export default function CustomerLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { user, userRole } = useContext(UserAuthContext);
+  const { user, userRole } = useContext(UserAuthContext)!;
   const router = useRouter();
 
   useEffect(() => {

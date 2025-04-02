@@ -3,10 +3,25 @@
 import React, { useEffect, useState } from "react";
 import { axiosInstance } from "../utlis/axiosConfig/AxiosInstance";
 import UserAuthContext from "./userAuthContext";
+interface LoginData {
+  email: string;
+  id: string;
 
-const UserAuthContextProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [userRole, setUserRole] = useState(null);
+  roleType: string;
+  userName: string;
+}
+import { ReactNode } from "react";
+
+interface UserAuthContextProviderProps {
+  children: ReactNode;
+}
+
+
+const UserAuthContextProvider: React.FC<UserAuthContextProviderProps> = ({
+  children,
+}) => {
+  const [user, setUser] = useState<LoginData | null>(null);
+  const [userRole, setUserRole] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   async function authCheck() {
@@ -20,6 +35,7 @@ const UserAuthContextProvider = ({ children }) => {
         setIsAuthenticated(true);
       }
     } catch (error) {
+      console.log(error);
       setUser(null);
       setUserRole(null);
       setIsAuthenticated(false);
@@ -28,14 +44,14 @@ const UserAuthContextProvider = ({ children }) => {
     }
   }
 
-  async function loginUser(data: any) {
+  async function loginUser(data: LoginData) {
     setUser(data);
     setUserRole(data.roleType);
     setIsAuthenticated(true);
   }
   async function logoutUser() {
     console.log("logout");
-    const response = await axiosInstance.post("/auth/logout");
+    await axiosInstance.post("/auth/logout");
     setUser(null);
     setUserRole(null);
   }

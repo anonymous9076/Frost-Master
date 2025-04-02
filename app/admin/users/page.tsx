@@ -1,25 +1,30 @@
 "use client";
 import Sidebar from "@/components/Sidebar";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BsPerson } from "react-icons/bs";
 import Pagination from "@/components/Pagination";
 import { FaRegTrashAlt } from "react-icons/fa";
 import DeleteModel from "@/components/DeleteModel";
-import UserAuthContext from "@/app/context/userAuthContext";
 import AdminLayout from "@/components/AdminLayout";
-import { showCustomers } from "@/app/api/Admin/route";
+import { deleteCustomer, showCustomers } from "@/app/api/Admin/routeData";
 import { dateFormate } from "@/app/utlis/dateFormate/dateFormating";
 import useDebouncing from "@/app/hooks/useDebouncing";
 
+interface CustomerData {
+  userName: string;
+  email: string;
+  createdAt: string;
+  _id: string;
+}
 const ShowUsers = () => {
   const [deleteModel, setDeleteModel] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [customers, setCustomers] = useState([]);
-  const { user } = useContext(UserAuthContext);
+  // const { user } = useContext(UserAuthContext);
   const [searchName, setSeachName] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  console.log(user, "user yes yes");
+  const [customerId, setCustomerId] = useState("");
   const debouncedData = useDebouncing(searchName, 800);
   // const users = [
   //   {
@@ -61,6 +66,7 @@ const ShowUsers = () => {
   // };
   const handleCloseModel = () => {
     setDeleteModel(false);
+    setCustomerId("");
   };
 
   function handleOnChange(pageNo: number) {
@@ -68,17 +74,23 @@ const ShowUsers = () => {
       setCurrentPage(pageNo);
     }
   }
+  async function loadCustomer() {
+    // setIsLoading(true);
+    const data = await showCustomers(debouncedData, currentPage);
+    console.log(data.data, "customer data");
+    setCustomers(data.data);
+    setTotalPages(data.totalPages);
+    // setIsLoading(false);
+  }
   useEffect(() => {
-    setIsLoading(true);
-    async function loadCustomer() {
-      const data = await showCustomers(debouncedData, currentPage);
-      console.log(data.data, "customer data");
-      setCustomers(data.data);
-      setTotalPages(data.totalPages);
-      setIsLoading(false);
-    }
     loadCustomer();
   }, [debouncedData, currentPage]);
+  async function deleteCustomerData() {
+    const data = await deleteCustomer(customerId);
+    console.log(data, "data");
+    loadCustomer();
+    setDeleteModel(false);
+  }
 
   return (
     <AdminLayout>
@@ -86,7 +98,8 @@ const ShowUsers = () => {
         {deleteModel ? (
           <DeleteModel
             handleCloseModel={handleCloseModel}
-            category={"User"}
+            deleteCustomerData={deleteCustomerData}
+            category={"UsersetCustomerId"}
           ></DeleteModel>
         ) : (
           ""
@@ -119,7 +132,7 @@ const ShowUsers = () => {
               </ul>
 
               {customers
-                ? customers.map((item, index) => (
+                ? customers.map((item: CustomerData, index: number) => (
                     <ul
                       className=" my-1 p-0 flex items-center py-3 px-[1.5rem] bg-white rounded-sm shadow-sm  "
                       key={index}
@@ -133,11 +146,14 @@ const ShowUsers = () => {
                         {dateFormate(item?.createdAt)}
                       </li>
 
-                      <li className="w-[10%] flex items-center gap-3">
+                      <li className="w-[10%] flex items-center gap-3 cursor-pointer">
                         <span
                           className="text-[16px] text-red-400"
                           title="Delete"
-                          onClick={() => setDeleteModel(true)}
+                          onClick={() => {
+                            setDeleteModel(true);
+                            setCustomerId(item?._id);
+                          }}
                         >
                           <FaRegTrashAlt></FaRegTrashAlt>
                         </span>

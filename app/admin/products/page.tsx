@@ -14,54 +14,59 @@ import AddProductForm from "@/components/AddProductForm";
 import EditProductForm from "@/components/EditProductForm";
 import product from "../../../EditModelData";
 import AdminLayout from "@/components/AdminLayout";
-import { showProducts } from "@/app/api/Admin/route";
+import { showProducts } from "@/app/api/Admin/routeData";
+import { dateFormate } from "@/app/utlis/dateFormate/dateFormating";
+import useDebouncing from "@/app/hooks/useDebouncing";
+interface productsData {
+  productTitle: string;
+  category: string;
+  price: string;
+  date: string;
+}
 const ProductManagement = () => {
   const [showModel, setShowModel] = useState<boolean>(false);
   const [showModel1, setShowModel1] = useState<boolean>(false);
   const [showModel2, setShowModel2] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
   const [searchProduct, setSearchProduct] = useState("");
-  const [productCategory, setProductCategory] = useState("");
-  const products = [
-    {
-      name: "Wireless Headphones 5G.hz",
-      category: "Electronics", // Example category
-      price: 259.99,
-      status: "Delivered",
-      stock: 20, // Example stock value
-    },
-    {
-      name: "Black T-shirt",
-      category: "Clothing", // Example category
-      price: 149.5,
-      status: "Pending",
-      stock: 15, // Example stock value
-    },
-    {
-      name: "Mixer Grinder 200W",
-      category: "Home Appliances", // Example category
-      price: 89.99,
-      status: "Cancelled",
-      stock: 0, // Stock is 0 for cancelled
-    },
-  ];
+  const [productCategory, setProductCategory] = useState("none");
+  const [products, setProducts] = useState([]);
+  const debouncedData = useDebouncing(searchProduct, 800);
+  // const products = [
+  //   {
+  //     name: "Wireless Headphones 5G.hz",
+  //     category: "Electronics", // Example category
+  //     price: 259.99,
+  //     status: "Delivered",
+  //     stock: 20, // Example stock value
+  //   },
+  //   {
+  //     name: "Black T-shirt",
+  //     category: "Clothing", // Example category
+  //     price: 149.5,
+  //     status: "Pending",
+  //     stock: 15, // Example stock value
+  //   },
+  //   {
+  //     name: "Mixer Grinder 200W",
+  //     category: "Home Appliances", // Example category
+  //     price: 89.99,
+  //     status: "Cancelled",
+  //     stock: 0, // Stock is 0 for cancelled
+  //   },
+  // ];
 
-  const getStatusColor = (status: any) => {
-    switch (status) {
-      case "Delivered":
-        return "bg-green-200 text-green-500"; // Green for Delivered
-      case "Pending":
-        return "bg-yellow-200 text-yellow-700"; // Yellow for Pending
-      case "Approved":
-        return "bg-blue-200 text-blue-500"; // Blue for Approved
-      case "Cancelled":
-        return "bg-red-200 text-red-500"; // Red for Cancelled
-      default:
-        return "bg-gray-200"; // Gray for other cases
-    }
-  };
+  const productsCategory = [
+    "Cookware",
+    "Bakeware",
+    "Cutlery",
+    "Storage",
+    "Kitchen Appliances",
+    "Tableware",
+    "Others",
+  ];
 
   const handleCloseModel = () => {
     setShowModel(false);
@@ -80,18 +85,23 @@ const ProductManagement = () => {
       setCurrentPage(pageNo);
     }
   }
+  function deleteCustomerData() {}
   // // console.log()
   useEffect(() => {
-    setIsLoading(true);
+    // setIsLoading(true);
     async function loadCustomer() {
-      const data = await showProducts();
+      const data = await showProducts(
+        debouncedData,
+        productCategory,
+        currentPage
+      );
       // console.log(data.data, "customer data");
-      // setEnquiries(data.data);
-      // setTotalPages(data.totalPages);
+      setProducts(data?.data);
+      setTotalPages(data?.totalPages);
       // setIsLoading(false);
     }
     loadCustomer();
-  }, []);
+  }, [currentPage, debouncedData, productCategory]);
   return (
     <AdminLayout>
       <div className="h-screen  w-full flex bg-gray-100 relative">
@@ -99,6 +109,7 @@ const ProductManagement = () => {
           <DeleteModel
             handleCloseModel={handleCloseModel}
             category={"Product"}
+            deleteCustomerData={deleteCustomerData}
           ></DeleteModel>
         ) : (
           ""
@@ -147,17 +158,22 @@ const ProductManagement = () => {
                 Search
                 <input
                   type="search"
+                  value={searchProduct}
+                  onChange={(e) => setSearchProduct(e.target.value)}
                   placeholder="Search by Product Name"
                   className="bg-gray-100 py-1 px-2 w-full border-2 border-gray-200 rounded-md  "
                 ></input>
               </span>
               <span className="flex items-start flex-col ">
                 Category
-                <select className="bg-gray-100 py-1 px-2 w-[160px] border-2 border-gray-200 rounded-md  ">
-                  <option value="">None</option>
-                  {products.map((item, index) => (
-                    <option key={index} value={item.category}>
-                      {item.category}
+                <select
+                  onChange={(e) => setProductCategory(e.target.value)}
+                  className="bg-gray-100 py-1 px-2 w-[160px] border-2 border-gray-200 rounded-md  "
+                >
+                  <option value="none">None</option>
+                  {productsCategory?.map((item, index) => (
+                    <option key={index} value={item}>
+                      {item}
                     </option>
                   ))}
                 </select>
@@ -173,22 +189,22 @@ const ProductManagement = () => {
               </ul>
 
               {products
-                ? products.splice(0, 7).map((item, index) => (
+                ? products.map((item: productsData, index: number) => (
                     <ul
                       className=" my-1 p-0 flex items-center py-3 px-[1.5rem] bg-white rounded-sm shadow-sm  "
                       key={index}
                     >
                       <li className="w-[24%] whitespace-nowrap overflow-hidden">
-                        {item.name}
+                        {item?.productTitle}
                       </li>
                       <li className="w-[20%] whitespace-nowrap overflow-hidden">
-                        {item.category}
+                        {item?.category}
                       </li>
                       <li className="w-[15%] flex h-full gap-1 items-center">
-                        {item.price}
+                        {item?.price}
                       </li>
 
-                      <li className="w-[12%]">${item.date}</li>
+                      <li className="w-[12%]">{dateFormate(item.date)}</li>
                       <li className="w-[11%] flex items-center gap-3">
                         {/* <span className="text-[18px] text-blue-400" title="view"><LuEye></LuEye></span> */}
                         <span
@@ -211,8 +227,8 @@ const ProductManagement = () => {
                 : ""}
               <div className="  flex items-center justify-between  w-full">
                 <Pagination
-                  totalPages={45}
-                  currentPage={1}
+                  totalPages={totalPages}
+                  currentPage={currentPage}
                   handleOnChange={handleOnChange}
                 ></Pagination>
               </div>

@@ -14,7 +14,7 @@ import AddProductForm from "@/components/AddProductForm";
 import EditProductForm from "@/components/EditProductForm";
 import product from "../../../EditModelData";
 import AdminLayout from "@/components/AdminLayout";
-import { showEnquires } from "@/app/api/Admin/route";
+import { showEnquires } from "@/app/api/Admin/routeData";
 import { dateFormate } from "@/app/utlis/dateFormate/dateFormating";
 const ProductManagement = () => {
   const [showModel, setShowModel] = useState<boolean>(false);
@@ -23,25 +23,25 @@ const ProductManagement = () => {
   const [enquiries, setEnquiries] = useState([]);
   const [sortBy, setsortBy] = useState("none");
   const [currentPage, setCurrentPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
 
-  const enquiry = [
-    {
-      customer: "John Doe",
-      orderId: "ORD123456",
-      subject: "New Appointment",
-      date: "2025-03-26",
-      status: "Confirmed",
-    },
-    {
-      customer: "Jane Smith",
-      orderId: "ORD789012",
-      subject: "Reschedule Request",
-      date: "2025-03-25",
-      status: "Pending",
-    },
-  ];
+  // const enquiry = [
+  //   {
+  //     customer: "John Doe",
+  //     orderId: "ORD123456",
+  //     subject: "New Appointment",
+  //     date: "2025-03-26",
+  //     status: "Confirmed",
+  //   },
+  //   {
+  //     customer: "Jane Smith",
+  //     orderId: "ORD789012",
+  //     subject: "Reschedule Request",
+  //     date: "2025-03-25",
+  //     status: "Pending",
+  //   },
+  // ];
 
   const getStatusColor = (status: any) => {
     switch (status) {
@@ -58,6 +58,7 @@ const ProductManagement = () => {
     }
   };
 
+  function deleteCustomerData() {}
   const handleCloseModel = () => {
     setShowModel(false);
   };
@@ -77,13 +78,13 @@ const ProductManagement = () => {
     }
   }
   useEffect(() => {
-    setIsLoading(true);
+    // setIsLoading(true);
     async function loadCustomer() {
       const data = await showEnquires(sortBy, currentPage);
       console.log(data.data, "customer data");
       setEnquiries(data.data);
       setTotalPages(data.totalPages);
-      setIsLoading(false);
+      // setIsLoading(false);
     }
     loadCustomer();
   }, [sortBy, currentPage]);
@@ -94,6 +95,7 @@ const ProductManagement = () => {
           <DeleteModel
             handleCloseModel={handleCloseModel}
             category={"Product"}
+            deleteCustomerData={deleteCustomerData}
           ></DeleteModel>
         ) : (
           ""
@@ -129,12 +131,6 @@ const ProductManagement = () => {
               <IoIosSearch></IoIosSearch>
             </span>
           </span> */}
-            <span
-              className="px-3 py-1 rounded-md bg-blue-400 text-white text-[16px] font-normal hover:shadow-lg cursor-pointer"
-              onClick={() => setShowModel1(true)}
-            >
-              + New Product
-            </span>
           </div>
           <div className="px-[4rem] w-full bg-gray-100 min-w-[900px] overflow-x-auto  h-[92%] py-[2rem] text-[14px] ">
             <div className="bg-white h-[5rem] w-full rounded-lg px-[1.5rem] flex items-center gap-3">
@@ -202,12 +198,7 @@ const ProductManagement = () => {
                       </li>
                       <li className="w-[11%] flex items-center gap-3">
                         {/* <span className="text-[18px] text-blue-400" title="view"><LuEye></LuEye></span> */}
-                        <span
-                          className="text-[16px] text-blue-400"
-                          title="edit"
-                        >
-                          <LuEye></LuEye>
-                        </span>
+
                         <span
                           className="text-[16px] text-red-400"
                           title="Delete"

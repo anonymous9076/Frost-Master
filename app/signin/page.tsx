@@ -1,9 +1,8 @@
 "use client";
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import { Formik, Field, Form } from "formik";
 import Link from "next/link";
 import React, { useContext } from "react";
 import * as Yup from "yup";
-import { useSignin } from "../hooks/useSignin";
 import UserAuthContext from "../context/userAuthContext";
 import { axiosInstance } from "../utlis/axiosConfig/AxiosInstance";
 import { toast } from "react-toastify";
@@ -14,8 +13,8 @@ const signinValidation = Yup.object({
 });
 const Signin = () => {
   const router = useRouter();
-  const { mutate, isLoading, isError, error, isSuccess, data } = useSignin();
-  const { loginUser, user } = useContext(UserAuthContext);
+  // const { mutate, isLoading, isError, error, isSuccess, data } = useSignin();
+  const { loginUser } = useContext(UserAuthContext)!;
   interface FormType {
     email: string;
     password: string;
@@ -36,9 +35,9 @@ const Signin = () => {
           router.push("/admin/users");
         }
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.log(error, "error");
-      toast.error(error.response.data.message);
+      // toast.error(error.response.data.message);
       // console.error(error.response.data.message);
     }
   };
@@ -99,7 +98,7 @@ const Signin = () => {
                   Signin
                 </button>
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                  Don't have an account?{" "}
+                  Do not have an account?
                   <Link
                     href="/"
                     className="font-medium text-primary-600 hover:underline dark:text-primary-500"

@@ -53,12 +53,7 @@ const showPayments = () => {
         return "bg-gray-200"; // Gray for other cases
     }
   };
-  const handlePrevPages = () => {
-    console.log("prev");
-  };
-  const handleNextPages = () => {
-    console.log("next");
-  };
+  function handleOnChange() {}
 
   return (
     <AdminLayout>
@@ -166,8 +161,7 @@ const showPayments = () => {
                 <Pagination
                   totalPages={45}
                   currentPage={1}
-                  handleNextPages={handleNextPages}
-                  handlePrevPages={handlePrevPages}
+                  handleOnChange={handleOnChange}
                 ></Pagination>
               </div>
             </div>
