@@ -2,7 +2,10 @@ import Image from "next/image";
 import React from "react";
 // import { CiStar } from "react-icons/ci";
 import { FaStar } from "react-icons/fa6";
-const Section6 = () => {
+interface sectionprops{
+  head:boolean
+}
+const Section6 = ({head}:sectionprops) => {
   const review = [
     {
       name: "Amit Sharma",
@@ -22,7 +25,7 @@ const Section6 = () => {
   ];
   return (
     <div className="w-full h-fit light border-y py-[4rem]  border-gray-300">
-      <div className="w-[50%] text-center pb-[4rem] mx-auto ">
+      {head?<div className="w-[50%] text-center pb-[4rem] mx-auto ">
         <h1 className="text-[50px]">Experiences Shared by Our Clients</h1>
         <p className="text-[16px] leading-[20px] text-gray-500">
           The team at FrostMaster provided unparalleled support throughout our
@@ -30,7 +33,7 @@ const Section6 = () => {
           helping us choose the perfect kitchen equipment and ensuring seamless
           installation
         </p>
-      </div>
+      </div>:''}
       <div className="w-[70%] flex items-center h-fit justify-center gap-7  text-center mx-auto ">
         {review.map((item, index) => (
           <div

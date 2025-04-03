@@ -2,10 +2,11 @@ import React from "react";
 import { FaKitchenSet } from "react-icons/fa6";
 import { BsCart3 } from "react-icons/bs";
 import { GoPerson } from "react-icons/go";
+import Link from "next/link";
 interface navprops {
   active:string;
 }
-const Navbar = ({ active  }: navprops) => {
+const Navbar = ({ active }: navprops) => {
 
   const navLinks = [
     { label: "Home", link: "/customer/home" },
@@ -31,7 +32,7 @@ const Navbar = ({ active  }: navprops) => {
           <a className="transform hover:scale-110 transition duration-200" href="">Careers</a>
           <a className="transform hover:scale-110 transition duration-200" href="">Track shipment</a> */}
           {navLinks.map((item, index) => (
-        <a
+        <Link
           key={index}
           href={item.link}
           className={`transform hover:scale-110 transition duration-200 ${
@@ -39,14 +40,16 @@ const Navbar = ({ active  }: navprops) => {
           }`}
         >
           {item.label}
-        </a>
+        </Link>
       ))}
         </div>
         <div className="flex items-center text-white gap-3 text-[20px]">
           <span className="text-[22px]">
           <GoPerson></GoPerson>
           </span>
+          <Link href='/customer/mycart' className={`${active==='/customer/mycart'?'transform hover:scale-110 active':' '}`}>
           <BsCart3></BsCart3>
+          </Link>
         </div>
       </div>
     </>
