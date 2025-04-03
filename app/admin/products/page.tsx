@@ -2,21 +2,18 @@
 "use client";
 import Sidebar from "@/components/Sidebar";
 import React, { useEffect, useState } from "react";
-// import { IoIosSearch } from "react-icons/io";
-// import { LuEye } from "react-icons/lu";
 import { FiEdit } from "react-icons/fi";
-// import { BsPerson } from "react-icons/bs";
-import Pagination from "@/components/Pagination";
-// import { IoReload } from "react-icons/io5";
+const Pagination = dynamic(() => import("@/components/Pagination"));
 import { FaRegTrashAlt } from "react-icons/fa";
-import DeleteModel from "@/components/DeleteModel";
-import AddProductForm from "@/components/AddProductForm";
-import EditProductForm from "@/components/EditProductForm";
+const DeleteModel = dynamic(() => import("@/components/DeleteModel"));
+const AddProductForm = dynamic(() => import("@/components/AddProductForm"));
+const EditProductForm = dynamic(() => import("@/components/EditProductForm"));
 import product from "../../../EditModelData";
-import AdminLayout from "@/components/AdminLayout";
+const AdminLayout = dynamic(() => import("@/components/AdminLayout"));
 import { showProducts } from "@/app/api/Admin/routeData";
 import { dateFormate } from "@/app/utlis/dateFormate/dateFormating";
 import useDebouncing from "@/app/hooks/useDebouncing";
+import dynamic from "next/dynamic";
 interface productsData {
   productTitle: string;
   category: string;

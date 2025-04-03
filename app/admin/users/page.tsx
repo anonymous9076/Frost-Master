@@ -2,13 +2,14 @@
 import Sidebar from "@/components/Sidebar";
 import React, { useEffect, useState } from "react";
 import { BsPerson } from "react-icons/bs";
-import Pagination from "@/components/Pagination";
+const Pagination = dynamic(() => import("@/components/Pagination"));
 import { FaRegTrashAlt } from "react-icons/fa";
-import DeleteModel from "@/components/DeleteModel";
-import AdminLayout from "@/components/AdminLayout";
+const DeleteModel = dynamic(() => import("@/components/DeleteModel"));
+const AdminLayout = dynamic(() => import("@/components/AdminLayout"));
 import { deleteCustomer, showCustomers } from "@/app/api/Admin/routeData";
 import { dateFormate } from "@/app/utlis/dateFormate/dateFormating";
 import useDebouncing from "@/app/hooks/useDebouncing";
+import dynamic from "next/dynamic";
 
 interface CustomerData {
   userName: string;

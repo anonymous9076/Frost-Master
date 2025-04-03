@@ -3,10 +3,11 @@ import Sidebar from "@/components/Sidebar";
 import React, { useEffect, useState } from "react";
 import { LuEye } from "react-icons/lu";
 import { FiEdit } from "react-icons/fi";
-import Pagination from "@/components/Pagination";
-import AdminLayout from "@/components/AdminLayout";
+const Pagination = dynamic(() => import("@/components/Pagination"));
+const AdminLayout = dynamic(() => import("@/components/AdminLayout"));
 import { showOrders } from "@/app/api/Admin/routeData";
 import { dateFormate } from "@/app/utlis/dateFormate/dateFormating";
+import dynamic from "next/dynamic";
 interface OrderItem {
   productDetails: { productTitle: string }[];
   createdAt: string;

@@ -3,17 +3,13 @@
 import dynamic from "next/dynamic";
 const Sidebar = dynamic(() => import("@/components/Sidebar"));
 import React, { useEffect, useState } from "react";
-// import { IoIosSearch } from "react-icons/io";
-import { LuEye } from "react-icons/lu";
-// import { BsPerson } from "react-icons/bs";
 const Pagination = dynamic(() => import("@/components/Pagination"));
-// import { IoReload } from "react-icons/io5";
 import { FaRegTrashAlt } from "react-icons/fa";
-import DeleteModel from "@/components/DeleteModel";
-import AddProductForm from "@/components/AddProductForm";
-import EditProductForm from "@/components/EditProductForm";
+const DeleteModel = dynamic(() => import("@/components/DeleteModel"));
+const AddProductForm = dynamic(() => import("@/components/AddProductForm"));
+const EditProductForm = dynamic(() => import("@/components/EditProductForm"));
 import product from "../../../EditModelData";
-import AdminLayout from "@/components/AdminLayout";
+const AdminLayout = dynamic(() => import("@/components/AdminLayout"));
 import { showEnquires } from "@/app/api/Admin/routeData";
 import { dateFormate } from "@/app/utlis/dateFormate/dateFormating";
 const ProductManagement = () => {
