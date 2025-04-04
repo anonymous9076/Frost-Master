@@ -210,7 +210,7 @@ const ProductManagement = () => {
                   totalPages={totalPages}
                   currentPage={currentPage}
                   handleOnChange={handleOnChange}
-                  // user='admin'
+                  user='admin'
                 ></Pagination>
               </div>
             </div>

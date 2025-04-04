@@ -161,6 +161,7 @@ const showPayments = () => {
                   totalPages={45}
                   currentPage={1}
                   handleOnChange={handleOnChange}
+                  user="admin"
                 ></Pagination>
               </div>
             </div>

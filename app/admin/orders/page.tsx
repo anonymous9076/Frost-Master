@@ -183,6 +183,7 @@ const ShowOrders = () => {
                   totalPages={totalPages}
                   currentPage={currentPage}
                   handleOnChange={handleOnChange}
+                  user='admin'
                 ></Pagination>
               </div>
             </div>

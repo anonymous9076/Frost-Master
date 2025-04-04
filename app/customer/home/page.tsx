@@ -1,29 +1,30 @@
 import React from "react";
-import Section1 from "./Components/Section1";
-import Section2 from "./Components/Section2";
-import Section6 from "./Components/Section6";
-import Section7 from "./Components/Section7";
-import Section8 from "./Components/Section8";
-import Footer from "../../../components/Footer";
-import Section5 from "./Components/Section5";
-import Section4 from "./Components/Section4";
-import Section3 from "./Components/Section3";
-import Navbar from "@/components/Navbar";
+const Section1 = dynamic(() => import("./Components/Section1"));
+const Section2 = dynamic(() => import("./Components/Section2"));
+const Section6 = dynamic(() => import("./Components/Section6"));
+const Section7 = dynamic(() => import("./Components/Section7"));
+const Section8 = dynamic(() => import("./Components/Section8"));
+const Footer = dynamic(() => import("../../../components/Footer"));
+const Section5 = dynamic(() => import("./Components/Section5"));
+const Section4 = dynamic(() => import("./Components/Section4"));
+const Section3 = dynamic(() => import("./Components/Section3"));
+const Navbar = dynamic(() => import("@/components/Navbar"));
+import dynamic from "next/dynamic";
 
 const page = () => {
   return (
     <div className="light">
       <div className="relative h-fit w-full">
-      <Navbar  active="/customer/home" />
-      <Section1></Section1>
-      <Section2></Section2>
-      <Section3></Section3>
-      <Section4></Section4>
-      <Section5></Section5>
-      <Section6 head={true}></Section6>
-      <Section7></Section7>
-      <Section8></Section8>
-      <Footer></Footer>
+        <Navbar active="/customer/home" />
+        <Section1></Section1>
+        <Section2></Section2>
+        <Section3></Section3>
+        <Section4></Section4>
+        <Section5></Section5>
+        <Section6 head={true}></Section6>
+        <Section7></Section7>
+        <Section8></Section8>
+        <Footer></Footer>
       </div>
     </div>
   );

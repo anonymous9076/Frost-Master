@@ -10,7 +10,7 @@ const Section1 = () => {
         <div className="flex-1 h-full relative">
           <div className="absolute z-10 bottom-[-5rem] lg:block hidden left-0 h-[30vh] md:h-[40dvh] w-[45vw] md:w-[55dvh]">
             <Image
-              src='/Images/dotted.png'
+              src="/Images/dotted.png"
               alt=""
               height={500}
               width={500}
@@ -20,7 +20,7 @@ const Section1 = () => {
           <div className="h-full flex items-center justify-center w-full">
             <Image
               className="h-[80dvh] w-[70dvh] md:w-[65%] min-w-[200px]  relative z-20 rounded-md"
-              src="https://s3-alpha-sig.figma.com/img/09bf/9265/db5c78d7a92d2b9106eb99db17234f22?Expires=1743379200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=JeMmInaAJEqfsqWKDbyX6wIVVcE3QaaS8sBxD0JN36tTMB3js-Zy5321us813J76XhpryhVt8Rr-A6R~JUZnTpEy5L42O4taf~vUmakIg9kEEfcFP1yRQY9QB-N792u~H12X4nOet1pHvv0XMdzNYjrLxn4UImlyndXFwJIs3N4eY50IUnjJEP1MZtIk03JAKQDepgrfb6BZNl10JG-MRjPwNo9-SeHNRPYsKmSo9yC~dWfzFag4yCm6f9Q~zDwsy6YBGeVkf-mvP4AKIsmbT1NW2iMU8BLGCdjqhdR5gr-2MOO8sVrEIpZf4dhxLYtATAmTG626hLHif9uRSfGLsQ__"
+              src="https://s3-alpha-sig.figma.com/img/09bf/9265/db5c78d7a92d2b9106eb99db17234f22?Expires=1744588800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=fgY0w-0Iavi3P9TPy61Ea8u5Q2K2oO3xj~0rl2bgP4WSbNnIzVa~rrPaXOCs~4Z4zTsw35y2phFi7XPHQriRvUnzV0TV3vVEB0wTecBSQjVvbh-b-Ml-L3X-YT0wj1mP5-7O7y17vs5NZ60jla70ngyiIpLDPY8s3MfkNky1PCZuT~SSO~YqTwyVM-ft7imBJtU8a1OVOZr82ymmDz18uN1hD9ga1RA4Uc8V7XqXyi~eMl1dwZUf-48KD3cTXuQ4NqMKcxC8ul4j~xVkSlygsWc5sbLJ5t8BxgUBmAY2d-UVaEu3grKcC1e23vx2D7ebOb0rZ2x2WXjhMRZgNBkjbA__"
               alt="frost"
               width={500}
               height={500}
@@ -34,10 +34,11 @@ const Section1 = () => {
             FORST MASTER PVT.LTD
           </p>
           <p className="mt-3 w-full md:w-[80%] text-justify font-extralight text-base md:text-[22px]">
-            Manufacturer of commercial kitchen equipment, commercial refrigerators,
-            chillers, display cabinets, food service equipment, stainless steel worktables,
-            cooking ranges, exhaust hoods, and custom kitchen solutions for restaurants, hotels,
-            and catering businesses.
+            Manufacturer of commercial kitchen equipment, commercial
+            refrigerators, chillers, display cabinets, food service equipment,
+            stainless steel worktables, cooking ranges, exhaust hoods, and
+            custom kitchen solutions for restaurants, hotels, and catering
+            businesses.
           </p>
           <div className="w-full md:w-[80%] flex items-center justify-center md:justify-start">
             <button className="border border-white rounded-md px-7 tracking-widest py-2 text-white mt-12">
@@ -48,7 +49,6 @@ const Section1 = () => {
       </div>
     </div>
   );
-  
 };
 
 export default Section1;

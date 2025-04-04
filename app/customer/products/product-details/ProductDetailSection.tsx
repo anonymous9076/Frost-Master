@@ -1,15 +1,17 @@
 "use client";
 import React from "react";
-import Section6 from "../../home/Components/Section6";
 import { ArrowLeft } from "@deemlol/next-icons";
 import Image from "next/image";
 import { ShoppingCart } from "@deemlol/next-icons";
 import { FileText } from "@deemlol/next-icons";
 import { Minus } from "@deemlol/next-icons";
 import { Plus } from "@deemlol/next-icons";
-import Accordion from "@/components/Accordion";
-import Recommendation from "@/components/Recommendation";
+const Accordion = dynamic(() => import("@/components/Accordion"));
+const Recommendation = dynamic(() => import("@/components/Recommendation"));
+const Section6 = dynamic(() => import("../../home/Components/Section6"));
+
 import Link from "next/link";
+import dynamic from "next/dynamic";
 const ProductDetailSection = () => {
   const image = [
     {
@@ -99,7 +101,10 @@ const ProductDetailSection = () => {
     <>
       <div className="w-full px-[3rem] light">
         <div>
-          <Link href="/customer/products"  className="flex items-center py-[2rem] gap-1">
+          <Link
+            href="/customer/products"
+            className="flex items-center py-[2rem] gap-1"
+          >
             <ArrowLeft />
             Back
           </Link>
@@ -188,16 +193,25 @@ const ProductDetailSection = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2  py-[2rem]">
           <div>
-            <h1 className="text-[25px] font-bold py-[1rem]">Product Specifications</h1>
+            <h1 className="text-[25px] font-bold py-[1rem]">
+              Product Specifications
+            </h1>
             {productSpecifications.map((item, index) => (
               <div key={index} className="w-[80%]">
-                <h2 className="text-[16px] font-bold  border olive border-gray-400 py-1 px-3">{item.title}</h2>
+                <h2 className="text-[16px] font-bold  border olive border-gray-400 py-1 px-3">
+                  {item.title}
+                </h2>
                 <ul className="list-disc">
                   {Object.entries(item.specifications).map(
                     ([key, value], specIndex) => (
-                      <li key={specIndex} className="text-[16px] border flex items-center py-1 px-3 border-gray-400">
+                      <li
+                        key={specIndex}
+                        className="text-[16px] border flex items-center py-1 px-3 border-gray-400"
+                      >
                         <span className="font-semibold flex-1">{key}:</span>{" "}
-                        <span className="flex-1">{Array.isArray(value) ? value.join(", ") : value}</span>
+                        <span className="flex-1">
+                          {Array.isArray(value) ? value.join(", ") : value}
+                        </span>
                       </li>
                     )
                   )}
