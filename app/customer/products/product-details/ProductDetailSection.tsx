@@ -153,9 +153,11 @@ const ProductDetailSection = () => {
                     <Plus />
                   </span>
                 </div>
-                <span className="olive  rounded-md flex items-center flex-1 justify-center hover:shadow-md gap-2 px-4 py-3">
+               <Link className="flex-1" href='/customer/billing'>
+               <span className="olive  rounded-md flex items-center  justify-center hover:shadow-md gap-2 px-4 py-3">
                   <ShoppingCart></ShoppingCart> Add to cart
                 </span>
+               </Link>
               </div>
               <span className="border border-[#35736E] w-full hover:shadow-md  justify-center text-[#35736E] rounded-md flex items-center gap-2 px-4 py-3">
                 <FileText></FileText> Make an Enquiry
