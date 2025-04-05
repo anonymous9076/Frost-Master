@@ -10,7 +10,7 @@ const Navbar = ({ active }: navprops) => {
 
   const navLinks = [
     { label: "Home", link: "/customer/home" },
-    { label: "About Us", link: "/about" },
+    { label: "About Us", link: "/customer/about" },
     { label: "Our Products", link: "/customer/products" },
     { label: "Careers", link: "/careers" },
     { label: "Track shipment", link: "/track-shipment" },
