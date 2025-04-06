@@ -10,11 +10,16 @@ const AddProductForm = dynamic(() => import("@/components/AddProductForm"));
 const EditProductForm = dynamic(() => import("@/components/EditProductForm"));
 import product from "../../../EditModelData";
 const AdminLayout = dynamic(() => import("@/components/AdminLayout"));
-import { showProducts } from "@/app/api/Admin/routeData";
+import {
+  deleteProduct,
+  showProducts,
+  updateProductForm,
+} from "@/app/api/Admin/routeData";
 import { dateFormate } from "@/app/utlis/dateFormate/dateFormating";
 import useDebouncing from "@/app/hooks/useDebouncing";
 import dynamic from "next/dynamic";
 interface productsData {
+  _id: string;
   productTitle: string;
   category: string;
   price: string;
@@ -25,6 +30,7 @@ const ProductManagement = () => {
   const [showModel1, setShowModel1] = useState<boolean>(false);
   const [showModel2, setShowModel2] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [productId, setProductId] = useState("");
   // const [isLoading, setIsLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
   const [searchProduct, setSearchProduct] = useState("");
@@ -74,30 +80,36 @@ const ProductManagement = () => {
   const handleCloseEditProductModel = () => {
     setShowModel2(false);
   };
-  const handleUpdateForm = (data: any) => {
-    console.log(data);
+  const handleUpdateForm = async (data: FormData) => {
+    const res = await updateProductForm(data, productId);
+    console.log(res, "update form data is here");
   };
   function handleOnChange(pageNo: number) {
     if (pageNo >= 1 && pageNo <= totalPages) {
       setCurrentPage(pageNo);
     }
   }
-  function deleteCustomerData() {}
-  // // console.log()
+  async function deleteProductData() {
+    const data = await deleteProduct(productId);
+    console.log(data, "data");
+    loadProducts();
+    handleCloseModel();
+  }
+  async function loadProducts() {
+    const data = await showProducts(
+      debouncedData,
+      productCategory,
+      currentPage
+    );
+    // console.log(data.data, "customer data");
+    setProducts(data?.data);
+    setTotalPages(data?.totalPages);
+    // setIsLoading(false);
+  }
   useEffect(() => {
     // setIsLoading(true);
-    async function loadCustomer() {
-      const data = await showProducts(
-        debouncedData,
-        productCategory,
-        currentPage
-      );
-      // console.log(data.data, "customer data");
-      setProducts(data?.data);
-      setTotalPages(data?.totalPages);
-      // setIsLoading(false);
-    }
-    loadCustomer();
+
+    loadProducts();
   }, [currentPage, debouncedData, productCategory]);
   return (
     <AdminLayout>
@@ -106,7 +118,7 @@ const ProductManagement = () => {
           <DeleteModel
             handleCloseModel={handleCloseModel}
             category={"Product"}
-            deleteCustomerData={deleteCustomerData}
+            deleteData={deleteProductData}
           ></DeleteModel>
         ) : (
           ""
@@ -122,8 +134,9 @@ const ProductManagement = () => {
           <EditProductForm
             handleCloseModel={handleCloseEditProductModel}
             fields={product.productFields}
-            data={product.productData}
+            // data={product.productData}
             onsubmit={handleUpdateForm}
+            productId={productId}
           ></EditProductForm>
         ) : (
           ""
@@ -207,14 +220,20 @@ const ProductManagement = () => {
                         <span
                           className="text-[16px] text-blue-400"
                           title="edit"
-                          onClick={() => setShowModel2(true)}
+                          onClick={() => {
+                            setShowModel2(true);
+                            setProductId(item?._id);
+                          }}
                         >
                           <FiEdit></FiEdit>
                         </span>
                         <span
                           className="text-[16px] text-red-400"
                           title="Delete"
-                          onClick={() => setShowModel(true)}
+                          onClick={() => {
+                            setShowModel(true);
+                            setProductId(item?._id);
+                          }}
                         >
                           <FaRegTrashAlt></FaRegTrashAlt>
                         </span>

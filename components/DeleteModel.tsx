@@ -3,13 +3,13 @@ import React from "react";
 interface props {
   handleCloseModel: () => void;
   category: string;
-  deleteCustomerData: () => void;
+  deleteData: () => void;
 }
 
 const DeleteModel = ({
   handleCloseModel,
   category,
-  deleteCustomerData,
+  deleteData,
 }: props) => {
   return (
     <div className="absolute flex items-center justify-center h-full w-full top-0 left-0 bg-[#00000080]">
@@ -28,7 +28,7 @@ const DeleteModel = ({
             Cancel
           </button>
           <button
-            onClick={deleteCustomerData}
+            onClick={deleteData}
             className="px-3 py-1 border-2 cursor-pointer bg-red-500 border-red-500 text-white rounded-md"
           >
             Delete

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { MdOpenInBrowser } from "react-icons/md";
 import { FaImage } from "react-icons/fa";
 import { IoMdTrash } from "react-icons/io";
+import { addProduct, addProductImages } from "@/app/api/Admin/routeData";
 
 interface productProps {
   handleCloseModel: () => void;
@@ -12,15 +13,15 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
   const [formData, setFormData] = useState({
     productTitle: "",
     productDescription: "",
-    price: "",
+    price: 0,
     category: "",
     material: "",
-    ratings: 0,
-    stock: "",
+    // ratings: 0,
+    // stock: "",
   });
   const [dataUploaded, setDataUploaded] = useState<boolean>(false);
-  const [images,setImages]= useState<any>([])
-
+  const [images, setImages] = useState<any>([]);
+  const [addedProductId, setAddedProductId] = useState<string>("");
   const categories = [
     "Cookware",
     "Bakeware",
@@ -48,28 +49,52 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
     });
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     console.log("Form Submitted:", formData);
+    const { productTitle, productDescription, price, category, material } =
+      formData;
+    const res = await addProduct(
+      productTitle,
+      productDescription,
+      price,
+      category,
+      material
+    );
+    console.log(res.data, "res here9999");
+    setAddedProductId(res.data._id);
     setDataUploaded(true);
     // handleCloseModel();
   };
 
-  const handleInputImages=(e:any)=>{
-    const value= e.target.files
-    const limitImges = [...value]
-    if(limitImges.length>5){
-      alert('You can only upload 5 images at most for the Refrence')
-      setImages(limitImges.splice(0,5))
-    }
-  }
+  const submitFiles = async () => {
+    const formData: FormData = new FormData();
 
-  const handleRemoveImage=(e:any,item:any)=>{
-    e.stopPropagation()
-    e.preventDefault()
-      const newImageArray = images.filter((image:any)=>image.name !==item.name)
-      setImages(newImageArray)
-  }
+    images.forEach((image: any) => {
+      formData.append("files", image);
+    });
+    const res = await addProductImages(formData, addedProductId);
+    console.log(res, "image upload res");
+  };
+  const handleInputImages = (e: any) => {
+    const value = e.target.files;
+    const limitImges = [...value];
+    console.log(value, "img val");
+    if (limitImges.length > 5) {
+      alert("You can only upload 5 images at most for the Refrence");
+      return;
+    }
+    setImages(limitImges.splice(0, 5));
+  };
+
+  const handleRemoveImage = (e: any, item: any) => {
+    e.stopPropagation();
+    e.preventDefault();
+    const newImageArray = images.filter(
+      (image: any) => image.name !== item.name
+    );
+    setImages(newImageArray);
+  };
 
 
   return (
@@ -80,21 +105,42 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
         </div>
         {dataUploaded ? (
           <div className="px-7 w-full">
-          <div className="text-blue-400 border border-blue-400 rounded-lg w-full flex items-center relative justify-center py-[3rem]">
-            <button className="flex items-center gap-1"> <MdOpenInBrowser></MdOpenInBrowser>Browse Images</button>
-            <input type="file" multiple onChange={(e)=>handleInputImages(e)} className=" w-full h-full top-0 left-0 bg-red-500 absolute inset-0 opacity-0"></input>
-          </div>
-          <div className="text-gray-500  space-y-2 my-[2rem]">
-          {images&& images.map((item:any,index:any)=>
-            <div key={index} className="w-full border border-gray-100 rounded-md px-3 py-2 shadow-md flex items-center gap-2 justify-between">
-            <FaImage></FaImage>
-            <p className="flex-1">{item.name}</p>
-            <span className="text-red-500 text-[18px]" onClick={(e)=>handleRemoveImage(e,item)}><IoMdTrash></IoMdTrash></span>
-          </div>
-          )}
-          </div>
-          <p className="text-slate-600"><span>Note:</span> You can only upload 5 images at most for the Refrence</p>
-          <div className="w-full h-fit mt-5 flex justify-end space-x-3">
+            <div className="text-blue-400 cursor-pointer border border-blue-400 rounded-lg w-full flex items-center relative justify-center py-[3rem]">
+              <button className="flex items-center gap-1 ">
+                {" "}
+                <MdOpenInBrowser></MdOpenInBrowser>Browse Images
+              </button>
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={(e) => handleInputImages(e)}
+                className=" w-full h-full top-0 left-0 bg-red-500 absolute inset-0 opacity-0"
+              ></input>
+            </div>
+            <div className="text-gray-500  space-y-2 my-[2rem]">
+              {images &&
+                images.map((item: any, index: any) => (
+                  <div
+                    key={index}
+                    className="w-full border border-gray-100 rounded-md px-3 py-2 shadow-md flex items-center gap-2 justify-between"
+                  >
+                    <FaImage></FaImage>
+                    <p className="flex-1">{item.name}</p>
+                    <span
+                      className="text-red-500 text-[18px]"
+                      onClick={(e) => handleRemoveImage(e, item)}
+                    >
+                      <IoMdTrash></IoMdTrash>
+                    </span>
+                  </div>
+                ))}
+            </div>
+            <p className="text-slate-600">
+              <span>Note:</span> You can only upload 5 images at most for the
+              Refrence
+            </p>
+            <div className="w-full h-fit mt-5 flex justify-end space-x-3">
               <button
                 type="submit"
                 className="px-4  text-gray-600 border border-gray-300 font-bold py-3 rounded-lg transition duration-300"
@@ -105,14 +151,15 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
               <button
                 type="submit"
                 className="px-4 bg-blue-400 hover:bg-blue-500 text-white font-bold py-3 rounded-lg transition duration-300"
-                onClick={handleCloseModel}
+                onClick={() => {
+                  handleCloseModel();
+                  submitFiles();
+                }}
               >
                 Submit Form
               </button>
             </div>
           </div>
-
-
         ) : (
           <form
             onSubmit={handleSubmit}
@@ -192,6 +239,7 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
             </div>
 
             {/* Ratings */}
+            {/*
             <div>
               <label className="block text-gray-600 font-medium ">
                 Ratings (0 to 5)
@@ -208,9 +256,9 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
                 className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
             </div>
-
+*/}
             {/* Stock */}
-            <div className="">
+            {/* <div className="">
               <label className="block text-gray-600 font-medium ">Stock</label>
               <input
                 type="number"
@@ -220,7 +268,7 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
                 required
                 className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
-            </div>
+            </div> */}
             {/* Product Description */}
             <div className="">
               <label className="block text-gray-500 font-medium ">

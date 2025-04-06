@@ -1,43 +1,47 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdOpenInBrowser } from "react-icons/md";
 import { FaImage } from "react-icons/fa";
 import { IoMdTrash } from "react-icons/io";
+import { showProductDetails } from "@/app/api/Admin/routeData";
 
 interface productProps {
   handleCloseModel: () => void;
   fields: any;
-  data: any;
+  // data: any;
   onsubmit: (arg0: any) => void;
+  productId: string;
 }
 interface FormDataType {
   productTitle: string;
   productDescription: string;
-  price: string;
+  price: number;
   category: string;
   material: string;
-  ratings: number;
-  stock: string;
+  // ratings: number;
+  stock: number;
 }
 
 const EditProductForm = ({
   handleCloseModel,
   fields,
-  data,
+  // data,
   onsubmit,
+  productId,
 }: productProps) => {
   const [dataUploaded, setDataUploaded] = useState<boolean>(false);
   const [formData, setFormData] = useState<FormDataType>({
-    productTitle: data.productTitle,
-    productDescription: data.productDescription,
-    price: data.price,
-    category: data.category,
-    material: data.material,
-    ratings: data.ratings,
-    stock: data.stock,
+    productTitle: "data.productTitle",
+    productDescription: "data.productDescription",
+    price: 0,
+    category: "data.category",
+    material: "data.material",
+    // ratings: "data.ratings",
+    stock: 0,
   });
-  const [images, setImages] = useState<any>([]);
+  const [images, setImages] = useState<any[]>([]);
+  const [newImages, setNewImages] = useState<any[]>([]);
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -49,30 +53,78 @@ const EditProductForm = ({
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    const {
+      productTitle,
+      productDescription,
+      price,
+      category,
+      material,
+      // ratings: "data.ratings",
+      stock,
+    } = formData;
+    const formDataVal: FormData = new FormData();
+
+    newImages.forEach((image: any) => {
+      formDataVal.append("files", image);
+    });
+    formDataVal.append("productTitle", productTitle);
+    formDataVal.append("productDescription", productDescription);
+    formDataVal.append("price", price.toString());
+    formDataVal.append("category", category);
+    formDataVal.append("material", material);
+    formDataVal.append("stock", stock.toString());
+
     setDataUploaded(true);
-    onsubmit(formData)
+    onsubmit(formDataVal);
     handleCloseModel();
   };
 
   const handleInputImages = (e: any) => {
     const value = e.target.files;
-    const limitImges = [...value];
+    setNewImages([...value]);
+    const limitImges = [...value, ...images];
     if (limitImges.length > 5) {
       alert("You can only upload 5 images at most for the Refrence");
-      setImages(limitImges.splice(0, 5));
+      return;
     }
-    else{
-      setImages(limitImges);
-    }
+    setImages(limitImges.splice(0, 5));
   };
 
-    const handleRemoveImage=(e:any,item:any)=>{
-      e.stopPropagation()
-      e.preventDefault()
-        const newImageArray = images.filter((image:any)=>image.name !==item.name)
-        setImages(newImageArray)
-    }
+  const handleRemoveImage = (e: any, item: any) => {
+    e.stopPropagation();
+    e.preventDefault();
+    const newImageArray = images.filter(
+      (image: any) => image.name !== item.name
+    );
+    setImages(newImageArray);
+  };
 
+  async function showProductsDetails() {
+    const res = await showProductDetails(productId);
+    const {
+      category,
+      // images,
+      material,
+      price,
+      productDescription,
+      productTitle,
+      stock,
+    } = res.data;
+    setFormData({
+      productTitle: productTitle,
+      productDescription: productDescription,
+      price: price,
+      category: category,
+      material: material,
+      // ratings: "data.ratings",
+      stock: stock,
+    });
+    setImages([...res.data.images]);
+    console.log(res.data, "product details here 999");
+  }
+  useEffect(() => {
+    showProductsDetails();
+  }, []);
   return (
     <div className="h-screen  flex items-center fixed top-0 left-0 w-full  bg-opacity-90 justify-end bg-black/50">
       <div className="bg-white h-[100%]  py-4 rounded-sm shadow-2xl min-w-[350px] w-[45%] ">
@@ -142,13 +194,15 @@ const EditProductForm = ({
 
               {field.name === "images" && images?.length > 0 && (
                 <div className={field.previewClassName}>
-                  {images.map((item:any, index:any) => (
+                  {images.map((item: any, index: any) => (
                     <div key={index} className={field.previewItemClassName}>
                       <FaImage />
-                      <p className="flex-1">{item.name}</p>
+                      <p className="flex-1">
+                        {item.name || `item ${index + 1}`}
+                      </p>
                       <span
                         className={field.iconClassName}
-                        onClick={(e) => handleRemoveImage(e,item)}
+                        onClick={(e) => handleRemoveImage(e, item)}
                       >
                         <IoMdTrash />
                       </span>

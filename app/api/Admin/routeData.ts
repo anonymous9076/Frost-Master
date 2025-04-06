@@ -77,36 +77,92 @@ export const showEnquires = async (sortBy: string, pageNo: number) => {
   }
 };
 
-
 // add product feature
-export const addProduct=async()=>{
+export const addProduct = async (
+  productTitle: string,
+  productDescription: string,
+  price: number,
+  category: string,
+  material: string
+) => {
+  // productTitle, productDescription, price, category, material
   try {
-    
+    const data = await axiosInstance.post("/addProducts", {
+      productTitle,
+      productDescription,
+      price,
+      category,
+      material,
+    });
+    return data.data;
   } catch (error) {
-    
+    return error;
   }
-}
+};
 
-// delete product
-export const deleteProduct=async()=>{
+// add product images
+export const addProductImages = async (files: FormData, productId: string) => {
   try {
-    
+    const data = await axiosInstance.post(
+      `/addProductImages/${productId}`,
+      files
+    );
+    return data.data;
   } catch (error) {
-    
+    return error;
   }
-}
+};
+
+// update product form
+export const updateProductForm = async (
+  formData: FormData,
+  productId: string
+) => {
+  try {
+    const data = await axiosInstance.put(
+      `/updateProduct/${productId}`,
+      formData
+    );
+    return data.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+// show product details
+export const showProductDetails = async (productId: string) => {
+  try {
+    const data = await axiosInstance.get(`getProductById/${productId}`);
+    return data.data;
+  } catch (error) {
+    return error;
+  }
+};
+// delete product
+export const deleteProduct = async (productId: string) => {
+  try {
+    const data = await axiosInstance.delete(`deleteProduct/${productId}`);
+    return data.data;
+  } catch (error) {
+    return error;
+  }
+};
 
 // delete Enquiry
-export const deleteEnquiry=async()=>{
-  try {
-    
-  } catch (error) {
-    
-  }
-}
+// export const deleteEnquiry = async () => {
+//   try {
+//   } catch (error) {}
+// };
 // export const showPayments = async () => {
 //   try {
 //   } catch (error) {
 //     return error;
 //   }
 // };
+
+export const showOrderDetails = async () => {
+  try {
+  } catch (error) {
+    return error;
+  }
+};

@@ -99,7 +99,7 @@ const ShowUsers = () => {
         {deleteModel ? (
           <DeleteModel
             handleCloseModel={handleCloseModel}
-            deleteCustomerData={deleteCustomerData}
+            deleteData={deleteCustomerData}
             category={"UsersetCustomerId"}
           ></DeleteModel>
         ) : (
