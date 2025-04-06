@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
-import { Minus } from "@deemlol/next-icons";
-import { Plus } from "@deemlol/next-icons";
+import { FiPlus } from "react-icons/fi";
+import { FiMinus } from "react-icons/fi";
 import { IoIosStar, IoIosStarHalf } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
 const MycartItem = () => {
@@ -91,7 +91,7 @@ const MycartItem = () => {
                   onClick={() => handleUpdateItemnumber("add")}
                   className="text-[16px] absolute top-1/2 left-2 transform -translate-y-1/2 font-semibold text-[#35736E] flex items-center justify-center "
                 >
-                  <Minus />
+                  <FiMinus />
                 </span>
                 <input
                   type="number"
@@ -103,7 +103,7 @@ const MycartItem = () => {
                   onClick={() => handleUpdateItemnumber("add")}
                   className="text-[16px] absolute  font-semibold top-1/2 right-2 transform -translate-y-1/2 text-[#35736E] "
                 >
-                  <Plus />
+                  <FiPlus />
                 </span>
               </div>
             </div>

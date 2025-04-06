@@ -1,14 +1,15 @@
 "use client";
 import React from "react";
 import Section6 from "../../home/Components/Section6";
-import { ArrowLeft } from "@deemlol/next-icons";
+import { TiArrowLeft } from "react-icons/ti";
 import Image from "next/image";
-import { ShoppingCart } from "@deemlol/next-icons";
-import { FileText } from "@deemlol/next-icons";
-import { Minus } from "@deemlol/next-icons";
-import { Plus } from "@deemlol/next-icons";
+import { AiOutlineShoppingCart } from "react-icons/ai";
+import { AiOutlineFileText } from "react-icons/ai";
+import { FiMinus } from "react-icons/fi";
+import { FiPlus } from "react-icons/fi";
 import Accordion from "@/components/Accordion";
 import Recommendation from "@/components/Recommendation";
+
 import Link from "next/link";
 const ProductDetailSection = () => {
   const image = [
@@ -100,7 +101,7 @@ const ProductDetailSection = () => {
       <div className="w-full px-[3rem] light">
         <div>
           <Link href="/customer/products"  className="flex items-center py-[2rem] gap-1">
-            <ArrowLeft />
+            <TiArrowLeft />
             Back
           </Link>
           <p>Products / Category / ItemName</p>
@@ -138,7 +139,7 @@ const ProductDetailSection = () => {
                     onClick={() => handleUpdateItemnumber("add")}
                     className="text-[25px] absolute top-1/2 left-5 transform -translate-y-1/2 font-semibold text-[#35736E] flex items-center justify-center "
                   >
-                    <Minus />
+                    <FiMinus />
                   </span>
                   <input
                     type="number"
@@ -150,17 +151,17 @@ const ProductDetailSection = () => {
                     onClick={() => handleUpdateItemnumber("add")}
                     className="text-[25px] absolute  font-semibold top-1/2 right-5 transform -translate-y-1/2 text-[#35736E] "
                   >
-                    <Plus />
+                    <FiPlus />
                   </span>
                 </div>
                <Link className="flex-1" href='/customer/billing'>
                <span className="olive  rounded-md flex items-center  justify-center hover:shadow-md gap-2 px-4 py-3">
-                  <ShoppingCart></ShoppingCart> Add to cart
+                  <AiOutlineShoppingCart></AiOutlineShoppingCart> Add to cart
                 </span>
                </Link>
               </div>
               <span className="border border-[#35736E] w-full hover:shadow-md  justify-center text-[#35736E] rounded-md flex items-center gap-2 px-4 py-3">
-                <FileText></FileText> Make an Enquiry
+                <AiOutlineFileText></AiOutlineFileText> Make an Enquiry
               </span>
             </div>
             <p>Free 3-5 day shipping • Tool-free assembly </p>
