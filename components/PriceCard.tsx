@@ -1,6 +1,10 @@
+import Link from 'next/link'
 import React from 'react'
 
-const PriceCard = () => {
+interface priceProps{
+    button:boolean
+}
+const PriceCard = ({button}:priceProps) => {
   return (
     <div className=' h-fit w-full border py-[2rem] px-[2rem] border-gray-500 rounded-lg'>
             <h1 className="text-[25px] font-bold pb-[1rem] ">Order Summary</h1>
@@ -14,7 +18,7 @@ const PriceCard = () => {
                     <span>$3059</span>
                 </li>
                 <li className="flex items-center justify-between ">
-                    <span>Shipping</span>
+                    <span>Delivery Fee</span>
                     <span>$3059</span>
                 </li>
             </ul>
@@ -30,7 +34,12 @@ const PriceCard = () => {
                 </li>
                 
             </ul>
-            <button className='olive w-full text-center rounded-lg py-2 mt-7 '>Proceed to Checkout</button>
+            {button?
+            <Link href='billing'>
+                <button className='olive w-full text-center rounded-lg py-2 mt-7 '>Proceed to Checkout</button>
+            </Link>
+                :''
+            }
     </div>
   )
 }

@@ -9,10 +9,13 @@ import dynamic from "next/dynamic";
 const page = () => {
   return (
     <div>
-      <Navbar active="/customer/products"></Navbar>
-      <div className="flex w-full h-fit light py-[4rem] ">
-        <div className="w-[25%] min-w-[350px]">
-          <FilterBar></FilterBar>
+      <div>
+        <Navbar active="/customer/products"></Navbar>
+        <div className="flex w-full h-fit light py-[4rem] ">
+          <div className="w-[25%] min-w-[350px]">
+            <FilterBar></FilterBar>
+          </div>
+          <ProductContainer></ProductContainer>
         </div>
         <Link
           href="/customer/products/product-details/2"

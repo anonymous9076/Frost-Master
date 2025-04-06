@@ -13,7 +13,7 @@ import dynamic from "next/dynamic";
 
 const page = () => {
   return (
-    <div className="light">
+    <div className="light ">
       <div className="relative h-fit w-full">
         <Navbar active="/customer/home" />
         <Section1></Section1>
