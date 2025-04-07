@@ -2,8 +2,8 @@ import React from "react";
 
 const Section8 = () => {
   return (
-    <div className="light border-y border-gray-300 mb-[2rem] w-full flex py-[6rem] px-[5rem]">
-      <div className="w-[50%] text-gray-600 ">
+    <div className="light border-y border-gray-300 mb-[2rem] w-full flex-col lg:flex-row  flex py-[3rem] gap-4 lg:py-[6rem] px-[5rem]">
+      <div className="lg:w-[50%] w-full text-gray-600 ">
         <h2 className="text-gray-900 text-[35px] ">
           Reach Our Customer Service Team
         </h2>
@@ -13,13 +13,12 @@ const Section8 = () => {
           }
         </p>
       </div>
-      <div className="w-[50%] flex items-center justify-center">
-        <div className="w-[70%] bg-[#F9F9FB] rounded-lg p-[1rem] flex flex-col gap-3">
+      <div className="lg:w-[50%] w-full flex items-center justify-center">
+        <div className="w-[70%] bg-[#F9F9FB] min-w-[300px] rounded-lg p-[1rem] flex flex-col gap-3">
           <input
             type="email"
             className="border text-center border-gray-400 w-full py-2 px-3 rounded-lg"
             placeholder="Enter Your Email Address"
-            
           ></input>
           <button className="olive w-full py-2 rounded-lg">
             {"Send Message ->"}

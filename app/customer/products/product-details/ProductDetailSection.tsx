@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Section6 from "../../home/Components/Section6";
 import { TiArrowLeft } from "react-icons/ti";
 import Image from "next/image";
@@ -89,12 +89,19 @@ const ProductDetailSection = () => {
       },
     },
   ];
+  const [numberOfItems,setNumberOfItems]=useState<number>(1)
 
   const handleChangeItemNumber = () => {
     console.log("item number changed");
   };
   const handleUpdateItemnumber = (type: string) => {
-    console.log("item number updated", type);
+    if(type === 'add'){
+      setNumberOfItems((prev) => prev + 1)
+    }
+    else{
+      if(numberOfItems>1)
+      setNumberOfItems((prev) => prev - 1)
+    }
   };
   return (
     <>
@@ -136,14 +143,15 @@ const ProductDetailSection = () => {
               <div className="flex items-center justify-between gap-2">
                 <div className="w-[40%] relative">
                   <span
-                    onClick={() => handleUpdateItemnumber("add")}
+                    onClick={() => handleUpdateItemnumber("sub")}
                     className="text-[25px] absolute top-1/2 left-5 transform -translate-y-1/2 font-semibold text-[#35736E] flex items-center justify-center "
                   >
                     <FiMinus />
                   </span>
                   <input
                     type="number"
-                    value={1}
+                    min={1}
+                    value={numberOfItems}
                     onChange={handleChangeItemNumber}
                     className="border border-[#35736E] outline-none text-[25px] font-semibold text-[#35736E] hover:shadow-md rounded-md flex w-full  justify-center items-center py-1 text-center "
                   ></input>

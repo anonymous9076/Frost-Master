@@ -37,19 +37,19 @@ const Section4 = () => {
 
   return (
     <div className="light py-[5rem]">
-      <div className="w-[70%] mx-auto flex items-center justify-center py-[3rem]">
-        <h1 className="flex-1 px-[2rem] leading-10 text-[40px]">
+      <div className="w-[70%] mx-auto flex md:flex-row flex-col items-center justify-center py-[3rem]">
+        <h1 className="flex-1 px-[1rem]  md:px-[2rem] leading-10 text-[40px]">
           What Makes us prominent players
         </h1>
-        <p className="flex-1 px-[1rem] text-[20px]">
+        <p className="flex-1 px-[1rem] mt-2 md:mt-0 text-[20px]">
           FrostMaster excels in premium kitchen equipment distribution, offering
           top-quality products, reliable service, and innovative solutions for
           culinary professionals.
         </p>
       </div>
-      <div className="w-[70%] mx-auto grid grid-cols-3 gap-7">
+      <div className="w-[70%] mx-auto grid md:grid-cols-2 grid-cols-1 lg:grid-cols-3 gap-7">
         {object.map((item,index)=>
-        <div key={index} className="border border-gray-400 rounded-lg p-[1rem] ">
+        <div key={index} className="border border-gray-400 rounded-lg min-w-[250px] p-[1rem] ">
         <div className="w-full bg-red-300 h-[15rem] rounded-lg overflow-hidden">
           <Image
             src={item.image}

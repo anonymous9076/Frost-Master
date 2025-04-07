@@ -33,7 +33,7 @@ const Section1 = () => {
             WELCOME TO <br />
             FORST MASTER PVT.LTD
           </p>
-          <p className="mt-3 w-full md:w-[80%] text-justify font-extralight text-base md:text-[22px]">
+          <p className="mt-3 w-[70%] md:w-[80%]  text-center md:text-justify font-extralight text-base md:text-[22px]">
             Manufacturer of commercial kitchen equipment, commercial refrigerators,
             chillers, display cabinets, food service equipment, stainless steel worktables,
             cooking ranges, exhaust hoods, and custom kitchen solutions for restaurants, hotels,
