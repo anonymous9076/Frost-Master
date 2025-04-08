@@ -1,14 +1,20 @@
 "use client";
 import Sidebar from "@/components/Sidebar";
 import React, { useEffect, useState } from "react";
-import { LuEye } from "react-icons/lu";
-import { FiEdit } from "react-icons/fi";
 const Pagination = dynamic(() => import("@/components/Pagination"));
 import { IoReload } from "react-icons/io5";
 const AdminLayout = dynamic(() => import("@/components/AdminLayout"));
 import dynamic from "next/dynamic";
 import { showPaymentsData } from "@/app/api/Admin/routeData";
 import { dateFormate } from "@/app/utlis/dateFormate/dateFormating";
+
+interface PaymentInterface {
+  transactionId: string;
+  paymentMethod: string;
+  paymentStatus: string;
+  createdAt: string;
+  totalAmount: number;
+}
 const ShowPayments = () => {
   const [paymentData, setPaymentData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -141,7 +147,7 @@ const ShowPayments = () => {
               </ul>
 
               {paymentData
-                ? paymentData?.map((item, index) => (
+                ? paymentData?.map((item: PaymentInterface, index: number) => (
                     <ul
                       className=" my-1 p-0 flex items-center py-3 px-[1.5rem] bg-white rounded-sm shadow-sm  "
                       key={index}
