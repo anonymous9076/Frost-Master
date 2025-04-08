@@ -162,7 +162,8 @@ export const deleteEnquiry = async (enquiryId: string) => {
 export const showPaymentsData = async (
   filterTransactionId: string,
   filterDate: string,
-  filterStatus: string
+  filterStatus: string,
+  pageNo: number
 ) => {
   try {
     const data = await axiosInstance.get(`/payments/showPayments`, {
@@ -170,6 +171,7 @@ export const showPaymentsData = async (
         filterTransactionId,
         filterDate,
         filterStatus,
+        pageNo,
       },
     });
     return data.data;

@@ -75,7 +75,8 @@ const ShowPayments = () => {
     const res = await showPaymentsData(
       filterTransactionId,
       filterDate,
-      filterStatus
+      filterStatus,
+      currentPage
     );
     console.log(res.data, "res payment data");
     setPaymentData(res?.data);
@@ -83,7 +84,7 @@ const ShowPayments = () => {
   }
   useEffect(() => {
     showPaymentDetails();
-  }, [filterTransactionId, filterDate, filterStatus]);
+  }, [filterTransactionId, filterDate, filterStatus,currentPage]);
   return (
     <AdminLayout>
       <div className="h-screen  w-full flex bg-gray-100">
