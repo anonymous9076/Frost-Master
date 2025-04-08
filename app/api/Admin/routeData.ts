@@ -159,12 +159,24 @@ export const deleteEnquiry = async (enquiryId: string) => {
     return error;
   }
 };
-// export const showPayments = async () => {
-//   try {
-//   } catch (error) {
-//     return error;
-//   }
-// };
+export const showPaymentsData = async (
+  filterTransactionId: string,
+  filterDate: string,
+  filterStatus: string
+) => {
+  try {
+    const data = await axiosInstance.get(`/payments/showPayments`, {
+      params: {
+        filterTransactionId,
+        filterDate,
+        filterStatus,
+      },
+    });
+    return data.data;
+  } catch (error) {
+    return error;
+  }
+};
 
 // export const showOrderDetails = async () => {
 //   try {
