@@ -77,7 +77,11 @@ const MyOrderItem = () => {
                 <p className="text-[20px] font-medium ">$234,344</p>
                 {product.status === "Delivered" ||
                 product.status === "Cancelled" ? (
-                  ""
+                  <Link href='myorders/34'>
+                  <button className="olive mt-3 text-white w-[120px] text-center py-2 rounded-lg">
+                    Order Details
+                  </button>
+                  </Link>
                 ) : (
                   <div className="flex gap-4">
                     <Link href='myorders/34'>

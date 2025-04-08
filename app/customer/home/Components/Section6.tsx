@@ -34,11 +34,11 @@ const Section6 = ({head}:sectionprops) => {
           installation
         </p>
       </div>:''}
-      <div className="w-[70%] flex items-center h-fit justify-center gap-7  text-center mx-auto ">
+      <div className="w-full flex items-center h-fit justify-center gap-7 flex-wrap  text-center mx-auto ">
         {review.map((item, index) => (
           <div
             key={index}
-            className="border min-h-[268px] px-[2rem] border-gray-300 rounded-lg w-full h-fit flex items-center justify-center flex-col"
+            className="border min-w-[300px] min-h-[268px]  px-[2rem] border-gray-300 rounded-lg w-[40%] h-fit flex items-center justify-center flex-col"
           >
             <span className="flex items text-yellow-400 justify-center py-[2rem] gap-1">
                 <FaStar></FaStar>
@@ -47,7 +47,7 @@ const Section6 = ({head}:sectionprops) => {
                 <FaStar></FaStar>
                 <FaStar></FaStar>
             </span>
-            <p className="text-gray-500  min-h-[70px]">{item.desc}</p>
+            <p className="text-gray-500 overflow-clip h-[70px]">{item.desc}</p>
             <div className="py-[2rem] flex items-center gap-3 justify-center">
                 <Image
                 src={item.image}

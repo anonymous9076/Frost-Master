@@ -1,9 +1,8 @@
 'use client'
 import React, { useState } from "react";
 import ProductCard from "./ProductCard";
-import { ChevronRight } from "@deemlol/next-icons";
-import { ChevronLeft } from "@deemlol/next-icons";
-
+import { FaChevronRight } from "react-icons/fa";
+import { FaChevronLeft } from "react-icons/fa";
 interface Product {
     title: string;
     image: string;
@@ -71,7 +70,7 @@ const Recommendation = () => {
   return (
     <div className=" flex h-fit felx items-center  w-full">
       <span onClick={handleShiftLeft} className="flex-1 scale-200 transform  flex items-center justify-center">
-        <ChevronLeft />
+        <FaChevronLeft />
       </span>
       <div className="w-[90%] mx-auto h-fit py-4  grid grid-cols-4 gap-5 ">
         {products.map((product, index) => (
@@ -85,7 +84,7 @@ const Recommendation = () => {
         ))}
       </div>
       <span onClick={handleShiftRight} className="flex-1 scale-200 transform flex items-center justify-center">
-        <ChevronRight></ChevronRight>
+        <FaChevronRight></FaChevronRight>
       </span>
     </div>
   );

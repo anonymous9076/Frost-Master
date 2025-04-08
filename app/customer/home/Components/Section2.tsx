@@ -3,7 +3,7 @@ import React from "react";
 const Section2 = () => {
     const img = [
         {
-            text:'Cooking Equipment',
+            text:'Kitchen Equipment',
             image: 'https://s3-alpha-sig.figma.com/img/cc7c/2f23/a0fb582ec2144e0690dd63283e98dba8?Expires=1743984000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=KodzfgexOdqGJZzem8XmprUFRLyGlQylTrKrhK4BGg3m9Dv5aTisebBT-XjoJzjIYUmH3jv0XEfyWMl8b0j8SSjSvNqCcZX9uzWVyPk55B9G8g6CJb98CP1cTaFO7ZcU3HtOqdheQRTER-5-VpvkQuN-vtNvmDJMr8ao69XDBsT-gkhlph7aXWZgehre78cqva1ZozDCknfK60fPDeKhLb~TXrFmdo2P8QDE9bOhTprWJ0oSgCraQdOAwSmf8p0sfdPxQOLQOtzRpvZdtara6O4e8KXffc0EBMCxjalT5tmri6zkagpOAkZKbNdNCDJDM1nasN~qOaD6bER3Ohb91Q__'
         },
         {
@@ -25,8 +25,8 @@ const Section2 = () => {
       <h3 className="w-full text-center text-[45px] py-[3rem]">
         Explore Our Kitchen Solutions
       </h3>
-      <div className="w-[90%] h-[60dvh] rounded-2xl flex border-y border-r border-[#35736E] ">
-        <div className="text-left w-[50%] px-[4rem] flex flex-col items-start justify-center py-[2rem] ">
+      <div className="w-[90%] h-fit rounded-2xl flex lg:flex-row flex-col border-y border-r border-[#35736E] ">
+        <div className="text-left lg:w-[50%] w-[100%]  px-[4rem] flex flex-col items-start justify-center py-[2rem] ">
           <h3 className="py-[1rem] text-[25px] font-semibold">
             Premium Kitchen Equipment
           </h3>
@@ -35,9 +35,9 @@ const Section2 = () => {
           </p>
           <button className="olive rounded-md py-2 px-4 mt-[2rem]">Explore More</button>
         </div>
-        <div className="w-[50%] grid grid-cols-2 gap-6  p-4">
+        <div className="w-[100%] lg:w-[50%] items-center justify-center flex flex-wrap gap-6  p-4">
          {img.map((item,index)=>
-          <div key={index} className="w-full h-full relative bg-blue-400 rounded-2xl overflow-hidden">
+          <div key={index} className=" w-[45%] xl:w-[300px]  h-[200px] relative bg-blue-400 rounded-2xl overflow-hidden">
           <Image src={item.image}
           alt=""
          height={400}

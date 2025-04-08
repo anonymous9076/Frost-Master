@@ -21,12 +21,12 @@ const Section7 = () => {
   ];
   return (
     <div className="light h-fit w-full pb-[2rem]">
-      <h1 className="w-full text-[50px] py-[3rem] text-center font-bold ">
+      <h1 className="w-full text-[40px]  md:text-[50px] py-[3rem] text-center font-bold ">
         Connecting Cities, Delivering Quality
       </h1>
-      <div className="flex items-center h-fit justify-center gap-7 ">
+      <div className="flex items-center   h-fit justify-center gap-3  flex-wrap  lg:gap-7 ">
         {obj.map((item, index) => (
-          <div  key={index} className="h-[60dvh]  w-[25%] min-w-[250px]">
+          <div  key={index} className="h-[60dvh] w-[60%] md:w-[25%] min-w-[300px]">
             <div className="h-full w-full flex flex-col justify-between items-center ">
               <Image
                 src={item.image}

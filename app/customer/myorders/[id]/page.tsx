@@ -63,6 +63,8 @@ const OrderDetails = () => {
                   <h1 className="text-[20px] font-bold  ">
                     Gas Oven Three Deck Nine Tray
                   </h1>
+                  
+                  <p className="text-[16px] font-medium ">Total Quantity : 1</p>
                   <p className="text-[20px] font-medium ">$234,344</p>
                   {product.status === "Delivered" ||
                   product.status === "Cancelled" ? (

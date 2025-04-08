@@ -1,8 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import { Minus } from "@deemlol/next-icons";
-import { Plus } from "@deemlol/next-icons";
-
+import { FiPlus } from "react-icons/fi";
+import { FiMinus } from "react-icons/fi";
 interface accordionprops{
   heading:string
   content:string
@@ -19,11 +18,11 @@ const Accordion = ({heading,content}:accordionprops) => {
         </h1>
         {active ? (
           <span onClick={()=>setActive(curr=>!curr)}>
-            <Minus></Minus>
+            <FiMinus></FiMinus>
           </span>
         ) : (
           <span onClick={()=>setActive(curr=>!curr)}>
-            <Plus></Plus>
+            <FiPlus></FiPlus>
           </span>
         )}
       </div>

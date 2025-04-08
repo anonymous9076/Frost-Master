@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
-import { Minus } from "@deemlol/next-icons";
-import { Plus } from "@deemlol/next-icons";
+import { FiPlus } from "react-icons/fi";
+import { FiMinus } from "react-icons/fi";
 import { IoIosStar, IoIosStarHalf } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
 const MycartItem = () => {
@@ -39,6 +39,7 @@ const MycartItem = () => {
       setNumberOfItems((prev) => prev + 1)
     }
     else{
+      if(numberOfItems>1)
       setNumberOfItems((prev) => prev - 1)
     }
   };
@@ -88,13 +89,14 @@ const MycartItem = () => {
               </div>
               <div className="w-[120px] relative">
                 <span
-                  onClick={() => handleUpdateItemnumber("add")}
+                  onClick={() => handleUpdateItemnumber("sub")}
                   className="text-[16px] absolute top-1/2 left-2 transform -translate-y-1/2 font-semibold text-[#35736E] flex items-center justify-center "
                 >
-                  <Minus />
+                  <FiMinus />
                 </span>
                 <input
                   type="number"
+                  min={1}
                   value={numberOfItems}
                   onChange={(e)=>handleChangeItemNumber(Number(e.target.value))}
                   className="border border-[#35736E] outline-none text-[18px] font-semibold text-[#35736E] hover:shadow-md rounded-md flex w-full  justify-center items-center py-1 text-center "
@@ -103,7 +105,7 @@ const MycartItem = () => {
                   onClick={() => handleUpdateItemnumber("add")}
                   className="text-[16px] absolute  font-semibold top-1/2 right-2 transform -translate-y-1/2 text-[#35736E] "
                 >
-                  <Plus />
+                  <FiPlus />
                 </span>
               </div>
             </div>
