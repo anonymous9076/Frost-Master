@@ -149,10 +149,16 @@ export const deleteProduct = async (productId: string) => {
 };
 
 // delete Enquiry
-// export const deleteEnquiry = async () => {
-//   try {
-//   } catch (error) {}
-// };
+export const deleteEnquiry = async (enquiryId: string) => {
+  try {
+    const data = await axiosInstance.delete(
+      `/admin/deleteEnquiry/${enquiryId}`
+    );
+    return data.data;
+  } catch (error) {
+    return error;
+  }
+};
 // export const showPayments = async () => {
 //   try {
 //   } catch (error) {
@@ -160,9 +166,9 @@ export const deleteProduct = async (productId: string) => {
 //   }
 // };
 
-export const showOrderDetails = async () => {
-  try {
-  } catch (error) {
-    return error;
-  }
-};
+// export const showOrderDetails = async () => {
+//   try {
+//   } catch (error) {
+//     return error;
+//   }
+// };

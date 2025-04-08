@@ -17,12 +17,12 @@ const page = () => {
           </div>
           <ProductContainer></ProductContainer>
         </div>
-        <Link
+        {/* <Link
           href="/customer/products/product-details/2"
           className="flex-1 h-fit"
         >
           <ProductContainer></ProductContainer>
-        </Link>
+        </Link> */}
       </div>
       <Footer></Footer>
     </div>

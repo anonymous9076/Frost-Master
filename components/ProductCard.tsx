@@ -32,7 +32,10 @@ const ProductCard = ({ title, image, review }: productprops) => {
         className={`absolute top-5 right-5 ${
           liked ? "text-red-500" : "text-gray-400"
         } text-[22px]   z-20`}
-        onClick={handleLikeItem}
+        onClick={(e) => {
+          e.stopPropagation();
+          handleLikeItem();
+        }}
       >
         <FaHeart></FaHeart>
       </span>
