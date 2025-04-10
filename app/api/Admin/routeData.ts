@@ -159,6 +159,7 @@ export const deleteEnquiry = async (enquiryId: string) => {
     return error;
   }
 };
+// payment 
 export const showPaymentsData = async (
   filterTransactionId: string,
   filterDate: string,
@@ -186,3 +187,19 @@ export const showPaymentsData = async (
 //     return error;
 //   }
 // };
+
+//admin only --> refund 
+export const refundPayment = async (paymentId: string) => {
+  try {
+    const response = await axiosInstance.post(
+      `/payments/refund/${paymentId}`
+    );
+    return response.data;
+  } catch (error: any) {
+    console.error("Refund failed:", error);
+    return {
+      error: true,
+      message: error?.response?.data?.message || "Refund failed",
+    };
+  }
+};
