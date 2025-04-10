@@ -15,11 +15,10 @@ export const createOrder = async (
     try {
         const response = await axiosInstance.post(
             "/createOrder",
-            { product, paymentId, shippingAddress },
             {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`, // Ensure token is stored
-                },
+                product,
+                paymentId,
+                shippingAddress,
             }
         );
         return response.data;
@@ -32,11 +31,7 @@ export const createOrder = async (
 // Get all orders for logged-in user
 export const getAllOrders = async () => {
     try {
-        const response = await axiosInstance.get("/getAllOrders", {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-        });
+        const response = await axiosInstance.get("/getAllOrders");
         return response.data.data;
     } catch (error: any) {
         console.error("Failed to fetch orders:", error);
@@ -47,11 +42,7 @@ export const getAllOrders = async () => {
 //get order details
 export const getOrderDetails = async (orderId: string) => {
     try {
-        const response = await axiosInstance.get(`/getOrderDetails/${orderId}`, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-        });
+        const response = await axiosInstance.get(`/getOrderDetails/${orderId}`);
         return response.data.data;
     } catch (error: any) {
         console.error("Failed to fetch order details:", error);
