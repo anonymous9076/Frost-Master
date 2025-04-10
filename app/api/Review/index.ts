@@ -9,33 +9,26 @@ export const createReview = async (
     try {
         const response = await axiosInstance.post(
             "/createReview",
-            { productId, ratings, comment },
             {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            }
-        );
+                productId,
+                ratings,
+                comment
+            });
         return response.data;
     } catch (error: any) {
-        return {
-            error: true,
-            message: error?.response?.data?.message || "Review submission failed",
-        };
+        if (error?.isAuthError) {
+            return { error: true, message: "Please log in to submit a review." };
+        }
+
+        return { error: true, message: error?.response?.data?.message || "Failed to submit review" };
+
     }
 };
-
 // Get recent reviews for customer page
 export const getProductReviews = async (productId: string) => {
     try {
         const response = await axiosInstance.get(
-            `/getReviewForCustomerPage/${productId}`,
-            {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            }
-        );
+            `/getReviewForCustomerPage/${productId}`);
         return response.data.reviews;
     } catch (error: any) {
         return [];
