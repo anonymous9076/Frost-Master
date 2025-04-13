@@ -27,6 +27,6 @@ export async function signup(credential: CredentialInterfaceSignup) {
 }
 
 export async function logout() {
-  const data = await axiosInstance.post("/logout");
+  const data = await axiosInstance.post("/auth/logout");
   return data;
 }
