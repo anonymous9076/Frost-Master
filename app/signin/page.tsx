@@ -30,7 +30,7 @@ const Signin = () => {
       if (data.data) {
         loginUser(data?.data.userData);
         if (data?.data.userData?.roleType === "customer") {
-          router.push("/customer");
+          router.push("/customer/home");
         } else {
           router.push("/admin/users");
         }
@@ -100,7 +100,7 @@ const Signin = () => {
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   Do not have an account?
                   <Link
-                    href="/"
+                    href="/signup"
                     className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                   >
                     Register here
