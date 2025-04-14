@@ -11,7 +11,8 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import DeleteModel from "@/components/DeleteModel";
 import AddProductForm from "@/components/AddProductForm";
 import EditProductForm from "@/components/EditProductForm";
-import product from '../../../EditModelData'
+import enquires from '../../../EditModelData'
+
 const ProductManagement = () => {
 
   const [showModel,setShowModel] = useState<boolean>(false)
@@ -74,7 +75,7 @@ const ProductManagement = () => {
     <div className="h-screen  w-full flex bg-gray-100 relative">
       {showModel?<DeleteModel handleCloseModel={handleCloseModel} category={'Product'}></DeleteModel>:''}
       {showModel1?<AddProductForm handleCloseModel={handleCloseAddProductModel}></AddProductForm>:''}
-      {showModel2?<EditProductForm handleCloseModel={handleCloseEditProductModel} fields={product.productFields} data={product.productData} onsubmit={handleUpdateForm} ></EditProductForm>:''}
+      {showModel2?<EditProductForm handleCloseModel={handleCloseEditProductModel} title='Enquiry' fields={enquires.enquiryFields} data={enquires.enquiryData} onsubmit={handleUpdateForm} ></EditProductForm>:''}
       <Sidebar ></Sidebar>
       <div className="flex-1 h-full text-gray-700 ">
         <div className="bg-white w-full h-[8%] px-[4rem] flex items-center text-[20px] font-bold justify-between">
@@ -151,7 +152,7 @@ const ProductManagement = () => {
                       </li>
                     <li className="w-[11%] flex items-center gap-3">
                       {/* <span className="text-[18px] text-blue-400" title="view"><LuEye></LuEye></span> */}
-                      <span className="text-[16px] text-blue-400" title="edit" ><LuEye></LuEye></span>
+                      <span className="text-[16px] text-blue-400" title="edit" onClick={()=> setShowModel2(true)} ><LuEye></LuEye></span>
                       <span className="text-[16px] text-red-400" title="Delete" ><FaRegTrashAlt></FaRegTrashAlt></span>
                     </li>
                   </ul>

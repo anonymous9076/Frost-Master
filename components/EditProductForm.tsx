@@ -7,6 +7,7 @@ import { IoMdTrash } from "react-icons/io";
 
 interface productProps {
   handleCloseModel: () => void;
+  title:string;
   fields: any;
   data: any;
   onsubmit: (arg0: any) => void;
@@ -23,6 +24,7 @@ interface FormDataType {
 
 const EditProductForm = ({
   handleCloseModel,
+  title,
   fields,
   data,
   onsubmit,
@@ -73,11 +75,13 @@ const EditProductForm = ({
         setImages(newImageArray)
     }
 
+    console.log(fields,'======>')
+
   return (
     <div className="h-screen  flex items-center fixed top-0 left-0 w-full  bg-opacity-90 justify-end bg-black/50">
       <div className="bg-white h-[100%]  py-4 rounded-sm shadow-2xl min-w-[350px] w-[45%] ">
         <div className="text-2xl font-bold text-blue-400 w-full  mt-4 mb-6  text-center">
-          Edit Product
+          Edit {title}
         </div>
         <form
           onSubmit={handleSubmit}

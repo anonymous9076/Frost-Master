@@ -82,7 +82,7 @@ const ProductManagement = () => {
     <div className="h-screen  w-full flex bg-gray-100 relative">
       {showModel?<DeleteModel handleCloseModel={handleCloseModel} category={'Product'}></DeleteModel>:''}
       {showModel1?<AddProductForm handleCloseModel={handleCloseAddProductModel}></AddProductForm>:''}
-      {showModel2?<EditProductForm handleCloseModel={handleCloseEditProductModel} fields={product.productFields} data={product.productData} onsubmit={handleUpdateForm} ></EditProductForm>:''}
+      {showModel2?<EditProductForm handleCloseModel={handleCloseEditProductModel} title='Product' fields={product.productFields} data={product.productData} onsubmit={handleUpdateForm} ></EditProductForm>:''}
       <Sidebar ></Sidebar>
       <div className="flex-1 h-full text-gray-700 ">
         <div className="bg-white w-full h-[8%] px-[4rem] flex items-center text-[20px] font-bold justify-between">

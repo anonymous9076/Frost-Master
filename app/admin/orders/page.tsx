@@ -1,12 +1,13 @@
 "use client";
 import Sidebar from "@/components/Sidebar";
-import React from "react";
+import React, { useState } from "react";
 import { IoIosSearch } from "react-icons/io";
-import { LuEye } from "react-icons/lu";
 import { FiEdit } from "react-icons/fi";
 import { BsPerson } from "react-icons/bs";
 import Pagination from "@/components/Pagination";
+import OrderDetails from "./OrderDetails";
 const ShowOrders = () => {
+  
   const orders = [
     {
       orderId: "ORD123456",
@@ -30,6 +31,7 @@ const ShowOrders = () => {
       status: "Cancelled",
     },
   ];
+const [openModel,setOpenModel]=useState<boolean>(true)
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -52,8 +54,13 @@ const ShowOrders = () => {
     console.log("next");
   };
 
+  const handleCloseModel=()=>{
+    setOpenModel(true)
+  }
+
   return (
-    <div className="h-screen  w-full flex bg-gray-100">
+    <div className="h-screen  w-full flex bg-gray-100 relative">
+
       <Sidebar></Sidebar>
       <div className="flex-1 h-full text-gray-700 ">
         <div className="bg-white w-full h-[8%] px-[4rem] flex items-center text-[20px] font-bold justify-between">
@@ -69,6 +76,7 @@ const ShowOrders = () => {
             </span>
           </span>
         </div>
+        {openModel?
         <div className="px-[4rem] w-full bg-gray-100 min-w-[900px] overflow-x-auto  h-[92%] py-[2rem] text-[14px] ">
           <div className="bg-white h-[5rem] w-full rounded-lg px-[1.5rem] flex items-center gap-3">
             <span className="flex items-start flex-col ">
@@ -134,11 +142,8 @@ const ShowOrders = () => {
                       </span>
                     </li>
                     <li className="w-[10%] flex items-center gap-3">
-                      <span className="text-[18px] text-blue-400">
-                        <LuEye></LuEye>
-                      </span>
-                      <span className="text-[16px] text-blue-400">
-                        <FiEdit></FiEdit>
+                      <span onClick={()=>setOpenModel(false)}  className="text-[16px] text-blue-400">
+                        <FiEdit ></FiEdit>
                       </span>
                     </li>
                   </ul>
@@ -155,6 +160,9 @@ const ShowOrders = () => {
             </div>
           </div>
         </div>
+        :
+        <OrderDetails handleCloseModel={handleCloseModel}></OrderDetails>
+              }
       </div>
     </div>
   );
