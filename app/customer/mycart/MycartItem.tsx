@@ -1,4 +1,5 @@
 "use client";
+import Pagination from "@/components/Pagination";
 import Image from "next/image";
 import React, { useState } from "react";
 import { FiPlus } from "react-icons/fi";
@@ -6,7 +7,15 @@ import { FiMinus } from "react-icons/fi";
 import { IoIosStar, IoIosStarHalf } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
 const MycartItem = () => {
-  const [numberOfItems,setNumberOfItems] =useState<number>(1)
+  const [currentPage, setCurrentPage] = useState(1);
+  // const [isLoading, setIsLoading] = useState(false);
+  const [totalPages, setTotalPages] = useState(1);
+  function handleOnChange(pageNo: number) {
+    if (pageNo >= 1 && pageNo <= totalPages) {
+      setCurrentPage(pageNo);
+    }
+  }
+  const [numberOfItems, setNumberOfItems] = useState<number>(1);
   const products = [
     {
       title: "Large Mixing Bowl",
@@ -22,34 +31,32 @@ const MycartItem = () => {
       in_stock: false,
       review: 1.3,
     },
-    {
-      title: "Wooden Rolling Pin",
-      image: "/Images/bak2.jpg",
-      category: "Baking",
-      in_stock: false,
-      review: 3.3,
-    },
+    // {
+    //   title: "Wooden Rolling Pin",
+    //   image: "/Images/bak2.jpg",
+    //   category: "Baking",
+    //   in_stock: false,
+    //   review: 3.3,
+    // },
   ];
-  const handleChangeItemNumber = (e:number) => {
-    setNumberOfItems(e)
+  const handleChangeItemNumber = (e: number) => {
+    setNumberOfItems(e);
   };
 
   const handleUpdateItemnumber = (type: string) => {
-    if(type === 'add'){
-      setNumberOfItems((prev) => prev + 1)
-    }
-    else{
-      if(numberOfItems>1)
-      setNumberOfItems((prev) => prev - 1)
+    if (type === "add") {
+      setNumberOfItems((prev) => prev + 1);
+    } else {
+      if (numberOfItems > 1) setNumberOfItems((prev) => prev - 1);
     }
   };
   const handleRemoveItem = () => {
     console.log("remove item");
-  }
+  };
 
   return (
     <div className="!cursor-pointer select-none">
-        <p>{products.length} Items</p>
+      <p>{products.length} Items</p>
       <div className="grid w-full grid-cols-1 py-2 gap-4 ">
         {products.map((product, index) => (
           <div
@@ -70,13 +77,30 @@ const MycartItem = () => {
                 </h1>
                 <p className="text-[16px] flex gap-2 text-gray-500 items-center">
                   {[...Array(Math.floor(product.review))].map((_, index) => (
-                    <span className={`${product.review<=3?'text-red-500':(product.review<4?'text-amber-400':'text-green-400')}`} key={index}>
+                    <span
+                      className={`${
+                        product.review <= 3
+                          ? "text-red-500"
+                          : product.review < 4
+                          ? "text-amber-400"
+                          : "text-green-400"
+                      }`}
+                      key={index}
+                    >
                       {" "}
                       <IoIosStar></IoIosStar>
                     </span>
                   ))}
                   {product.review % 1 != 0 ? (
-                    <span className={`${product.review<=3?'text-red-500':(product.review<4?'text-amber-400':'text-green-400')}`}>
+                    <span
+                      className={`${
+                        product.review <= 3
+                          ? "text-red-500"
+                          : product.review < 4
+                          ? "text-amber-400"
+                          : "text-green-400"
+                      }`}
+                    >
                       {" "}
                       <IoIosStarHalf></IoIosStarHalf>
                     </span>
@@ -98,7 +122,9 @@ const MycartItem = () => {
                   type="number"
                   min={1}
                   value={numberOfItems}
-                  onChange={(e)=>handleChangeItemNumber(Number(e.target.value))}
+                  onChange={(e) =>
+                    handleChangeItemNumber(Number(e.target.value))
+                  }
                   className="border border-[#35736E] outline-none text-[18px] font-semibold text-[#35736E] hover:shadow-md rounded-md flex w-full  justify-center items-center py-1 text-center "
                 ></input>
                 <span
@@ -110,13 +136,23 @@ const MycartItem = () => {
               </div>
             </div>
             <div>
-              <span className="text-[20px] text-red-600  font-bold" onClick={handleRemoveItem}>
+              <span
+                className="text-[20px] text-red-600  font-bold"
+                onClick={handleRemoveItem}
+              >
                 <MdDelete />
               </span>
             </div>
           </div>
         ))}
       </div>
+
+      <Pagination
+        totalPages={1}
+        currentPage={1}
+        handleOnChange={handleOnChange}
+        user="customer"
+      ></Pagination>
     </div>
   );
 };
