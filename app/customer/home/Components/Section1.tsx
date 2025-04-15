@@ -1,14 +1,42 @@
+"use client";
 import React from "react";
 import Image from "next/image";
-// import Navbar from "@/components/Navbar";
+import AutoSlider from "@/components/AutoSlider";
 
 const Section1 = () => {
+  const data = [
+    {
+      title: " WELCOME TO FORST MASTER PVT.LTD",
+      desc: "",
+      image: "/Images/home2.jpg",
+    },
+    {
+      title: " WELCOME TO FORST MASTER PVT.LTD",
+      desc: "",
+      image: "/Images/home.jpg",
+    },
+    {
+      title: " WELCOME TO FORST MASTER PVT.LTD",
+      desc: "",
+      image: "/Images/home3.jpg",
+    },
+    {
+      title: " WELCOME TO FORST MASTER PVT.LTD",
+      desc: "",
+      image: "/Images/home4.jpg",
+    },
+    {
+      title: " WELCOME TO FORST MASTER PVT.LTD",
+      desc: "",
+      image: "/Images/home5.jpg",
+    },
+  ];
   return (
-    <div className="min-h-[100dvh] h-fit relative w-full olive ">
-      <div className="min-h-[90dvh] h-fit flex flex-col md:flex-row items-center justify-center w-full py-[5rem] ">
-        {/* Left side with image */}
-        <div className="flex-1 h-full relative">
-          <div className="absolute z-10 bottom-[-5rem] lg:block hidden left-0 h-[30vh] md:h-[40dvh] w-[45vw] md:w-[55dvh]">
+    <div className="h-fit relative w-full olive ">
+      <AutoSlider slides={data}>
+        {(item) => (
+          <div className="h-[90dvh] flex flex-col md:flex-row items-center justify-center w-full ">
+            {/* <div className="absolute z-10 bottom-[-5rem] lg:block hidden left-0 h-[30vh] md:h-[40dvh] w-[45vw] md:w-[55dvh]">
             <Image
               src='/Images/dotted.png'
               alt=""
@@ -16,39 +44,40 @@ const Section1 = () => {
               width={500}
               className="object-cover h-full w-full opacity-40 "
             />
+          </div> */}
+            <div className="h-full w-full relative flex items-center justify-center ">
+              <Image
+                className="h-full w-full  relative z-10 rounded-md"
+                src={item.image}
+                alt="frost"
+                width={500}
+                height={500}
+              />
+            </div>
+            <div className="flex-1 absolute top-1/2 z-20 pl-[4rem] bg-black/50 -translate-y-1/2 h-full flex flex-col justify-center items-center md:items-start p-4">
+              <p className="leading-10 w-full md:w-[50%] text-center md:text-left tracking-widest text-2xl md:text-[35px] font-bold">
+                WELCOME TO <br />
+                FORST MASTER PVT.LTD
+              </p>
+              <p className="mt-3 w-[70%] md:w-[50%]  text-center md:text-justify font-extralight text-base md:text-[22px]">
+                Manufacturer of commercial kitchen equipment, commercial
+                refrigerators, chillers, display cabinets, food service
+                equipment, stainless steel worktables, cooking ranges, exhaust
+                hoods, and custom kitchen solutions for restaurants, hotels, and
+                catering businesses.
+              </p>
+              <div className="w-full md:w-[80%] flex items-center justify-center md:justify-start">
+                <button className=" olive rounded-md px-7 tracking-widest py-2  mt-12">
+                  Shop Now
+                </button>
+              </div>
+            </div>
+            {/* Right side with text and button */}
           </div>
-          <div className="h-full flex items-center justify-center w-full">
-            <Image
-              className="h-[80dvh] w-[70dvh] md:w-[65%] min-w-[200px]  relative z-20 rounded-md"
-              src="https://s3-alpha-sig.figma.com/img/09bf/9265/db5c78d7a92d2b9106eb99db17234f22?Expires=1743379200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=JeMmInaAJEqfsqWKDbyX6wIVVcE3QaaS8sBxD0JN36tTMB3js-Zy5321us813J76XhpryhVt8Rr-A6R~JUZnTpEy5L42O4taf~vUmakIg9kEEfcFP1yRQY9QB-N792u~H12X4nOet1pHvv0XMdzNYjrLxn4UImlyndXFwJIs3N4eY50IUnjJEP1MZtIk03JAKQDepgrfb6BZNl10JG-MRjPwNo9-SeHNRPYsKmSo9yC~dWfzFag4yCm6f9Q~zDwsy6YBGeVkf-mvP4AKIsmbT1NW2iMU8BLGCdjqhdR5gr-2MOO8sVrEIpZf4dhxLYtATAmTG626hLHif9uRSfGLsQ__"
-              alt="frost"
-              width={500}
-              height={500}
-            />
-          </div>
-        </div>
-        {/* Right side with text and button */}
-        <div className="flex-1 h-full flex flex-col justify-center items-center md:items-start p-4">
-          <p className="leading-10 w-full md:w-[80%] text-center md:text-left tracking-widest text-2xl md:text-[35px] font-bold">
-            WELCOME TO <br />
-            FORST MASTER PVT.LTD
-          </p>
-          <p className="mt-3 w-[70%] md:w-[80%]  text-center md:text-justify font-extralight text-base md:text-[22px]">
-            Manufacturer of commercial kitchen equipment, commercial refrigerators,
-            chillers, display cabinets, food service equipment, stainless steel worktables,
-            cooking ranges, exhaust hoods, and custom kitchen solutions for restaurants, hotels,
-            and catering businesses.
-          </p>
-          <div className="w-full md:w-[80%] flex items-center justify-center md:justify-start">
-            <button className="border border-white rounded-md px-7 tracking-widest py-2 text-white mt-12">
-              Shop Now
-            </button>
-          </div>
-        </div>
-      </div>
+        )}
+      </AutoSlider>
     </div>
   );
-  
 };
 
 export default Section1;
