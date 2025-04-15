@@ -8,6 +8,8 @@ const AdminLayout = dynamic(() => import("@/components/AdminLayout"));
 import { showOrders } from "@/app/api/Admin/routeData";
 import { dateFormate } from "@/app/utlis/dateFormate/dateFormating";
 import dynamic from "next/dynamic";
+import OrderDetails from "./OrderDetails";
+
 interface OrderItem {
   productDetails: { productTitle: string }[];
   createdAt: string;
@@ -16,6 +18,8 @@ interface OrderItem {
 }
 const ShowOrders = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [openModel,setOpenModel]=useState<boolean>(true)
+
   // const [isLoading, setIsLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
   const [orders, setOrders] = useState([]);
@@ -78,6 +82,10 @@ const ShowOrders = () => {
     loadCustomer();
   }, [dateRage, status, currentPage]);
 
+  const handleCloseModel=()=>{
+    setOpenModel(true)
+  }
+
   return (
     <AdminLayout>
       <div className="h-screen  w-full flex bg-gray-100">
@@ -86,6 +94,8 @@ const ShowOrders = () => {
           <div className="bg-white w-full h-[8%] px-[4rem] flex items-center text-[20px] font-bold justify-between">
             Orders
           </div>
+          {openModel?
+
           <div className="px-[4rem] w-full bg-gray-100 min-w-[900px] overflow-x-auto  h-[92%] py-[2rem] text-[14px] ">
             <div className="bg-white h-[5rem] w-full rounded-lg px-[1.5rem] flex items-center gap-3">
               {/* <span className="w-full flex  items-start flex-col ">
@@ -168,10 +178,8 @@ const ShowOrders = () => {
                         </span>
                       </li>
                       <li className="w-[10%] flex items-center gap-3">
-                        <span className="text-[18px] text-blue-400">
-                          <LuEye></LuEye>
-                        </span>
-                        <span className="text-[16px] text-blue-400">
+                        
+                        <span onClick={()=>setOpenModel(false)} className="text-[16px] text-blue-400">
                           <FiEdit></FiEdit>
                         </span>
                       </li>
@@ -188,7 +196,10 @@ const ShowOrders = () => {
               </div>
             </div>
           </div>
-        </div>
+        :
+        <OrderDetails handleCloseModel={handleCloseModel}></OrderDetails>
+              }
+      </div>
       </div>
     </AdminLayout>
   );

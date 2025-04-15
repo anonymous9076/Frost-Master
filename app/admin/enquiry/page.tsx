@@ -14,6 +14,9 @@ import { deleteEnquiry, showEnquires } from "@/app/api/Admin/routeData";
 import { dateFormate } from "@/app/utlis/dateFormate/dateFormating";
 import { FiEdit } from "react-icons/fi";
 import { toast } from "react-toastify";
+import EditProductForm from "@/components/EditProductForm";
+import enquires from '../../../EditModelData'
+
 // import UpdateStatus from "@/components/UpdateStatus";
 const ProductManagement = () => {
   const [showModel, setShowModel] = useState<boolean>(false);
@@ -107,6 +110,15 @@ const ProductManagement = () => {
           <div className="bg-white w-full h-[8%] px-[4rem] flex items-center text-[20px] font-bold justify-between">
             Customer Enquiry
             {/* <span className="w-fit h-fit relative">
+    <div className="h-screen  w-full flex bg-gray-100 relative">
+      {showModel?<DeleteModel handleCloseModel={handleCloseModel} category={'Product'}></DeleteModel>:''}
+      {showModel1?<AddProductForm handleCloseModel={handleCloseAddProductModel}></AddProductForm>:''}
+      {showModel2?<EditProductForm handleCloseModel={handleCloseEditProductModel} title='Enquiry' fields={enquires.enquiryFields} data={enquires.enquiryData} onsubmit={handleUpdateForm} ></EditProductForm>:''}
+      <Sidebar ></Sidebar>
+      <div className="flex-1 h-full text-gray-700 ">
+        <div className="bg-white w-full h-[8%] px-[4rem] flex items-center text-[20px] font-bold justify-between">
+          Customer Enquiry
+          {/* <span className="w-fit h-fit relative">
             <input
               type="search"
               className="outline-none py-1 rounded-md px-2 font-normal border-2 text-[15px] border-gray-300 w-[350px]"
@@ -186,7 +198,7 @@ const ProductManagement = () => {
                           className="text-[16px] text-blue-400"
                           title="edit"
                           onClick={() => {
-                            // setShowModel(true);
+                            setShowModel(true);
                             setEnquiryId(item?._id);
                           }}
                         >

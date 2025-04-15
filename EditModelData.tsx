@@ -90,4 +90,99 @@ const productData = {
     "This premium stainless steel cookware set includes multiple pots and pans that are durable, heat-resistant, and easy to clean. Ideal for home chefs looking to elevate their cooking experience.",
 };
 
+<<<<<<< HEAD
 export default { productData, productFields }; //default is removed
+=======
+ const productData = {
+    "productTitle": "Premium Stainless Steel Cookware Set",
+    "price": 149.99,
+    "category": "Cookware",
+    "material": "Stainless Steel",
+    "ratings": 4.7,
+    "stock": 25,
+    "productDescription": "This premium stainless steel cookware set includes multiple pots and pans that are durable, heat-resistant, and easy to clean. Ideal for home chefs looking to elevate their cooking experience."
+  }
+
+  const enquiryFields = [
+    {
+      name: "customerName",
+      label: "Customer Name",
+      type: "text",
+      className:
+        "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+    },
+    {
+      name: "email",
+      label: "Email",
+      type: "text",
+      className:
+        "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+    },
+    {
+      name: "phone",
+      label: "Phone",
+      type: "text",
+      className:
+        "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+    },
+   
+    {
+      name: "createdTime",
+      label: "Created Time",
+      type: "text",
+      className:
+        "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+    },
+    {
+      name: "productName",
+      label: "Product Name",
+      type: "text",
+      className:
+        "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+    },
+    {
+      name: "category",
+      label: "Category",
+      type: "text",
+      className:
+        "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+    },
+    {
+      name: "price",
+      label: "Price",
+      type: "text",
+      className:
+        "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+    },
+    {
+      name: "description",
+      label: "Description",
+      type: "textarea",
+      className:
+        "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+    },
+    {
+      "name": "status",
+      "label": "Status",
+      "type": "select",
+      "options": ["Completed", "Processing"],
+      "className":
+        "w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
+    },
+  ];
+
+  const enquiryData = {
+    customerName: "John Doe",
+    email: "john.doe@example.com",
+    phone: "+1 555-123-4567",
+    status: "Pending",
+    createdTime: "2025-04-11T10:30", // ISO format for datetime-local input
+    productName: "Solar Panel X200",
+    category: "Solar Equipment",
+    price: 1299.99,
+    description: "High-efficiency solar panel suitable for residential use."
+  };
+  
+
+  export default{ productData,productFields,enquiryFields,enquiryData }; //default is removed
+>>>>>>> dev
