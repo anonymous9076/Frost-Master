@@ -15,8 +15,10 @@ const Navbar = ({ active }: navprops) => {
     { label: "Home", link: "/customer/home" },
     { label: "About Us", link: "/customer/about" },
     { label: "Our Products", link: "/customer/products" },
-    // { label: "Careers", link: "/careers" },
+    { label: "Services", link: "/customer/services" },
     { label: "My Orders", link: "/customer/myorders" },
+    { label: "Career", link: "/customer/career" },
+    { label: "T&C", link: "/customer/T&C" },
   ];
   const [profile,setProfile]=useState<boolean>(false)
   const [menu,setMenu]=useState<boolean>(false)
