@@ -15,10 +15,11 @@ const Services = () => {
         "The team also takes into account the aesthetics of the kitchen, creating a layout that is both functional and visually appealing, with a focus on creating a comfortable and inviting space for the chefs and other kitchen staff.",
         "Overall, the Frost Master design team is dedicated to creating kitchen layouts that are optimized for efficiency, productivity, and aesthetics, while also ensuring the best space utilization and easy movement of movable equipment in the kitchen corridors. With their expertise and attention to detail, clients can be confident that their new kitchen will be designed to meet their specific needs and exceed their expectations.",
       ],
-      image:"/Images/study.jpg",
+      image:"/Images/frostservices/img1.jpg",
       align: "",
       justify: "justify-start",
-      border:'border-r-4 border-b-4 border-[#35736E]'
+      border:'border-r-4 border-b-4 border-[#35736E]',
+      anime:'fade-right'
     },
     {
       title: "AFTER SALE SERVICE OR AMC",
@@ -28,10 +29,11 @@ const Services = () => {
         "Whether it's ensuring the proper maintenance and servicing of kitchen equipment, providing prompt and reliable repairs when needed, or offering expert advice and guidance to customers, Frost Master is committed to ensuring the smooth and efficient operation of their customers' kitchens for many years to come.",
         "Overall, Frost Master's new way of kitchen service and promise to ensure complete freedom from all worries related to their products reflect their dedication to quality, reliability, and customer service, and reinforces their position as a leader in the food service industry.",
       ],
-      image: "/Images/study.jpg",
-      align: "flex-row-reverse text-right",
+      image:"/Images/frostservices/img2.jpg",
+      align: "flex-row-reverse ",
       justify: "justify-end",
-      border:'border-l-4 border-b-4 border-[#35736E]'
+      border:'border-l-4 border-b-4 border-[#35736E]',
+      anime:'fade-left'
     },
     {
       title: "INSTALLATION",
@@ -42,10 +44,11 @@ const Services = () => {
         "In addition, the team uses state-of-the-art technology to create 3D renderings of the proposed kitchen layout, which allows the client to visualize the space and make any necessary adjustments before the execution of the kitchen starts.",
         "Overall, the Frost Master design team is dedicated to creating kitchen layouts that are both functional and aesthetically pleasing, and that maximize space utilization while ensuring easy movement of movable equipment in the kitchen corridors. With their expertise and attention to detail, clients can be confident that their new kitchen will be optimized for efficiency and designed to meet their specific needs.",
       ],
-      image:"/Images/study.jpg",
+      image:"/Images/frostservices/img3.jpg",
       align: "",
       justify: "justify-start",
-      border:'border-r-4 border-b-4 border-[#35736E]'
+      border:'border-r-4 border-b-4 border-[#35736E]',
+      anime:'fade-right'
     },
     {
       title: "LPG PIPELINE DESIGN INSTALLATION",
@@ -55,10 +58,11 @@ const Services = () => {
         "The team also conducts rigorous testing and inspection of the pipeline system to ensure that it is functioning properly and in compliance with safety regulations. They provide training and guidance to clients on the safe use and maintenance of the L.P.G pipeline system, and they are always available to provide support and assistance in case of any issues or concerns.",
         "Overall, the Frost Master Installation team is committed to ensuring the safety and efficiency of L.P.G pipeline installation in kitchens. With their experience and expertise, clients can be confident that their kitchen's L.P.G pipeline is installed to the highest standards and will function safely and reliably for years to come.",
       ],
-      align: "flex-row-reverse text-right",
-      image:"/Images/study.jpg",
+      align: "flex-row-reverse",
+      image:"/Images/frostservices/img4.jpg",
       justify: "justify-end",
-      border:'border-l-4 border-b-4 border-[#35736E]'
+      border:'border-l-4 border-b-4 border-[#35736E]',
+      anime:'fade-left'
     },
     {
       title: "COMMERCIAL KITCHEN LAYOUT DESIGN",
@@ -68,10 +72,11 @@ const Services = () => {
         "Once the design has been finalized, the team will work closely with the client to select the appropriate materials, appliances, and finishes that will bring the vision to life. The team has extensive experience working with a wide range of materials and finishes, from traditional to modern, and they can help clients choose the perfect combination of elements to create a truly unique and personalized kitchen space.",
         "Overall, the Frost Master design team is dedicated to providing clients with a comprehensive kitchen planning and layout designing service that is tailored to their individual needs and preferences. With their expertise and attention to detail, clients can be confident that their new kitchen will be both beautiful and functional, and perfectly suited to their lifestyle.",
       ],
-      image:"/Images/study.jpg",
+      image:"/Images/frostservices/img5.jpg",
       align: "",
       justify: "justify-start",
-      border:'border-r-4 border-b-4 border-[#35736E]'
+      border:'border-r-4 border-b-4 border-[#35736E]',
+      anime:'fade-right'
     },
   ];
 
@@ -105,7 +110,7 @@ const Services = () => {
         </div>
     )}
     </div> */}
-      <div className="h-fit light px-[4rem] pb-[4rem] pt-[2rem] w-full ">
+      <div className="h-fit light px-[4rem] pb-[4rem] pt-[2rem] w-full overflow-hidden ">
       {features.map((item,index)=>
         <div className={`h-fit flex ${item.align} gap-5 items-center  w-full ${item.border} p-[2rem] py-[4rem]`} key={index}>
           <Image
@@ -113,9 +118,10 @@ const Services = () => {
             alt="t"
             height={400}
             width={400}
+            data-aos={item.anime}
             className="w-full h-[60dvh] rounded-md shadow-lg"
           ></Image>
-          <div className="flex flex-col">
+          <div className="flex flex-col" data-aos={item.anime}>
           <h2 className="font-bold text-[30px] py-[1rem] text-[#35736E]"> {item.title}</h2>
           <div className="flex flex-col ">
           {item.description.map((description, index) => (

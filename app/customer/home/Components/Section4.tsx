@@ -47,16 +47,14 @@ const Section4 = () => {
           culinary professionals.
         </p>
       </div>
-      <div className="w-[70%] mx-auto grid md:grid-cols-2 grid-cols-1 lg:grid-cols-3 gap-7">
+      <div className="w-[70%] mx-auto grid md:grid-cols-2  grid-cols-1 lg:grid-cols-3 gap-7">
         {object.map((item, index) =>
           <div
           key={index}
             data-aos="fade-up"
             data-aos-delay={`${(index + 2) * 100}`}
           >
-
             <div
-
               key={index} className="border hover:shadow-md hover:scale-105 transition-transform duration-300 border-gray-400 rounded-lg min-w-[250px] p-[1rem] ">
               <div className="w-full bg-red-300 h-[15rem] rounded-lg overflow-hidden">
                 <Image

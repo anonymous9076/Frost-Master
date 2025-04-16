@@ -16,7 +16,7 @@ const Career = () => {
     title: "Careers in Frost Master",
     description:
       "Frost Master Private Limited is committed to providing career opportunities that allow employees to grow and succeed. As a leader in the refrigeration and air conditioning industry, Frost Master offers a dynamic and challenging work environment that values innovation and teamwork. Employees are provided with ongoing training and development opportunities to enhance their skills and knowledge. Frost Master also recognizes and rewards high performers, providing opportunities for advancement and career growth. Join the Frost Master team to be a part of a company that values its employees and supports their career aspirations. Visit their website to learn more about current job openings and career opportunities.",
-    image: "/Images/study.jpg",
+    image: "/Images/CareerPage/img5.jpg",
     align: "",
     justify: "justify-start",
     border: "border-r-4 border-b-4 border-[#35736E]",
@@ -51,9 +51,10 @@ const Career = () => {
             alt="t"
             height={400}
             width={400}
+            data-aos='fade-right'
             className="flex-1 h-[70dvh] rounded-md shadow-lg"
           ></Image>
-          <div className="flex flex-1 px-[2rem] flex-col">
+          <div data-aos='fade-left' className="flex flex-1 px-[2rem] flex-col">
             <h2 className="font-bold text-[40px] w-fit border-b-4 border-[#35736E] my-[1rem] text-[#35736E]">
               {" "}
               {features.title}
@@ -68,31 +69,32 @@ const Career = () => {
         </div>
         <div className="h-[60dvh] w-full relative ">
           <Image
-            src="/Images/team3.jpg"
+            src="/Images/CareerPage/img7.jpg"
             alt=""
             height={400}
             width={400}
             className="h-full w-full"
           ></Image>
-          <p className="absolute top-1/2 left-1/2 text-center text-white font-semibold text-[30px] w-[60%] -translate-y-1/2 -translate-x-1/2">
+          <p className="absolute h-full top-1/2 flex items-center justify-center bg-black/50 left-1/2 text-center text-white font-semibold text-[30px] w-full px-[20%] -translate-y-1/2 -translate-x-1/2">
             {
               "Join the Frost Master and be part of a team that's always ahead of the game, where creativity meets innovation and excellence is our standard."
             }
           </p>
         </div>
         <div>
-            <h1 className="text-center text-[#35736E] text-[40px] font-bold pt-[2rem]">{"We're Hiring!"}</h1>
+            <h1 data-aos='fade-up' className="text-center text-[#35736E] text-[40px] font-bold pt-[2rem]">{"We're Hiring!"}</h1>
             <div
           className={`h-fit flex ${features.align} gap-8 items-center  w-[90%] mx-auto  p-[2rem] pb-[4rem]`}
         >
           <Image
-            src={features.image}
+            src="/Images/CareerPage/career.jpg"
             alt="t"
             height={400}
             width={400}
-            className="flex-1 h-[70dvh] rounded-md shadow-lg"
+            data-aos='fade-up-right'
+            className="flex-1  h-[70dvh] rounded-md shadow-lg"
           ></Image>
-          <div className="flex flex-1 p-[2rem] flex-col border-l-3 border-[#35736E]">
+          <div data-aos='fade-up-left' className="flex  flex-1 p-[2rem] flex-col border-l-3 border-[#35736E]">
             <h2 className="font-bold text-[40px] w-fit border-b-3 border-[#35736E] mb-[1rem] text-[#35736E]">
               {" "}
               Apply Now

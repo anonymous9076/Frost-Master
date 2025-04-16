@@ -12,6 +12,7 @@ const Section1 = () => {
                 alt=''
                 height={400}
                 width={400}
+                data-aos='fade-up'
                 className='h-[70%] w-full rounded-lg '
                 ></Image>
             </span>
@@ -21,6 +22,7 @@ const Section1 = () => {
                 alt=''
                 height={400}
                 width={400}
+                data-aos='fade-down'
                 className='h-[70%] w-full rounded-lg '
                 ></Image>
             </span>
