@@ -10,9 +10,10 @@ interface productprops {
   title: string;
   image: string;
   review: number;
+  totalReview: number;
 }
 
-const ProductCard = ({ title, image, review }: productprops) => {
+const ProductCard = ({ title, image, review, totalReview }: productprops) => {
   const [liked, setLiked] = React.useState(false);
   const handleLikeItem = () => {
     setLiked((curr) => !curr);
@@ -42,7 +43,9 @@ const ProductCard = ({ title, image, review }: productprops) => {
       <div className=" h-[40%] flex flex-col  justify-evenly  ">
         <div>
           <h5 className="text-lg tracking-tight ">{title}</h5>
-          <span className="text-sm text-gray-600 ">{review}k (5k reviews)</span>
+          <span className="text-sm text-gray-600 ">
+            {review} ({totalReview} reviews)
+          </span>
         </div>
         <div className="flex items-center justify-between mt-1 gap-2">
           <Link
