@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 import React from "react";
 import MyOrderItem from "./MyOrdersItem";
 
-const page = () => {
+const Page = () => {
   return (
     <div className="light ">
       <Navbar active="/customer/myorders"></Navbar>
@@ -13,9 +13,10 @@ const page = () => {
         </div>
         <MyOrderItem></MyOrderItem>
       </div>
+
       <Footer></Footer>
     </div>
   );
 };
 
-export default page;
+export default Page;
