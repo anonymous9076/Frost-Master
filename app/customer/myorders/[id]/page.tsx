@@ -5,10 +5,32 @@ import Navbar from "@/components/Navbar";
 import CancelOrderModel from "../CancelOrderModel";
 import Image from "next/image";
 import Stepper from "@/components/Stepper";
-
+import { usePathname } from "next/navigation";
+import { getOrderDetails } from "@/app/api/Order";
+import { dateFormate } from "@/app/utlis/dateFormate/dateFormating";
+interface OrderProduct {
+  _id: string;
+  productId: string;
+  quantity: number;
+  price: number;
+  productTitle: string;
+  images: string[];
+}
+interface Order {
+  _id: string;
+  userId: string;
+  createdAt: string; // or Date
+  orderStatus: string;
+  products: OrderProduct[];
+}
 const OrderDetails = () => {
+  const pathname = usePathname();
+  const [orderId, setOrderId] = useState(
+    pathname.split("/")[pathname.split("/").length - 1]
+  );
   const [cancle, setCancle] = useState<boolean>(false);
   const [currentStep, setCurrentStep] = useState(0);
+  const [orderDetails, setOrderDetails] = useState<Order>();
   const NUMBER_OF_STEPS = 5;
   const product = {
     title: "Large Mixing Bowl",
@@ -19,24 +41,32 @@ const OrderDetails = () => {
     status: "Pending",
     delivery: "Jan 2 2025",
     orderId: "#34HJ85NVI4NJ4BFIEI5",
-    deliveryPhase: 2,
+    deliveryPhase: 3,
   };
-
-  useEffect(() => {
-    setCurrentStep(product.deliveryPhase);
-  }, [product.deliveryPhase]);
 
   const handleCloseModel = () => {
     setCancle((curr) => !curr);
   };
 
+  const orderDetailsData = async () => {
+    const res = await getOrderDetails(orderId);
+    setOrderDetails(res.data);
+    console.log(res.data, "order details data here");
+  };
 
+  useEffect(() => {
+    setOrderId(pathname.split("/")[pathname.split("/").length - 1]);
+    setCurrentStep(product.deliveryPhase);
+    orderDetailsData();
+  }, [product.deliveryPhase]);
   return (
     <div>
       <Navbar active="/customer/myorders"></Navbar>
 
       <div className="min-h-screen h-fit w-full light ">
-      <h1 className="text-[35px] font-bold  pt-5 w-[90%] mx-auto">Order Detail</h1>
+        <h1 className="text-[35px] font-bold  pt-5 w-[90%] mx-auto">
+          Order Detail
+        </h1>
 
         <div className="!cursor-pointer select-none relative  w-[90%] py-[2rem] mx-auto">
           {cancle ? (
@@ -58,16 +88,20 @@ const OrderDetails = () => {
                 <div className="flex-1 gap-1">
                   <p className="whitespace-nowrap overflow-hidden">
                     {" "}
-                    Order Id : {product.orderId}
+                    Order Id : {orderDetails?._id}
                   </p>
                   <h1 className="text-[20px] font-bold  ">
-                    Gas Oven Three Deck Nine Tray
+                    {orderDetails?.product[0]?.productId?.productTitle}
                   </h1>
-                  
-                  <p className="text-[16px] font-medium ">Total Quantity : 1</p>
-                  <p className="text-[20px] font-medium ">$234,344</p>
-                  {product.status === "Delivered" ||
-                  product.status === "Cancelled" ? (
+
+                  <p className="text-[16px] font-medium ">
+                    Total Quantity : {orderDetails?.product[0]?.quantity}
+                  </p>
+                  <p className="text-[20px] font-medium ">
+                    {orderDetails?.product[0]?.productId?.price}
+                  </p>
+                  {orderDetails?.orderStatus === "Delivered" ||
+                  orderDetails?.orderStatus === "Cancelled" ? (
                     ""
                   ) : (
                     <div className="flex gap-4">
@@ -84,25 +118,27 @@ const OrderDetails = () => {
                   Status
                   <p
                     className={`${
-                      product.status == "Delivered"
+                      orderDetails?.orderStatus == "Delivered"
                         ? "text-green-500"
-                        : product.status === "Cancelled"
+                        : orderDetails?.orderStatus === "Cancelled"
                         ? "text-red-500"
                         : "text-yellow-500"
                     }`}
                   >
                     {" "}
-                    {product.status}
+                    {orderDetails?.orderStatus}
                   </p>
                 </div>
                 <div className="flex-1 flex items-center text-[20px] flex-col gap-2 font-bold ">
                   Dilevery Excepted By
-                  {product.status === "Delivered" ||
-                  product.status === "Cancelled" ? (
+                  {/* {orderDetails?.orderStatus === "Delivered" ||
+                  orderDetails?.orderStatus === "Cancelled" ? (
                     ""
-                  ) : (
-                    <p className="font-normal">{product.delivery}</p>
-                  )}
+                  ) : ( */}
+                  <p className="font-normal">
+                    {dateFormate(orderDetails?.createdAt)}
+                  </p>
+                  {/* )} */}
                 </div>
               </div>
             </div>
@@ -119,8 +155,13 @@ const OrderDetails = () => {
             <div className="flex-1">
               <h3 className="text-[20px]   font-semibold "> Shipped To</h3>
               <p className="w-[50%] min-w-[200px] pl-[1rem]">
-                Skyline Technologies Pvt. Ltd. 5th Floor, Orchid Business Park
-                Golf Course Road, Sector 54 Gurgaon, Haryana 122002 India
+                {/* Skyline Technologies Pvt. Ltd. 5th Floor, Orchid Business Park
+                Golf Course Road, Sector 54 Gurgaon, Haryana 122002 India */}
+                {`${orderDetails?.shippingAddress?.address}`}
+                <br />
+                {`${orderDetails?.shippingAddress?.city}, ${orderDetails?.shippingAddress?.state}, ${orderDetails?.shippingAddress?.country}`}
+                <br />
+                {`${orderDetails?.shippingAddress?.zipCode}`}
               </p>
             </div>
           </div>
