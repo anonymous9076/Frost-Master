@@ -55,8 +55,8 @@ const Section4 = () => {
             data-aos-delay={`${(index + 2) * 100}`}
           >
             <div
-              key={index} className="border hover:shadow-md hover:scale-105 transition-transform duration-300 border-gray-400 rounded-lg min-w-[250px] p-[1rem] ">
-              <div className="w-full bg-red-300 h-[15rem] rounded-lg overflow-hidden">
+              key={index} className="border hover:shadow-md hover:scale-105 transition-transform duration-300 min-h-[28rem] border-gray-400 rounded-lg min-w-[250px] p-[1rem] ">
+              <div className="w-full bg-red-300  h-[15rem] rounded-lg overflow-hidden">
                 <Image
                   src={item.image}
                   alt="uo"
