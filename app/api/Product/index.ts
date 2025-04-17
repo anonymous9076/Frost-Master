@@ -20,9 +20,9 @@ export const getAllProducts = async (
       },
     });
     return data.data;
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error fetching products:", error);
-    return { error: true, message: error.message };
+    return { error: true };
   }
 };
 
@@ -30,9 +30,9 @@ export const showProductDetails = async (productId: string) => {
   try {
     const data = await axiosInstance.get(`/getProductById/${productId}`);
     return data.data;
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error fetching product:", error);
-    return { error: true, message: error.message };
+    return { error: true };
   }
 };
 
@@ -48,7 +48,7 @@ export const getProductSuggestions = async (
       },
     });
     return response.data.data;
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error getting product suggestions:", error);
     return [];
   }

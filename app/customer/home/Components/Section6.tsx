@@ -2,7 +2,7 @@
 // import AutoSlider from "@/components/AutoSlider";
 // import HorizontalScrollCarousel from "@/components/HorizontalScrollCarousel";
 import Image from "next/image";
-import React,{useRef} from "react";
+import React, { useRef } from "react";
 // import { CiStar } from "react-icons/ci";
 import { FaStar } from "react-icons/fa6";
 interface sectionprops {
@@ -12,7 +12,7 @@ const review = [
   {
     name: "Amit Sharma",
     position: "Restaurant Owner",
-    image:"/Images/Boy/boy.png",
+    image: "/Images/Boy/boy.png",
     // image:
     //   "https://s3-alpha-sig.figma.com/img/87e9/9376/018b7cca44838e0924a7bcf6363b25ee?Expires=1743984000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=UqEWDEBXlC~yh4Nb6QgG5St1qjE22MN5q3aTrYUs9BMlF3SbJAWhHT2xZeIlmTtVJXabcfopkikAx8rbOomTiaC6ZV1VyjKYk9uMV-LMaD3sTvHElOUBo7vw~XCWQv7bltCHUAq0sQrF2FBCbIPqeX9XTdYvcb6GGv74Wlf7cSWks1wsrCNk55ICDRn252jh911m3W-IlERUHre6r33cXFgQEWbsIjP7E-nwUH~df3~46fYdYAcAdyJtnIk3t78DySGwbFgyLNqezxWYnxrrcl6bzLQLUDF0NBaN6~oJnp5SI7FQo0Fcof70~RQ8JnzXbayfE5vX7fYVTtvXg4cRIA__",
     desc: "FrostMaster provides excellent kitchen equipment! The durability and performance exceeded my expectations. Highly recommended for any professional kitchen!",
@@ -22,7 +22,7 @@ const review = [
   {
     name: "Rahul Mehta",
     position: "Restaurant Owner",
-    image:"/Images/Boy/boy.png",
+    image: "/Images/Boy/boy.png",
     // image:
     //   "https://s3-alpha-sig.figma.com/img/1fd7/58b3/ecff39bd78a901a6090493d79b5e913d?Expires=1743984000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=g28qRBs38olWSHdq9Ke8q8fl6FOEL7-cXpI2jksX6uj85ckzHhVGmA27Rjr-ZfflfI~vvVf~2xzm2xb~svYJZoxamwlqbBgZezpsMeS0loOrl5w6LIKKdo3iK9UlZaHrmha~-P5yer8J-ESm7prthWBUdUQQPnyG1renOGgu5wc8TQ2VbhSPiL2oo7CUiXnq3-WsIe69KXqdQiDG5C1Z9wMkwlb6XTWnl7p7JbrQ2VhhBvqkcRKulLvTfwfx6VciWqJq4UIUnMFlBZzYp8aJsD8Q6UTZjITgs4pj7AcZJSVNfYgBNem-c7GvCt7-f8MZjvy1N4B-IgSeWDxksYmhMw__",
     desc: "I’ve been using FrostMaster’s products for over a year now, and they never disappoint. Fast delivery and great customer support!",
@@ -32,7 +32,7 @@ const review = [
   {
     name: "Rahul Mehta",
     position: "Restaurant Owner",
-    image:"/Images/Boy/boy.png",
+    image: "/Images/Boy/boy.png",
     // image:
     //   "https://s3-alpha-sig.figma.com/img/1fd7/58b3/ecff39bd78a901a6090493d79b5e913d?Expires=1743984000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=g28qRBs38olWSHdq9Ke8q8fl6FOEL7-cXpI2jksX6uj85ckzHhVGmA27Rjr-ZfflfI~vvVf~2xzm2xb~svYJZoxamwlqbBgZezpsMeS0loOrl5w6LIKKdo3iK9UlZaHrmha~-P5yer8J-ESm7prthWBUdUQQPnyG1renOGgu5wc8TQ2VbhSPiL2oo7CUiXnq3-WsIe69KXqdQiDG5C1Z9wMkwlb6XTWnl7p7JbrQ2VhhBvqkcRKulLvTfwfx6VciWqJq4UIUnMFlBZzYp8aJsD8Q6UTZjITgs4pj7AcZJSVNfYgBNem-c7GvCt7-f8MZjvy1N4B-IgSeWDxksYmhMw__",
     desc: "I’ve been using FrostMaster’s products for over a year now, and they never disappoint. Fast delivery and great customer support!",
@@ -42,7 +42,7 @@ const review = [
   {
     name: "Rahul Mehta",
     position: "Restaurant Owner",
-    image:"/Images/Boy/boy.png",
+    image: "/Images/Boy/boy.png",
     // image:
     //   "https://s3-alpha-sig.figma.com/img/1fd7/58b3/ecff39bd78a901a6090493d79b5e913d?Expires=1743984000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=g28qRBs38olWSHdq9Ke8q8fl6FOEL7-cXpI2jksX6uj85ckzHhVGmA27Rjr-ZfflfI~vvVf~2xzm2xb~svYJZoxamwlqbBgZezpsMeS0loOrl5w6LIKKdo3iK9UlZaHrmha~-P5yer8J-ESm7prthWBUdUQQPnyG1renOGgu5wc8TQ2VbhSPiL2oo7CUiXnq3-WsIe69KXqdQiDG5C1Z9wMkwlb6XTWnl7p7JbrQ2VhhBvqkcRKulLvTfwfx6VciWqJq4UIUnMFlBZzYp8aJsD8Q6UTZjITgs4pj7AcZJSVNfYgBNem-c7GvCt7-f8MZjvy1N4B-IgSeWDxksYmhMw__",
     desc: "I’ve been using FrostMaster’s products for over a year now, and they never disappoint. Fast delivery and great customer support!",
@@ -52,7 +52,7 @@ const review = [
   {
     name: "Rahul Mehta",
     position: "Restaurant Owner",
-    image:"/Images/Boy/boy.png",
+    image: "/Images/Boy/boy.png",
     // image:
     //   "https://s3-alpha-sig.figma.com/img/1fd7/58b3/ecff39bd78a901a6090493d79b5e913d?Expires=1743984000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=g28qRBs38olWSHdq9Ke8q8fl6FOEL7-cXpI2jksX6uj85ckzHhVGmA27Rjr-ZfflfI~vvVf~2xzm2xb~svYJZoxamwlqbBgZezpsMeS0loOrl5w6LIKKdo3iK9UlZaHrmha~-P5yer8J-ESm7prthWBUdUQQPnyG1renOGgu5wc8TQ2VbhSPiL2oo7CUiXnq3-WsIe69KXqdQiDG5C1Z9wMkwlb6XTWnl7p7JbrQ2VhhBvqkcRKulLvTfwfx6VciWqJq4UIUnMFlBZzYp8aJsD8Q6UTZjITgs4pj7AcZJSVNfYgBNem-c7GvCt7-f8MZjvy1N4B-IgSeWDxksYmhMw__",
     desc: "I’ve been using FrostMaster’s products for over a year now, and they never disappoint. Fast delivery and great customer support!",
@@ -62,7 +62,7 @@ const review = [
   {
     name: "Rahul Mehta",
     position: "Restaurant Owner",
-    image:"/Images/Boy/boy.png",
+    image: "/Images/Boy/boy.png",
     // image:
     //   "https://s3-alpha-sig.figma.com/img/1fd7/58b3/ecff39bd78a901a6090493d79b5e913d?Expires=1743984000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=g28qRBs38olWSHdq9Ke8q8fl6FOEL7-cXpI2jksX6uj85ckzHhVGmA27Rjr-ZfflfI~vvVf~2xzm2xb~svYJZoxamwlqbBgZezpsMeS0loOrl5w6LIKKdo3iK9UlZaHrmha~-P5yer8J-ESm7prthWBUdUQQPnyG1renOGgu5wc8TQ2VbhSPiL2oo7CUiXnq3-WsIe69KXqdQiDG5C1Z9wMkwlb6XTWnl7p7JbrQ2VhhBvqkcRKulLvTfwfx6VciWqJq4UIUnMFlBZzYp8aJsD8Q6UTZjITgs4pj7AcZJSVNfYgBNem-c7GvCt7-f8MZjvy1N4B-IgSeWDxksYmhMw__",
     desc: "I’ve been using FrostMaster’s products for over a year now, and they never disappoint. Fast delivery and great customer support!",
@@ -71,37 +71,34 @@ const review = [
   },
 ];
 
- 
 const Section6 = ({ head }: sectionprops) => {
+  const scrollRef = useRef<HTMLDivElement | null>(null);
 
-  const scrollRef = useRef(null);
-  
-  // 30rem is roughly 480 pixels (if 1rem = 16px)
-  const scrollDistance = 480;
+  // Interval and Timeout Logic
+  React.useEffect(() => {
+    const scrollDistance = 480; // Adjust the scroll distance as needed
 
- setInterval(() => {
-  if (scrollRef.current) {
-    scrollRef.current?.scrollBy({ left: scrollDistance, behavior: 'smooth' });
-  }
- }, 3000);
- setTimeout(() => {
-  if (scrollRef.current) {
-    scrollRef.current?.scrollBy({ left: -(480*6), behavior: 'smooth' });
-  }
- }, 18000);
-  
-  // const scrollLeft = () => {
-  //   if (scrollRef.current) {
-  //     scrollRef.current?.scrollBy({ left: -scrollDistance, behavior: 'smooth' });
-  //   }
-  // };
+    const intervalId = setInterval(() => {
+      if (scrollRef.current) {
+        scrollRef.current.scrollBy({
+          left: scrollDistance,
+          behavior: "smooth",
+        });
+      }
+    }, 3000);
 
-  // const scrollRight = () => {
-  //   if (scrollRef.current) {
-  //     scrollRef.current?.scrollBy({ left: scrollDistance, behavior: 'smooth' });
-  //   }
-  // };
+    const timeoutId = setTimeout(() => {
+      if (scrollRef.current) {
+        scrollRef.current.scrollBy({ left: -(480 * 6), behavior: "smooth" });
+      }
+    }, 18000);
 
+    // Cleanup interval and timeout on component unmount
+    return () => {
+      clearInterval(intervalId);
+      clearTimeout(timeoutId);
+    };
+  }, []);
 
   return (
     <div className="w-full h-fit light border-y py-[4rem]  border-gray-300">

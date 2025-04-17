@@ -10,7 +10,7 @@ import { getOrderDetails } from "@/app/api/Order";
 import { dateFormate } from "@/app/utlis/dateFormate/dateFormating";
 interface OrderProduct {
   _id: string;
-  productId: string;
+  productId: { productTitle: string; price: number };
   quantity: number;
   price: number;
   productTitle: string;
@@ -21,7 +21,14 @@ interface Order {
   userId: string;
   createdAt: string; // or Date
   orderStatus: string;
-  products: OrderProduct[];
+  product: OrderProduct[];
+  shippingAddress: {
+    address: string;
+    city: string;
+    state: string;
+    zipCode: number;
+    country: string;
+  };
 }
 const OrderDetails = () => {
   const pathname = usePathname();
@@ -136,7 +143,7 @@ const OrderDetails = () => {
                     ""
                   ) : ( */}
                   <p className="font-normal">
-                    {dateFormate(orderDetails?.createdAt)}
+                    {dateFormate(orderDetails?.createdAt as string)}
                   </p>
                   {/* )} */}
                 </div>

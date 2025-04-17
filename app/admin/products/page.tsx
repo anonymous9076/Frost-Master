@@ -36,7 +36,7 @@ const ProductManagement = () => {
   const [searchProduct, setSearchProduct] = useState("");
   const [productCategory, setProductCategory] = useState("none");
   const [products, setProducts] = useState([]);
-  const debouncedData:string | number = useDebouncing(searchProduct, 800);
+  const debouncedData: string | number = useDebouncing(searchProduct, 800);
   // const products = [
   //   {
   //     name: "Wireless Headphones 5G.hz",
@@ -97,7 +97,7 @@ const ProductManagement = () => {
   }
   async function loadProducts() {
     const data = await showProducts(
-      debouncedData,
+      debouncedData as string,
       productCategory,
       currentPage
     );
@@ -134,7 +134,7 @@ const ProductManagement = () => {
           <EditProductForm
             handleCloseModel={handleCloseEditProductModel}
             fields={product.productFields}
-            title={'Product'}
+            title={"Product"}
             // data={product.productData}
             onsubmit={handleUpdateForm}
             productId={productId}

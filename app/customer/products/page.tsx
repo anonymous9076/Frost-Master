@@ -4,7 +4,6 @@ const Navbar = dynamic(() => import("@/components/Navbar"));
 import React, { useEffect, useState } from "react";
 const ProductContainer = dynamic(() => import("./components/ProductContainer"));
 const FilterBar = dynamic(() => import("./components/FilterBar"));
-import Link from "next/link";
 import dynamic from "next/dynamic";
 import { getAllProducts } from "@/app/api/Product";
 import useDebouncing from "@/app/hooks/useDebouncing";

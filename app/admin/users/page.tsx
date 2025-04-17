@@ -77,7 +77,7 @@ const ShowUsers = () => {
   }
   async function loadCustomer() {
     // setIsLoading(true);
-    const data = await showCustomers(debouncedData, currentPage);
+    const data = await showCustomers(debouncedData as string, currentPage);
     console.log(data.data, "customer data");
     setCustomers(data.data);
     setTotalPages(data.totalPages);

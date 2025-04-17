@@ -11,7 +11,6 @@ import UserAuthContext from "@/app/context/userAuthContext";
 import { logout } from "@/app/api/Auth/routeData";
 import { toast } from "react-toastify";
 
-
 interface navprops {
   active: string;
 }
@@ -28,14 +27,16 @@ const Navbar = ({ active }: navprops) => {
   ];
   const [profile, setProfile] = useState<boolean>(false);
   const [menu, setMenu] = useState<boolean>(false);
-  const { isAuthenticated, user } = useContext(UserAuthContext);
+  const { isAuthenticated, user } = useContext(UserAuthContext)!;
   console.log(user, "user details");
   async function handleLogout() {
     try {
       const res = await logout();
+      console.log(res);
       toast.success("logout successfully");
-    } catch (error: any) {
-      toast.error(error);
+    } catch (error) {
+      console.log(error);
+      toast.error("error");
     }
   }
   return (

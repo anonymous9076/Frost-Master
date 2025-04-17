@@ -2,8 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import UserAuthContext from "../context/userAuthContext";
-import { axiosInstance } from "../utlis/axiosConfig/AxiosInstance";
+// import UserAuthContext from "../context/userAuthContext";
+// import { axiosInstance } from "../utlis/axiosConfig/AxiosInstance";
 import {
   createRazorpayOrder,
   verifyPayment,
@@ -40,14 +40,14 @@ const CheckoutPage = () => {
     const res = await createRazorpayOrder(shippingAddress);
     if (res?.error) return alert(res.message);
 
-    const razorpay = new (window as any).Razorpay({
+    const razorpay = new window.Razorpay({
       key: res.keyId,
       amount: res.amount * 100,
       currency: res.currency,
       name: "Frost",
       description: "Complete your secure payment",
       order_id: res.razorpayOrderId,
-      handler: async (response: any) => {
+      handler: async (response) => {
         const verifyRes = await verifyPayment(
           response.razorpay_order_id,
           response.razorpay_payment_id,

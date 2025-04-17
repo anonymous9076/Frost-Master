@@ -51,7 +51,8 @@ const MycartItem = () => {
     }
   };
   const handleRemoveItem = () => {
-    console.log("remove item");
+    console.log(currentPage, "remove item");
+    setTotalPages(1);
   };
 
   return (

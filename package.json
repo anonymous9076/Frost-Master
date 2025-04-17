@@ -9,24 +9,25 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@deemlol/next-icons": "^0.1.9",
     "@tanstack/react-query": "^5.70.0",
+    "aos": "^2.3.4",
     "axios": "^1.8.4",
     "formik": "^2.4.6",
     "moment": "^2.30.1",
-    "@deemlol/next-icons": "^0.1.9",
-    "aos": "^2.3.4",
     "next": "15.2.3",
     "postcss": "^8.5.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
     "react-toastify": "^11.0.5",
-    "yup": "^1.6.1",
-    "swiper": "^11.2.6"
+    "swiper": "^11.2.6",
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4.0.14",
+    "@types/aos": "^3.0.7",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

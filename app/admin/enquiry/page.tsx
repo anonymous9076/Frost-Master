@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import dynamic from "next/dynamic";
 const Sidebar = dynamic(() => import("@/components/Sidebar"));
@@ -7,28 +6,33 @@ const Pagination = dynamic(() => import("@/components/Pagination"));
 import { FaRegTrashAlt } from "react-icons/fa";
 const DeleteModel = dynamic(() => import("@/components/DeleteModel"));
 const AddProductForm = dynamic(() => import("@/components/AddProductForm"));
-// const EditProductForm = dynamic(() => import("@/components/EditProductForm"));
-// import product from "../../../EditModelData";
 const AdminLayout = dynamic(() => import("@/components/AdminLayout"));
 import { deleteEnquiry, showEnquires } from "@/app/api/Admin/routeData";
 import { dateFormate } from "@/app/utlis/dateFormate/dateFormating";
 import { FiEdit } from "react-icons/fi";
 import { toast } from "react-toastify";
 import EditProductForm from "@/components/EditProductForm";
-import enquires from '../../../EditModelData'
+import enquires from "../../../EditModelData";
 
-// import UpdateStatus from "@/components/UpdateStatus";
+interface EnquiryTypes {
+  name: string;
+  email: string;
+  phone: number;
+  date: string;
+  status: string;
+  _id: string;
+}
 const ProductManagement = () => {
   const [showModel, setShowModel] = useState<boolean>(false);
   const [showModel1, setShowModel1] = useState<boolean>(false);
-  // const [showModel2, setShowModel2] = useState<boolean>(true);
+  const [showModel2, setShowModel2] = useState<boolean>(true);
   const [enquiries, setEnquiries] = useState([]);
   const [sortBy, setsortBy] = useState("none");
   const [currentPage, setCurrentPage] = useState(1);
   // const [isLoading, setIsLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
   const [enquiryId, setEnquiryId] = useState("");
-  const getStatusColor = (status: any) => {
+  const getStatusColor = (status: string) => {
     switch (status) {
       case "resolved":
         return "bg-green-200 text-green-500"; // Green for Delivered
@@ -52,12 +56,12 @@ const ProductManagement = () => {
   const handleCloseAddProductModel = () => {
     setShowModel1(false);
   };
-  // const handleCloseEditProductModel = () => {
-  //   setShowModel2(false);
-  // };
-  // const handleUpdateForm = (data: any) => {
-  //   console.log(data);
-  // };
+  const handleCloseEditProductModel = () => {
+    setShowModel2(false);
+  };
+  const handleUpdateForm = (data: string) => {
+    console.log(data);
+  };
 
   function handleOnChange(pageNo: number) {
     if (pageNo >= 1 && pageNo <= totalPages) {
@@ -95,16 +99,18 @@ const ProductManagement = () => {
         ) : (
           ""
         )}
-        {/* {showModel2 ? (
-          <UpdateStatus
-            // handleCloseModel={handleCloseEditProductModel}
-            // fields={product.productFields}
-            // // data={product.productData}
-            // onsubmit={handleUpdateForm}
-          ></UpdateStatus>
+        {showModel2 ? (
+          <EditProductForm
+            handleCloseModel={handleCloseEditProductModel}
+            title="Enquiry"
+            fields={enquires.enquiryFields}
+            // data={enquires.enquiryData}
+            onsubmit={handleUpdateForm}
+            productId={"1"}
+          ></EditProductForm>
         ) : (
           ""
-        )} */}
+        )}
         <Sidebar></Sidebar>
         <div className="flex-1 h-full text-gray-700 ">
           <div className="bg-white w-full h-[8%] px-[4rem] flex items-center text-[20px] font-bold justify-between">
@@ -169,7 +175,7 @@ const ProductManagement = () => {
               </ul>
 
               {enquiries
-                ? enquiries.map((item: any, index: number) => (
+                ? enquiries.map((item: EnquiryTypes, index: number) => (
                     <ul
                       className=" my-1 p-0 flex items-center py-3 px-[1.5rem] bg-white rounded-sm shadow-sm  "
                       key={index}

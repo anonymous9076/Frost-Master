@@ -39,12 +39,7 @@ const FilterBar = (props: PropsType) => {
     { title: "Restaurant Equipment", value: "Restaurant Equipment" },
     { title: "Bakery Machinery", value: "Bakery Machinery" },
   ];
-  const price = [
-    { title: "$20,000.00 -  50,000.00" },
-    { title: "$20,000.00 -  50,000.00" },
-    { title: "$20,000.00 -  50,000.00" },
-    { title: "$20,000.00 -  50,000.00" },
-  ];
+
   const rating: RatingItem[] = [
     { title: "5 Star Rating", value: 5 },
     { title: "4 Star Rating", value: 4 },
@@ -52,15 +47,15 @@ const FilterBar = (props: PropsType) => {
     { title: "2 Star Rating", value: 2 },
     { title: "1 Star Rating", value: 1 },
   ];
-  const available = [{ title: "In Stock" }, { title: "Out of Stock" }];
+  // const available:string = [{ title: "In Stock" }, { title: "Out of Stock" }];
 
   const handleRatingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value);
 
     if (e.target.checked) {
-      setFilterRating((prev) => [...prev, value]);
+      setFilterRating([...filterRating, value]);
     } else {
-      setFilterRating((prev) => prev.filter((r) => r !== value));
+      setFilterRating(filterRating.filter((r) => r !== value));
     }
   };
 
@@ -68,9 +63,9 @@ const FilterBar = (props: PropsType) => {
     const value = e.target.value;
 
     if (e.target.checked) {
-      setFilterCategory((prev) => [...prev, value]);
+      setFilterCategory([...filterCategory, value]);
     } else {
-      setFilterCategory((prev) => prev.filter((r) => r !== value));
+      setFilterCategory(filterCategory.filter((r) => r !== value));
     }
   }
   return (

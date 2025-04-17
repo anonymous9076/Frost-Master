@@ -159,7 +159,7 @@ export const deleteEnquiry = async (enquiryId: string) => {
     return error;
   }
 };
-// payment 
+// payment
 export const showPaymentsData = async (
   filterTransactionId: string,
   filterDate: string,
@@ -188,18 +188,16 @@ export const showPaymentsData = async (
 //   }
 // };
 
-//admin only --> refund 
+//admin only --> refund
 export const refundPayment = async (paymentId: string) => {
   try {
-    const response = await axiosInstance.post(
-      `/payments/refund/${paymentId}`
-    );
+    const response = await axiosInstance.post(`/payments/refund/${paymentId}`);
     return response.data;
-  } catch (error: any) {
+  } catch (error) {
     console.error("Refund failed:", error);
     return {
       error: true,
-      message: error?.response?.data?.message || "Refund failed",
+      // message: error?.response?.data?.message || "Refund failed",
     };
   }
 };

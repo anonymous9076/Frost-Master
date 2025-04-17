@@ -19,11 +19,11 @@ export const createOrder = async (
       shippingAddress,
     });
     return response.data;
-  } catch (error: any) {
+  } catch (error) {
     console.error("Order creation failed:", error);
     return {
       error: true,
-      message: error?.response?.data?.message || "Failed to create order",
+      // message: error?.response?.data?.message || "Failed to create order",
     };
   }
 };
@@ -49,7 +49,7 @@ export const getOrderDetails = async (orderId: string) => {
   try {
     const response = await axiosInstance.get(`/getOrderDetails/${orderId}`);
     return response.data;
-  } catch (error: any) {
+  } catch (error) {
     console.error("Failed to fetch order details:", error);
     return null;
   }

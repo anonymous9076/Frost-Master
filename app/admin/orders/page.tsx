@@ -1,7 +1,6 @@
 "use client";
 import Sidebar from "@/components/Sidebar";
 import React, { useEffect, useState } from "react";
-import { LuEye } from "react-icons/lu";
 import { FiEdit } from "react-icons/fi";
 const Pagination = dynamic(() => import("@/components/Pagination"));
 const AdminLayout = dynamic(() => import("@/components/AdminLayout"));
@@ -18,7 +17,7 @@ interface OrderItem {
 }
 const ShowOrders = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [openModel,setOpenModel]=useState<boolean>(true)
+  const [openModel, setOpenModel] = useState<boolean>(true);
 
   // const [isLoading, setIsLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
@@ -82,9 +81,9 @@ const ShowOrders = () => {
     loadCustomer();
   }, [dateRage, status, currentPage]);
 
-  const handleCloseModel=()=>{
-    setOpenModel(true)
-  }
+  const handleCloseModel = () => {
+    setOpenModel(true);
+  };
 
   return (
     <AdminLayout>
@@ -94,11 +93,10 @@ const ShowOrders = () => {
           <div className="bg-white w-full h-[8%] px-[4rem] flex items-center text-[20px] font-bold justify-between">
             Orders
           </div>
-          {openModel?
-
-          <div className="px-[4rem] w-full bg-gray-100 min-w-[900px] overflow-x-auto  h-[92%] py-[2rem] text-[14px] ">
-            <div className="bg-white h-[5rem] w-full rounded-lg px-[1.5rem] flex items-center gap-3">
-              {/* <span className="w-full flex  items-start flex-col ">
+          {openModel ? (
+            <div className="px-[4rem] w-full bg-gray-100 min-w-[900px] overflow-x-auto  h-[92%] py-[2rem] text-[14px] ">
+              <div className="bg-white h-[5rem] w-full rounded-lg px-[1.5rem] flex items-center gap-3">
+                {/* <span className="w-full flex  items-start flex-col ">
                 Search
                 <input
                   type="search"
@@ -106,33 +104,33 @@ const ShowOrders = () => {
                   className="bg-gray-100 py-1 px-2 w-full border-2 border-gray-200 rounded-md  "
                 ></input>
               </span> */}
-              <span className="flex items-start flex-col ">
-                Date Range
-                <select
-                  onChange={(e) => setDateRange(e.target.value)}
-                  className="bg-gray-100 py-1 px-2 w-[160px] border-2 border-gray-200 rounded-md  "
-                >
-                  <option value="none">None</option>
-                  <option value="today">Today</option>
-                  <option value="lastWeek">Last Week</option>
-                  <option value="lastMonth">Last Month</option>
-                  <option value="lastYear">Last Year</option>
-                </select>
-              </span>
-              <span className="flex items-start flex-col ">
-                Order Status
-                <select
-                  onChange={(e) => setStatus(e.target.value)}
-                  className="bg-gray-100 py-1 px-2 w-[160px] border-2 border-gray-200 rounded-md  "
-                >
-                  <option value="none">None</option>
-                  <option value="Processing">Processing</option>
-                  <option value="Shipped">Shipped</option>
-                  <option value="Delivered">Delivered</option>
-                  <option value="Cancelled">Cancelled</option>
-                </select>
-              </span>
-              {/* <span className="flex items-start flex-col ">
+                <span className="flex items-start flex-col ">
+                  Date Range
+                  <select
+                    onChange={(e) => setDateRange(e.target.value)}
+                    className="bg-gray-100 py-1 px-2 w-[160px] border-2 border-gray-200 rounded-md  "
+                  >
+                    <option value="none">None</option>
+                    <option value="today">Today</option>
+                    <option value="lastWeek">Last Week</option>
+                    <option value="lastMonth">Last Month</option>
+                    <option value="lastYear">Last Year</option>
+                  </select>
+                </span>
+                <span className="flex items-start flex-col ">
+                  Order Status
+                  <select
+                    onChange={(e) => setStatus(e.target.value)}
+                    className="bg-gray-100 py-1 px-2 w-[160px] border-2 border-gray-200 rounded-md  "
+                  >
+                    <option value="none">None</option>
+                    <option value="Processing">Processing</option>
+                    <option value="Shipped">Shipped</option>
+                    <option value="Delivered">Delivered</option>
+                    <option value="Cancelled">Cancelled</option>
+                  </select>
+                </span>
+                {/* <span className="flex items-start flex-col ">
                 Payment Status
                 <select className="bg-gray-100 py-1 px-2 w-[160px] border-2 border-gray-200 rounded-md  ">
                   <option value="">None</option>
@@ -142,64 +140,66 @@ const ShowOrders = () => {
                   <option value="Today">UPI</option>
                 </select>
               </span> */}
-            </div>
-            <div className=" h-fit w-full  pt-[2rem]">
-              <ul className=" m-0 p-0 flex items-center  px-[1.5rem]">
-                <li className="w-[17%]">OrderId</li>
-                <li className="w-[21%]">Product Name</li>
-                <li className="w-[19%]">Order Date</li>
-                <li className="w-[17%]">Total Amount</li>
-                <li className="w-[16%]">Status</li>
-                <li className="w-[10%]">Actions</li>
-              </ul>
+              </div>
+              <div className=" h-fit w-full  pt-[2rem]">
+                <ul className=" m-0 p-0 flex items-center  px-[1.5rem]">
+                  <li className="w-[17%]">OrderId</li>
+                  <li className="w-[21%]">Product Name</li>
+                  <li className="w-[19%]">Order Date</li>
+                  <li className="w-[17%]">Total Amount</li>
+                  <li className="w-[16%]">Status</li>
+                  <li className="w-[10%]">Actions</li>
+                </ul>
 
-              {orders
-                ? orders.map((item: OrderItem, index: number) => (
-                    <ul
-                      className=" my-1 p-0 flex items-center py-3 px-[1.5rem] bg-white rounded-sm shadow-sm  "
-                      key={index}
-                    >
-                      <li className="w-[17%]">#{index + 1}</li>
-                      <li className="w-[21%] flex h-full gap-1 items-center">
-                        {/* <BsPerson></BsPerson>{" "} */}
-                        {item?.productDetails[0]?.productTitle}
-                      </li>
-                      <li className="w-[19%]">
-                        {dateFormate(item?.createdAt)}
-                      </li>
-                      <li className="w-[17%]">${item?.totalAmount}</li>
-                      <li className="w-[16%]">
-                        <span
-                          className={`w-fit h-fit bg-gray-100 rounded-xl px-4 py-1 ${getStatusColor(
-                            item?.orderStatus
-                          )}`}
-                        >
-                          {item?.orderStatus}
-                        </span>
-                      </li>
-                      <li className="w-[10%] flex items-center gap-3">
-                        
-                        <span onClick={()=>setOpenModel(false)} className="text-[16px] text-blue-400">
-                          <FiEdit></FiEdit>
-                        </span>
-                      </li>
-                    </ul>
-                  ))
-                : ""}
-              <div className="  flex items-center justify-between  w-full">
-                <Pagination
-                  totalPages={totalPages}
-                  currentPage={currentPage}
-                  handleOnChange={handleOnChange}
-                  user='admin'
-                ></Pagination>
+                {orders
+                  ? orders.map((item: OrderItem, index: number) => (
+                      <ul
+                        className=" my-1 p-0 flex items-center py-3 px-[1.5rem] bg-white rounded-sm shadow-sm  "
+                        key={index}
+                      >
+                        <li className="w-[17%]">#{index + 1}</li>
+                        <li className="w-[21%] flex h-full gap-1 items-center">
+                          {/* <BsPerson></BsPerson>{" "} */}
+                          {item?.productDetails[0]?.productTitle}
+                        </li>
+                        <li className="w-[19%]">
+                          {dateFormate(item?.createdAt)}
+                        </li>
+                        <li className="w-[17%]">${item?.totalAmount}</li>
+                        <li className="w-[16%]">
+                          <span
+                            className={`w-fit h-fit bg-gray-100 rounded-xl px-4 py-1 ${getStatusColor(
+                              item?.orderStatus
+                            )}`}
+                          >
+                            {item?.orderStatus}
+                          </span>
+                        </li>
+                        <li className="w-[10%] flex items-center gap-3">
+                          <span
+                            onClick={() => setOpenModel(false)}
+                            className="text-[16px] text-blue-400"
+                          >
+                            <FiEdit></FiEdit>
+                          </span>
+                        </li>
+                      </ul>
+                    ))
+                  : ""}
+                <div className="  flex items-center justify-between  w-full">
+                  <Pagination
+                    totalPages={totalPages}
+                    currentPage={currentPage}
+                    handleOnChange={handleOnChange}
+                    user="admin"
+                  ></Pagination>
+                </div>
               </div>
             </div>
-          </div>
-        :
-        <OrderDetails handleCloseModel={handleCloseModel}></OrderDetails>
-              }
-      </div>
+          ) : (
+            <OrderDetails handleCloseModel={handleCloseModel}></OrderDetails>
+          )}
+        </div>
       </div>
     </AdminLayout>
   );

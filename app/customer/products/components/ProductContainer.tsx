@@ -1,6 +1,5 @@
-import useDebouncing from '@/app/hooks/useDebouncing';
 import dynamic from "next/dynamic";
-import React, { useState } from "react";
+import React from "react";
 import { IoSearch } from "react-icons/io5";
 const ProductCard = dynamic(() => import("../../../../components/ProductCard"));
 const Pagination = dynamic(() => import("@/components/Pagination"));
@@ -11,6 +10,12 @@ interface ProductsProps {
   currentPage: number;
   totalPages: number;
   setCurrentPage: (value: number) => void;
+}
+interface ProductTypes {
+  productTitle: string;
+  images: [string];
+  avgRating: number;
+  numberOfRatings: number;
 }
 const ProductContainer = (props: ProductsProps) => {
   const {
@@ -112,7 +117,7 @@ const ProductContainer = (props: ProductsProps) => {
       </span>
 
       <div className="grid w-full grid-cols-3 py-[1rem] gap-5">
-        {productsData?.map((product, index) => (
+        {productsData?.map((product: ProductTypes, index: number) => (
           <span key={index} className="h-[55dvh]">
             <ProductCard
               title={product?.productTitle}

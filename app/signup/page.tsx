@@ -1,9 +1,8 @@
 "use client";
 import { Formik, Field, Form } from "formik";
 import Link from "next/link";
-import React, { useContext } from "react";
+import React from "react";
 import * as Yup from "yup";
-import UserAuthContext from "../context/userAuthContext";
 import { axiosInstance } from "../utlis/axiosConfig/AxiosInstance";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
@@ -15,7 +14,6 @@ const signupValidation = Yup.object({
 const Signup = () => {
   const router = useRouter();
   // const { mutate, isLoading, isError, error, isSuccess, data } = useSignin();
-  const { loginUser } = useContext(UserAuthContext)!;
   interface FormType {
     userName: string;
     email: string;
