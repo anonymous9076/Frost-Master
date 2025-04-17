@@ -24,6 +24,7 @@ const Navbar = ({ active }: navprops) => {
     { label: "My Orders", link: "/customer/myorders" },
     { label: "Career", link: "/customer/career" },
     { label: "T&C", link: "/customer/T&C" },
+    { label: "Blogs", link: "/customer/blog" },
   ];
   const [profile, setProfile] = useState<boolean>(false);
   const [menu, setMenu] = useState<boolean>(false);
