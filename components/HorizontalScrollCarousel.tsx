@@ -1,30 +1,34 @@
-// export default HorizontalScrollCarousel
 "use client";
 import React, {
   useRef,
   useState,
   useEffect,
-  ReactNode,
   useContext,
+  ReactNode,
+  FC,
 } from "react";
 import { AOSContext } from "./providers/AOSContext";
+import type { JSX } from "react";
 
 const headerStart = 200;
-interface HorizontalScrollCarouselProps {
-  children: (item: any, index: number) => any;
-  data: any[];
+
+// ✅ Define Props with Generic
+interface HorizontalScrollCarouselProps<T> {
+  data: T[];
+  children: (item: T, index: number) => ReactNode;
 }
-const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = ({
-  children = () => {},
+
+// ✅ Main Component
+const HorizontalScrollCarousel = <T,>({
+  children,
   data = [],
-}) => {
-  const scrollerRef = useRef<any | null>(null);
-  const startOffsetRef = useRef<any | null>(null);
-  const workSectionRef = useRef<any | null>(null);
+}: HorizontalScrollCarouselProps<T>): JSX.Element => {
+  const scrollerRef = useRef<HTMLDivElement | null>(null);
+  const startOffsetRef = useRef<HTMLDivElement | null>(null);
+  const workSectionRef = useRef<HTMLDivElement | null>(null);
 
   const [w, setW] = useState(0);
-
-  const { aos } = useContext(AOSContext);
+  const { aos } = useContext(AOSContext)!;
 
   useEffect(() => {
     const width = document
@@ -40,9 +44,9 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = ({
         scrollerRef.current.scrollTo(window.scrollY - (top ?? 0), 0);
       }
     };
+
     window.addEventListener("scroll", handleScroll);
 
-    // Clean up the event listener on component unmount
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -50,21 +54,20 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = ({
 
   useEffect(() => {
     aos?.refreshHard();
-  }, [data, w, headerStart]);
+  }, [data, w]);
 
   return (
     <>
       <div ref={startOffsetRef} id="start-offset" className="text-white"></div>
-      <div
-        ref={workSectionRef}
-        className={`sticky h-full top-[200px]`}
-        //  style={{ top: `${headerStart}px` }}
-      >
+      <div ref={workSectionRef} className="sticky h-full top-[200px]">
         <div ref={scrollerRef} className="scrollbar-hide sm:overflow-x-scroll">
           <div className="flex flex-wrap items-center gap-y-4 sm:flex-nowrap lg:px-3">
             <div className="one-side-width h-4"></div>
             {data.map((item, index) => (
-              <div key={item?.id} id={"work-wrapper-" + index}>
+              <div
+                key={(item as { id?: string | number })?.id ?? index}
+                id={`work-wrapper-${index}`}
+              >
                 <CardWrapper index={index}>{children(item, index)}</CardWrapper>
               </div>
             ))}
@@ -83,13 +86,16 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = ({
   );
 };
 
-const CardWrapper = ({ children, index }: { children: any; index: number }) => {
+// ✅ CardWrapper with type
+interface CardWrapperProps {
+  children: ReactNode;
+  index: number;
+}
+
+const CardWrapper: FC<CardWrapperProps> = ({ children }) => {
   return (
-    <div
-      // data-aos="fade-up"
-      // data-aos-delay={`${(index + 2) * 100}`}
-      className="flex-none px-3"
-    >
+    <div className="flex-none px-3">
+      {/* Add AOS data attributes if needed */}
       {children}
     </div>
   );

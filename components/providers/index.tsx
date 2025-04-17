@@ -1,11 +1,9 @@
-"use client"
-import React from 'react'
-import { AOSProvider } from './AOSContext'
-
-export default function Providers({children}:any) {
-  return (
-    <AOSProvider>
-      {children}
-    </AOSProvider>
-  )
+"use client";
+import React, { ReactNode } from "react";
+import { AOSProvider } from "./AOSContext";
+interface ProvidersProps {
+  children: ReactNode; // Proper type for children
+}
+export default function Providers({ children }: ProvidersProps) {
+  return <AOSProvider>{children}</AOSProvider>;
 }
