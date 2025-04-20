@@ -1,4 +1,5 @@
 "use client";
+import { CartState, useCartStore } from "@/app/stores/CartStore";
 import Pagination from "@/components/Pagination";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -6,8 +7,18 @@ import { FiPlus } from "react-icons/fi";
 import { FiMinus } from "react-icons/fi";
 import { IoIosStar, IoIosStarHalf } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
+import { useShallow } from "zustand/shallow";
+
 const MycartItem = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const { cartData, removeProductFromCart, updateProductInCart } = useCartStore(
+    useShallow((state: CartState) => ({
+      cartData: state.cartData,
+      removeProductFromCart: state.removeProductFromCart,
+      updateProductInCart: state.updateProductInCart,
+    }))
+  );
+  console.log(cartData, "cartData here");
   // const [isLoading, setIsLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
   function handleOnChange(pageNo: number) {
@@ -16,56 +27,50 @@ const MycartItem = () => {
     }
   }
   const [numberOfItems, setNumberOfItems] = useState<number>(1);
-  const products = [
-    {
-      title: "Large Mixing Bowl",
-      image: "/Images/bak1.jpg",
-      category: "Mixing",
-      in_stock: true,
-      review: 4.5,
-    },
-    {
-      title: "Wooden Rolling Pin",
-      image: "/Images/bak2.jpg",
-      category: "Baking",
-      in_stock: false,
-      review: 1.3,
-    },
-    // {
-    //   title: "Wooden Rolling Pin",
-    //   image: "/Images/bak2.jpg",
-    //   category: "Baking",
-    //   in_stock: false,
-    //   review: 3.3,
-    // },
-  ];
   const handleChangeItemNumber = (e: number) => {
     setNumberOfItems(e);
   };
 
-  const handleUpdateItemnumber = (type: string) => {
+  const handleUpdateItemnumber = (productId: string, type: string) => {
     if (type === "add") {
       setNumberOfItems((prev) => prev + 1);
+      updateProductInCart(productId, numberOfItems + 1);
     } else {
-      if (numberOfItems > 1) setNumberOfItems((prev) => prev - 1);
+      if (numberOfItems > 1) {
+        setNumberOfItems((prev) => prev - 1);
+        updateProductInCart(productId, numberOfItems - 1);
+      }
     }
   };
-  const handleRemoveItem = () => {
+  const handleRemoveItem = (productId: string) => {
     console.log(currentPage, "remove item");
+    removeProductFromCart(productId);
     setTotalPages(1);
   };
+  const flattenedData = cartData.flatMap((entry) =>
+    entry.items.map((item) => ({
+      userId: entry.userId,
+      productId: item.productId,
+      image: entry.image,
+      quantity: item.quantity,
+      price: entry.price,
+      rating: entry.rating,
+      title: entry.title,
+    }))
+  );
 
+  console.log(flattenedData, "flattenedData");
   return (
     <div className="!cursor-pointer select-none">
-      <p>{products.length} Items</p>
+      <p>{flattenedData.length} Items</p>
       <div className="grid w-full grid-cols-1 py-2 gap-4 ">
-        {products.map((product, index) => (
+        {flattenedData?.map((product, index) => (
           <div
             key={index}
             className="  w-full flex h-fit border-b py-[2rem] px-[2rem] border-gray-400"
           >
             <Image
-              src={product.image}
+              src={product?.image}
               alt=""
               height={400}
               width={400}
@@ -73,16 +78,14 @@ const MycartItem = () => {
             ></Image>
             <div className="px-[2rem] flex-1 flex flex-col gap-3">
               <div className="flex-1 gap-1">
-                <h1 className="text-[20px] font-bold  ">
-                  Gas Oven Three Deck Nine Tray
-                </h1>
+                <h1 className="text-[20px] font-bold  ">{product?.title}</h1>
                 <p className="text-[16px] flex gap-2 text-gray-500 items-center">
-                  {[...Array(Math.floor(product.review))].map((_, index) => (
+                  {[...Array(Math.floor(product.rating))].map((_, index) => (
                     <span
                       className={`${
-                        product.review <= 3
+                        product.rating <= 3
                           ? "text-red-500"
-                          : product.review < 4
+                          : product.rating < 4
                           ? "text-amber-400"
                           : "text-green-400"
                       }`}
@@ -92,12 +95,12 @@ const MycartItem = () => {
                       <IoIosStar></IoIosStar>
                     </span>
                   ))}
-                  {product.review % 1 != 0 ? (
+                  {product.rating % 1 != 0 ? (
                     <span
                       className={`${
-                        product.review <= 3
+                        product.rating <= 3
                           ? "text-red-500"
-                          : product.review < 4
+                          : product.rating < 4
                           ? "text-amber-400"
                           : "text-green-400"
                       }`}
@@ -108,13 +111,15 @@ const MycartItem = () => {
                   ) : (
                     ""
                   )}
-                  {product.review}
+                  {product.rating}
                 </p>
-                <p className="text-[20px] ">$234,344</p>
+                <p className="text-[20px] ">{product?.price}</p>
               </div>
               <div className="w-[120px] relative">
                 <span
-                  onClick={() => handleUpdateItemnumber("sub")}
+                  onClick={() =>
+                    handleUpdateItemnumber(product?.productId, "sub")
+                  }
                   className="text-[16px] absolute top-1/2 left-2 transform -translate-y-1/2 font-semibold text-[#35736E] flex items-center justify-center "
                 >
                   <FiMinus />
@@ -122,14 +127,16 @@ const MycartItem = () => {
                 <input
                   type="number"
                   min={1}
-                  value={numberOfItems}
+                  value={product?.quantity}
                   onChange={(e) =>
                     handleChangeItemNumber(Number(e.target.value))
                   }
                   className="border border-[#35736E] outline-none text-[18px] font-semibold text-[#35736E] hover:shadow-md rounded-md flex w-full  justify-center items-center py-1 text-center "
                 ></input>
                 <span
-                  onClick={() => handleUpdateItemnumber("add")}
+                  onClick={() =>
+                    handleUpdateItemnumber(product?.productId, "add")
+                  }
                   className="text-[16px] absolute  font-semibold top-1/2 right-2 transform -translate-y-1/2 text-[#35736E] "
                 >
                   <FiPlus />
@@ -139,7 +146,7 @@ const MycartItem = () => {
             <div>
               <span
                 className="text-[20px] text-red-600  font-bold"
-                onClick={handleRemoveItem}
+                onClick={() => handleRemoveItem(product?.productId)}
               >
                 <MdDelete />
               </span>

@@ -16,6 +16,8 @@ interface ProductTypes {
   images: [string];
   avgRating: number;
   numberOfRatings: number;
+  _id: string;
+  price: number;
 }
 const ProductContainer = (props: ProductsProps) => {
   const {
@@ -124,6 +126,9 @@ const ProductContainer = (props: ProductsProps) => {
               image={product?.images[0]}
               review={product?.avgRating}
               totalReview={product?.numberOfRatings}
+              productId={product?._id}
+              price={product?.price}
+              rating={product?.avgRating}
             ></ProductCard>
           </span>
         ))}

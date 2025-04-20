@@ -1,23 +1,64 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useContext } from "react";
 import { FaHeart } from "react-icons/fa";
 import { BsCart3 } from "react-icons/bs";
 import { GrNotes } from "react-icons/gr";
 import Link from "next/link";
+import UserAuthContext from "@/app/context/userAuthContext";
+import { useCartStore } from "@/app/stores/CartStore";
 
 interface productprops {
   title: string;
   image: string;
   review: number;
   totalReview: number;
+  productId: string;
+  price: number;
+  rating: number;
 }
 
-const ProductCard = ({ title, image, review, totalReview }: productprops) => {
+interface carteItem {
+  productId: string;
+  quantity: number;
+}
+
+interface productTypes {
+  userId: string;
+  productId: string;
+  title: string;
+  price: number;
+  rating: number;
+  items: carteItem[];
+  image: string;
+}
+const ProductCard = ({
+  title,
+  image,
+  review,
+  totalReview,
+  productId,
+  price,
+  rating,
+}: productprops) => {
+  const { user } = useContext(UserAuthContext)!;
+  const addProductIntoCart = useCartStore((store) => store.addProductIntoCart);
   const [liked, setLiked] = React.useState(false);
   const handleLikeItem = () => {
     setLiked((curr) => !curr);
   };
+  const data: productTypes = {
+    userId: user?.id || "Guest",
+    productId: productId,
+    items: [{ productId: productId, quantity: 1 }],
+    title: title,
+    price: price,
+    rating: rating,
+    image: image,
+  };
+  function handleCartItem() {
+    addProductIntoCart(data);
+  }
   return (
     <div className=" relative p-4 rounded-lg shadow-md border w-full cursor-pointer h-[400px] border-gray-300">
       <Link href="/customer/products/product-details/2" className="flex-1 ">
@@ -51,6 +92,7 @@ const ProductCard = ({ title, image, review, totalReview }: productprops) => {
           <Link
             className="flex-1  border border-[#35736E] whitespace-nowrap   text-[#35736E] hover:shadow-md rounded-md flex  justify-center items-center gap-2 px-4 py-2"
             href="/customer/mycart"
+            onClick={handleCartItem}
           >
             <BsCart3></BsCart3> Add to cart
           </Link>
