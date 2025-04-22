@@ -14,10 +14,10 @@ const Section1 = () => {
                 height={400}
                 width={400}
                 data-aos='fade-up'
-                className='h-[70%] w-full rounded-lg '
+                className='h-[90%] max-h-[400px]  w-full rounded-lg '
                 ></Image>
             </span>
-            <span className='h-full  flex  items-end flex-1 py-[1rem] px-[1rem] '>
+            <span className='h-full  xl:flex hidden  items-end flex-1 py-[1rem] px-[1rem] '>
                 <Image
                 // src='https://s3-alpha-sig.figma.com/img/0850/f2f4/37d8bd377cfcc609b3867befaaaf6c33?Expires=1744588800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=C7qcfixLNFeWTVa~y62lVTghjk8mLgJanGdUufvlHW64050rR-YWarZmblrRPPlQJXlCNeORs1c7oYIGv2LEYKinf7pmUilVSm1e1rBq99tC9tmQz2SLDRslaJk-Wcu-sUvKkiskzJDH~wwxXdRjDYLyvG5dfcjMyn98aHvIGY0A1OxfU9Sx~PJJgqF7ocZ6rAQqQvwGtvmz3xZHlt9aU8RSXS9Jq3ck4bGbYXmd3aPMVeoX11K19yGd-jKVFw8q6xx8aEMArdM9ntY2hOUL~LTHh3HR2sJgkK4WmkoleD9f7Iwy38Xcb1myFPcnPewRcLKbY2K8E5BeQJ-6euV--A__'
                 src="/Images/frostservices/img4.jpg"
@@ -29,7 +29,7 @@ const Section1 = () => {
                 ></Image>
             </span>
             </div>
-            <div className='flex-1 px-[4rem] flex flex-col gap-3 '>
+            <div className='flex-1 px-[2rem] md:px-[4rem] flex flex-col gap-3 '>
                 <h1 className='text-[40px] leading-[40px] font-semibold'>Frost Master: Innovation Meets Perfection.</h1>
                 <p>Frost Master Private Limited, we are dedicated to delivering innovative and practical solutions for the food and beverage industry. With our roots dating back to 2021, we have grown to become a leader in the market, offering a wide range of display cabinets, commercial refrigerators, and commercial kitchen equipment.</p>
                 <p>We take pride in crafting our products with elegance, practicality, and sustainability in mind, ensuring that our customers receive only the highest-quality equipment. Our skilled and experienced workforce closely monitors every aspect of the manufacturing process to guarantee excellence in each and every product.</p>

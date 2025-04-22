@@ -8,6 +8,7 @@ import dynamic from "next/dynamic";
 import { getAllProducts } from "@/app/api/Product";
 import useDebouncing from "@/app/hooks/useDebouncing";
 
+
 const ProductsPage = () => {
   const [minProductPrice, setMinProductPrice] = useState<number>(0);
   const [maxProductPrice, setMaxProductPrice] = useState<number>(0);
@@ -49,7 +50,7 @@ const ProductsPage = () => {
       <div>
         <Navbar active="/customer/products"></Navbar>
         <div className="flex w-full h-fit light py-[4rem] ">
-          <div className="w-[25%] min-w-[350px]">
+          <div className="w-[25%] min-w-[350px] hidden xl:block">
             <FilterBar
               minProductPrice={minProductPrice}
               setMinProductPrice={setMinProductPrice}

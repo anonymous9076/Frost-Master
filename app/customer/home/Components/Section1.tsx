@@ -42,19 +42,19 @@ const Section1 = () => {
           </div> */}
             <div className="h-full w-full relative flex items-center justify-center ">
               <Image
-                className="h-full w-full  relative z-10 rounded-md"
+                className="h-full w-full   relative z-10 rounded-md"
                 src={item.image}
                 alt="frost"
                 width={500}
                 height={500}
               />
             </div>
-            <div className="flex-1 absolute top-1/2 z-20 pl-[4rem] min-w-[100vw] bg-black/30 -translate-y-1/2 h-full flex flex-col justify-center items-center md:items-start p-4">
-              <p className={`leading-10 w-full md:w-[50%] text-center md:text-left tracking-widest text-2xl md:text-[35px] ${item.style}  font-bold`}>
+            <div className="h-full absolute top-0 z-20 lg:pl-[4rem] min-w-[100vw] bg-black/30  flex flex-col justify-center items-center md:items-start p-4">
+              <p className={`leading-8 w-full lg:w-[50%] text-center md:text-left tracking-widest text-2xl md:text-[35px] ${item.style}  font-bold`}>
                 {item.title}<br></br>
                 {item?.title2}
               </p>
-              <p className="mt-3  w-[70%] md:w-[50%]  text-center md:text-justify font-extralight text-base md:text-[22px]">
+              <p className="mt-3  w-[70%] md:w-[50%]  text-center md:text-justify font-extralight text-base md:text-[18px] lg:text-[22px]">
                 {item.desc}
               </p>
              {item?.button?

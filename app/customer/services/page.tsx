@@ -30,7 +30,7 @@ const Services = () => {
         "Overall, Frost Master's new way of kitchen service and promise to ensure complete freedom from all worries related to their products reflect their dedication to quality, reliability, and customer service, and reinforces their position as a leader in the food service industry.",
       ],
       image:"/Images/frostservices/img2.jpg",
-      align: "flex-row-reverse ",
+      align: "xl:flex-row-reverse  ",
       justify: "justify-end",
       border:'border-l-4 border-b-4 border-[#35736E]',
       anime:'fade-left'
@@ -58,7 +58,7 @@ const Services = () => {
         "The team also conducts rigorous testing and inspection of the pipeline system to ensure that it is functioning properly and in compliance with safety regulations. They provide training and guidance to clients on the safe use and maintenance of the L.P.G pipeline system, and they are always available to provide support and assistance in case of any issues or concerns.",
         "Overall, the Frost Master Installation team is committed to ensuring the safety and efficiency of L.P.G pipeline installation in kitchens. With their experience and expertise, clients can be confident that their kitchen's L.P.G pipeline is installed to the highest standards and will function safely and reliably for years to come.",
       ],
-      align: "flex-row-reverse",
+      align: "xl:flex-row-reverse",
       image:"/Images/frostservices/img4.jpg",
       justify: "justify-end",
       border:'border-l-4 border-b-4 border-[#35736E]',
@@ -110,9 +110,9 @@ const Services = () => {
         </div>
     )}
     </div> */}
-      <div className="h-fit light px-[4rem] pb-[4rem] pt-[2rem] w-full overflow-hidden ">
+      <div className="h-fit light px-[1rem] md:px-[2rem] xl:px-[4rem] pb-[4rem] pt-[2rem] w-full overflow-hidden ">
       {features.map((item,index)=>
-        <div className={`h-fit flex ${item.align} gap-5 items-center  w-full ${item.border} p-[2rem] py-[4rem]`} key={index}>
+        <div className={`h-fit flex ${item.align} gap-5 items-center flex-col  xl:flex-row w-full ${item.border} p-[2rem] py-[4rem]`} key={index}>
           <Image
             src={item.image}
             alt="t"

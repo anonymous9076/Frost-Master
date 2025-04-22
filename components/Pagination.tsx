@@ -58,11 +58,11 @@ const Pagination = ({
   };
   return (
     <>
-      <div className="w-full bg-gray flex items-center cursor-pointer  justify-between gap-2 my-3">
+      <div className="w-full bg-gray flex text-[12px] sm:text-[16px] flex-col-reverse sm:flex-row items-start sm:items-center cursor-pointer  justify-between sm:gap-2 my-3">
         <div>
           showing {currentPage} of {totalPages} pages
         </div>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center py-2 sm:gap-1">
           <button
             className={`border-2 border-gray-300 px-3 py-1 rounded-md  ${
               "hover:" + bg_color

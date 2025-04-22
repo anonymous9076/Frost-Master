@@ -8,11 +8,11 @@ const page = () => {
   return (
     <div className="relative" >
       <Navbar active=""></Navbar>
-      <div className="h-fit w-full flex   light">
-        <div className="w-[70%] h-fit py-[2rem] px-[4rem] ">
+      <div className="h-fit w-full flex flex-col lg:flex-row   light">
+        <div className=" w-full lg:w-[70%] h-fit py-[2rem] px-[4rem] ">
             <BillingForm></BillingForm>
         </div>
-        <div className="flex-1 p-[2rem]">
+        <div className="flex-1 py-[2rem] lg:px-[1rem] px-[2rem] xl:px-[2rem]">
           <PriceCard button={false}></PriceCard>
         </div>
       </div>

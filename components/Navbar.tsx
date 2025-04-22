@@ -42,17 +42,17 @@ const Navbar = ({ active }: navprops) => {
   return (
     <>
       <div
-        className={`h-[10dvh] w-full sticky z-90 top-0 left-0  bg-[#235753] text-white flex items-center justify-between px-[2rem] md:px-[2rem] lg:px-[5rem] `}
+        className={`h-[10dvh] w-[100dvw] sticky z-90 top-0 left-0  bg-[#235753] text-white flex items-center justify-between px-[2rem] md:px-[2rem] lg:px-[5rem] `}
       >
         <span className="text-[30px]">
           <FaKitchenSet></FaKitchenSet>
         </span>
-        <div className=" text-white md:flex items-start md:gap-[30px] lg:gap-[55px]  text-[18px] hidden ">
+        <div className=" text-white lg:flex items-start md:gap-[35px] lg:gap-[20px] xl:gap-[40px]  text-[18px] hidden ">
           {navLinks.map((item, index) => (
             <Link
               key={index}
               href={item.link}
-              className={`transform hover:scale-110 transition duration-200 ${
+              className={`transform hover:scale-110 transition whitespace-nowrap duration-200 ${
                 active === item.link ? "active" : ""
               }`}
             >
@@ -111,17 +111,17 @@ const Navbar = ({ active }: navprops) => {
           >
             <BsCart3></BsCart3>
           </Link>
-          <span className="text-[25px] md:hidden" title="logout">
+          <span className="text-[25px] lg:hidden" title="logout">
             <TbLogout2></TbLogout2>
           </span>
           <span
-            className="text-[25px] md:hidden"
+            className="text-[25px] lg:hidden"
             onClick={() => setMenu((curr: boolean) => !curr)}
           >
             <IoIosMenu></IoIosMenu>
           </span>
           <Link
-            className="hidden md:block"
+            className="hidden lg:block"
             href={isAuthenticated ? "/customer/home" : "/signin"}
           >
             <button

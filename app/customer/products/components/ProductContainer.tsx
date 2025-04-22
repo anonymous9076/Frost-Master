@@ -3,6 +3,8 @@ import React from "react";
 import { IoSearch } from "react-icons/io5";
 const ProductCard = dynamic(() => import("../../../../components/ProductCard"));
 const Pagination = dynamic(() => import("@/components/Pagination"));
+import { FaFilter } from "react-icons/fa";
+
 interface ProductsProps {
   searchProduct: string;
   setSearchProduct: (value: string) => void;
@@ -103,7 +105,7 @@ const ProductContainer = (props: ProductsProps) => {
 
   return (
     <div className="h-fit w-full  px-[2rem]">
-      <h1 className="text-[35px] font-bold">Our Collection Of Products</h1>
+      <h1 className=" text-[25px] md:text-[35px] flex items-center justify-between font-bold">Our Collection Of Products  <FaFilter></FaFilter> </h1>
 
       <span className="h-fit w-full relative">
         <input
@@ -118,7 +120,7 @@ const ProductContainer = (props: ProductsProps) => {
         </span>
       </span>
 
-      <div className="grid w-full grid-cols-3 py-[1rem] gap-5">
+      <div className="grid w-full  lg:grid-cols-3 md:grid-cols-2 grid-cols-1 h-full  py-[1rem] gap-5">
         {productsData?.map((product: ProductTypes, index: number) => (
           <span key={index} className="h-[55dvh]">
             <ProductCard

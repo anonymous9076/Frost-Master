@@ -64,7 +64,7 @@ const TermAndConditions = () => {
     <>
       <Navbar active="/customer/T&C"></Navbar>
       <div className="h-fit min-h-screen w-full light py-[2rem]">
-        <div className="h-[4rem]  w-[70%] mx-auto mb-[2rem]  flex items-center justify-between text-[#35736E] text-[30px] font-bold">
+        <div className="h-[4rem]  w-[90%] lg:w-[70%] mx-auto mb-[2rem] flex-col items-start  flex md:flex-row md:items-center justify-between text-[#35736E] text-[25px] md:text-[30px] font-bold">
           FROST MASTER UPDATES :
           <select
             className="text-[18px] font-normal border rounded-md px-3 py-2"
@@ -78,11 +78,11 @@ const TermAndConditions = () => {
             ))}
           </select>
         </div>
-        <div className="w-[70%] gap-8  h-fit grid grid-cols-2 place-items-center items-center justify-evenly mx-auto">
+        <div className=" w-[90%] lg:w-[70%]  gap-8 h-fit grid md:grid-cols-2 grid-col-1  place-items-center items-center justify-evenly mx-auto">
           {filterData.map((item, index) => (
             <div
               key={index}
-              className="w-full  bg-white border border-gray-200 rounded-lg shadow-sm "
+              className="w-full min-w-[350px]  bg-white border border-gray-200 rounded-lg shadow-sm "
             >
               <Image
                 className="rounded-t-lg w-full"

@@ -72,14 +72,14 @@ const Recommendation = () => {
   };
 
   return (
-    <div className=" flex h-fit felx items-center  w-full">
+    <div className=" flex h-fit  items-center  w-full">
       <span
         onClick={handleShiftLeft}
         className="flex-1 scale-200 transform  flex items-center justify-center"
       >
         <FaChevronLeft />
       </span>
-      <div className="w-[90%] mx-auto h-fit py-4  grid grid-cols-4 gap-5 ">
+      <div className=" w-[95%] md:w-[90%]  mx-auto h-fit py-4  flex overflow-hidden gap-5 ">
         {products.map((product, index) => (
           <span key={index} className="h-fit ">
             <ProductCard

@@ -9,8 +9,8 @@ const mycart = () => {
   return (
     <>
       <Navbar active="/customer/mycart"></Navbar>
-      <div className="h-fit w-full flex   light">
-        <div className="w-[70%] h-full py-[2rem] px-[4rem]">
+      <div className="h-fit w-full flex flex-col lg:flex-row  light">
+        <div className="lg:w-[70%] w-full h-full py-[2rem] px-[1rem] lg:px-[4rem]">
           <div className=" gap-4">
             <h1 className="text-[25px] font-bold  ">My Cart</h1>
           </div>

@@ -19,7 +19,7 @@ const Section2 = () => {
         <div className="w-[80%] h-fit flex flex-col md:flex-row gap-[2rem] items-center justify-center mx-auto">
 
         {items.map((item,index)=>
-      <div key={index} data-aos={item.anime} className="w-[350px] h-[75dvh] p-4 bg-white border hover:scale-103 hover:shadow-lg border-gray-200 rounded-lg shadow-sm ">
+      <div key={index} data-aos={item.anime} className="w-[350px] h-[85dvh] p-4 bg-white border hover:scale-103 hover:shadow-lg border-gray-200 rounded-lg shadow-sm ">
         <a href="#">
           <Image
             className="rounded-t-lg !h-[50%]"

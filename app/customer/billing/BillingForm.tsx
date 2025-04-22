@@ -154,7 +154,7 @@ const BillingForm = () => {
     <>
       {billingStatus === 3 ? (
         <div className="bg-black/80 w-screen h-screen fixed top-0 left-0 flex items-center justify-center ">
-          <div className="h-[50%] items-center flex flex-col justify-center  w-[50%] bg-white rounded-lg">
+          <div className="min-h-[50%] py-[2rem] md:py-[1rem] h-fit  items-center flex flex-col justify-center w-[90%]  md:w-[50%] bg-white rounded-lg">
             <span className="text-[#35736E] text-[50px]">
               <IoCheckmarkDoneCircleSharp></IoCheckmarkDoneCircleSharp>
             </span>
@@ -163,15 +163,15 @@ const BillingForm = () => {
               Your order has been confirmed & it is on the way. Check your email
               for the details
             </p>
-            <div className="flex gap-2">
+            <div className="flex md:flex-row flex-col gap-2">
               {" "}
               <Link href={"/customer/home"}>
-                <button className="olive text-center rounded-lg py-2 mt-4 w-[200px]">
+                <button className="olive text-center rounded-lg py-2 mt-4 w-[180px]">
                   Go to Home
                 </button>
               </Link>
               <Link href={"/customer/products"}>
-                <button className="light text-center border border-[#35736E] rounded-lg py-2 mt-4 w-[200px]">
+                <button className="light text-center border border-[#35736E] rounded-lg py-2 md:mt-4 w-[180px]">
                   Check Order Details
                 </button>
               </Link>

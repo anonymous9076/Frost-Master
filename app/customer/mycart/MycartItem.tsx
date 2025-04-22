@@ -67,18 +67,18 @@ const MycartItem = () => {
         {flattenedData?.map((product, index) => (
           <div
             key={index}
-            className="  w-full flex h-fit border-b py-[2rem] px-[2rem] border-gray-400"
+            className="  w-full flex h-fit border-b py-[2rem] px-[2px] lg:px-[2rem] border-gray-400"
           >
             <Image
               src={product?.image}
               alt=""
               height={400}
               width={400}
-              className="w-min-[200px] w-[22%] h-[150px] "
+              className="w-min-[200px] w-[30%] h-[150px] "
             ></Image>
             <div className="px-[2rem] flex-1 flex flex-col gap-3">
               <div className="flex-1 gap-1">
-                <h1 className="text-[20px] font-bold  ">{product?.title}</h1>
+                <h1 className="text-[20px] font-bold overflow-hidden ">{product?.title}</h1>
                 <p className="text-[16px] flex gap-2 text-gray-500 items-center">
                   {[...Array(Math.floor(product.rating))].map((_, index) => (
                     <span
