@@ -32,6 +32,7 @@ const Navbar = ({ active }: navprops) => {
   async function handleLogout() {
     try {
       const res = await logout();
+      localStorage.clear();
       console.log(res);
       toast.success("logout successfully");
     } catch (error) {

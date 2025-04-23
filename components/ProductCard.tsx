@@ -17,19 +17,13 @@ interface productprops {
   price: number;
   rating: number;
 }
-
-interface carteItem {
-  productId: string;
-  quantity: number;
-}
-
 interface productTypes {
   userId: string;
   productId: string;
   title: string;
   price: number;
   rating: number;
-  items: carteItem[];
+  quantity: number;
   image: string;
 }
 const ProductCard = ({
@@ -50,7 +44,7 @@ const ProductCard = ({
   const data: productTypes = {
     userId: user?.id || "Guest",
     productId: productId,
-    items: [{ productId: productId, quantity: 1 }],
+    quantity: 1,
     title: title,
     price: price,
     rating: rating,

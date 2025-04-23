@@ -1,19 +1,14 @@
 import { create } from "zustand";
 import { persist, devtools } from "zustand/middleware";
 
-interface CarteItem {
-  productId: string;
-  quantity: number;
-}
-
 interface ProductTypes {
   userId: string;
   productId: string;
   title: string;
   price: number;
   rating: number;
-  items: CarteItem[];
-  image:string
+  quantity: number;
+  image: string;
 }
 
 export interface CartState {
@@ -44,11 +39,7 @@ export const useCartStore = create<CartState>()(
               if (product.productId === productId) {
                 return {
                   ...product,
-                  items: product.items.map((item) =>
-                    item.productId === productId
-                      ? { ...item, quantity: itemCount }
-                      : item
-                  ),
+                  quantity: itemCount,
                 };
               }
               return product;
