@@ -33,7 +33,7 @@ const Section2 = () => {
       <h3 data-aos="fade-up" className="w-full text-center text-[45px] py-[3rem]">
         Explore Our Kitchen Solutions
       </h3>
-      <div data-aos="fade-up" className="w-[90%] h-fit rounded-2xl flex xl:flex-row flex-col border-y border-r border-[#35736E] ">
+      <div data-aos="fade-up" className=" xl:w-[90%] w-full h-fit rounded-2xl flex xl:flex-row flex-col border-y border-r border-[#35736E] ">
         <div className="text-left xl:w-[40%] w-[100%]  px-[4rem] flex flex-col items-start justify-center py-[2rem] ">
           <h3 data-aos="fade-up" data-aos-delay="400" className="py-[1rem] text-[25px] font-semibold">
             Premium Kitchen Equipment

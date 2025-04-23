@@ -83,13 +83,13 @@ const OrderDetails = () => {
           )}
 
           <div className="w-full">
-            <div className="  w-full flex h-fit py-[2rem] px-[2rem] ">
+            <div className="  w-full flex h-fit py-[2rem] px-2 sm:px-[2rem] ">
               <Image
                 src={product.image}
                 alt=""
                 height={400}
                 width={400}
-                className="w-min-[200px] w-[22%] h-[200px] "
+                className="w-min-[200px] w-[40%] lg:w-[22%] h-[200px] "
               ></Image>
               <div className="px-[2rem] flex-1 flex items-center  gap-3">
                 <div className="flex-1 gap-1">
@@ -104,6 +104,33 @@ const OrderDetails = () => {
                   <p className="text-[16px] font-medium ">
                     Total Quantity : {orderDetails?.product[0]?.quantity}
                   </p>
+                  <div className="flex-1 flex flex-row md:hidden whitespace-nowrap items-start  text-[16px] font-bold  gap-2  ">
+                  Status : 
+                  <p
+                    className={`${
+                      orderDetails?.orderStatus == "Delivered"
+                        ? "text-green-500"
+                        : orderDetails?.orderStatus === "Cancelled"
+                        ? "text-red-500"
+                        : "text-yellow-500"
+                    }`}
+                  >
+                    {" "}
+                    {orderDetails?.orderStatus}
+                   
+                  </p>
+                </div>
+                <div className="flex-1 flex lg:hidden items-start text-[16px] flex-col font-bold ">
+                  Dilevery Excepted By
+                  {/* {orderDetails?.orderStatus === "Delivered" ||
+                  orderDetails?.orderStatus === "Cancelled" ? (
+                    ""
+                  ) : ( */}
+                  <p className="font-normal">
+                    {dateFormate(orderDetails?.createdAt as string)}
+                  </p>
+                  {/* )} */}
+                </div>
                   <p className="text-[20px] font-medium ">
                     {orderDetails?.product[0]?.productId?.price}
                   </p>
@@ -121,7 +148,7 @@ const OrderDetails = () => {
                     </div>
                   )}
                 </div>
-                <div className="flex-1 flex items-center text-[20px] font-bold flex-col gap-2  ">
+                <div className="flex-1 md:flex hidden  items-center text-[20px] font-bold flex-col gap-2  ">
                   Status
                   <p
                     className={`${
@@ -136,7 +163,7 @@ const OrderDetails = () => {
                     {orderDetails?.orderStatus}
                   </p>
                 </div>
-                <div className="flex-1 flex items-center text-[20px] flex-col gap-2 font-bold ">
+                <div className="flex-1 lg:flex hidden items-center text-center text-[20px] flex-col gap-2 font-bold ">
                   Dilevery Excepted By
                   {/* {orderDetails?.orderStatus === "Delivered" ||
                   orderDetails?.orderStatus === "Cancelled" ? (
@@ -151,7 +178,7 @@ const OrderDetails = () => {
             </div>
           </div>
           <h1 className="text-[25px] font-bold  py-2 ">Shipping Details</h1>
-          <div className="border flex justify-center border-gray-400 rounded-lg p-[2rem]">
+          <div className="border flex md:flex-row md:gap-0 gap-4 flex-col justify-center border-gray-400 rounded-lg p-[2rem]">
             <div className="flex-1">
               {" "}
               <h3 className="text-[20px]  font-semibold "> Depart From</h3>

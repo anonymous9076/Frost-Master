@@ -32,38 +32,41 @@ const MyOrderItem = () => {
       setCurrentPage(pageNo);
     }
   }
-  // const products = [
+  // const products: Order[] = [
   //   {
-  //     title: "Large Mixing Bowl",
-  //     image: "/Images/bak1.jpg",
-  //     category: "Mixing",
-  //     in_stock: true,
-  //     review: 4.5,
-  //     status: "Delivered",
-  //     delivery: "Jan 2 2025",
-  //     orderId: "#34HJ85NVI4NJ4BFIEI5",
+  //     _id: '#34HJ85NVI4NJ4BFIEI5',
+  //     userId: 'string',
+  //     createdAt: '2025-01-02',
+  //     orderStatus: 'pending',
+  //     products: [
+  //       {
+  //         _id: 'prod-001',
+  //         productId: '123',
+  //         productTitle: 'Large Mixing Bowl',
+  //         quantity: 5,
+  //         price: 4.5,
+  //         images: ['/Images/bak1.jpg', '/Images/bak1.jpg', '/Images/bak1.jpg'],
+  //       },
+  //     ],
   //   },
   //   {
-  //     title: "Wooden Rolling Pin",
-  //     image: "/Images/bak2.jpg",
-  //     category: "Baking",
-  //     in_stock: false,
-  //     review: 1.3,
-  //     status: "Pending",
-  //     delivery: "Jan 2 2025",
-  //     orderId: "#34HJ85NVI4NJF9F8H3",
+  //     _id: '#34HJ85NVI4NJ4BFIEI5',
+  //     userId: 'string',
+  //     createdAt: '2025-01-02',
+  //     orderStatus: 'pending',
+  //     products: [
+  //       {
+  //         _id: 'prod-001',
+  //         productId: '123',
+  //         productTitle: 'Large Mixing Bowl',
+  //         quantity: 5,
+  //         price: 4.5,
+  //         images: ['/Images/bak1.jpg', '/Images/bak1.jpg', '/Images/bak1.jpg'],
+  //       },
+  //     ],
   //   },
-  //   // {
-  //   //   title: "Wooden Rolling Pin",
-  //   //   image: "/Images/bak2.jpg",
-  //   //   category: "Baking",
-  //   //   in_stock: false,
-  //   //   review: 3.3,
-  //   //   status: "Cancelled",
-  //   //   delivery: "Jan 2 2025",
-  //   //   orderId: "#34HJ85NVI4NZOAKXKZOA",
-  //   // },
   // ];
+
 
   const [cancle, setCancle] = useState<boolean>(false);
 
@@ -79,6 +82,7 @@ const MyOrderItem = () => {
   useEffect(() => {
     showOrdersData();
   }, [currentPage]);
+
   return (
     <div className="!cursor-pointer select-none relative ">
       {cancle ? (
@@ -92,50 +96,26 @@ const MyOrderItem = () => {
         {orders?.map((product: Order, index: number) => (
           <div
             key={index}
-            className="  w-full flex h-fit border-b py-[2rem] px-[2rem] border-gray-400"
+            className="  w-full flex h-fit border-b py-[2rem] px-0 md:px-[2rem] border-gray-400"
           >
             <Image
               src={product?.products[0]?.images[0] || ""}
               alt=""
               height={400}
               width={400}
-              className="w-min-[200px] w-[22%] h-[150px] "
+              className=" md:w-[22%] w-[27%] h-[80px] md:h-[150px] "
             ></Image>
-            <div className="px-[2rem] flex-1 flex items-center  gap-3">
+            <div className="px-3 md:px-[2rem]  flex-1 flex items-center  gap-3">
               <div className="flex-1 gap-1">
-                <p className="whitespace-nowrap overflow-hidden">
+                <p className="whitespace-nowrap text-[10px] md:text-[16px]  overflow-hidden">
                   {" "}
                   Order Id : {product?._id}
                 </p>
-                <h1 className="text-[20px] font-bold  ">
+                <h1 className="text-[10px] md:text-[20px] font-bold  ">
                   {/* Gas Oven Three Deck Nine Tray */}
                   {product?.products[0]?.productTitle}
                 </h1>
-                {/* <p className="text-[20px] font-medium ">$234,344</p> */}
-                {product?.orderStatus === "Delivered" ||
-                product?.orderStatus === "Cancelled" ? (
-                  <Link href={`myorders/${product?._id}`}>
-                    <button className="olive mt-3 text-white w-[120px] text-center py-2 rounded-lg">
-                      Order Details
-                    </button>
-                  </Link>
-                ) : (
-                  <div className="flex gap-4">
-                    <Link href={`myorders/${product?._id}`}>
-                      <button className="olive mt-3 text-white w-[120px] text-center py-2 rounded-lg">
-                        Track Order
-                      </button>
-                    </Link>
-                    <button
-                      onClick={handleCloseModel}
-                      className="bg-red-400 mt-3 text-white w-[120px] text-center py-2 rounded-lg"
-                    >
-                      Cancel Order
-                    </button>
-                  </div>
-                )}
-              </div>
-              <div className="flex-1 flex items-center text-[20px] font-bold flex-col gap-2  ">
+                <div className="flex-1 flex flex-row items-center md:hidden text-[10px] lg:text-[20px] font-bold  gap-2  ">
                 Status
                 <p
                   className={`${
@@ -150,7 +130,46 @@ const MyOrderItem = () => {
                   {product?.orderStatus}
                 </p>
               </div>
-              <div className="flex-1 flex items-center text-[20px] flex-col gap-2 font-bold ">
+                {/* <p className="text-[20px] font-medium ">$234,344</p> */}
+                {product?.orderStatus === "Delivered" ||
+                product?.orderStatus === "Cancelled" ? (
+                  <Link href={`myorders/${product?._id}`}>
+                    <button className="olive mt-3 text-white px-3 whitespace-nowrap  md:w-[120px] text-[8px] md:text-[16px] text-center py-2 rounded-md">
+                      Order Details
+                    </button>
+                  </Link>
+                ) : (
+                  <div className="flex gap-1 md:gap-4">
+                    <Link href={`myorders/${product?._id}`}>
+                      <button className="olive mt-3 text-white px-3 whitespace-nowrap  md:w-[120px] text-[8px] md:text-[16px] text-center py-2 rounded-md">
+                        Track Order
+                      </button>
+                    </Link>
+                    <button
+                      onClick={handleCloseModel}
+                      className="bg-red-400 mt-3 text-white text-[8px] whitespace-nowrap md:text-[16px] px-3  md:w-[120px] text-center py-2 rounded-md"
+                    >
+                      Cancel Order
+                    </button>
+                  </div>
+                )}
+              </div>
+              <div className="flex-1 md:flex items-center hidden text-[10px] md:text-[20px] font-bold flex-col gap-2  ">
+                Status
+                <p
+                  className={`${
+                    product?.orderStatus == "Delivered"
+                      ? "text-green-500"
+                      : product?.orderStatus === "Cancelled"
+                      ? "text-red-500"
+                      : "text-yellow-500"
+                  }`}
+                >
+                  {" "}
+                  {product?.orderStatus}
+                </p>
+              </div>
+              <div className="flex-1 flex items-center text-[10px] whitespace-nowrap md:text-[20px] flex-col gap-2 font-bold ">
                 Order On
                 {/* {product?.orderStatus === "Delivered" ||
                 product?.orderStatus === "Cancelled" ? (

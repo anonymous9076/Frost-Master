@@ -104,7 +104,7 @@ const Section6 = ({ head }: sectionprops) => {
     <div className="w-full h-fit light border-y py-[4rem]  border-gray-300">
       {head ? (
         <div className="w-[50%] text-center pb-[4rem] mx-auto ">
-          <h1 data-aos="fade-up" className="text-[50px]">
+          <h1 data-aos="fade-up" className=" md:text-[40px] text-[30px] lg:text-[50px]">
             Experiences Shared by Our Clients
           </h1>
           <p
@@ -120,7 +120,7 @@ const Section6 = ({ head }: sectionprops) => {
       ) : (
         ""
       )}
-      <div className="relative w-[90%] mx-auto">
+      <div className="relative lg:block hidden  w-[90%] mx-auto">
         {/* Left Button */}
         {/* <button
           onClick={scrollLeft}
@@ -139,6 +139,60 @@ const Section6 = ({ head }: sectionprops) => {
               key={item.id}
               data-aos="fade-left"
               className="border  min-w-[35rem] min-h-[268px]  px-[2rem] border-gray-300 rounded-lg w-[40%] h-fit flex items-center justify-center flex-col"
+            >
+              <span className="flex items text-yellow-400 justify-center py-[2rem] gap-1">
+                <FaStar></FaStar>
+                <FaStar></FaStar>
+                <FaStar></FaStar>
+                <FaStar></FaStar>
+                <FaStar></FaStar>
+              </span>
+              <p className="text-gray-500 overflow-clip h-[70px]">
+                {item.desc}
+              </p>
+              <div className="py-[2rem] flex items-center gap-3 justify-center">
+                <Image
+                  src={item.image}
+                  alt="person"
+                  height={500}
+                  width={500}
+                  className="h-[3rem] w-[3rem] rounded-full"
+                ></Image>
+                <div className="text-left">
+                  <p>{item.name}</p>
+                  <p className="text-gray-500 ">{item.position}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Right Button */}
+        {/* <button
+          onClick={scrollRight}
+          className="absolute right-0 top-1/2 transform -translate-y-1/2 items-center justify-center h-[40px] w-[40px] olive  rounded-full z-20"
+        >
+          &#8250;
+        </button> */}
+      </div>
+      <div className="relative  lg:hidden  w-[90%] mx-auto">
+        {/* Left Button */}
+        {/* <button
+          onClick={scrollLeft}
+          className="absolute left-0 top-1/2 transform -translate-y-1/2 flex items-center justify-center h-[40px] w-[40px]  olive rounded-full z-10"
+        >
+          &#8249;
+        </button> */}
+
+        {/* Scrollable Container */}
+        <div
+          className="flex flex-col items-center h-fit w-[85%] mx-auto justify-start gap-7 text-center overflow-hidden scrollbar-hide"
+        >
+          {review.splice(0,3).map((item) => (
+            <div
+              key={item.id}
+              data-aos="fade-left"
+              className="border min-w-[300px]  md:min-w-[35rem] min-h-[268px]  px-[2rem] border-gray-300 rounded-lg w-[80%] md:w-[40%] h-fit flex items-center justify-center flex-col"
             >
               <span className="flex items text-yellow-400 justify-center py-[2rem] gap-1">
                 <FaStar></FaStar>

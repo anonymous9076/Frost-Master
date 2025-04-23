@@ -7,7 +7,7 @@ const Page = () => {
   return (
     <div className="light ">
       <Navbar active="/customer/myorders"></Navbar>
-      <div className="w-[100%] mx-auto h-full py-[2rem] px-[4rem]">
+      <div className="w-[100%] mx-auto h-full py-[2rem] px-5 lg:px-[4rem]">
         <div className=" gap-4">
           <h1 className="text-[25px] font-bold  ">My Orders</h1>
         </div>
