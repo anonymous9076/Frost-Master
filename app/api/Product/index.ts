@@ -53,3 +53,10 @@ export const getProductSuggestions = async (
     return [];
   }
 };
+
+export const showProductSpec = async (productId: string) => {
+  const res = await axiosInstance.get("/showProductSpec", {
+    params: { productId },
+  });
+  return res.data;
+};

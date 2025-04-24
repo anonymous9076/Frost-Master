@@ -55,7 +55,10 @@ const ProductCard = ({
   }
   return (
     <div className=" relative p-4 rounded-lg shadow-md border w-full cursor-pointer h-fit  border-gray-300">
-      <Link href="/customer/products/product-details/2" className="flex-1 ">
+      <Link
+        href={`/customer/products/product-details/${productId}`}
+        className="flex-1 "
+      >
         <Image
           className=" rounded-lg w-[100%] h-[150px] min-h-[50%] object-contain"
           src={image}

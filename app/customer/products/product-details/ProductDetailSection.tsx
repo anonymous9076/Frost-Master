@@ -1,17 +1,52 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TiArrowLeft } from "react-icons/ti";
 import Image from "next/image";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { AiOutlineFileText } from "react-icons/ai";
-import { FiMinus } from "react-icons/fi";
-import { FiPlus } from "react-icons/fi";
+// import { FiMinus } from "react-icons/fi";
+// import { FiPlus } from "react-icons/fi";
 const Accordion = dynamic(() => import("@/components/Accordion"));
 const Recommendation = dynamic(() => import("@/components/Recommendation"));
 const Section6 = dynamic(() => import("../../home/Components/Section6"));
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import { usePathname } from "next/navigation";
+import { showProductDetails, showProductSpec } from "@/app/api/Product";
+interface productDetailsType {
+  productTitle: string;
+  price: number;
+  subCategory: string;
+  category: string;
+  productDescription: string;
+}
+
+interface ProductSpecs {
+  createdAt: string; // ISO date string
+  updatedAt: string; // ISO date string
+  productId: string;
+  decks: string;
+  trays: string;
+  materialBody: string;
+  digitalDisplay: boolean;
+  energyEfficiency: string;
+  fuelConsumption: string;
+  maximumTemperature: number;
+  powerType: string;
+  safety: string;
+  suitableFor: string;
+  temperatureControl: string;
+  usage: string;
+}
 const ProductDetailSection = () => {
+  const pathname = usePathname();
+  const [productId, setProductId] = useState(
+    pathname.split("/")[pathname.split("/").length - 1]
+  );
+  const [productDetails, setProductDetails] = useState<productDetailsType>();
+  const [productSpecification, setProductSpecification] = useState<
+    ProductSpecs[]
+  >([]);
   const image = [
     {
       image: "/Images/bak8.jpg",
@@ -49,65 +84,91 @@ const ProductDetailSection = () => {
     },
   ];
 
-  const productSpecifications = [
-    {
-      title: "General Information",
-      specifications: {
-        "Product Name": "Gas Oven Three Deck Nine Tray",
-        Price: "$225,790",
-        Warranty: "1 Year",
-        "Suitable For": "Bakery",
-        Categories: ["Bakery Machinery", "Baking Ovens", "Deck Oven"],
-      },
-    },
-    {
-      title: "Technical Specifications",
-      specifications: {
-        Decks: "Three",
-        Trays: "Nine",
-        "Maximum Temperature": "400°C",
-        "Material (Front)": "Stainless Steel",
-        "Material (Body)": "Powder Coated",
-      },
-    },
-    {
-      title: "Power & Fuel",
-      specifications: {
-        "Power Type": "Gas",
-        "Ignition Type": "Automatic Ignition",
-        "Energy Efficiency": "High Efficiency",
-        "Fuel Consumption": "Optimized for commercial use",
-      },
-    },
-    {
-      title: "Additional Features",
-      specifications: {
-        "Digital Display": "Yes",
-        "Temperature Control": "Adjustable",
-        "Safety Features": "Overheat Protection, Auto Shut-off",
-        Usage: "Heavy-duty commercial bakery operations",
-      },
-    },
-  ];
-  const [numberOfItems,setNumberOfItems]=useState<number>(1)
+  // const productSpecifications = [
+  //   {
+  //     title: "General Information",
+  //     specifications: {
+  //       "Product Name": "Gas Oven Three Deck Nine Tray",
+  //       Price: "$225,790",
+  //       Warranty: "1 Year",
+  //       "Suitable For": "Bakery",
+  //       Categories: ["Bakery Machinery", "Baking Ovens", "Deck Oven"],
+  //     },
+  //   },
+  //   {
+  //     title: "Technical Specifications",
+  //     specifications: {
+  //       Decks: "Three",
+  //       Trays: "Nine",
+  //       "Maximum Temperature": "400°C",
+  //       "Material (Front)": "Stainless Steel",
+  //       "Material (Body)": "Powder Coated",
+  //     },
+  //   },
+  //   {
+  //     title: "Power & Fuel",
+  //     specifications: {
+  //       "Power Type": "Gas",
+  //       "Ignition Type": "Automatic Ignition",
+  //       "Energy Efficiency": "High Efficiency",
+  //       "Fuel Consumption": "Optimized for commercial use",
+  //     },
+  //   },
+  //   {
+  //     title: "Additional Features",
+  //     specifications: {
+  //       "Digital Display": "Yes",
+  //       "Temperature Control": "Adjustable",
+  //       "Safety Features": "Overheat Protection, Auto Shut-off",
+  //       Usage: "Heavy-duty commercial bakery operations",
+  //     },
+  //   },
+  // ];
+  // const [numberOfItems, setNumberOfItems] = useState<number>(1);
 
-  const handleChangeItemNumber = () => {
-    console.log("item number changed");
-  };
-  const handleUpdateItemnumber = (type: string) => {
-    if(type === 'add'){
-      setNumberOfItems((prev) => prev + 1)
-    }
-    else{
-      if(numberOfItems>1)
-      setNumberOfItems((prev) => prev - 1)
-    }
-  };
+  // const handleChangeItemNumber = () => {
+  //   console.log("item number changed");
+  // };
+  // const handleUpdateItemnumber = (type: string) => {
+  //   if (type === "add") {
+  //     setNumberOfItems((prev) => prev + 1);
+  //   } else {
+  //     if (numberOfItems > 1) setNumberOfItems((prev) => prev - 1);
+  //   }
+  // };
+
+  async function showProductData() {
+    const res = await showProductDetails(productId);
+    setProductDetails(res.data);
+    console.log(res, "res here data");
+  }
+
+  async function showProductSpecDetails() {
+    const data = await showProductSpec(productId);
+    console.log(data.data, "spec data");
+    setProductSpecification(Array(data.data));
+  }
+
+  function formatLabel(key: string): string {
+    return key
+      .replace(/([A-Z])/g, " $1") // insert space before capital letters
+      .replace(/^./, (str) => str.toUpperCase()); // capitalize the first letter
+  }
+
+  useEffect(() => {
+    setProductId(pathname.split("/")[pathname.split("/").length - 1]);
+    showProductData();
+    showProductSpecDetails();
+  }, []);
+  console.log(productId, "productId");
   return (
     <>
       <div className="w-full px-[3rem] light">
         <div>
-          <Link href="/customer/products"  className="flex items-center py-[2rem] gap-1">
+          <Link
+            href="/customer/products"
+            className="flex items-center py-[2rem] gap-1"
+          >
             <TiArrowLeft />
             Back
           </Link>
@@ -116,21 +177,25 @@ const ProductDetailSection = () => {
         <div className="flex flex-col md:flex-row  items-start py-[2rem] border-b border-gray-400">
           <div className="flex-1 ">
             <h1 className="text-[40px] font-semibold">
-              Gas Oven Three Deck Nine Tray
+              {productDetails?.productTitle}
             </h1>
-            <p className="py-1 text-[22px] font-medium">$ 225,790</p>
+            <p className="py-1 text-[22px] font-medium">
+              {productDetails?.price}
+            </p>
             <span className="flex flex-col gap-2 ">
               <p>
                 <span className="font-semibold">Warranty</span>: 1 Year
               </p>
               <p>
-                <span className="font-semibold">Suitable For</span> : Bakery
+                <span className="font-semibold">Suitable For</span> :{" "}
+                {productDetails?.subCategory}
               </p>
-              <p>Bakery Machinery | Baking Ovens | Deck Oven</p>
+              <p>
+                {productDetails?.category} | {productDetails?.subCategory}
+              </p>
             </span>
             <p className="text-[14px] w-[80%] pt-3 ">
-              Get a three-deck, nine tray gas oven with a maximum 400°C
-              temperature and stainless steel front and powder coated body.
+              {productDetails?.productDescription}
             </p>
             <span className="text-[14px] w-[80%] pt-2 ">
               <span className="font-semibold text-[16px]">Note:</span>
@@ -141,7 +206,7 @@ const ProductDetailSection = () => {
 
             <div className="min-w-[350px] w-[60%] space-y-4 py-[1rem] mt-[1rem] ">
               <div className="flex items-center justify-between gap-2">
-                <div className="w-[40%] relative">
+                {/* <div className="w-[40%] relative">
                   <span
                     onClick={() => handleUpdateItemnumber("sub")}
                     className="text-[25px] absolute top-1/2 left-5 transform -translate-y-1/2 font-semibold text-[#35736E] flex items-center justify-center "
@@ -161,12 +226,12 @@ const ProductDetailSection = () => {
                   >
                     <FiPlus />
                   </span>
-                </div>
-               <Link className="flex-1" href='/customer/billing'>
-               <span className="olive  rounded-md flex items-center  justify-center hover:shadow-md gap-2 px-4 py-3">
-                  <AiOutlineShoppingCart></AiOutlineShoppingCart> Add to cart
-                </span>
-               </Link>
+                </div> */}
+                <Link className="flex-1" href="/customer/billing">
+                  <span className="olive  rounded-md flex items-center  justify-center hover:shadow-md gap-2 px-4 py-3">
+                    <AiOutlineShoppingCart></AiOutlineShoppingCart> Add to cart
+                  </span>
+                </Link>
               </div>
               <span className="border border-[#35736E] w-full hover:shadow-md  justify-center text-[#35736E] rounded-md flex items-center gap-2 px-4 py-3">
                 <AiOutlineFileText></AiOutlineFileText> Make an Enquiry
@@ -202,13 +267,13 @@ const ProductDetailSection = () => {
             <h1 className="text-[25px] font-bold py-[1rem]">
               Product Specifications
             </h1>
-            {productSpecifications.map((item, index) => (
+            {productSpecification?.map((item: ProductSpecs, index) => (
               <div key={index} className="w-[80%]">
                 <h2 className="text-[16px] font-bold  border olive border-gray-400 py-1 px-3">
-                  {item.title}
+                  General Information
                 </h2>
                 <ul className="list-disc">
-                  {Object.entries(item.specifications).map(
+                  {/* {Object.entries(item.specifications).map(
                     ([key, value], specIndex) => (
                       <li
                         key={specIndex}
@@ -216,11 +281,28 @@ const ProductDetailSection = () => {
                       >
                         <span className="font-semibold flex-1">{key}:</span>{" "}
                         <span className="flex-1">
-                          {Array.isArray(value) ? value.join(", ") : value}
+                          { {Array.isArray(value) ? value.join(", ") : value} }
                         </span>
                       </li>
                     )
-                  )}
+                  )} */}
+                  {Object.entries(item).map(([key, value], index: number) => (
+                    <li
+                      key={index}
+                      className="text-[16px] border flex items-center py-1 px-3 border-gray-400"
+                    >
+                      <span className="font-semibold flex-1">
+                        {formatLabel(key)}:
+                      </span>
+                      <span className="flex-1">
+                        {value === false
+                          ? "False"
+                          : value === true
+                          ? "True"
+                          : value}
+                      </span>
+                    </li>
+                  ))}
                 </ul>
               </div>
             ))}
