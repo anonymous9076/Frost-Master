@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import ProductCard from "./ProductCard";
 import { FaChevronRight } from "react-icons/fa";
 import { FaChevronLeft } from "react-icons/fa";
+import { productSuggestionType } from "@/app/customer/products/product-details/ProductDetailSection";
 interface Product {
   title: string;
   image: string;
@@ -11,7 +12,9 @@ interface Product {
   review: number;
   allReview: number;
 }
-const Recommendation = () => {
+const Recommendation = (props: any) => {
+  const { productSuggestion } = props;
+  console.log(props, "props data 9090");
   const productsList = [
     {
       title: "Large Mixing Bowl",
@@ -80,16 +83,22 @@ const Recommendation = () => {
         <FaChevronLeft />
       </span>
       <div className=" w-[95%] md:w-[90%]  mx-auto h-fit py-4  flex overflow-hidden gap-5 ">
-        {products.map((product, index) => (
-          <span key={index} className="h-fit ">
-            <ProductCard
-              title={product.title}
-              image={product.image}
-              review={product.review}
-              totalReview={product.allReview}
-            ></ProductCard>
-          </span>
-        ))}
+        {productSuggestion?.map(
+          (product: productSuggestionType, index: number) => (
+            <span key={index} className="h-fit ">
+              <ProductCard
+                title={product?.productTitle}
+                image={product?.images[0]}
+                review={product?.avgRating}
+                totalReview={product?.numberOfRatings}
+                productId={product?._id}
+                price={product?.price}
+                rating={product?.avgRating}
+                category={product?.category}
+              ></ProductCard>
+            </span>
+          )
+        )}
       </div>
       <span
         onClick={handleShiftRight}

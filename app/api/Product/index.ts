@@ -60,3 +60,17 @@ export const showProductSpec = async (productId: string) => {
   });
   return res.data;
 };
+
+export const showProductSuggestion = async (
+  productCategory: string,
+  excludeProduct: string
+) => {
+  console.log(productCategory, excludeProduct, "excludeProductexcludeProduct");
+  const res = await axiosInstance.get("/showProductSuggestion", {
+    params: {
+      productCategory,
+      excludeProduct,
+    },
+  });
+  return res.data;
+};
