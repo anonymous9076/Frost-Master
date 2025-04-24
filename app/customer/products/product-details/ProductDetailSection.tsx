@@ -12,13 +12,30 @@ const Section6 = dynamic(() => import("../../home/Components/Section6"));
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
-import { showProductDetails, showProductSpec } from "@/app/api/Product";
+import {
+  showProductDetails,
+  showProductSpec,
+  showProductSuggestion,
+} from "@/app/api/Product";
 interface productDetailsType {
   productTitle: string;
   price: number;
   subCategory: string;
   category: string;
   productDescription: string;
+}
+
+export interface productSuggestionType {
+  avgRating: number;
+  category: string;
+  images: string[];
+  material: string;
+  numberOfRatings: number;
+  price: number;
+  productDescription: string;
+  productTitle: string;
+  subCategory: string;
+  _id: string;
 }
 
 interface ProductSpecs {
@@ -40,10 +57,17 @@ interface ProductSpecs {
 }
 const ProductDetailSection = () => {
   const pathname = usePathname();
+
   const [productId, setProductId] = useState(
+    pathname.split("/")[pathname.split("/").length - 2]
+  );
+  const [productCategory, setProductCategory] = useState(
     pathname.split("/")[pathname.split("/").length - 1]
   );
   const [productDetails, setProductDetails] = useState<productDetailsType>();
+  const [productSuggestion, setProductSuggestion] = useState<
+    productSuggestionType[]
+  >([]);
   const [productSpecification, setProductSpecification] = useState<
     ProductSpecs[]
   >([]);
@@ -149,6 +173,12 @@ const ProductDetailSection = () => {
     setProductSpecification(Array(data.data));
   }
 
+  async function showProductSuggestionData() {
+    const data = await showProductSuggestion(productCategory, productId);
+    setProductSuggestion(data.data);
+    console.log(data, "suggestion data");
+  }
+
   function formatLabel(key: string): string {
     return key
       .replace(/([A-Z])/g, " $1") // insert space before capital letters
@@ -156,9 +186,11 @@ const ProductDetailSection = () => {
   }
 
   useEffect(() => {
-    setProductId(pathname.split("/")[pathname.split("/").length - 1]);
+    setProductId(pathname.split("/")[pathname.split("/").length - 2]);
+    setProductCategory(pathname.split("/")[pathname.split("/").length - 1]);
     showProductData();
     showProductSpecDetails();
+    showProductSuggestionData();
   }, []);
   console.log(productId, "productId");
   return (
@@ -172,7 +204,7 @@ const ProductDetailSection = () => {
             <TiArrowLeft />
             Back
           </Link>
-          <p>Products / Category / ItemName</p>
+          {/* <p>Products / {productDetails?.category} / ItemName</p> */}
         </div>
         <div className="flex flex-col md:flex-row  items-start py-[2rem] border-b border-gray-400">
           <div className="flex-1 ">
@@ -324,7 +356,9 @@ const ProductDetailSection = () => {
         <div>
           <h1 className="text-[25px] font-bold">Most Recommended Products:</h1>
           <div className="h-fit w-full py-[2rem]  ">
-            <Recommendation></Recommendation>
+            <Recommendation
+              productSuggestion={productSuggestion}
+            ></Recommendation>
           </div>
         </div>
       </div>

@@ -20,6 +20,7 @@ interface ProductTypes {
   numberOfRatings: number;
   _id: string;
   price: number;
+  category:string
 }
 const ProductContainer = (props: ProductsProps) => {
   const {
@@ -30,7 +31,6 @@ const ProductContainer = (props: ProductsProps) => {
     totalPages,
     setCurrentPage,
   } = props;
-
   // const products = [
   //   {
   //     title: "Large Mixing Bowl",
@@ -105,7 +105,9 @@ const ProductContainer = (props: ProductsProps) => {
 
   return (
     <div className="h-fit w-full  px-[2rem]">
-      <h1 className=" text-[25px] md:text-[35px] flex items-center justify-between font-bold">Our Collection Of Products  <FaFilter></FaFilter> </h1>
+      <h1 className=" text-[25px] md:text-[35px] flex items-center justify-between font-bold">
+        Our Collection Of Products <FaFilter></FaFilter>{" "}
+      </h1>
 
       <span className="h-fit w-full relative">
         <input
@@ -131,6 +133,7 @@ const ProductContainer = (props: ProductsProps) => {
               productId={product?._id}
               price={product?.price}
               rating={product?.avgRating}
+              category={product?.category}
             ></ProductCard>
           </span>
         ))}

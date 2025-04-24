@@ -16,6 +16,7 @@ interface productprops {
   productId: string;
   price: number;
   rating: number;
+  category: string;
 }
 interface productTypes {
   userId: string;
@@ -34,6 +35,7 @@ const ProductCard = ({
   productId,
   price,
   rating,
+  category,
 }: productprops) => {
   const { user } = useContext(UserAuthContext)!;
   const addProductIntoCart = useCartStore((store) => store.addProductIntoCart);
@@ -53,10 +55,11 @@ const ProductCard = ({
   function handleCartItem() {
     addProductIntoCart(data);
   }
+  // const urlFriendly: string = category?.replace(/\s+/g, "");
   return (
     <div className=" relative p-4 rounded-lg shadow-md border w-full cursor-pointer h-fit  border-gray-300">
       <Link
-        href={`/customer/products/product-details/${productId}`}
+        href={`/customer/products/product-details/${productId}/${category}`}
         className="flex-1 "
       >
         <Image

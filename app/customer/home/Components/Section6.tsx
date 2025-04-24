@@ -104,7 +104,10 @@ const Section6 = ({ head }: sectionprops) => {
     <div className="w-full h-fit light border-y py-[4rem]  border-gray-300">
       {head ? (
         <div className="w-[50%] text-center pb-[4rem] mx-auto ">
-          <h1 data-aos="fade-up" className=" md:text-[40px] text-[30px] lg:text-[50px]">
+          <h1
+            data-aos="fade-up"
+            className=" md:text-[40px] text-[30px] lg:text-[50px]"
+          >
             Experiences Shared by Our Clients
           </h1>
           <p
@@ -134,7 +137,7 @@ const Section6 = ({ head }: sectionprops) => {
           ref={scrollRef}
           className="flex items-center h-fit w-[85%] mx-auto justify-start gap-7 text-center overflow-hidden scrollbar-hide"
         >
-          {review.map((item) => (
+          {review?.map((item) => (
             <div
               key={item.id}
               data-aos="fade-left"
@@ -148,7 +151,7 @@ const Section6 = ({ head }: sectionprops) => {
                 <FaStar></FaStar>
               </span>
               <p className="text-gray-500 overflow-clip h-[70px]">
-                {item.desc}
+                {item?.desc || ""}
               </p>
               <div className="py-[2rem] flex items-center gap-3 justify-center">
                 <Image
@@ -185,10 +188,8 @@ const Section6 = ({ head }: sectionprops) => {
         </button> */}
 
         {/* Scrollable Container */}
-        <div
-          className="flex flex-col items-center h-fit w-[85%] mx-auto justify-start gap-7 text-center overflow-hidden scrollbar-hide"
-        >
-          {review.splice(0,3).map((item) => (
+        <div className="flex flex-col items-center h-fit w-[85%] mx-auto justify-start gap-7 text-center overflow-hidden scrollbar-hide">
+          {review?.splice(0, 3).map((item) => (
             <div
               key={item.id}
               data-aos="fade-left"
