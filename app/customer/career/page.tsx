@@ -1,6 +1,7 @@
 "use client";
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
+const Footer = dynamic(() => import("@/components/Footer"));
+const Navbar = dynamic(() => import("@/components/Navbar"));
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import React, { useState } from "react";
 

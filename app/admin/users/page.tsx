@@ -1,5 +1,5 @@
 "use client";
-import Sidebar from "@/components/Sidebar";
+const Sidebar = dynamic(() => import("@/components/Sidebar"));
 import React, { useEffect, useState } from "react";
 import { BsPerson } from "react-icons/bs";
 const Pagination = dynamic(() => import("@/components/Pagination"));

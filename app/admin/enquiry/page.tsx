@@ -11,7 +11,7 @@ import { deleteEnquiry, showEnquires } from "@/app/api/Admin/routeData";
 import { dateFormate } from "@/app/utlis/dateFormate/dateFormating";
 import { FiEdit } from "react-icons/fi";
 import { toast } from "react-toastify";
-import EditProductForm from "@/components/EditProductForm";
+const EditProductForm = dynamic(() => import("@/components/EditProductForm"));
 import enquires from "../../../EditModelData";
 
 interface EnquiryTypes {

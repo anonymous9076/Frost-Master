@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import ReactQueryProvider from "./utlis/provider/ReactQueryProvider";
-import UserAuthContextProvider from "./context/UserAuthContextProvider";
+import dynamic from "next/dynamic";
+const ReactQueryProvider = dynamic(
+  () => import("./utlis/provider/ReactQueryProvider")
+);
+const UserAuthContextProvider = dynamic(
+  () => import("./context/UserAuthContextProvider")
+);
 import { ToastContainer } from "react-toastify";
-import Providers from "@/components/providers";
+const Providers = dynamic(() => import("@/components/providers"));
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

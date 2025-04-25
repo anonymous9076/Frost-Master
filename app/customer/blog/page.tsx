@@ -1,34 +1,38 @@
-'use client';
-import React from 'react';
-import Head from 'next/head';
-import Image from 'next/image';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+"use client";
+import React from "react";
+import Head from "next/head";
+import Image from "next/image";
+import dynamic from "next/dynamic";
+const Navbar = dynamic(() => import("@/components/Navbar"));
+const Footer = dynamic(() => import("@/components/Footer"));
 
 const blogPosts = [
   {
     id: 1,
-    title: 'Top 5 Electric Ovens for Home Baking in 2025',
-    description: 'Explore the best electric ovens with smart features and energy efficiency.',
-    author: 'Chef Anita',
-    date: 'April 15, 2025',
-    image: '/Images/frostservices/img1.jpg'
+    title: "Top 5 Electric Ovens for Home Baking in 2025",
+    description:
+      "Explore the best electric ovens with smart features and energy efficiency.",
+    author: "Chef Anita",
+    date: "April 15, 2025",
+    image: "/Images/frostservices/img1.jpg",
   },
   {
     id: 2,
-    title: 'Kitchen Equipment Essentials for Modern Restaurants',
-    description: 'A complete guide to setting up your commercial kitchen with the latest appliances.',
-    author: 'KitchenPro',
-    date: 'April 12, 2025',
-    image: '/Images/frostservices/img1.jpg'
+    title: "Kitchen Equipment Essentials for Modern Restaurants",
+    description:
+      "A complete guide to setting up your commercial kitchen with the latest appliances.",
+    author: "KitchenPro",
+    date: "April 12, 2025",
+    image: "/Images/frostservices/img1.jpg",
   },
   {
     id: 3,
-    title: 'Convection vs. Conventional Ovens: What’s Right for You?',
-    description: 'Understand the difference between oven types and how it affects cooking.',
-    author: 'Food Tech Journal',
-    date: 'April 10, 2025',
-    image: '/Images/frostservices/img1.jpg'
+    title: "Convection vs. Conventional Ovens: What’s Right for You?",
+    description:
+      "Understand the difference between oven types and how it affects cooking.",
+    author: "Food Tech Journal",
+    date: "April 10, 2025",
+    image: "/Images/frostservices/img1.jpg",
   },
 ];
 
@@ -71,7 +75,9 @@ export default function Blogs() {
                 <span className="flex gap-2 py-2 text-[#35736E] text-sm">
                   <p>{post.date}</p>
                 </span>
-                <h2 className="text-xl font-semibold text-[#35736E] mb-2">{post.title}</h2>
+                <h2 className="text-xl font-semibold text-[#35736E] mb-2">
+                  {post.title}
+                </h2>
                 <p className="text-gray-700 mb-3">{post.description}</p>
                 <p className="text-sm text-gray-500 mb-3">By {post.author}</p>
                 <a

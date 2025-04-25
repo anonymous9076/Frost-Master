@@ -1,5 +1,5 @@
 "use client";
-import Sidebar from "@/components/Sidebar";
+const Sidebar = dynamic(() => import("@/components/Sidebar"));
 import React, { useEffect, useState } from "react";
 const Pagination = dynamic(() => import("@/components/Pagination"));
 import { IoReload } from "react-icons/io5";
@@ -84,7 +84,7 @@ const ShowPayments = () => {
   }
   useEffect(() => {
     showPaymentDetails();
-  }, [filterTransactionId, filterDate, filterStatus,currentPage]);
+  }, [filterTransactionId, filterDate, filterStatus, currentPage]);
   return (
     <AdminLayout>
       <div className="h-screen  w-full flex bg-gray-100">

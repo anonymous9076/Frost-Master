@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import Sidebar from "@/components/Sidebar";
+const Sidebar = dynamic(() => import("@/components/Sidebar"));
 import React, { useEffect, useState } from "react";
 import { FiEdit } from "react-icons/fi";
 const Pagination = dynamic(() => import("@/components/Pagination"));
