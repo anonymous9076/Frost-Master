@@ -1,13 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
-import CancelOrderModel from "../CancelOrderModel";
+const Footer = dynamic(() => import("@/components/Footer"));
+const Navbar = dynamic(() => import("@/components/Navbar"));
+const CancelOrderModel = dynamic(() => import("../CancelOrderModel"));
 import Image from "next/image";
 import Stepper from "@/components/Stepper";
 import { usePathname } from "next/navigation";
 import { getOrderDetails } from "@/app/api/Order";
 import { dateFormate } from "@/app/utlis/dateFormate/dateFormating";
+import dynamic from "next/dynamic";
 interface OrderProduct {
   _id: string;
   productId: { productTitle: string; price: number };
@@ -105,32 +106,31 @@ const OrderDetails = () => {
                     Total Quantity : {orderDetails?.product[0]?.quantity}
                   </p>
                   <div className="flex-1 flex flex-row md:hidden whitespace-nowrap items-start  text-[16px] font-bold  gap-2  ">
-                  Status : 
-                  <p
-                    className={`${
-                      orderDetails?.orderStatus == "Delivered"
-                        ? "text-green-500"
-                        : orderDetails?.orderStatus === "Cancelled"
-                        ? "text-red-500"
-                        : "text-yellow-500"
-                    }`}
-                  >
-                    {" "}
-                    {orderDetails?.orderStatus}
-                   
-                  </p>
-                </div>
-                <div className="flex-1 flex lg:hidden items-start text-[16px] flex-col font-bold ">
-                  Dilevery Excepted By
-                  {/* {orderDetails?.orderStatus === "Delivered" ||
+                    Status :
+                    <p
+                      className={`${
+                        orderDetails?.orderStatus == "Delivered"
+                          ? "text-green-500"
+                          : orderDetails?.orderStatus === "Cancelled"
+                          ? "text-red-500"
+                          : "text-yellow-500"
+                      }`}
+                    >
+                      {" "}
+                      {orderDetails?.orderStatus}
+                    </p>
+                  </div>
+                  <div className="flex-1 flex lg:hidden items-start text-[16px] flex-col font-bold ">
+                    Dilevery Excepted By
+                    {/* {orderDetails?.orderStatus === "Delivered" ||
                   orderDetails?.orderStatus === "Cancelled" ? (
                     ""
                   ) : ( */}
-                  <p className="font-normal">
-                    {dateFormate(orderDetails?.createdAt as string)}
-                  </p>
-                  {/* )} */}
-                </div>
+                    <p className="font-normal">
+                      {dateFormate(orderDetails?.createdAt as string)}
+                    </p>
+                    {/* )} */}
+                  </div>
                   <p className="text-[20px] font-medium ">
                     {orderDetails?.product[0]?.productId?.price}
                   </p>

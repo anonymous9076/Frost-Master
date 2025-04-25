@@ -1,9 +1,10 @@
 "use client";
 import React, { useState } from "react";
-import ProductCard from "./ProductCard";
+const ProductCard = dynamic(() => import("./ProductCard"));
 import { FaChevronRight } from "react-icons/fa";
 import { FaChevronLeft } from "react-icons/fa";
 import { productSuggestionType } from "@/app/customer/products/product-details/ProductDetailSection";
+import dynamic from "next/dynamic";
 interface Product {
   title: string;
   image: string;

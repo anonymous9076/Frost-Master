@@ -1,11 +1,12 @@
 "use client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import CancelOrderModel from "./CancelOrderModel";
+const CancelOrderModel = dynamic(() => import("./CancelOrderModel"));
 import Link from "next/link";
-import Pagination from "@/components/Pagination";
+const Pagination = dynamic(() => import("@/components/Pagination"));
 import { getAllOrders } from "@/app/api/Order";
 import { dateFormate } from "@/app/utlis/dateFormate/dateFormating";
+import dynamic from "next/dynamic";
 interface OrderProduct {
   _id: string;
   productId: string;
@@ -67,7 +68,6 @@ const MyOrderItem = () => {
   //   },
   // ];
 
-
   const [cancle, setCancle] = useState<boolean>(false);
 
   const handleCloseModel = () => {
@@ -116,20 +116,20 @@ const MyOrderItem = () => {
                   {product?.products[0]?.productTitle}
                 </h1>
                 <div className="flex-1 flex flex-row items-center md:hidden text-[10px] lg:text-[20px] font-bold  gap-2  ">
-                Status
-                <p
-                  className={`${
-                    product?.orderStatus == "Delivered"
-                      ? "text-green-500"
-                      : product?.orderStatus === "Cancelled"
-                      ? "text-red-500"
-                      : "text-yellow-500"
-                  }`}
-                >
-                  {" "}
-                  {product?.orderStatus}
-                </p>
-              </div>
+                  Status
+                  <p
+                    className={`${
+                      product?.orderStatus == "Delivered"
+                        ? "text-green-500"
+                        : product?.orderStatus === "Cancelled"
+                        ? "text-red-500"
+                        : "text-yellow-500"
+                    }`}
+                  >
+                    {" "}
+                    {product?.orderStatus}
+                  </p>
+                </div>
                 {/* <p className="text-[20px] font-medium ">$234,344</p> */}
                 {product?.orderStatus === "Delivered" ||
                 product?.orderStatus === "Cancelled" ? (

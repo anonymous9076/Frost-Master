@@ -3,7 +3,7 @@ import React from "react";
 const Navbar = dynamic(() => import("@/components/Navbar"));
 const Footer = dynamic(() => import("@/components/Footer"));
 const PriceCard = dynamic(() => import("@/components/PriceCard"));
-import MycartItem from "./MycartItem";
+const MycartItem = dynamic(() => import("./MycartItem"));
 
 const mycart = () => {
   return (

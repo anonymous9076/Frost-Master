@@ -1,7 +1,8 @@
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
+const Footer = dynamic(() => import("@/components/Footer"));
+const Navbar = dynamic(() => import("@/components/Navbar"));
+const MyOrderItem = dynamic(() => import("./MyOrdersItem"));
+import dynamic from "next/dynamic";
 import React from "react";
-import MyOrderItem from "./MyOrdersItem";
 
 const Page = () => {
   return (
