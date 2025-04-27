@@ -22,6 +22,21 @@ const Sidebar = () => {
     setActivePage(pathName);
   }, [pathName]);
 
+  useEffect(() => {
+    console.log(window.outerWidth)
+    const handleResize = () => {
+      if (window.outerWidth < 810) {
+        setActive(false);
+      } else {
+        setActive(true);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <>
       {active ? (
