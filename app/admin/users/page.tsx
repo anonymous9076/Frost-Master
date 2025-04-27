@@ -27,6 +27,7 @@ const ShowUsers = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [customerId, setCustomerId] = useState("");
   const debouncedData = useDebouncing(searchName, 800);
+
   // const users = [
   //   {
   //     userId: "USR123456",
@@ -65,6 +66,7 @@ const ShowUsers = () => {
   //       return "bg-gray-200"; // Gray for other cases
   //   }
   // };
+
   const handleCloseModel = () => {
     setDeleteModel(false);
     setCustomerId("");
@@ -94,7 +96,7 @@ const ShowUsers = () => {
   }
 
   return (
-    <AdminLayout>
+    // <AdminLayout>
       <div className="h-screen  w-full flex bg-gray-100">
         {deleteModel ? (
           <DeleteModel
@@ -106,7 +108,7 @@ const ShowUsers = () => {
           ""
         )}
         <Sidebar></Sidebar>
-        <div className="flex-1 h-full text-gray-700 ">
+        <div className="flex-1 min-w-[1200px] h-[100dvh] text-gray-700 ">
           <div className="bg-white w-full h-[8%] px-[4rem] flex items-center text-[20px] font-bold justify-between">
             Users
           </div>
@@ -174,7 +176,7 @@ const ShowUsers = () => {
           </div>
         </div>
       </div>
-    </AdminLayout>
+    // </AdminLayout>
   );
 };
 

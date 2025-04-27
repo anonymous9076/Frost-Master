@@ -112,7 +112,7 @@ const ProductManagement = () => {
           ""
         )}
         <Sidebar></Sidebar>
-        <div className="flex-1 h-full text-gray-700 ">
+        <div className="flex-1 min-w-[1200px] h-[100dvh] text-gray-700 ">
           <div className="bg-white w-full h-[8%] px-[4rem] flex items-center text-[20px] font-bold justify-between">
             Customer Enquiry
             {/* <span className="w-fit h-fit relative">

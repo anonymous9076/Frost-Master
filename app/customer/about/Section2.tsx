@@ -14,7 +14,7 @@ const Section2 = () => {
        image: "/Images/frostservices/img1.jpg"},
   ];
   return (
-    <div className="light w-full h-fit py-[4rem]">
+    <div className="light w-full overflow-hidden h-fit py-[4rem]">
         <h1 className="text-[45px] text-center w-[70%] pb-[3rem] mx-auto">Our core ideology is passion, persistence, and purpose-driven excellence.</h1>
         <div className="w-[80%] h-fit flex flex-col md:flex-row gap-[2rem] items-center justify-center mx-auto">
 
