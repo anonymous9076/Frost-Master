@@ -87,7 +87,7 @@ const ShowOrders = () => {
 
   return (
     <AdminLayout>
-      <div className="h-screen  w-full flex bg-gray-100">
+      <div className="h-screen overflow-y-hidden  w-full flex bg-gray-100">
         <Sidebar></Sidebar>
         <div className="flex-1 min-w-[1200px] h-[100dvh] text-gray-700 ">
           <div className="bg-white w-full h-[8%] px-[4rem] flex items-center text-[20px] font-bold justify-between">
@@ -141,7 +141,7 @@ const ShowOrders = () => {
                 </select>
               </span> */}
               </div>
-              <div className=" h-fit w-full  pt-[2rem]">
+              <div className=" h-fit w-full max-h-[60dvh] overflow-y-auto  pt-[2rem]">
                 <ul className=" m-0 p-0 flex items-center  px-[1.5rem]">
                   <li className="w-[17%]">OrderId</li>
                   <li className="w-[21%]">Product Name</li>
@@ -186,6 +186,7 @@ const ShowOrders = () => {
                       </ul>
                     ))
                   : ""}
+              </div>
                 <div className="  flex items-center justify-between  w-full">
                   <Pagination
                     totalPages={totalPages}
@@ -194,14 +195,13 @@ const ShowOrders = () => {
                     user="admin"
                   ></Pagination>
                 </div>
-              </div>
             </div>
           ) : (
             <OrderDetails handleCloseModel={handleCloseModel}></OrderDetails>
           )}
         </div>
       </div>
-    </AdminLayout>
+     </AdminLayout>
   );
 };
 

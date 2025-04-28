@@ -82,7 +82,7 @@ const ProductManagement = () => {
   }, [sortBy, currentPage]);
   return (
     <AdminLayout>
-      <div className="h-screen  w-full flex bg-gray-100 relative">
+      <div className="h-screen overflow-y-hidden w-full flex bg-gray-100 relative">
         {showModel ? (
           <DeleteModel
             handleCloseModel={handleCloseModel}
@@ -164,7 +164,7 @@ const ProductManagement = () => {
                 </select>
               </span>
             </div>
-            <div className=" h-fit w-full  pt-[2rem]">
+            <div className=" h-fit w-full max-h-[60dvh] overflow-y-auto pt-[2rem]">
               <ul className=" m-0 p-0 flex items-center  px-[1.5rem]">
                 <li className="w-[15%]">Customer</li>
                 <li className="w-[16%]">Email</li>
@@ -225,6 +225,7 @@ const ProductManagement = () => {
                     </ul>
                   ))
                 : ""}
+            </div>
               <div className="  flex items-center justify-between  w-full">
                 <Pagination
                   totalPages={totalPages}
@@ -233,7 +234,6 @@ const ProductManagement = () => {
                   user="admin"
                 ></Pagination>
               </div>
-            </div>
           </div>
         </div>
       </div>
