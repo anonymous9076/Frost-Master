@@ -4,7 +4,7 @@ import { MdOpenInBrowser } from "react-icons/md";
 import { FaImage } from "react-icons/fa";
 import { IoMdTrash } from "react-icons/io";
 import { addProduct, addProductImages } from "@/app/api/Admin/routeData";
-
+import imageCompression from "browser-image-compression";
 interface productProps {
   handleCloseModel: () => void;
 }
@@ -16,6 +16,7 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
     price: 0,
     category: "",
     material: "",
+    subcategory: "",
     // ratings: 0,
     // stock: "",
   });
@@ -23,10 +24,19 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
   const [images, setImages] = useState<any>([]);
   const [addedProductId, setAddedProductId] = useState<string>("");
   const categories = [
+    "Bakery machinery",
+    "Restaurant equipment",
+    "Commercial Refrigerator",
+    "Cloud kitchen equipment",
+    "others",
+  ];
+
+  const subCategories = [
     "Cookware",
     "Bakeware",
     "Cutlery",
     "Storage",
+    "Kitchen Appliances",
     "Tableware",
     "Others",
   ];
@@ -51,14 +61,22 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+
     console.log("Form Submitted:", formData);
-    const { productTitle, productDescription, price, category, material } =
-      formData;
+    const {
+      productTitle,
+      productDescription,
+      price,
+      category,
+      subcategory,
+      material,
+    } = formData;
     const res = await addProduct(
       productTitle,
       productDescription,
       price,
       category,
+      subcategory,
       material
     );
     console.log(res.data, "res here9999");
@@ -67,15 +85,33 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
     // handleCloseModel();
   };
 
+  async function compressImageData(image: File): Promise<File> {
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 1024,
+      useWebWorker: true,
+    };
+    const res = await imageCompression(image, options);
+    return res;
+  }
+
   const submitFiles = async () => {
     const formData: FormData = new FormData();
 
-    images.forEach((image: any) => {
-      formData.append("files", image);
+    const compressedImages = await Promise.all(
+      images.map(async (image: any) => {
+        return await compressImageData(image);
+      })
+    );
+
+    compressedImages.forEach((compressed) => {
+      formData.append("files", compressed);
     });
+
     const res = await addProductImages(formData, addedProductId);
     console.log(res, "image upload res");
   };
+
   const handleInputImages = (e: any) => {
     const value = e.target.files;
     const limitImges = [...value];
@@ -95,7 +131,6 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
     );
     setImages(newImageArray);
   };
-
 
   return (
     <div className="min-h-screen flex items-center fixed top-0 left-0 w-full h-screen  justify-end bg-black/50">
@@ -216,6 +251,26 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
                 </select>
               </div>
 
+              {/* subcategories */}
+              <div className="w-full">
+                <label className="block text-gray-600 font-medium">
+                  Sub-Category
+                </label>
+                <select
+                  name="subcategory"
+                  value={formData.subcategory}
+                  onChange={handleChange}
+                  required
+                  className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                >
+                  <option value="">Select Sub-Category</option>
+                  {subCategories.map((category) => (
+                    <option key={category} value={category}>
+                      {category}
+                    </option>
+                  ))}
+                </select>
+              </div>
               {/* Material */}
               <div className="w-full">
                 <label className="block text-gray-600 font-medium ">

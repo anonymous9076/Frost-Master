@@ -83,6 +83,7 @@ export const addProduct = async (
   productDescription: string,
   price: number,
   category: string,
+  subcategory: string,
   material: string
 ) => {
   // productTitle, productDescription, price, category, material
@@ -92,6 +93,7 @@ export const addProduct = async (
       productDescription,
       price,
       category,
+      subcategory,
       material,
     });
     return data.data;

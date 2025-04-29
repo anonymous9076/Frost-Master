@@ -34,3 +34,12 @@ export const getProductReviews = async (productId: string) => {
     return [];
   }
 };
+
+export const getHomePageReviews = async () => {
+  try {
+    const res = await axiosInstance.get("/getReview");
+    return res.data;
+  } catch (error) {
+    return error;
+  }
+};
