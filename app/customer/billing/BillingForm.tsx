@@ -1,21 +1,9 @@
 "use client";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
-interface formdata {
-  label?: string;
-  name?: string;
-  type?: string;
-  required?: boolean;
-  fields?: form[];
-}
-interface form {
-  label: string;
-  name: string;
-  type: string;
-  required: boolean;
-}
-
+import * as Yup from "yup";
 interface BillingFormValues {
   firstName: string;
   lastName: string;
@@ -32,122 +20,49 @@ interface BillingFormValues {
   expiry: string;
 }
 
+const billingFormValidation = Yup.object({
+  firstName: Yup.string().required("First name is required"),
+  lastName: Yup.string().required("Last name is required"),
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
+  phone: Yup.string()
+    .matches(/^[0-9]{10,15}$/, "Phone number is not valid")
+    .required("Phone number is required"),
+  company: Yup.string().required("Company name is required"),
+  gst: Yup.string()
+    .matches(
+      /^(\d{2}[A-Z]{5}\d{4}[A-Z]{1}[A-Z\d]{1}[Z]{1}[A-Z\d]{1})$/,
+      "Invalid GST number"
+    )
+    .required("GST number is required"),
+  address: Yup.string().required("Address is required"),
+  country: Yup.string().required("Country is required"),
+  postal: Yup.string()
+    .matches(/^\d{4,10}$/, "Invalid postal code")
+    .required("Postal code is required"),
+
+  // Payment Fields
+  cardHolder: Yup.string().required("Card holder name is required"),
+  cardNumber: Yup.string()
+    .matches(/^\d{16}$/, "Card number must be 16 digits")
+    .required("Card number is required"),
+  cvv: Yup.string()
+    .matches(/^\d{3,4}$/, "CVV must be 3 or 4 digits")
+    .required("CVV is required"),
+  expiry: Yup.string()
+    .matches(/^(0[1-9]|1[0-2])\/?([0-9]{2})$/, "Expiry must be in MM/YY format")
+    .required("Expiry date is required"),
+});
+
 const BillingForm = () => {
   const [billingStatus, setBillingStatus] = useState<number>(1);
-  const [formName, setFormName] = useState<formdata[] | undefined>([]);
-  const [formData, setFormData] = useState<BillingFormValues>({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    company: "",
-    gst: "",
-    address: "",
-    country: "",
-    postal: "",
-    cardHolder: "",
-    cardNumber: "",
-    cvv: "",
-    expiry: "",
-
-  });
-  const formFields = [
-    {
-      type: "group",
-      fields: [
-        {
-          label: "First Name",
-          name: "firstName",
-          type: "text",
-          required: true,
-        },
-        {
-          label: "Last Name",
-          name: "lastName",
-          type: "text",
-          required: true,
-        },
-      ],
-    },
-    {
-      type: "group",
-      fields: [
-        {
-          label: "Email Address",
-          name: "email",
-          type: "email",
-          required: true,
-        },
-        { label: "Phone Number", name: "phone", type: "tel", required: true },
-      ],
-    },
-
-    { label: "Company Name", name: "company", type: "text", required: true },
-    { label: "GST NO.", name: "gst", type: "text", required: true },
-    {
-      label: "Shipping Address",
-      name: "address",
-      type: "text",
-      required: true,
-    },
-    { label: "Country", name: "country", type: "text", required: true },
-    { label: "Postal Code", name: "postal", type: "text", required: true },
-  ];
-  const cardInfo = [
-    {
-      label: "Card Holder Name",
-      name: "cardHolder",
-      type: "text",
-      required: true,
-    },
-    {
-      label: "Card Number",
-      name: "cardNumber",
-      type: "text",
-      required: true,
-    },
-    {
-      type: "group",
-      fields: [
-        {
-          label: "CVV",
-          name: "cvv",
-          type: "text",
-          required: true,
-        },
-        {
-          label: "Expiry (MM/YY)",
-          name: "expiry",
-          type: "month",
-          required: true,
-        },
-      ],
-    },
-  ];
   useEffect(() => {
-    if (billingStatus === 1) {
-      setFormName([...formFields]);
-    } else {
-      setFormName([...cardInfo]);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    setBillingStatus(1);
   }, [billingStatus]);
 
-  const handleDataInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-  console.log(name,value)
-    setFormData((curr) => ({
-      ...curr,
-      [name]: value,
-    }));
-  };
-
-  const handleFormsubmit = () => {
-    if(billingStatus===2){
-        console.log(formData,'===>')
-    }
-    setBillingStatus((curr) => curr + 1);
-
+  const handleFormSubmit = (values: BillingFormValues) => {
+    console.log(values, "values");
   };
 
   return (
@@ -195,59 +110,231 @@ const BillingForm = () => {
         </div>
 
         <div className="px-[2rem] py-[2rem] grid gap-6">
-          {formName&&formName.map((field, index) => {
-            if (field.type === "group") {
-              return (
-                <div key={index} className="grid grid-cols-2 gap-4">
-                  {field?.fields &&
-                    field.fields.map((subField: formdata, subIndex: number) => (
-                      <span key={subIndex} className="flex flex-col gap-2">
-                        <label htmlFor={subField.name}>
-                          {subField.label}
-                          {subField.required && (
-                            <span className="text-red-500">*</span>
-                          )}
-                        </label>
-                        <input
-                          type={subField.type}
-                          name={subField.name}
-                          id={subField.name}
-                          value={formData[subField.name as keyof BillingFormValues] ?? ""}
-                          onChange={(e) => handleDataInput(e)}
-                          required={subField.required}
-                          className="border shadow-sm px-3 py-2 rounded-md border-gray-400"
-                        />
-                      </span>
-                    ))}
-                </div>
-              );
-            }
-
-            return (
-              <span key={index} className="flex flex-col gap-2">
-                <label htmlFor={field.name}>
-                  {field.label}
-                  {field.required && <span className="text-red-500">*</span>}
-                </label>
-                <input
-                  type={field.type}
-                  name={field.name}
-                  id={field.name}
-                  value={formData[field.name as keyof BillingFormValues] ?? ""}
-                  onChange={(e) => handleDataInput(e)}
-                  required={field.required}
-                  className="border shadow-sm px-3 py-2 rounded-md border-gray-400"
-                />
-              </span>
-            );
-          })}
-
-          <button
-            onClick={handleFormsubmit}
-            className="olive text-center rounded-lg py-2 mt-4 w-[200px]"
+          <Formik
+            initialValues={{
+              firstName: "",
+              lastName: "",
+              email: "",
+              phone: "",
+              company: "",
+              gst: "",
+              address: "",
+              country: "",
+              postal: "",
+              cardHolder: "",
+              cardNumber: "",
+              cvv: "",
+              expiry: "",
+            }}
+            validationSchema={billingFormValidation}
+            onSubmit={handleFormSubmit}
           >
-            {billingStatus == 1 ? "Proceed to Checkout" : "Proceed to Pay"}
-          </button>
+            <Form className="flex flex-col gap-6">
+              <div>
+                <div className="grid grid-cols-2 gap-4">
+                  <span className="flex flex-col gap-2">
+                    <label htmlFor="firstName">First Name</label>
+                    <Field
+                      type="text"
+                      name="firstName"
+                      id="firstName"
+                      className="border shadow-sm px-3 py-2 rounded-md border-[#35736E]"
+                    />
+                    <ErrorMessage
+                      name="firstName"
+                      component="div"
+                      className="text-red-500 text-sm mt-1"
+                    />
+                  </span>
+
+                  <span className="flex flex-col gap-2">
+                    <label htmlFor="lastName">Last Name</label>
+                    <Field
+                      type="text"
+                      name="lastName"
+                      id="lastName"
+                      className="border shadow-sm px-3 py-2 rounded-md border-[#35736E]"
+                    />
+                    <ErrorMessage
+                      name="lastName"
+                      component="div"
+                      className="text-red-500 text-sm mt-1"
+                    />
+                  </span>
+
+                  <span className="flex flex-col gap-2">
+                    <label htmlFor="email">Email</label>
+                    <Field
+                      type="email"
+                      name="email"
+                      id="email"
+                      className="border shadow-sm px-3 py-2 rounded-md border-[#35736E]"
+                    />
+                    <ErrorMessage
+                      name="email"
+                      component="div"
+                      className="text-red-500 text-sm mt-1"
+                    />
+                  </span>
+
+                  <span className="flex flex-col gap-2">
+                    <label htmlFor="phone">Phone</label>
+                    <Field
+                      type="tel"
+                      name="phone"
+                      id="phone"
+                      className="border shadow-sm px-3 py-2 rounded-md border-[#35736E]"
+                    />
+                    <ErrorMessage
+                      name="phone"
+                      component="div"
+                      className="text-red-500 text-sm mt-1"
+                    />
+                  </span>
+
+                  <span className="flex flex-col col-span-2 gap-2">
+                    <label htmlFor="company">Company</label>
+                    <Field
+                      type="text"
+                      name="company"
+                      id="company"
+                      className="border shadow-sm px-3 py-2 rounded-md border-[#35736E]"
+                    />
+                    <ErrorMessage
+                      name="company"
+                      component="div"
+                      className="text-red-500 text-sm mt-1"
+                    />
+                  </span>
+
+                  <span className="flex flex-col col-span-2 gap-2">
+                    <label htmlFor="gst">GST Number</label>
+                    <Field
+                      type="text"
+                      name="gst"
+                      id="gst"
+                      className="border shadow-sm px-3 py-2 rounded-md border-[#35736E]"
+                    />
+                    <ErrorMessage
+                      name="gst"
+                      component="div"
+                      className="text-red-500 text-sm mt-1"
+                    />
+                  </span>
+
+                  <span className="flex flex-col gap-2 col-span-2">
+                    <label htmlFor="address">Address</label>
+                    <Field
+                      type="text"
+                      name="address"
+                      id="address"
+                      className="border shadow-sm px-3 py-2 rounded-md border-[#35736E]"
+                    />
+                    <ErrorMessage
+                      name="address"
+                      component="div"
+                      className="text-red-500 text-sm mt-1"
+                    />
+                  </span>
+
+                  <span className="flex flex-col col-span-2 gap-2">
+                    <label htmlFor="country">Country</label>
+                    <Field
+                      type="text"
+                      name="country"
+                      id="country"
+                      className="border shadow-sm px-3 py-2 rounded-md border-[#35736E]"
+                    />
+                    <ErrorMessage
+                      name="country"
+                      component="div"
+                      className="text-red-500 text-sm mt-1"
+                    />
+                  </span>
+
+                  <span className="flex flex-col col-span-2 gap-2">
+                    <label htmlFor="postal">Postal Code</label>
+                    <Field
+                      type="text"
+                      name="postal"
+                      id="postal"
+                      className="border shadow-sm px-3 py-2 rounded-md border-[#35736E]"
+                    />
+                    <ErrorMessage
+                      name="postal"
+                      component="div"
+                      className="text-red-500 text-sm mt-1"
+                    />
+                  </span>
+                </div>
+              </div>
+              <button
+                // onClick={handleFormsubmit}
+                type="submit"
+                className="olive text-center rounded-lg py-2 mt-4 w-[200px] cursor-pointer"
+              >
+                {billingStatus == 1 ? "Proceed to Checkout" : "Proceed to Pay"}
+              </button>
+            </Form>
+          </Formik>
+          {/* {billingStatus === 1 ? (
+            <></>
+          ) : 
+          (
+            <Formik
+            >
+              <form>
+                <div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <span className="flex flex-col gap-2 col-span-2">
+                      <label htmlFor="cardHolder">Card Holder Name</label>
+                      <Field
+                        type="text"
+                        name="cardHolder"
+                        id="cardHolder"
+                        value={formData.cardHolder}
+                                                className="border shadow-sm px-3 py-2 rounded-md border-[#35736E]"
+                      />
+                    </span>
+
+                    <span className="flex flex-col gap-2 col-span-2">
+                      <label htmlFor="cardNumber">Card Number</label>
+                      <Field
+                        type="text"
+                        name="cardNumber"
+                        id="cardNumber"
+                        value={formData.cardNumber}
+                                                className="border shadow-sm px-3 py-2 rounded-md border-[#35736E]"
+                      />
+                    </span>
+
+                    <span className="flex flex-col gap-2">
+                      <label htmlFor="expiry">Expiry Date</label>
+                      <Field
+                        type="text"
+                        name="expiry"
+                        id="expiry"
+                        placeholder="MM/YY"
+                        value={formData.expiry}
+                                                className="border shadow-sm px-3 py-2 rounded-md border-[#35736E]"
+                      />
+                    </span>
+
+                    <span className="flex flex-col gap-2">
+                      <label htmlFor="cvv">CVV</label>
+                      <Field
+                        type="password"
+                        name="cvv"
+                        id="cvv"
+                        value={formData.cvv}
+                                                className="border shadow-sm px-3 py-2 rounded-md border-[#35736E]"
+                      />
+                    </span>
+                  </div>
+                </div>
+              </form>
+            </Formik>
+          )} */}
         </div>
       </div>
     </>
