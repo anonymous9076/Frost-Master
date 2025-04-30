@@ -104,7 +104,7 @@ const InvoiceForm = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 px-[1rem] sm:px-[3rem] pt-[1.1rem] pb-[5rem]">
+    <form onSubmit={handleSubmit} className="space-y-6 px-[1rem] sm:px-[3rem] pt-[1.1rem] pb-[5rem] ">
       {/* Invoice Details */}
       <div onClick={()=>setInvoice(curr=>!curr)} className="w-full select-none flex border-b items-center px-[0.5rem] p-2  rounded-md justify-between hover:bg-blue-400 hover:text-white">
       <h2 className="text-lg font-semibold ">Invoice Details</h2>

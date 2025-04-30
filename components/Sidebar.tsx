@@ -173,6 +173,27 @@ const Sidebar = () => {
               </span>{" "}
               Enquiry
             </Link>
+            <Link
+              href="/admin/proforma"
+              className={`py-3 ${
+                activePage === "/admin/proforma"
+                  ? "bg-blue-400 text-white"
+                  : "text-black"
+              } w-full flex items-center px-4 rounded-2xl hover:shadow-lg hover:bg-blue-400 hover:text-white  gap-3 text-[16px] group`}
+              title="Proforma"
+              // onClick={() => setActivePage("/admin/Proforma")}
+            >
+              <span
+                className={`${
+                  activePage === "/admin/proforma"
+                    ? " text-white"
+                    : "text-blue-400"
+                }group-hover:text-white  text-[22px]`}
+              >
+                <MdOutlineSupportAgent />
+              </span>{" "}
+              Proforma
+            </Link>
           </div>
           <div
             onClick={logoutUser}
@@ -292,6 +313,25 @@ const Sidebar = () => {
               <span
                 className={`group-hover:text-white  ${
                   activePage === "/admin/enquiry"
+                    ? "bg-blue-400 text-white"
+                    : "text-black"
+                }  text-[22px]`}
+              >
+                <MdOutlineSupportAgent />
+              </span>{" "}
+            </Link>
+            <Link
+              href="/admin/proforma"
+              className={`py-3  w-[90%] mx-auto flex items-center justify-center rounded-lg hover:shadow-lg hover:bg-blue-400 hover:text-white ${
+                activePage === "/admin/proforma"
+                  ? "bg-blue-400 text-white"
+                  : "text-black"
+              }  gap-3 text-[16px] group`}
+              title="proforma"
+            >
+              <span
+                className={`group-hover:text-white  ${
+                  activePage === "/admin/proforma"
                     ? "bg-blue-400 text-white"
                     : "text-black"
                 }  text-[22px]`}
