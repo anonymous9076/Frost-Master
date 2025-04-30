@@ -4,7 +4,7 @@ import { MdOpenInBrowser } from "react-icons/md";
 import { FaImage } from "react-icons/fa";
 import { IoMdTrash } from "react-icons/io";
 import { addProduct, addProductImages } from "@/app/api/Admin/routeData";
-// import imageCompression from "browser-image-compression";
+import imageCompression from "browser-image-compression";
 interface productProps {
   handleCloseModel: () => void;
 }
@@ -109,7 +109,7 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
       subcategory,
       material
     );
-    console.log(res.data, "res here9999");
+    // console.log(res.data, "res here9999");
     setAddedProductId(res.data._id);
     setDataUploaded2(true);
     // handleCloseModel();
@@ -174,6 +174,7 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
         </div>
         {dataUploaded ? (
           <div className="px-7 w-full">
+            <h2 className="text-[25px] font-bold">Product Images</h2>
             <div className="text-blue-400 cursor-pointer border border-blue-400 rounded-lg w-full flex items-center relative justify-center py-[3rem]">
               <button className="flex items-center gap-1 ">
                 {" "}
@@ -235,6 +236,7 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
         className="flex flex-col overflow-y-auto px-7 text-gray-500 gap-4 h-[90%]"
       >
         {/* Suitable For */}
+        <h2 className="text-[25px] font-bold">Product Specifications</h2>
         <div>
           <label className="block text-gray-600 font-medium">Suitable For</label>
           <input
@@ -439,6 +441,8 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
             className=" flex flex-col overflow-y-auto px-7 text-gray-500 gap-4 h-[90%]"
           >
             {/* Product Title */}
+        <h2 className="text-[25px] font-bold">Product Details</h2>
+
             <div>
               <label className="block text-gray-600 font-medium ">
                 Product Title
