@@ -10,20 +10,128 @@ import Image from "next/image";
 import UserAuthContext from "@/app/context/userAuthContext";
 import { logout } from "@/app/api/Auth/routeData";
 import { toast } from "react-toastify";
+import NavDrop from "./NavDrop";
 
 interface navprops {
   active: string;
 }
+interface navfields {
+  label: string;
+  link: string;
+  list: string[];
+}
 const Navbar = ({ active }: navprops) => {
+  const [activeNavDrop, setActiveNavDrop] = useState<boolean>(false);
+  const [hoveredNavField, setHoveredNavField] = useState<navfields>({
+    label: "",
+    link: "",
+    list: [],
+  });
   const navLinks = [
-    { label: "Home", link: "/customer/home" },
-    { label: "About Us", link: "/customer/about" },
-    { label: "Our Products", link: "/customer/products" },
-    { label: "Services", link: "/customer/services" },
-    { label: "My Orders", link: "/customer/myorders" },
-    { label: "Career", link: "/customer/career" },
-    { label: "T&C", link: "/customer/T&C" },
-    { label: "Blogs", link: "/customer/blog" },
+    {
+      label: "Home",
+      link: "/customer/home",
+      list: [
+        "Explore Our Kitchen Solutions",
+        "Our Customer Service",
+        "Connecting Cities",
+        "Experiences Shared by Our Clients",
+        "Trusted by thousands Businesses",
+        "What Makes us prominent players",
+        "Why frostmaster.in?",
+      ],
+    },
+    {
+      label: "About Us",
+      link: "/customer/about",
+      list: [
+        "Explore Our Kitchen Solutions",
+        "Our Customer Service",
+        "Connecting Cities",
+        "Experiences Shared by Our Clients",
+        "Trusted by thousands Businesses",
+        "What Makes us prominent players",
+        "Why frostmaster.in?",
+      ],
+    },
+    {
+      label: "Our Products",
+      link: "/customer/products",
+      list: [
+        "Explore Our Kitchen Solutions",
+        "Our Customer Service",
+        "Connecting Cities",
+        "Experiences Shared by Our Clients",
+        "Trusted by thousands Businesses",
+        "What Makes us prominent players",
+        "Why frostmaster.in?",
+      ],
+    },
+    {
+      label: "Services",
+      link: "/customer/services",
+      list: [
+        "Explore Our Kitchen Solutions",
+        "Our Customer Service",
+        "Connecting Cities",
+        "Experiences Shared by Our Clients",
+        "Trusted by thousands Businesses",
+        "What Makes us prominent players",
+        "Why frostmaster.in?",
+      ],
+    },
+    {
+      label: "My Orders",
+      link: "/customer/myorders",
+      list: [
+        "Explore Our Kitchen Solutions",
+        "Our Customer Service",
+        "Connecting Cities",
+        "Experiences Shared by Our Clients",
+        "Trusted by thousands Businesses",
+        "What Makes us prominent players",
+        "Why frostmaster.in?",
+      ],
+    },
+    {
+      label: "Career",
+      link: "/customer/career",
+      list: [
+        "Explore Our Kitchen Solutions",
+        "Our Customer Service",
+        "Connecting Cities",
+        "Experiences Shared by Our Clients",
+        "Trusted by thousands Businesses",
+        "What Makes us prominent players",
+        "Why frostmaster.in?",
+      ],
+    },
+    {
+      label: "T&C",
+      link: "/customer/T&C",
+      list: [
+        "Explore Our Kitchen Solutions",
+        "Our Customer Service",
+        "Connecting Cities",
+        "Experiences Shared by Our Clients",
+        "Trusted by thousands Businesses",
+        "What Makes us prominent players",
+        "Why frostmaster.in?",
+      ],
+    },
+    {
+      label: "Blogs",
+      link: "/customer/blog",
+      list: [
+        "Explore Our Kitchen Solutions",
+        "Our Customer Service",
+        "Connecting Cities",
+        "Experiences Shared by Our Clients",
+        "Trusted by thousands Businesses",
+        "What Makes us prominent players",
+        "Why frostmaster.in?",
+      ],
+    },
   ];
   const [profile, setProfile] = useState<boolean>(false);
   const [menu, setMenu] = useState<boolean>(false);
@@ -40,25 +148,54 @@ const Navbar = ({ active }: navprops) => {
       toast.error("error");
     }
   }
+  const handleCloseModel = () => {
+    console.log("close");
+    setActiveNavDrop(false);
+  };
+  const handleOpenModel = (item: navfields) => {
+    setHoveredNavField(item);
+    setActiveNavDrop(true);
+    console.log("open");
+  };
   return (
     <>
       <div
-        className={`h-[10dvh] w-[100dvw] sticky z-90 top-0 left-0  bg-[#235753] text-white flex items-center justify-between px-[2rem] md:px-[2rem] lg:px-[5rem] `}
+        className={`h-[10dvh] w-[full]  sticky z-90 top-0 left-0  bg-[#235753] text-white flex items-center justify-between px-[2rem] md:px-[2rem] lg:px-[5rem] `}
       >
+        {/* <NavDrop></NavDrop> */}
+
         <span className="text-[30px]">
           <FaKitchenSet></FaKitchenSet>
         </span>
-        <div className=" text-white lg:flex items-start md:gap-[35px] lg:gap-[20px] xl:gap-[40px]  text-[18px] hidden ">
+        <div className=" text-white lg:flex h-full items-start   md:gap-[35px] lg:gap-[20px] xl:gap-[40px]  text-[18px] hidden ">
           {navLinks.map((item, index) => (
-            <Link
+            <div
+              onMouseEnter={() => handleOpenModel(item)}
+              onMouseLeave={handleCloseModel}
               key={index}
-              href={item.link}
-              className={`transform hover:scale-110 transition whitespace-nowrap duration-200 ${
-                active === item.link ? "active" : ""
-              }`}
+              className=" flex items-center h-full"
             >
-              {item.label}
-            </Link>
+              <Link
+                href={item.link}
+                className={`transform hover:scale-110 transition  whitespace-nowrap duration-200 ${
+                  active === item.link ? "active" : ""
+                }`}
+              >
+                {item.label}
+              </Link>
+              {/* <NavDrop
+                title={hoveredNavField?.label}
+                list={hoveredNavField?.list}
+                active={activeNavDrop}
+              ></NavDrop> */}
+              <NavDrop
+                title={item.label}
+                list={item.list}
+                active={activeNavDrop && hoveredNavField?.label === item.label}
+                handleCloseModel={handleCloseModel}
+              />
+              {/* put the navdrip out  */}
+            </div>
           ))}
         </div>
         <div className="flex items-center text-white gap-3 text-[20px]">
