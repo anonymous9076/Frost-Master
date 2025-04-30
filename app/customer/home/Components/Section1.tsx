@@ -42,7 +42,7 @@ const Section1 = () => {
           </div> */}
             <div className="h-full w-full relative flex items-center justify-center ">
               <Image
-                className="h-full w-full   relative z-10 rounded-md"
+                className="h-full w-[100dvw]   relative z-10 rounded-md"
                 src={item.image}
                 alt="frost"
                 width={500}
