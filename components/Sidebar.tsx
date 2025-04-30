@@ -12,6 +12,7 @@ import { TbLayoutSidebarLeftExpandFilled } from "react-icons/tb";
 import { TbLayoutSidebarLeftCollapseFilled } from "react-icons/tb";
 import UserAuthContext from "@/app/context/userAuthContext";
 import { usePathname } from "next/navigation";
+import { LiaWpforms } from "react-icons/lia";
 const Sidebar = () => {
   const pathName = usePathname();
   const { logoutUser } = useContext(UserAuthContext)!;
@@ -190,7 +191,7 @@ const Sidebar = () => {
                     : "text-blue-400"
                 }group-hover:text-white  text-[22px]`}
               >
-                <MdOutlineSupportAgent />
+                <LiaWpforms />
               </span>{" "}
               Proforma
             </Link>
@@ -336,7 +337,7 @@ const Sidebar = () => {
                     : "text-black"
                 }  text-[22px]`}
               >
-                <MdOutlineSupportAgent />
+                <LiaWpforms />
               </span>{" "}
             </Link>
           </div>

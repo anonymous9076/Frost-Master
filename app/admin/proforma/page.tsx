@@ -49,10 +49,10 @@ const Proforma = () => {
   }, []);
 
   return (
-    <div className="h-screen overflow-y-hidden w-full flex bg-gray-100">
+    <div className="h-screen overflow-y-hidden overflow-x-hidden w-full flex bg-gray-100">
       <Sidebar></Sidebar>
       <div className="flex-1 h-[100dvh] text-gray-700 ">
-        <div className="bg-white w-full h-[8%] md:px-[4rem] px-[1rem] flex items-center text-[20px] font-bold justify-between">
+        <div className="bg-white w-full h-[8%] sm:px-[4rem] px-[2rem] flex items-center text-[20px] font-bold justify-between">
           Proforma Invoice
           <span
             className="px-4 py-2 rounded-md bg-blue-400 whitespace-nowrap text-white text-[16px] font-normal hover:shadow-lg cursor-pointer"
@@ -63,7 +63,7 @@ const Proforma = () => {
         </div>
         <div className=" max-w-[90dvw]  h-full overflow-x-auto overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
           {showModel1 ? (
-            <div className="px-[4rem]  w-full bg-gray-100 min-w-[900px] overflow-x-auto   h-[92%] py-[2rem] text-[14px] ">
+            <div className="px-[2rem] sm:px-[4rem]  w-full bg-gray-100 min-w-[900px] overflow-x-auto   h-[92%] py-[2rem] text-[14px] ">
               <div className="bg-white h-[5rem] w-full rounded-lg px-[1.5rem] flex items-center gap-3">
                 <span className="w-full flex  items-start flex-col ">
                   Search

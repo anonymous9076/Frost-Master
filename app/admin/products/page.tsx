@@ -113,7 +113,7 @@ const ProductManagement = () => {
   }, [currentPage, debouncedData, productCategory]);
   return (
     <AdminLayout>
-      <div className="h-screen overflow-y-hidden  w-full flex bg-gray-100 relative">
+      <div className="h-screen overflow-y-hidden overflow-x-hidden w-full flex bg-gray-100 relative">
         {showModel ? (
           <DeleteModel
             handleCloseModel={handleCloseModel}
@@ -143,8 +143,8 @@ const ProductManagement = () => {
           ""
         )}
         <Sidebar></Sidebar>
-        <div className="flex-1 min-w-[1200px] h-[100dvh] text-gray-700 ">
-          <div className="bg-white w-full h-[8%] px-[4rem] flex items-center text-[20px] font-bold justify-between">
+        <div className="flex-1  h-[100dvh] text-gray-700 ">
+          <div className="bg-white w-full h-[8%] px-[2rem] sm:px-[4rem] flex items-center text-[20px] font-bold justify-between">
             Products Management
             {/* <span className="w-fit h-fit relative">
     <div className="h-screen  w-full flex bg-gray-100 relative">
@@ -153,7 +153,7 @@ const ProductManagement = () => {
       {showModel2?<EditProductForm handleCloseModel={handleCloseEditProductModel} title='Product' fields={product.productFields} data={product.productData} onsubmit={handleUpdateForm} ></EditProductForm>:''}
       <Sidebar ></Sidebar>
       <div className="flex-1 h-full text-gray-700 ">
-        <div className="bg-white w-full h-[8%] px-[4rem] flex items-center text-[20px] font-bold justify-between">
+        <div className="bg-white w-full h-[8%] px-[2rem] sm:px-[4rem] flex items-center text-[20px] font-bold justify-between">
           Products Management Metrics
           {/* <span className="w-fit h-fit relative">
             <input
@@ -172,7 +172,9 @@ const ProductManagement = () => {
               + New Product
             </span>
           </div>
-          <div className="px-[4rem] w-full bg-gray-100 min-w-[900px] overflow-x-auto  h-[92%] py-[2rem] text-[14px] ">
+        <div className=" max-w-[90dvw]  h-full overflow-x-auto overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+
+          <div className="px-[2rem] sm:px-[4rem] w-full bg-gray-100 min-w-[900px] overflow-x-auto  h-[92%] py-[2rem] text-[14px] ">
             <div className="bg-white h-[5rem] w-full rounded-lg px-[1.5rem] flex items-center gap-3">
               <span className="w-full flex  items-start flex-col ">
                 Search
@@ -260,6 +262,7 @@ const ProductManagement = () => {
                   user="admin"
                 ></Pagination>
               </div>
+          </div>
           </div>
         </div>
       </div>
