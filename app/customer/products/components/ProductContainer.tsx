@@ -8,6 +8,7 @@ import { FaFilter } from "react-icons/fa";
 interface ProductsProps {
   searchProduct: string;
   setSearchProduct: (value: string) => void;
+  handleToggleFilter:()=>void
   productsData: [];
   currentPage: number;
   totalPages: number;
@@ -28,6 +29,7 @@ const ProductContainer = (props: ProductsProps) => {
     setSearchProduct,
     productsData,
     currentPage,
+    handleToggleFilter,
     totalPages,
     setCurrentPage,
   } = props;
@@ -105,9 +107,9 @@ const ProductContainer = (props: ProductsProps) => {
 
   return (
     <div className="h-fit w-full  px-[2rem]">
-      <h1 className=" text-[25px] md:text-[35px] flex items-center justify-between font-bold">
-        Our Collection Of Products <FaFilter></FaFilter>{" "}
-      </h1>
+      <div className=" text-[25px] md:text-[35px] px-3   flex items-center justify-between font-bold">
+        Our Collection Of Products <span className="text-[#35736E] xl:hidden text-[25px]" onClick={()=>handleToggleFilter()}><FaFilter></FaFilter></span>{" "}
+      </div>
 
       <span className="h-fit w-full relative">
         <input
@@ -124,7 +126,7 @@ const ProductContainer = (props: ProductsProps) => {
 
       <div className="grid w-full  lg:grid-cols-3 md:grid-cols-2 grid-cols-1 h-full  py-[1rem] gap-5">
         {productsData?.map((product: ProductTypes, index: number) => (
-          <span key={index} className="h-[55dvh]">
+          <span key={index} className="">
             <ProductCard
               title={product?.productTitle}
               image={product?.images[0]}
