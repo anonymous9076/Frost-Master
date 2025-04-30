@@ -3,11 +3,17 @@ import React, { useState } from "react";
 import { MdOpenInBrowser } from "react-icons/md";
 import { FaImage } from "react-icons/fa";
 import { IoMdTrash } from "react-icons/io";
-import { addProduct, addProductImages } from "@/app/api/Admin/routeData";
+import {
+  addProduct,
+  addProductImages,
+  addProductSpecification,
+} from "@/app/api/Admin/routeData";
 import imageCompression from "browser-image-compression";
 interface productProps {
   handleCloseModel: () => void;
 }
+
+
 
 const ProductForm = ({ handleCloseModel }: productProps) => {
   const [formData, setFormData] = useState({
@@ -19,6 +25,8 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
     subcategory: "",
     // ratings: 0,
     // stock: "",
+  });
+  const [formDataProductSpec, setFormDataProductSpec] = useState({
     suitableFor: "",
     decks: "",
     trays: "",
@@ -73,8 +81,15 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
       [name]: value,
     });
   };
+  const handleChangeProductSpec = (e: any) => {
+    const { name, value,checked,type } = e.target;
+    setFormDataProductSpec({
+      ...formDataProductSpec,
+      [name]: type === "checkbox" ? checked : value
+    });
+  };
 
-  //first submit  
+  //first submit
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
@@ -114,10 +129,12 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
     setDataUploaded2(true);
     // handleCloseModel();
   };
-  const handleSubmit2 = async (e: any)=>{
-    setDataUploaded(true)
-
-  }
+  const handleSubmit2 = async (e: any) => {
+  console.log(formDataProductSpec)
+    e.preventDefault();
+    await addProductSpecification(formDataProductSpec, addedProductId);
+    setDataUploaded(true);
+  };
 
   async function compressImageData(image: File): Promise<File> {
     const options = {
@@ -230,218 +247,237 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
               </button>
             </div>
           </div>
-        ) : dataUploaded2?
-        <form
-        onSubmit={handleSubmit2}
-        className="flex flex-col overflow-y-auto px-7 text-gray-500 gap-4 h-[90%]"
-      >
-        {/* Suitable For */}
-        <h2 className="text-[25px] font-bold">Product Specifications</h2>
-        <div>
-          <label className="block text-gray-600 font-medium">Suitable For</label>
-          <input
-            type="text"
-            name="suitableFor"
-            value={formData.suitableFor}
-            onChange={handleChange}
-            required
-            className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
-          />
-        </div>
-  
-        {/* Decks */}
-        <div>
-          <label className="block text-gray-600 font-medium">Decks</label>
-          <input
-            type="text"
-            name="decks"
-            value={formData.decks}
-            onChange={handleChange}
-            required
-            className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
-          />
-        </div>
-  
-        {/* Trays */}
-        <div>
-          <label className="block text-gray-600 font-medium">Trays</label>
-          <input
-            type="text"
-            name="trays"
-            value={formData.trays}
-            onChange={handleChange}
-            required
-            className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
-          />
-        </div>
-  
-        {/* Maximum Temperature */}
-        <div>
-          <label className="block text-gray-600 font-medium">Maximum Temperature</label>
-          <input
-            type="number"
-            name="maximumTemperature"
-            value={formData.maximumTemperature}
-            onChange={handleChange}
-            required
-            className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
-          />
-        </div>
-  
-        {/* Material Front & Body */}
-        <div className="w-full flex items-center gap-3">
-          <div className="w-full">
-            <label className="block text-gray-600 font-medium">Material Front</label>
-            <input
-              type="text"
-              name="materialFront"
-              value={formData.materialFront}
-              onChange={handleChange}
-              required
-              className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
-            />
-          </div>
-          <div className="w-full">
-            <label className="block text-gray-600 font-medium">Material Body</label>
-            <input
-              type="text"
-              name="materialBody"
-              value={formData.materialBody}
-              onChange={handleChange}
-              required
-              className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
-            />
-          </div>
-        </div>
-  
-        {/* Power Type */}
-        <div>
-          <label className="block text-gray-600 font-medium">Power Type</label>
-          <input
-            type="text"
-            name="powerType"
-            value={formData.powerType}
-            onChange={handleChange}
-            required
-            className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
-          />
-        </div>
-  
-        {/* Ignition Type */}
-        <div>
-          <label className="block text-gray-600 font-medium">Ignition Type</label>
-          <input
-            type="text"
-            name="ignitionType"
-            value={formData.ignitionType}
-            onChange={handleChange}
-            required
-            className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
-          />
-        </div>
-  
-        {/* Energy Efficiency */}
-        <div>
-          <label className="block text-gray-600 font-medium">Energy Efficiency</label>
-          <input
-            type="text"
-            name="energyEfficiency"
-            value={formData.energyEfficiency}
-            onChange={handleChange}
-            required
-            className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
-          />
-        </div>
-  
-        {/* Fuel Consumption */}
-        <div>
-          <label className="block text-gray-600 font-medium">Fuel Consumption</label>
-          <input
-            type="text"
-            name="fuelConsumption"
-            value={formData.fuelConsumption}
-            onChange={handleChange}
-            required
-            className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
-          />
-        </div>
-  
-        {/* Digital Display */}
-        <div className="flex items-center">  
-          <input
-            type="checkbox"
-            name="digitalDisplay"
-            checked={formData.digitalDisplay}
-            onChange={handleChange}
-            className="mr-2 transition duration-300"
-          />
-          <label className="text-gray-600 font-medium">Digital Display</label>
-        </div>
-  
-        {/* Temperature Control */}
-        <div>
-          <label className="block text-gray-600 font-medium">Temperature Control</label>
-          <input
-            type="text"
-            name="temperatureControl"
-            value={formData.temperatureControl}
-            onChange={handleChange}
-            required
-            className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
-          />
-        </div>
-  
-        {/* Safety */}
-        <div>
-          <label className="block text-gray-600 font-medium">Safety</label>
-          <input
-            type="text"
-            name="safety"
-            value={formData.safety}
-            onChange={handleChange}
-            required
-            className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
-          />
-        </div>
-  
-        {/* Usage */}
-        <div className="mb-4">
-          <label className="block text-gray-600 font-medium">Usage</label>
-          <textarea
-            name="usage"
-            value={formData.usage}
-            onChange={handleChange}
-            rows={3}
-            required
-            className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
-          />
-        </div>
-  
-        {/* Submit & Cancel Buttons */}
-        <div className="w-full h-fit mt-3 flex justify-end space-x-3">
-          <button
-            type="button"
-            className="px-4 text-gray-600 border border-gray-300 font-bold py-3 rounded-lg transition duration-300"
-            onClick={handleCloseModel}
+        ) : dataUploaded2 ? (
+          <form
+            onSubmit={handleSubmit2}
+            className="flex flex-col overflow-y-auto px-7 text-gray-500 gap-4 h-[90%]"
           >
-            Cancel
-          </button>
-          <button
-            type="submit"
+            {/* Suitable For */}
+            <h2 className="text-[25px] font-bold">Product Specifications</h2>
+            <div>
+              <label className="block text-gray-600 font-medium">
+                Suitable For
+              </label>
+              <input
+                type="text"
+                name="suitableFor"
+                value={formDataProductSpec.suitableFor}
+                onChange={handleChangeProductSpec}
+                required
+                className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
+              />
+            </div>
 
-            className="px-4 bg-blue-400 hover:bg-blue-500 text-white font-bold py-3 rounded-lg transition duration-300"
-          >
-            Submit Form
-          </button>
-        </div>
-      </form>
-        :(
+            {/* Decks */}
+            <div>
+              <label className="block text-gray-600 font-medium">Decks</label>
+              <input
+                type="text"
+                name="decks"
+                value={formDataProductSpec.decks}
+                onChange={handleChangeProductSpec}
+                required
+                className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
+              />
+            </div>
+
+            {/* Trays */}
+            <div>
+              <label className="block text-gray-600 font-medium">Trays</label>
+              <input
+                type="text"
+                name="trays"
+                value={formDataProductSpec.trays}
+                onChange={handleChangeProductSpec}
+                required
+                className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
+              />
+            </div>
+
+            {/* Maximum Temperature */}
+            <div>
+              <label className="block text-gray-600 font-medium">
+                Maximum Temperature
+              </label>
+              <input
+                type="number"
+                name="maximumTemperature"
+                value={formDataProductSpec.maximumTemperature}
+                onChange={handleChangeProductSpec}
+                required
+                className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
+              />
+            </div>
+
+            {/* Material Front & Body */}
+            <div className="w-full flex items-center gap-3">
+              <div className="w-full">
+                <label className="block text-gray-600 font-medium">
+                  Material Front
+                </label>
+                <input
+                  type="text"
+                  name="materialFront"
+                  value={formDataProductSpec.materialFront}
+                  onChange={handleChangeProductSpec}
+                  required
+                  className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
+                />
+              </div>
+              <div className="w-full">
+                <label className="block text-gray-600 font-medium">
+                  Material Body
+                </label>
+                <input
+                  type="text"
+                  name="materialBody"
+                  value={formDataProductSpec.materialBody}
+                  onChange={handleChangeProductSpec}
+                  required
+                  className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
+                />
+              </div>
+            </div>
+
+            {/* Power Type */}
+            <div>
+              <label className="block text-gray-600 font-medium">
+                Power Type
+              </label>
+              <input
+                type="text"
+                name="powerType"
+                value={formDataProductSpec.powerType}
+                onChange={handleChangeProductSpec}
+                required
+                className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
+              />
+            </div>
+
+            {/* Ignition Type */}
+            <div>
+              <label className="block text-gray-600 font-medium">
+                Ignition Type
+              </label>
+              <input
+                type="text"
+                name="ignitionType"
+                value={formDataProductSpec.ignitionType}
+                onChange={handleChangeProductSpec}
+                required
+                className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
+              />
+            </div>
+
+            {/* Energy Efficiency */}
+            <div>
+              <label className="block text-gray-600 font-medium">
+                Energy Efficiency
+              </label>
+              <input
+                type="text"
+                name="energyEfficiency"
+                value={formDataProductSpec.energyEfficiency}
+                onChange={handleChangeProductSpec}
+                required
+                className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
+              />
+            </div>
+
+            {/* Fuel Consumption */}
+            <div>
+              <label className="block text-gray-600 font-medium">
+                Fuel Consumption
+              </label>
+              <input
+                type="text"
+                name="fuelConsumption"
+                value={formDataProductSpec.fuelConsumption}
+                onChange={handleChangeProductSpec}
+                required
+                className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
+              />
+            </div>
+
+            {/* Digital Display */}
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                name="digitalDisplay"
+                checked={formDataProductSpec.digitalDisplay}
+                onChange={handleChangeProductSpec}
+                className="mr-2 transition duration-300"
+              />
+              <label className="text-gray-600 font-medium">
+                Digital Display
+              </label>
+            </div>
+
+            {/* Temperature Control */}
+            <div>
+              <label className="block text-gray-600 font-medium">
+                Temperature Control
+              </label>
+              <input
+                type="text"
+                name="temperatureControl"
+                value={formDataProductSpec.temperatureControl}
+                onChange={handleChangeProductSpec}
+                required
+                className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
+              />
+            </div>
+
+            {/* Safety */}
+            <div>
+              <label className="block text-gray-600 font-medium">Safety</label>
+              <input
+                type="text"
+                name="safety"
+                value={formDataProductSpec.safety}
+                onChange={handleChangeProductSpec}
+                required
+                className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
+              />
+            </div>
+
+            {/* Usage */}
+            <div className="mb-4">
+              <label className="block text-gray-600 font-medium">Usage</label>
+              <textarea
+                name="usage"
+                value={formDataProductSpec.usage}
+                onChange={handleChangeProductSpec}
+                rows={3}
+                required
+                className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
+              />
+            </div>
+
+            {/* Submit & Cancel Buttons */}
+            <div className="w-full h-fit mt-3 flex justify-end space-x-3">
+              <button
+                type="button"
+                className="px-4 text-gray-600 border border-gray-300 font-bold py-3 rounded-lg transition duration-300"
+                onClick={handleCloseModel}
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="px-4 bg-blue-400 hover:bg-blue-500 text-white font-bold py-3 rounded-lg transition duration-300"
+              >
+                Submit Form
+              </button>
+            </div>
+          </form>
+        ) : (
           <form
             onSubmit={handleSubmit}
             className=" flex flex-col overflow-y-auto px-7 text-gray-500 gap-4 h-[90%]"
           >
             {/* Product Title */}
-        <h2 className="text-[25px] font-bold">Product Details</h2>
+            <h2 className="text-[25px] font-bold">Product Details</h2>
 
             <div>
               <label className="block text-gray-600 font-medium ">

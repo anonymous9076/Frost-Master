@@ -5,10 +5,11 @@ import { MdOpenInBrowser } from "react-icons/md";
 import { FaImage } from "react-icons/fa";
 import { IoMdTrash } from "react-icons/io";
 import { showProductDetails } from "@/app/api/Admin/routeData";
+import { showProductSpec } from "@/app/api/Product";
 
 interface productProps {
   handleCloseModel: () => void;
-  title:string;
+  title: string;
   fields: any;
   // data: any;
   onsubmit: (arg0: any) => void;
@@ -22,6 +23,20 @@ interface FormDataType {
   material: string;
   // ratings: number;
   stock: number;
+  suitableFor: string;
+  decks: string;
+  trays: string;
+  maximumTemperature: number;
+  materialFront: string;
+  materialBody: string;
+  powerType: string;
+  ignitionType: string;
+  energyEfficiency: string;
+  fuelConsumption: string;
+  digitalDisplay: boolean;
+  temperatureControl: string;
+  safety: string;
+  usage: string;
 }
 
 const EditProductForm = ({
@@ -33,6 +48,7 @@ const EditProductForm = ({
   productId,
 }: productProps) => {
   const [dataUploaded, setDataUploaded] = useState<boolean>(false);
+  const [dataUploaded2, setDataUploaded2] = useState<boolean>(false);
   const [formData, setFormData] = useState<FormDataType>({
     productTitle: "data.productTitle",
     productDescription: "data.productDescription",
@@ -41,15 +57,31 @@ const EditProductForm = ({
     material: "data.material",
     // ratings: "data.ratings",
     stock: 0,
+    suitableFor: "",
+    decks: "",
+    trays: "",
+    maximumTemperature: 0,
+    materialFront: "",
+    materialBody: "",
+    powerType: "",
+    ignitionType: "",
+    energyEfficiency: "",
+    fuelConsumption: "",
+    digitalDisplay: false,
+    temperatureControl: "",
+    safety: "",
+    usage: "",
   });
   const [images, setImages] = useState<any[]>([]);
   const [newImages, setNewImages] = useState<any[]>([]);
 
   const handleChange = (e: any) => {
-    const { name, value } = e.target;
+    const { name, value, type } = e.target;
+    const checked = e.target.checked;
+    console.log(name, value, checked, "check the values===>");
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: type === "checkbox" ? checked : value,
     });
   };
 
@@ -112,6 +144,26 @@ const EditProductForm = ({
       productTitle,
       stock,
     } = res.data;
+    const data = await showProductSpec(productId);
+    const {
+      decks,
+      ignitionType,
+      digitalDisplay,
+      energyEfficiency,
+      fuelConsumption,
+      materialBody,
+      maximumTemperature,
+      powerType,
+      safety,
+      suitableFor,
+      temperatureControl,
+      trays,
+      usage,
+      materialFront,
+    } = data.data;
+
+    console.log(data.data, "garuavji");
+    // const {} = data.data
     setFormData({
       productTitle: productTitle,
       productDescription: productDescription,
@@ -120,6 +172,20 @@ const EditProductForm = ({
       material: material,
       // ratings: "data.ratings",
       stock: stock,
+      suitableFor: suitableFor,
+      decks: decks,
+      trays: trays,
+      maximumTemperature: maximumTemperature,
+      materialFront: materialFront,
+      materialBody: materialBody,
+      powerType: powerType,
+      ignitionType: ignitionType,
+      energyEfficiency: energyEfficiency,
+      fuelConsumption: fuelConsumption,
+      digitalDisplay: digitalDisplay === "false" ? false : true,
+      temperatureControl: temperatureControl,
+      safety: safety,
+      usage: usage,
     });
     setImages([...res.data.images]);
     console.log(res.data, "product details here 999");
@@ -127,7 +193,6 @@ const EditProductForm = ({
   useEffect(() => {
     showProductsDetails();
   }, []);
-    console.log(fields,'======>')
 
   return (
     <div className="h-screen  flex items-center fixed top-0 left-0 w-full  bg-opacity-90 justify-end bg-black/50">
@@ -149,7 +214,7 @@ const EditProductForm = ({
               {field.type === "select" ? (
                 <select
                   name={field.name}
-                  value={formData[field.name as keyof FormDataType]}
+                  value={formData[field.name as keyof FormDataType] as string}
                   onChange={handleChange}
                   required
                   className={field.className}
@@ -161,10 +226,20 @@ const EditProductForm = ({
                     </option>
                   ))}
                 </select>
+              ) : field.type === "checkbox" ? (
+                <input
+                  type="checkbox"
+                  name={field.name}
+                  checked={
+                    formData[field.name as keyof FormDataType] as boolean
+                  }
+                  onChange={handleChange}
+                  className={field.className}
+                />
               ) : field.type === "textarea" ? (
                 <textarea
                   name={field.name}
-                  value={formData[field.name as keyof FormDataType]}
+                  value={formData[field.name as keyof FormDataType] as string}
                   onChange={handleChange}
                   required
                   rows={field.rows || 3}
@@ -186,7 +261,7 @@ const EditProductForm = ({
                 <input
                   type={field.type}
                   name={field.name}
-                  value={formData[field.name as keyof FormDataType]}
+                  value={formData[field.name as keyof FormDataType] as string}
                   onChange={handleChange}
                   required
                   min={field.min}

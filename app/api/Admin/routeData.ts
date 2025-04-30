@@ -1,5 +1,20 @@
 import { axiosInstance } from "@/app/utlis/axiosConfig/AxiosInstance";
-
+interface productSpecFormData {
+  suitableFor: string;
+  decks: string;
+  trays: string;
+  maximumTemperature: number;
+  materialFront: string;
+  materialBody: string;
+  powerType: string;
+  ignitionType: string;
+  energyEfficiency: string;
+  fuelConsumption: string;
+  digitalDisplay: boolean;
+  temperatureControl: string;
+  safety: string;
+  usage: string;
+}
 export const showCustomers = async (userName: string, currentPage: number) => {
   try {
     const data = await axiosInstance.get("/admin/getAllUsers", {
@@ -56,7 +71,6 @@ export const showOrders = async (
         pageNo: pageNo,
       },
     });
-    console.log(data.data, "show data here:----");
     return data.data;
   } catch (error) {
     return error;
@@ -115,6 +129,20 @@ export const addProductImages = async (files: FormData, productId: string) => {
   }
 };
 
+export const addProductSpecification = async (
+  formData: productSpecFormData,
+  productId: string
+) => {
+  try {
+    const data = await axiosInstance.post(
+      `/addProductSpec/${productId}`,
+      formData
+    );
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
 // update product form
 export const updateProductForm = async (
   formData: FormData,
