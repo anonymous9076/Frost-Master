@@ -17,6 +17,7 @@ interface productprops {
   price: number;
   rating: number;
   category: string;
+  handleEnquiryModel:(a: string, b: boolean) => void;
 }
 interface productTypes {
   userId: string;
@@ -36,6 +37,7 @@ const ProductCard = ({
   price,
   rating,
   category,
+  handleEnquiryModel
 }: productprops) => {
   const { user } = useContext(UserAuthContext)!;
   const addProductIntoCart = useCartStore((store) => store.addProductIntoCart);
@@ -102,7 +104,7 @@ const ProductCard = ({
             </span>
           </Link>
         </div>
-        <span className="border border-[#35736E] mt-2 whitespace-nowrap w-full hover:shadow-md  justify-center text-[#35736E] rounded-md flex items-center gap-2 px-4 py-2">
+        <span onClick={()=>handleEnquiryModel(productId,true)} className="border border-[#35736E] mt-2 whitespace-nowrap w-full hover:shadow-md  justify-center text-[#35736E] rounded-md flex items-center gap-2 px-4 py-2">
           <GrNotes></GrNotes> Make an Enquiry
         </span>
       </div>

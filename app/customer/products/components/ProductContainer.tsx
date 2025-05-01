@@ -1,9 +1,10 @@
 import dynamic from "next/dynamic";
-import React from "react";
+import React, { useState } from "react";
 import { IoSearch } from "react-icons/io5";
 const ProductCard = dynamic(() => import("../../../../components/ProductCard"));
 const Pagination = dynamic(() => import("@/components/Pagination"));
 import { FaFilter } from "react-icons/fa";
+import EnquiryModel from '../components/EnquiryModel'
 
 interface ProductsProps {
   searchProduct: string;
@@ -13,6 +14,10 @@ interface ProductsProps {
   currentPage: number;
   totalPages: number;
   setCurrentPage: (value: number) => void;
+}
+interface EnquiryPropField{
+  id:string,
+  active:boolean
 }
 interface ProductTypes {
   productTitle: string;
@@ -33,6 +38,11 @@ const ProductContainer = (props: ProductsProps) => {
     totalPages,
     setCurrentPage,
   } = props;
+
+  const [enquiryProp,setEnquiryProp]=useState<EnquiryPropField>({
+    id:'0',
+    active:false
+  })
   // const products = [
   //   {
   //     title: "Large Mixing Bowl",
@@ -104,9 +114,19 @@ const ProductContainer = (props: ProductsProps) => {
       setCurrentPage(pageNo);
     }
   }
+  const handleEnquiryModel=(ids:string,active:boolean)=>{
+    console.log('data===>',typeof ids,active)
+    // to make imidate change use funtional state
+    setEnquiryProp(()=>({
+      id:ids,
+      active:active
+    }))
+  }
 
   return (
     <div className="h-fit w-full  px-[2rem]">
+      <EnquiryModel data={enquiryProp}></EnquiryModel>
+
       <div className=" text-[25px] md:text-[35px] px-3   flex items-center justify-between font-bold">
         Our Collection Of Products <span className="text-[#35736E] xl:hidden text-[25px]" onClick={()=>handleToggleFilter()}><FaFilter></FaFilter></span>{" "}
       </div>
@@ -136,6 +156,7 @@ const ProductContainer = (props: ProductsProps) => {
               price={product?.price}
               rating={product?.avgRating}
               category={product?.category}
+              handleEnquiryModel={handleEnquiryModel}
             ></ProductCard>
           </span>
         ))}
