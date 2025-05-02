@@ -6,52 +6,60 @@ import { FaChevronLeft } from "react-icons/fa";
 import { productSuggestionType } from "@/app/customer/products/product-details/ProductDetailSection";
 import dynamic from "next/dynamic";
 interface Product {
-  title: string;
-  image: string;
+  avgRating: number;
   category: string;
-  in_stock: boolean;
-  review: number;
-  allReview: number;
+  images: string[];
+  material: string;
+  numberOfRatings: number;
+  price: number;
+  productDescription: string;
+  productTitle: string;
+  subCategory: string;
+  _id: string;
+  __v: number;
 }
-const Recommendation = (props: any) => {
-  const { productSuggestion } = props;
-  console.log(props, "props data 9090");
-  const productsList = [
-    {
-      title: "Large Mixing Bowl",
-      image: "/Images/bak1.jpg",
-      category: "Mixing",
-      in_stock: true,
-      review: 4.5,
-      allReview: 3,
-    },
-    {
-      title: "Heavy-Duty Whisk",
-      image: "/Images/bak3.jpg",
-      category: "Whisking",
-      in_stock: true,
-      review: 4.3,
-      allReview: 3,
-    },
-    {
-      title: "Wooden Rolling Pin",
-      image: "/Images/bak2.jpg",
-      category: "Baking",
-      in_stock: false,
-      review: 4.7,
-      allReview: 3,
-    },
+interface ProductSuggestionInterface {
+  productSuggestion: productSuggestionType[];
+}
 
-    {
-      title: "Heavy-Duty Whisk",
-      image: "/Images/bak3.jpg",
-      category: "Whisking",
-      in_stock: true,
-      review: 4.3,
-      allReview: 3,
-    },
-  ];
-  const [products, setProducts] = useState<Product[]>([...productsList]);
+const Recommendation = ({ productSuggestion }: ProductSuggestionInterface) => {
+  console.log(productSuggestion[0], "props data 9090");
+  // const productsList = [
+  //   {
+  //     title: "Large Mixing Bowl",
+  //     image: "/Images/bak1.jpg",
+  //     category: "Mixing",
+  //     in_stock: true,
+  //     review: 4.5,
+  //     allReview: 3,
+  //   },
+  //   {
+  //     title: "Heavy-Duty Whisk",
+  //     image: "/Images/bak3.jpg",
+  //     category: "Whisking",
+  //     in_stock: true,
+  //     review: 4.3,
+  //     allReview: 3,
+  //   },
+  //   {
+  //     title: "Wooden Rolling Pin",
+  //     image: "/Images/bak2.jpg",
+  //     category: "Baking",
+  //     in_stock: false,
+  //     review: 4.7,
+  //     allReview: 3,
+  //   },
+
+  //   {
+  //     title: "Heavy-Duty Whisk",
+  //     image: "/Images/bak3.jpg",
+  //     category: "Whisking",
+  //     in_stock: true,
+  //     review: 4.3,
+  //     allReview: 3,
+  //   },
+  // ];
+  const [products, setProducts] = useState<Product[]>([...productSuggestion]);
 
   const handleShiftLeft = () => {
     setProducts((prevProducts) => {
