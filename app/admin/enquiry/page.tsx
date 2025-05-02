@@ -13,7 +13,12 @@ import { FiEdit } from "react-icons/fi";
 import { toast } from "react-toastify";
 const EditProductForm = dynamic(() => import("@/components/EditProductForm"));
 import enquires from "../../../EditModelData";
-
+import { IoHelpCircleOutline } from "react-icons/io5"; 
+import { IoCartOutline } from "react-icons/io5";
+import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
+import { IoInformationCircleOutline } from "react-icons/io5";
+import PolarChart from "@/components/PolarGraph";
+import LineChart from "@/components/LineGraph";
 interface EnquiryTypes {
   name: string;
   email: string;
@@ -43,6 +48,43 @@ const ProductManagement = () => {
         return "bg-gray-200"; // Gray for other cases
     }
   };
+  const numberOfEnquiriesInMonth=[45,67,33,70,]
+  const dataArray = [
+    {
+      color:'#FA812F',
+      bg_color: "bg-[#FA812F]",
+      text_color: "text-[#FA812F]",
+      category: "Feedback",
+      numbers: 120,
+      icons: <IoChatbubbleEllipsesOutline/>,
+    },
+    {
+      color:'#6EC207',
+      bg_color: "bg-[#6EC207]",
+      text_color: "text-[#6EC207]",
+      category: "Sales",
+      numbers:152,
+      icons: <IoHelpCircleOutline/>,
+    },
+    {
+      color:'#60B5FF',
+      bg_color: "bg-[#60B5FF]",
+      text_color: "text-[#60B5FF]",
+      category: "Marketing",
+      numbers: 78,
+      icons: <IoInformationCircleOutline/>,
+    },
+    {
+      color:'#FFD63A',
+      bg_color: "bg-[#FFD63A]",
+      text_color: "text-[#FFD63A]",
+      category: "Support",
+      numbers: 85,
+      icons: <IoCartOutline/>,
+    },
+   
+  ];
+  
 
   async function deleteEnquiryData() {
     const res = await deleteEnquiry(enquiryId);
@@ -136,7 +178,31 @@ const ProductManagement = () => {
           </span> */}
           </div>
         <div className=" max-w-[90dvw]  h-full overflow-x-auto overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-          <div className="px-[2rem] sm:px-[4rem] w-full bg-gray-100 min-w-[900px] overflow-x-auto  h-[92%] py-[2rem] text-[14px] ">
+          <div className="px-[2rem] sm:px-[4rem] w-full bg-gray-100 min-w-[1200px] overflow-x-auto  h-[92%] py-[2rem] text-[14px] ">
+        <div className="  w-full  grid pb-[1rem] grid-cols-4  place-items-center gap-5">
+
+              {dataArray.map((item,index)=>
+
+            <span key={index} className="w-full min-w-[250px] h-[100px] p-2 flex gap-3 items-center bg-white shadow-sm rounded-lg">
+              <span className={`w-[30%] h-full flex items-center justify-end`}>
+                <span className={`h-[65px] w-[65px] ${item.bg_color} text-white flex items-center justify-center text-[30px] rounded-full`}>{item.icons}</span>
+              </span>
+              <span className={`w-[70%] h-full flex justify-center flex-col  `}> 
+                <h1 className={`text-[30px] font-semibold ${item.text_color}`}>{item.numbers}</h1>
+                <p>{item.category}</p>
+              </span>
+            </span>
+            )}
+            
+          </div>
+          <div className="h-[50dvh] mb-[1rem] flex items-center gap-4  justify-center rounded-lg overflow-hidden w-full">
+            <div className="w-[60%] h-full light flex items-center rounded-lg px-[1rem] justify-center">
+            <LineChart dataValues={numberOfEnquiriesInMonth} ></LineChart>
+            </div>
+            <div className="w-[40%] h-full light flex items-center rounded-lg p-[1rem] justify-center">
+              <PolarChart dataValues={dataArray} ></PolarChart>
+            </div>
+             </div>
             <div className="bg-white h-[5rem] w-full rounded-lg px-[1.5rem] flex items-center gap-3">
               {/* <span className="w-full flex  items-start flex-col ">
                 Search

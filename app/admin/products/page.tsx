@@ -172,7 +172,7 @@ const ProductManagement = () => {
               + New Product
             </span>
           </div>
-        <div className=" max-w-[90dvw]  h-full overflow-x-auto overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+        <div className=" max-w-[90dvw] mx-auto h-full overflow-x-auto overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
 
           <div className="px-[2rem] sm:px-[4rem] w-full bg-gray-100 min-w-[900px] overflow-x-auto  h-[92%] py-[2rem] text-[14px] ">
             <div className="bg-white h-[5rem] w-full rounded-lg px-[1.5rem] flex items-center gap-3">

@@ -93,7 +93,7 @@ const ShowOrders = () => {
           <div className="bg-white w-full h-[8%] px-[2rem] sm:px-[4rem] flex items-center text-[20px] font-bold justify-between">
             Orders
           </div>
-        <div className=" max-w-[90dvw]  h-full overflow-x-auto overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+        <div className=" max-w-[90dvw] mx-auto  h-full overflow-x-auto overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
 
           {openModel ? (
             <div className="px-[2rem] sm:px-[4rem] w-full bg-gray-100 min-w-[900px] overflow-x-auto  h-[92%] py-[2rem] text-[14px] ">
