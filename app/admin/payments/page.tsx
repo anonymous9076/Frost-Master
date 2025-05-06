@@ -141,12 +141,12 @@ const ShowPayments = () => {
             </div>
             <div className=" h-fit max-h-[60dvh] overflow-y-auto w-full  pt-[2rem]">
               <ul className=" m-0 p-0 flex items-center  px-[1.5rem]">
-                <li className="w-[15%]">Transaction ID</li>
-                <li className="w-[17%]">Payment Method</li>
-                <li className="w-[15%]">Status</li>
-                <li className="w-[16%]">Date</li>
-                <li className="w-[14%]">Total Amount</li>
-                <li className="w-[8%]">Actions</li>
+                <li className="w-[19%]">Transaction ID</li>
+                <li className="w-[22%]">Payment Method</li>
+                <li className="w-[18%]">Status</li>
+                <li className="w-[15%]">Date</li>
+                <li className="w-[15%]">Total Amount</li>
+                <li className="w-[11%]">Actions</li>
               </ul>
 
               {paymentData
@@ -155,11 +155,11 @@ const ShowPayments = () => {
                       className=" my-1 p-0 flex items-center py-3 px-[1.5rem] bg-white rounded-sm shadow-sm  "
                       key={index}
                     >
-                      <li className="w-[15%]">#{item?.transactionId}</li>
-                      <li className="w-[17%] flex h-full gap-1 items-center">
+                      <li className="w-[19%]">#{item?.transactionId}</li>
+                      <li className="w-[22%] flex h-full gap-1 items-center">
                         {item?.paymentMethod}
                       </li>
-                      <li className="w-[15%]">
+                      <li className="w-[18%]">
                         <span
                           className={`w-fit h-fit bg-gray-100 rounded-xl px-4 py-1 ${getStatusColor(
                             item?.paymentStatus
@@ -168,12 +168,12 @@ const ShowPayments = () => {
                           {item?.paymentStatus}
                         </span>
                       </li>
-                      <li className="w-[14%]">
+                      <li className="w-[15%]">
                         {dateFormate(item?.createdAt)}
                       </li>
 
-                      <li className="w-[14%]">${item?.totalAmount}</li>
-                      <li className="w-[8%] flex items-center gap-3">
+                      <li className="w-[15%]">${item?.totalAmount}</li>
+                      <li className="w-[11%] flex items-center gap-3">
                         <span
                           className="text-[18px] text-blue-400"
                           title="view"

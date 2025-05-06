@@ -203,9 +203,9 @@ const ProductManagement = () => {
             </div>
             <div className=" h-fit max-h-[60dvh] overflow-y-auto  w-full  pt-[2rem]">
               <ul className=" m-0 p-0 flex items-center  px-[1.5rem]">
-                <li className="w-[24%]">Product Name</li>
-                <li className="w-[20%]">Category</li>
-                <li className="w-[15%]">Price </li>
+                <li className="w-[35%]">Product Name</li>
+                <li className="w-[25%]">Category</li>
+                <li className="w-[16%]">Price</li>
                 <li className="w-[18%]">Date</li>
                 <li className="w-[11%]">Actions</li>
               </ul>
@@ -216,17 +216,17 @@ const ProductManagement = () => {
                       className=" my-1 p-0 flex items-center py-3 px-[1.5rem] bg-white rounded-sm shadow-sm  "
                       key={index}
                     >
-                      <li className="w-[24%] whitespace-nowrap overflow-hidden">
+                      <li className="w-[35%]  whitespace-nowrap overflow-ellipsis">
                         {item?.productTitle}
                       </li>
-                      <li className="w-[20%] whitespace-nowrap overflow-hidden">
+                      <li className="w-[25%] whitespace-nowrap overflow-hidden">
                         {item?.category}
                       </li>
-                      <li className="w-[15%] flex h-full gap-1 items-center">
+                      <li className="w-[16%] flex h-full gap-1 items-center">
                         {item?.price}
                       </li>
 
-                      <li className="w-[12%]">{dateFormate(item.date)}</li>
+                      <li className="w-[18%]">{dateFormate(item.date)}</li>
                       <li className="w-[11%] flex items-center gap-3">
                         {/* <span className="text-[18px] text-blue-400" title="view"><LuEye></LuEye></span> */}
                         <span

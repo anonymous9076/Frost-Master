@@ -129,11 +129,11 @@ const ShowUsers = () => {
             </div>
             <div className=" h-fit  max-h-[60dvh] overflow-y-auto w-full  pt-[2rem]">
               <ul className=" m-0 p-0 flex items-center  px-[1.5rem]">
-                <li className="w-[15%]">User ID</li>
-                <li className="w-[17%]">Name</li>
-                <li className="w-[25%]">Email Address</li>
-                <li className="w-[18%]">Registration Date</li>
-                <li className="w-[10%]">Actions</li>
+                <li className="w-[17%]">User ID</li>
+                <li className="w-[22%]">Name</li>
+                <li className="w-[30%]">Email Address</li>
+                <li className="w-[20%]">Registration Date</li>
+                <li className="w-[11%]">Actions</li>
               </ul>
 
               {customers
@@ -142,16 +142,16 @@ const ShowUsers = () => {
                       className=" my-1 p-0 flex items-center py-3 px-[1.5rem] bg-white rounded-sm shadow-sm  "
                       key={index}
                     >
-                      <li className="w-[15%]">{index + 1}</li>
-                      <li className="w-[17%] flex h-full gap-1 items-center">
+                      <li className="w-[17%]">{index + 1}</li>
+                      <li className="w-[22%] overflow-ellipsis flex h-full gap-1 items-center">
                         <BsPerson></BsPerson> {item?.userName}
                       </li>
-                      <li className="w-[25%]">{item?.email}</li>
-                      <li className="w-[18%]">
+                      <li className="w-[30%] overflow-ellipsis">{item?.email}</li>
+                      <li className="w-[20%]">
                         {dateFormate(item?.createdAt)}
                       </li>
 
-                      <li className="w-[10%] flex items-center gap-3 cursor-pointer">
+                      <li className="w-[11%] flex items-center gap-3 cursor-pointer">
                         <span
                           className="text-[16px] text-red-400"
                           title="Delete"
