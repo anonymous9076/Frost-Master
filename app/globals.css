@@ -60,3 +60,24 @@ input[type="number"]::-ms-clear,
 input[type="number"]::-ms-reveal {
     display: none;
 }
+/* styles/globals.css or in a <style jsx global> block */
+.custom-swiper {
+  position: relative;
+}
+
+.custom-swiper .swiper-button-next,
+.custom-swiper .swiper-button-prev {
+  color:#35736E; /* arrow color */
+  top: 50%;
+  font-size: 16px;
+  transform: translateY(-50%);
+  width: 60px;
+  height: 60px;
+  background: rgba(231, 231, 231, 0.534);
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+}
+
+
+

@@ -85,7 +85,7 @@ const ProductCard = ({
       </span>
       <div className=" h-[40%] flex flex-col  justify-evenly  ">
         <div>
-          <h5 className="text-lg tracking-tight ">{title}</h5>
+          <h5 className="text-lg tracking-tight whitespace-nowrap overflow-ellipsis ">{title}</h5>
           <span className="text-sm text-gray-600 ">
             {review} ({totalReview} reviews)
           </span>
