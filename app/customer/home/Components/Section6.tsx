@@ -1,11 +1,18 @@
 "use client";
 import { getHomePageReviews } from "@/app/api/Review";
-import CardSlider from "@/components/AutoSlider";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 // import { FaStar } from "react-icons/fa6";
 import { IoIosStar, IoIosStarHalf } from "react-icons/io";
 
+// interface ReviewType {
+//   name: string;
+//   position: string;
+//   image: string;
+//   comment: string;
+//   rating: number;
+//   _id: string;
+// }
 const Section6 = () => {
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const [reviews, setReviews] = useState([
@@ -76,29 +83,77 @@ const Section6 = () => {
           installation
         </p>
       </div>
-   
-      <CardSlider
-        slides={reviews}
-        slidesPerView={3}
-        spaceBetween={10}
-        navigation={false}
-        pagination={false}
-        autoplay={true}
-        autoplayDelay={2000}
-        className="custom-swiper"
-        breakpoints={{
-          0: {slidesPerView:1},
-          640: { slidesPerView: 1 },
-          768: { slidesPerView: 2 },
-          1024: { slidesPerView: 3 },
-          1500: { slidesPerView: 4 },
-        }}
-      >
-        {(item) => (
+      {/* view below tab */}
+      <div className="sm:hidden flex flex-wrap overflow-x-hidden justify-center gap-3 items-center w-full h-fit px-[2rem]">
+        {reviews?.map((item, index) => (
           <div
-            key={item.id}
+            key={index}
+            data-aos="fade-up"
+            className="border  md:min-w-[35rem] min-w-[350px] min-h-[268px]  px-[2rem] border-gray-300 rounded-lg w-[40%] h-fit flex items-center justify-center flex-col"
+          >
+            <p className="text-[16px] flex gap-2 text-gray-500 items-center">
+              {[...Array(Math.floor(item?.ratings))].map((_, index) => (
+                <span
+                  className={`${
+                    item.ratings <= 3
+                      ? "text-red-500"
+                      : item.ratings < 4
+                      ? "text-amber-400"
+                      : "text-green-400"
+                  }`}
+                  key={index}
+                >
+                  {" "}
+                  <IoIosStar></IoIosStar>
+                </span>
+              ))}
+              {item.ratings % 1 != 0 ? (
+                <span
+                  className={`${
+                    item.ratings <= 3
+                      ? "text-red-500"
+                      : item.ratings < 4
+                      ? "text-amber-400"
+                      : "text-green-400"
+                  }`}
+                >
+                  {" "}
+                  <IoIosStarHalf></IoIosStarHalf>
+                </span>
+              ) : (
+                ""
+              )}
+            </p>
+            <p className="text-gray-500 text-center overflow-clip flex items-center justify-center h-[70px]">
+              {item.comment}
+            </p>
+            <div className="py-[2rem] flex items-center gap-3 justify-center">
+              <Image
+                src="/Images/Boy/boy.png"
+                alt="person"
+                height={500}
+                width={500}
+                className="h-[3rem] w-[3rem] rounded-full"
+              ></Image>
+              <div className="text-left">
+                <p>Test12</p>
+                <p className="text-gray-500 ">Testing</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* view above mobile */}
+      <div
+        ref={scrollRef}
+        className="sm:flex hidden  items-center h-fit w-[95%] px-[1rem] mx-auto justify-start gap-7 text-center overflow-hidden scrollbar-hide"
+      >
+        {reviews?.map((item, index) => (
+          <div
+            key={index}
             data-aos="fade-left"
-            className="border  w-full min-h-[268px]  px-[2rem] border-gray-300 rounded-lg min-w-[340px] h-fit flex items-center justify-center flex-col"
+            className="border  min-w-[35rem] min-h-[268px]  px-[2rem] border-gray-300 rounded-lg w-[40%] h-fit flex items-center justify-center flex-col"
           >
             <p className="text-[16px] flex gap-2 text-gray-500 items-center">
               {[...Array(Math.floor(item?.ratings))].map((_, index) => (
@@ -150,8 +205,8 @@ const Section6 = () => {
               </div>
             </div>
           </div>
-        )}
-      </CardSlider>
+        ))}
+      </div>
     </div>
     // </div>
   );

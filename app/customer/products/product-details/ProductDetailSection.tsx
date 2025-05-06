@@ -37,6 +37,7 @@ export interface productSuggestionType {
   productTitle: string;
   subCategory: string;
   _id: string;
+  __v: number;
 }
 interface EnquiryPropField{
   id:string,
@@ -301,7 +302,7 @@ const ProductDetailSection = () => {
               className="w-[60%] h-[50dvh]"
             ></Image>
             <div className="flex w-[70%] py-[1rem] items-center justify-center flex-cols-4 gap-2">
-              {image.map((item, index) => (
+              {image?.map((item, index) => (
                 <span key={index}>
                   <Image
                     src={item.image}
@@ -339,23 +340,26 @@ const ProductDetailSection = () => {
                       </li>
                     )
                   )} */}
-                  {Object.entries(item).map(([key, value], index: number) => (
-                    <li
-                      key={index}
-                      className="text-[16px] border flex items-center py-1 px-3 border-gray-400"
-                    >
-                      <span className="font-semibold flex-1">
-                        {formatLabel(key)}:
-                      </span>
-                      <span className="flex-1">
-                        {value === false
-                          ? "False"
-                          : value === true
-                          ? "True"
-                          : value}
-                      </span>
-                    </li>
-                  ))}
+                  {item &&
+                    Object?.entries(item)?.map(
+                      ([key, value], index: number) => (
+                        <li
+                          key={index}
+                          className="text-[16px] border flex items-center py-1 px-3 border-gray-400"
+                        >
+                          <span className="font-semibold flex-1">
+                            {formatLabel(key)}:
+                          </span>
+                          <span className="flex-1">
+                            {value === false
+                              ? "False"
+                              : value === true
+                              ? "True"
+                              : value}
+                          </span>
+                        </li>
+                      )
+                    )}
                 </ul>
               </div>
             ))}
@@ -383,7 +387,7 @@ const ProductDetailSection = () => {
           </div>
         </div>
       </div>
-      <Section6 head={false}></Section6>
+      <Section6></Section6>
     </>
   );
 };

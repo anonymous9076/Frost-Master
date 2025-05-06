@@ -17,7 +17,7 @@ interface productprops {
   price: number;
   rating: number;
   category: string;
-  handleEnquiryModel:(a: string, b: boolean) => void;
+  handleEnquiryModel: (a: string, b: boolean) => void;
 }
 interface productTypes {
   userId: string;
@@ -37,7 +37,7 @@ const ProductCard = ({
   price,
   rating,
   category,
-  handleEnquiryModel
+  handleEnquiryModel,
 }: productprops) => {
   const { user } = useContext(UserAuthContext)!;
   const addProductIntoCart = useCartStore((store) => store.addProductIntoCart);
@@ -57,6 +57,7 @@ const ProductCard = ({
   function handleCartItem() {
     addProductIntoCart(data);
   }
+  console.log(process.env.NEXT_PUBLIC_CDNURL, image, "process.env.CDNURL");
   // const urlFriendly: string = category?.replace(/\s+/g, "");
   return (
     <div className=" relative p-4 rounded-lg shadow-md border w-full cursor-pointer h-fit  border-gray-300">
@@ -66,7 +67,10 @@ const ProductCard = ({
       >
         <Image
           className=" rounded-lg w-[100%] h-[150px] min-h-[50%] object-contain"
-          src={image}
+          src={
+            `${process.env.NEXT_PUBLIC_CDNURL}${image}` ||
+            "https://d2a7v7ze64lo1c.cloudfront.net/67e9947392685c757d78d526/1745856658135-IMG_20241201_164223.jpg"
+          }
           alt="product image"
           height={500}
           width={500}
@@ -104,7 +108,10 @@ const ProductCard = ({
             </span>
           </Link>
         </div>
-        <span onClick={()=>handleEnquiryModel(productId,true)} className="border border-[#35736E] mt-2 whitespace-nowrap w-full hover:shadow-md  justify-center text-[#35736E] rounded-md flex items-center gap-2 px-4 py-2">
+        <span
+          onClick={() => handleEnquiryModel(productId, true)}
+          className="border border-[#35736E] mt-2 whitespace-nowrap w-full hover:shadow-md  justify-center text-[#35736E] rounded-md flex items-center gap-2 px-4 py-2"
+        >
           <GrNotes></GrNotes> Make an Enquiry
         </span>
       </div>
