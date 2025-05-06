@@ -1,13 +1,55 @@
+import { createProforma, getProducts } from "@/app/api/Admin/routeData";
 import React, { useEffect, useState } from "react";
 import { FaAngleDown } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
+
+interface ProductData {
+  productTitle: string;
+  _id: string;
+}
+
+interface Product {
+  name: string;
+  description?: string;
+  quantity: number;
+  rate: number;
+  price: number;
+}
+
+export interface InvoiceFormData {
+  invoiceNumber: string;
+
+  buyer_name: string;
+  buyer_address: string;
+  buyer_gstin: string;
+  buyer_state_name: string;
+  buyer_state_code: string;
+
+  consignee_name: string;
+  consignee_address: string;
+  consignee_gstin: string;
+  consignee_state_name: string;
+  consignee_state_code: string;
+
+  delivery_note: string;
+  reference_no: string;
+  buyer_order_no: string;
+  dispatch_doc_no: string;
+  dispatched_through: string;
+  terms_of_delivery: string;
+  mode_payment: string;
+  delivery_note_date: string;
+  destination: string;
+  products: Product[];
+  tax_percentage: string;
+  tax_type: string;
+}
 
 // InvoiceForm: Controlled form with value and onChange for each input
 const InvoiceForm = () => {
   // Define form state
   const [formData, setFormData] = useState({
     invoiceNumber: "",
-    issueDate: "",
 
     buyer_name: "",
     buyer_address: "",
@@ -23,30 +65,32 @@ const InvoiceForm = () => {
 
     delivery_note: "",
     reference_no: "",
-
+    buyer_order_no: "",
+    dispatch_doc_no: "",
+    dispatched_through: "",
+    terms_of_delivery: "",
+    mode_payment: "",
+    delivery_note_date: "",
+    destination: "",
     products: [],
+    tax_percentage: "",
+    tax_type: "",
 
-    subtotal: "",
-    freight: "",
-    tax_total: "",
-    round_off: "",
-    grand_total: "",
-    total_in_words: "",
-
-    account_holder: "",
-    bank_name: "",
-    account_number: "",
-    ifsc_code: "",
-    branch: "",
+    // account_holder: "",
+    // bank_name: "",
+    // account_number: "",
+    // ifsc_code: "",
+    // branch: "",
   });
   const [invoice, setInvoice] = useState<boolean>(false);
   const [buyer, setBuyer] = useState<boolean>(false);
   const [consignee, setConsignee] = useState<boolean>(false);
   const [shipping, setShipping] = useState<boolean>(false);
   const [total, setTotal] = useState<boolean>(false);
+  const [deliveryNotes, setDeliveryNotes] = useState([]);
+  // const [Bank, setBank] = useState<boolean>(false);
   const [product, setProducts] = useState<boolean>(false);
-  const [Bank, setBank] = useState<boolean>(false);
-  const invoiceComplete = formData.invoiceNumber && formData.issueDate;
+  const invoiceComplete = formData.invoiceNumber;
   const buyerComplete =
     formData.buyer_name &&
     formData.buyer_address &&
@@ -57,40 +101,45 @@ const InvoiceForm = () => {
     formData.consignee_address &&
     formData.consignee_state_name &&
     formData.consignee_state_code;
-  const shippingComplete = formData.delivery_note && formData.reference_no;
+
+  //   const shippingComplete = formData.delivery_note && formData.reference_no;
   const productsComplete = formData.products;
-  const totalsComplete =
-    formData.subtotal && formData.tax_total && formData.grand_total;
+
+  const shippingComplete =
+    formData.delivery_note &&
+    formData.reference_no &&
+    formData.buyer_order_no &&
+    formData.dispatch_doc_no &&
+    formData.dispatched_through &&
+    formData.terms_of_delivery &&
+    formData.mode_payment &&
+    formData.delivery_note_date &&
+    formData.destination;
+  const taxData = formData.tax_type && formData.tax_percentage;
 
   // Handle input changes
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
-    // if(name=='products'){
-
-    // }
-    // setFormData((prev) => ({ ...prev, [name]: value }));
-
-    // setFormData((prev) => ({ ...prev, [name]: value }));
-    if(value){
-
+    if (value) {
       if (name === "products") {
-        if(formData.products.length>=5){
-          alert('done')
+        if (formData.products.length >= 5) {
+          alert("done");
           return;
-        }
-        else{
+        } else {
           setFormData((prev) => ({
-        ...prev,
-        products: [...prev.products, value], // push value to array
-      }));
-     }
-    } else {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
+            ...prev,
+            products: [...prev.products, value], // push value to array
+          }));
+        }
+      } else {
+        setFormData((prev) => ({
+          ...prev,
+          [name]: value,
+        }));
+      }
     }
-  }
 
     if (invoiceComplete) {
       setBuyer(true);
@@ -104,21 +153,39 @@ const InvoiceForm = () => {
     if (productsComplete) {
       setProducts(true);
     }
+    if (invoiceComplete) {
+      setBuyer(true);
+    }
+
     if (shippingComplete) {
       setTotal(true);
     }
-    if (totalsComplete) {
-      setBank(true);
+    if (taxData) {
+      setTotal(true);
     }
   };
 
   // Optional submit handler
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Form Data:", formData);
+    await createProforma(formData);
     // Add your submission logic here
   };
+
+  const taxOptions = [
+    { value: "igst", label: "IGST" },
+    { value: "gst", label: "GST" },
+    { value: "sgst", label: "SGST" },
+  ];
+
+  async function getProductForDropDown() {
+    const data = await getProducts();
+    console.log(data.data, "product data here999");
+    setDeliveryNotes(data.data);
+  }
   useEffect(() => {
+    getProductForDropDown();
     const id = generateRandomId();
     setFormData((prev) => ({ ...prev, invoiceNumber: id }));
   }, []);
@@ -133,17 +200,17 @@ const InvoiceForm = () => {
 
     return `${letters}-${numbers}`;
   };
-  const deliveryNotes = [
-    { id: 1, name: "Left at front door" },
-    { id: 2, name: "Handed to recipient" },
-    { id: 3, name: "Delivered to reception" },
-  ];
-  const handleRemoveItem=(indx:number)=>{
+  // const deliveryNotes = [
+  //   { id: 1, name: "Left at front door" },
+  //   { id: 2, name: "Handed to recipient" },
+  //   { id: 3, name: "Delivered to reception" },
+  // ];
+  const handleRemoveItem = (indx: number) => {
     setFormData((prev) => ({
       ...prev,
-      products: formData.products.filter((_,index:number)=>indx!==index), // push value to array
+      products: formData.products.filter((_, index: number) => indx !== index), // push value to array
     }));
-  }
+  };
 
   return (
     <form
@@ -174,18 +241,16 @@ const InvoiceForm = () => {
             />
           </div>
 
-          <div className="w-full">
-            <label className="block text-gray-600 font-medium">
-              Issue Date
-            </label>
-            <input
-              type="date"
-              name="issueDate"
-              value={formData.issueDate}
-              onChange={handleChange}
-              className="w-full p-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
+          {/* <div className="w-full">
+        <label className="block text-gray-600 font-medium">Issue Date</label>
+        <input
+          type="date"
+          name="issueDate"
+          value={formData.issueDate}
+          onChange={handleChange}
+          className="w-full p-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
+      </div> */}
         </>
       ) : (
         ""
@@ -394,30 +459,125 @@ const InvoiceForm = () => {
       </div>
       {product ? (
         <>
-          <div>
+          <div className="">
             <label className="block text-gray-600 font-medium">
               Select Products
             </label>
-              <select
-                name="products"                
-                onChange={handleChange}
-                className="w-full p-2 bg-white border  border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-              >
-                <option value="">Select a Product</option>
-                {deliveryNotes.map((note) => (
-                  <option key={note.id} value={note.name}>
-                    {note.name}
-                  </option>
-                ))}
-              </select>
-                {formData.products.map((item, index) => (
-                   <p
-             key={index}
-              className=" relative w-full p-2 bg-white border my-1 border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            >{item}
-            <span onClick={()=>handleRemoveItem(index)} className="text-red-600 text-[20px] absolute z-90 top-2 right-3 "><MdDelete></MdDelete></span>
-            </p>
-            ))}
+            <select
+              name="products"
+              onChange={handleChange}
+              className="w-full  p-2 bg-white border  border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            >
+              <option value="">Select a Product</option>
+              {deliveryNotes?.map((note: ProductData, index) => (
+                <option key={index} value={note?._id}>
+                  {note.productTitle}
+                </option>
+              ))}
+            </select>
+            {formData?.products?.map((itemId, index) => {
+              const product: ProductData = deliveryNotes?.find(
+                (note: ProductData) => note._id === itemId
+              );
+              return (
+                <p
+                  key={index}
+                  className="relative w-full p-2 bg-white border my-1 border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                >
+                  {product?.productTitle || "Unknown Product"}
+                  <span
+                    onClick={() => handleRemoveItem(index)}
+                    className="text-red-600 text-[20px] absolute z-90 top-2 right-3"
+                  >
+                    <MdDelete />
+                  </span>
+                </p>
+              );
+            })}
+          </div>
+          <div>
+            <label className="block text-gray-600 font-medium">
+              Buyers Order No.
+            </label>
+            <input
+              type="text"
+              name="buyer_order_no"
+              value={formData.buyer_order_no}
+              onChange={handleChange}
+              className="w-full p-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+          <div>
+            <label className="block text-gray-600 font-medium">
+              Dispatch Doc No.
+            </label>
+            <input
+              type="text"
+              name="dispatch_doc_no"
+              value={formData.dispatch_doc_no}
+              onChange={handleChange}
+              className="w-full p-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+          <div>
+            <label className="block text-gray-600 font-medium">
+              Dispatch Through
+            </label>
+            <input
+              type="text"
+              name="dispatched_through"
+              value={formData.dispatched_through}
+              onChange={handleChange}
+              className="w-full p-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+          <div>
+            <label className="block text-gray-600 font-medium">
+              Terms Of Delivery
+            </label>
+            <input
+              type="text"
+              name="terms_of_delivery"
+              value={formData.terms_of_delivery}
+              onChange={handleChange}
+              className="w-full p-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+          <div>
+            <label className="block text-gray-600 font-medium">
+              Payment Mode
+            </label>
+            <input
+              type="text"
+              name="mode_payment"
+              value={formData.mode_payment}
+              onChange={handleChange}
+              className="w-full p-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+          <div>
+            <label className="block text-gray-600 font-medium">
+              Delivery Note Date
+            </label>
+            <input
+              type="date"
+              name="delivery_note_date"
+              value={formData.delivery_note_date}
+              onChange={handleChange}
+              className="w-full p-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+          <div>
+            <label className="block text-gray-600 font-medium">
+              Destination
+            </label>
+            <input
+              type="text"
+              name="destination"
+              value={formData.destination}
+              onChange={handleChange}
+              className="w-full p-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
           </div>
         </>
       ) : (
@@ -428,74 +588,35 @@ const InvoiceForm = () => {
         onClick={() => setTotal((curr) => !curr)}
         className="w-full flex select-none items-center border-b px-[0.5rem] p-2  rounded-md justify-between hover:bg-blue-400 hover:text-white"
       >
-        <h2 className="text-lg font-semibold ">Total Amount</h2>
+        <h2 className="text-lg font-semibold ">Tax</h2>
         <FaAngleDown></FaAngleDown>
       </div>
       {total ? (
         <>
           <div>
-            <label className="block text-gray-600 font-medium">Subtotal</label>
-            <input
-              type="number"
-              name="subtotal"
-              value={formData.subtotal}
-              onChange={handleChange}
-              required
+            <label className="block text-gray-600 font-medium">Tax Type</label>
+            <select
               className="w-full p-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-600 font-medium">Freight</label>
-            <input
-              type="number"
-              name="freight"
-              value={formData.freight}
+              name="tax_type"
+              id="tax_type"
+              value={formData.tax_type}
               onChange={handleChange}
-              className="w-full p-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-600 font-medium">Tax Total</label>
-            <input
-              type="number"
-              name="tax_total"
-              value={formData.tax_total}
-              onChange={handleChange}
-              required
-              className="w-full p-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-600 font-medium">Round Off</label>
-            <input
-              type="number"
-              name="round_off"
-              value={formData.round_off}
-              onChange={handleChange}
-              className="w-full p-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
+            >
+              {taxOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
           </div>
           <div>
             <label className="block text-gray-600 font-medium">
-              Grand Total
+              Tax Percentage
             </label>
             <input
               type="number"
-              name="grand_total"
-              value={formData.grand_total}
-              onChange={handleChange}
-              required
-              className="w-full p-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-600 font-medium">
-              Total in Words
-            </label>
-            <input
-              type="text"
-              name="total_in_words"
-              value={formData.total_in_words}
+              name="tax_percentage"
+              value={formData.tax_percentage}
               onChange={handleChange}
               required
               className="w-full p-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -505,7 +626,7 @@ const InvoiceForm = () => {
       ) : (
         ""
       )}
-      {/* Bank Details */}
+      {/* Bank Details
       <div
         onClick={() => setBank((curr) => !curr)}
         className="w-full flex select-none items-center px-[0.5rem] p-2 border-b  rounded-md justify-between hover:bg-blue-400 hover:text-white"
@@ -575,7 +696,7 @@ const InvoiceForm = () => {
         </>
       ) : (
         ""
-      )}
+      )} */}
       <div>
         <button className="bg-blue-400 text-white px-8 rounded-md py-3 ">
           Submit

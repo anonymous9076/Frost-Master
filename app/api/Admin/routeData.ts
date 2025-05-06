@@ -1,3 +1,4 @@
+import { InvoiceFormData } from '@/app/admin/proforma/ProfromaForm';
 import { axiosInstance } from "@/app/utlis/axiosConfig/AxiosInstance";
 interface productSpecFormData {
   suitableFor: string;
@@ -231,3 +232,17 @@ export const refundPayment = async (paymentId: string) => {
     };
   }
 };
+
+export const getProducts = async () => {
+  const res = await axiosInstance.get("/getProducts");
+  return res.data;
+};
+
+
+export const createProforma = async(data:InvoiceFormData)=>{
+  try {
+    const res = await axiosInstance.post('/createPerforma',data)
+  } catch (error) {
+    return error
+  }
+}
