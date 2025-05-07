@@ -7,11 +7,22 @@ import { LuEye } from "react-icons/lu";
 import { MdOutlineFileDownload } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import ProformaForm from "./ProfromaForm";
+import { deleteProforma, getProforma } from "@/app/api/Admin/routeData";
+import DeleteModel from "@/components/DeleteModel";
+import { toast } from "react-toastify";
+interface buyerInterface {
+  buyer_name: string;
+}
 interface ProformaInterface {
   proformaName: string;
   createdAt: string;
   buyerName: string;
   totalValue: number;
+  invoiceNumber: string;
+  grand_total: number;
+  buyer: buyerInterface;
+  pdf_path: string;
+  _id: string;
 }
 
 const Proforma = () => {
@@ -21,21 +32,22 @@ const Proforma = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [proformaData, setProformaData] = useState<ProformaInterface[]>([]);
   const [showModel1, setShowModel1] = useState<boolean>(true);
-
-  const Proforma = [
-    {
-      proformaName: "proforma1",
-      buyerName: "proforma1",
-      totalValue: 123,
-      createdAt: "12.3.2025",
-    },
-    {
-      proformaName: "proforma2",
-      buyerName: "proforma1",
-      totalValue: 256,
-      createdAt: "12.3.2025",
-    },
-  ];
+  const [showModel, setShowModel] = useState<boolean>(false);
+  const [proformaId, setProformaId] = useState<string>("");
+  // const Proforma = [
+  //   {
+  //     proformaName: "proforma1",
+  //     buyerName: "proforma1",
+  //     totalValue: 123,
+  //     createdAt: "12.3.2025",
+  //   },
+  //   {
+  //     proformaName: "proforma2",
+  //     buyerName: "proforma1",
+  //     totalValue: 256,
+  //     createdAt: "12.3.2025",
+  //   },
+  // ];
 
   console.log(showModel1);
   function handleOnChange(pageNo: number) {
@@ -43,14 +55,38 @@ const Proforma = () => {
       setCurrentPage(pageNo);
     }
   }
+
+  async function showProforma() {
+    const data = await getProforma(1);
+    console.log(data, "proforma data is");
+    setProformaData(data);
+  }
+
+
+  const handleCloseModel = () => {
+    setShowModel(false);
+  };
+  async function deleteProformaData() {
+    const res = await deleteProforma(proformaId);
+    toast.success("data deleted successfully");
+    setShowModel(false);
+    showProforma();
+  }
   useEffect(() => {
     setTotalPages(2);
-    setProformaData(Proforma);
+    showProforma();
   }, []);
 
   return (
     <div className="h-screen overflow-y-hidden overflow-x-hidden w-full flex bg-gray-100">
       <Sidebar></Sidebar>
+      {showModel && (
+        <DeleteModel
+          handleCloseModel={handleCloseModel}
+          category={"Proforma"}
+          deleteData={deleteProformaData}
+        ></DeleteModel>
+      )}
       <div className="flex-1 h-[100dvh] text-gray-700 ">
         <div className="bg-white w-full h-[8%] sm:px-[4rem] px-[2rem] flex items-center text-[20px] font-bold justify-between">
           Proforma Invoice
@@ -62,7 +98,6 @@ const Proforma = () => {
           </span>
         </div>
         <div className=" max-w-[90dvw] mx-auto  h-full  overflow-x-auto overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-         
           {showModel1 ? (
             <div className="px-[2rem] sm:px-[4rem]  w-full  bg-gray-100 min-w-[900px] overflow-x-auto   h-[92%] py-[2rem] text-[14px] ">
               <div className="bg-white h-[5rem] w-full rounded-lg px-[1.5rem] flex items-center gap-3">
@@ -88,44 +123,56 @@ const Proforma = () => {
               </div>
               <div className=" h-fit max-h-[60dvh] overflow-y-auto w-full  pt-[2rem]">
                 <ul className=" m-0 p-0 flex items-center  px-[1.5rem]">
-                  <li className="w-[25%]">Proforma Name</li>
                   <li className="w-[25%]">Buyer Name</li>
+                  <li className="w-[25%]">Invoice Number</li>
                   <li className="w-[20%]">Total Value</li>
                   <li className="w-[15%]">Date</li>
                   <li className="w-[15%]">Actions</li>
                 </ul>
 
-                {proformaData
+                {proformaData && proformaData.length > 0
                   ? proformaData?.map(
                       (item: ProformaInterface, index: number) => (
                         <ul
                           className=" my-1 p-0 flex items-center py-3 px-[1.5rem] bg-white rounded-sm shadow-sm  "
                           key={index}
                         >
-                          <li className="w-[25%] ">{item?.proformaName}</li>
-                          <li className="w-[25%] ">{item?.buyerName}</li>
-                          <li className="w-[20%] ">{item?.totalValue}</li>
+                          <li className="w-[25%] ">
+                            {item?.buyer?.buyer_name}
+                          </li>
+                          <li className="w-[25%] ">{item?.invoiceNumber}</li>
+                          <li className="w-[20%] ">{item?.grand_total}</li>
 
                           <li className="w-[15%]">
                             {dateFormate(item?.createdAt)}
                           </li>
 
                           <li className="w-[15%] flex items-center gap-3">
-                            <span
+                            <a
+                              href={`${process.env.NEXT_PUBLIC_BACKENDURL}${item.pdf_path}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              title="View"
                               className="text-[18px] text-blue-400"
-                              title="view"
                             >
                               <LuEye></LuEye>
-                            </span>
-                            <span
+                            </a>
+                            <a
+                              href={`${process.env.NEXT_PUBLIC_BACKENDURL}${item.pdf_path}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              title="Download"
                               className="text-[20px] text-blue-400"
-                              title="download"
                             >
                               <MdOutlineFileDownload></MdOutlineFileDownload>
-                            </span>
+                            </a>
                             <span
-                              className="text-[20px] text-blue-400"
+                              className="text-[20px] text-blue-400 cursor-pointer"
                               title="delete"
+                              onClick={() => {
+                                setShowModel(true);
+                                setProformaId(item?._id);
+                              }}
                             >
                               <MdDelete></MdDelete>
                             </span>

@@ -1,4 +1,4 @@
-import { InvoiceFormData } from '@/app/admin/proforma/ProfromaForm';
+import { InvoiceFormData } from "@/app/admin/proforma/ProfromaForm";
 import { axiosInstance } from "@/app/utlis/axiosConfig/AxiosInstance";
 interface productSpecFormData {
   suitableFor: string;
@@ -238,11 +238,37 @@ export const getProducts = async () => {
   return res.data;
 };
 
-
-export const createProforma = async(data:InvoiceFormData)=>{
+export const createProforma = async (data: InvoiceFormData) => {
   try {
-    const res = await axiosInstance.post('/createPerforma',data)
+    const res = await axiosInstance.post("/createPerforma", data);
   } catch (error) {
-    return error
+    return error;
+  }
+};
+
+export const getProforma = async (pageNo: Number) => {
+  try {
+    const res = await axiosInstance.get("/showPerforma");
+    return res.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const deleteProforma = async (id: string) => {
+  try {
+    const res = await axiosInstance.delete(`/deletePerforma/${id}`);
+    return res;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const showEnquiryData = async()=>{
+  try {
+    const res = await axiosInstance.delete(`/deletePerforma/${id}`);
+    return res;
+  } catch (error) {
+    return error;
   }
 }
