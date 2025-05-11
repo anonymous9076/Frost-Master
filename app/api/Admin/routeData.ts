@@ -78,10 +78,15 @@ export const showOrders = async (
   }
 };
 
-export const showEnquires = async (sortBy: string, pageNo: number) => {
+export const showEnquires = async (
+  sortBy: string,
+  enquiryType: string,
+  pageNo: number
+) => {
   try {
     const data = await axiosInstance.get("/admin/getAllEnquiries", {
       params: {
+        enquiryType: enquiryType,
         sortBy: sortBy,
         pageNo: pageNo,
       },
@@ -241,14 +246,19 @@ export const getProducts = async () => {
 export const createProforma = async (data: InvoiceFormData) => {
   try {
     const res = await axiosInstance.post("/createPerforma", data);
+    return res;
   } catch (error) {
     return error;
   }
 };
 
-export const getProforma = async (pageNo: Number) => {
+export const getProforma = async (pageNo: number) => {
   try {
-    const res = await axiosInstance.get("/showPerforma");
+    const res = await axiosInstance.get("/showPerforma", {
+      params: {
+        pageNo,
+      },
+    });
     return res.data;
   } catch (error) {
     return error;
@@ -263,12 +273,3 @@ export const deleteProforma = async (id: string) => {
     return error;
   }
 };
-
-export const showEnquiryData = async()=>{
-  try {
-    const res = await axiosInstance.delete(`/deletePerforma/${id}`);
-    return res;
-  } catch (error) {
-    return error;
-  }
-}

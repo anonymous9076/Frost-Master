@@ -68,6 +68,7 @@ const Proforma = () => {
   };
   async function deleteProformaData() {
     const res = await deleteProforma(proformaId);
+    console.log(res)
     toast.success("data deleted successfully");
     setShowModel(false);
     showProforma();

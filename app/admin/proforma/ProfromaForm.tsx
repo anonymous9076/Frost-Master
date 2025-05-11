@@ -8,13 +8,13 @@ interface ProductData {
   _id: string;
 }
 
-interface Product {
-  name: string;
-  description?: string;
-  quantity: number;
-  rate: number;
-  price: number;
-}
+// interface Product {
+//   name: string;
+//   description?: string;
+//   quantity: number;
+//   rate: number;
+//   price: number;
+// }
 
 export interface InvoiceFormData {
   invoiceNumber: string;
@@ -40,7 +40,7 @@ export interface InvoiceFormData {
   mode_payment: string;
   delivery_note_date: string;
   destination: string;
-  products: Product[];
+  products: string[];
   tax_percentage: string;
   tax_type: string;
 }
@@ -72,7 +72,7 @@ const InvoiceForm = () => {
     mode_payment: "",
     delivery_note_date: "",
     destination: "",
-    products: [],
+    products: [] as string[],
     tax_percentage: "",
     tax_type: "",
 
@@ -130,7 +130,7 @@ const InvoiceForm = () => {
         } else {
           setFormData((prev) => ({
             ...prev,
-            products: [...prev.products, value], // push value to array
+            products: [...prev.products, value],
           }));
         }
       } else {
@@ -476,9 +476,16 @@ const InvoiceForm = () => {
               ))}
             </select>
             {formData?.products?.map((itemId, index) => {
-              const product: ProductData = deliveryNotes?.find(
+              const found = deliveryNotes?.find(
                 (note: ProductData) => note._id === itemId
               );
+
+              if (!found) {
+                return null;
+              }
+
+              const product: ProductData = found;
+
               return (
                 <p
                   key={index}
