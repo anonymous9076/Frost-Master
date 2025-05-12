@@ -145,7 +145,8 @@ const MycartItem = () => {
                   className="  w-full flex h-fit border-b py-[2rem] px-[2px] lg:px-[2rem] border-gray-400"
                 >
                   <Image
-                    src={product?.image}
+                    // src={product?.image}
+                    src={`${process.env.NEXT_PUBLIC_CDNURL}${product?.image?.replace(/^\/+/, '')}`}
                     alt=""
                     height={400}
                     width={400}

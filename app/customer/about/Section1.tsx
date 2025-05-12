@@ -9,7 +9,7 @@ const Section1 = () => {
             <span className='h-full  flex-1 py-[1rem] px-[1rem] '>
                 <Image
                 // src='https://s3-alpha-sig.figma.com/img/c242/d6a3/dfe7018301a81c59188d8d65cdd68470?Expires=1744588800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=LiewBPRHyMHw9Iyg3vQK4yvFoZcfrHiWCQd7JRAY78ORSpWl~mYYpJrNdJugNShaQ5CjFlFCD7stfw49CaWXSN5CT1~pzYggQZEFhBCNGRF4eBXUZB6ESeNrFwnQ0Bg9WTqKyJTAkWkrO6BBwn2r-CFfEbz0im1KbDUPPZoqsy7bN4mZ4QpN30dXfgcyQBKQi0bsWy6tPpQcdfw-jbgriRlNcT-jQqXT1ZVFVdwSp-PACzMP4-tuEtgsmE7OHBa5p0SdJZBosomfSiv402wrglVBvWQgsU-KUhi2BO2wSoWxRnB9jzlsP32UJVO3yY6UVBgV31NQm1c4EbycWnP5fQ__'
-                src="/Images/frostservices/img3.jpg"
+                src={`${process.env.NEXT_PUBLIC_CDNURL}Images/frostservices/img3.jpg`}
                 alt=''
                 height={400}
                 width={400}
@@ -20,7 +20,7 @@ const Section1 = () => {
             <span className='h-full  xl:flex hidden  items-end flex-1 py-[1rem] px-[1rem] '>
                 <Image
                 // src='https://s3-alpha-sig.figma.com/img/0850/f2f4/37d8bd377cfcc609b3867befaaaf6c33?Expires=1744588800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=C7qcfixLNFeWTVa~y62lVTghjk8mLgJanGdUufvlHW64050rR-YWarZmblrRPPlQJXlCNeORs1c7oYIGv2LEYKinf7pmUilVSm1e1rBq99tC9tmQz2SLDRslaJk-Wcu-sUvKkiskzJDH~wwxXdRjDYLyvG5dfcjMyn98aHvIGY0A1OxfU9Sx~PJJgqF7ocZ6rAQqQvwGtvmz3xZHlt9aU8RSXS9Jq3ck4bGbYXmd3aPMVeoX11K19yGd-jKVFw8q6xx8aEMArdM9ntY2hOUL~LTHh3HR2sJgkK4WmkoleD9f7Iwy38Xcb1myFPcnPewRcLKbY2K8E5BeQJ-6euV--A__'
-                src="/Images/frostservices/img4.jpg"
+                src={`${process.env.NEXT_PUBLIC_CDNURL}Images/frostservices/img4.jpg`}
                 alt=''
                 height={400}
                 width={400}

@@ -17,7 +17,7 @@ const Career = () => {
     title: "Careers in Frost Master",
     description:
       "Frost Master Private Limited is committed to providing career opportunities that allow employees to grow and succeed. As a leader in the refrigeration and air conditioning industry, Frost Master offers a dynamic and challenging work environment that values innovation and teamwork. Employees are provided with ongoing training and development opportunities to enhance their skills and knowledge. Frost Master also recognizes and rewards high performers, providing opportunities for advancement and career growth. Join the Frost Master team to be a part of a company that values its employees and supports their career aspirations. Visit their website to learn more about current job openings and career opportunities.",
-    image: "/Images/CareerPage/img5.jpg",
+    image: `${process.env.NEXT_PUBLIC_CDNURL}Images/CareerPage/img5.jpg`,
     align: "flex-col lg:flex-row ",
     justify: "justify-start",
     border: "border-r-4 border-b-4 border-[#35736E]",
@@ -73,7 +73,7 @@ const Career = () => {
         </div>
         <div className="h-[60dvh] w-full relative ">
           <Image
-            src="/Images/CareerPage/img7.jpg"
+            src={`${process.env.NEXT_PUBLIC_CDNURL}Images/CareerPage/img7.jpg`}
             alt=""
             height={400}
             width={400}
@@ -96,7 +96,7 @@ const Career = () => {
             className={`h-fit flex flex-col lg:flex-row gap-8 items-center  w-[90%] mx-auto  p-[2rem] pb-[4rem]`}
           >
             <Image
-              src="/Images/CareerPage/career.jpg"
+              src={`${process.env.NEXT_PUBLIC_CDNURL}Images/CareerPage/career.jpg`}
               alt="t"
               height={400}
               width={400}

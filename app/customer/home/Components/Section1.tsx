@@ -9,19 +9,19 @@ const Section1 = () => {
       title: " WELCOME TO ",
       title2: "FORST MASTER PVT.LTD",
       desc: "Manufacturer of commercial kitchen equipment, commercial refrigerators, chillers, display cabinets, food service equipment, stainless steel worktables, cooking ranges, exhaust hoods, and custom kitchen solutions for restaurants, hotels, and catering businesses.",
-      image: "/Images/MainSliderinHome/img2.jpg",
+      image: `${process.env.NEXT_PUBLIC_CDNURL}Images/MainSliderinHome/img2.jpg`,
       button: "Shop Now",
     },
     {
       title: "SPEED.COMPACT ECO",
       desc: "The faster the Oven, The faster the profits",
-      image: "/Images/MainSliderinHome/img9.jpg",
+      image: `${process.env.NEXT_PUBLIC_CDNURL}Images/MainSliderinHome/img9.jpg`,
       style: "lg:text-[60px] lg:w-full",
     },
     {
       title: "OPTIC.COOKING",
       desc: "From now on you can cook with your eyes closed",
-      image: "/Images/MainSliderinHome/img3.jpg",
+      image: `${process.env.NEXT_PUBLIC_CDNURL}Images/MainSliderinHome/img3.jpg`,
       style: "lg:text-[60px] lg:w-full",
     },
   ];

@@ -1,16 +1,18 @@
 import React from "react";
 import Image from "next/image";
 const Section5 = () => {
-  const object = [
-    { image: '/Images/aaa.jpeg', title: "Logoipsum" },
-    { image: '/Images/aaa.jpeg', title: "Logoipsum" },
-    { image: '/Images/aaa.jpeg', title: "Logoipsum" },
-    { image: '/Images/aaa.jpeg', title: "Logoipsum" },
-    { image: '/Images/aaa.jpeg', title: "Logoipsum" },
-    { image: '/Images/aaa.jpeg', title: "Logoipsum" },
-    { image: '/Images/aaa.jpeg', title: "Logoipsum" },
-    { image: '/Images/aaa.jpeg', title: "Logoipsum" },
-  ];
+const object = [
+  { image: `${process.env.NEXT_PUBLIC_CDNURL}Images/aaa.jpeg`, title: "Logoipsum" },
+  { image: `${process.env.NEXT_PUBLIC_CDNURL}Images/aaa.jpeg`, title: "Logoipsum" },
+  { image: `${process.env.NEXT_PUBLIC_CDNURL}Images/aaa.jpeg`, title: "Logoipsum" },
+  { image: `${process.env.NEXT_PUBLIC_CDNURL}Images/aaa.jpeg`, title: "Logoipsum" },
+  { image: `${process.env.NEXT_PUBLIC_CDNURL}Images/aaa.jpeg`, title: "Logoipsum" },
+  { image: `${process.env.NEXT_PUBLIC_CDNURL}Images/aaa.jpeg`, title: "Logoipsum" },
+  { image: `${process.env.NEXT_PUBLIC_CDNURL}Images/aaa.jpeg`, title: "Logoipsum" },
+  { image: `${process.env.NEXT_PUBLIC_CDNURL}Images/aaa.jpeg`, title: "Logoipsum" },
+];
+
+
   return (
     <div className="olive w-full py-[4rem]">
       <h3 data-aos="fade-up" className="text-center w-full text-[50px]">

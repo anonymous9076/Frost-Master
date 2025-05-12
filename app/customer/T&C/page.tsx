@@ -5,6 +5,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 const Navbar = dynamic(() => import("@/components/Navbar"));
 const Footer = dynamic(() => import("@/components/Footer"));
+// const cdnUrl = process.env.NEXT_PUBLIC_CDNURL;
 
 interface TermData {
   name: string;
@@ -87,7 +88,13 @@ const TermAndConditions = () => {
             >
               <Image
                 className="rounded-t-lg w-full"
-                src="/Images/team1.jpg"
+                // src="/Images/team1.jpg"
+                // src={
+                //   process.env.NEXT_PUBLIC_CDNURL
+                //     ? `${process.env.NEXT_PUBLIC_CDNURL}Images/team1.jpg`
+                //     : ""
+                // }
+                src={`${process.env.NEXT_PUBLIC_CDNURL}Images/team1.jpg`}
                 height={400}
                 width={400}
                 alt=""

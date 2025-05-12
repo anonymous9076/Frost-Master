@@ -14,7 +14,7 @@ const blogPosts = [
       "Explore the best electric ovens with smart features and energy efficiency.",
     author: "Chef Anita",
     date: "April 15, 2025",
-    image: "/Images/frostservices/img1.jpg",
+    image: `${process.env.NEXT_PUBLIC_CDNURL}Images/frostservices/img1.jpg`,
   },
   {
     id: 2,
@@ -23,7 +23,7 @@ const blogPosts = [
       "A complete guide to setting up your commercial kitchen with the latest appliances.",
     author: "KitchenPro",
     date: "April 12, 2025",
-    image: "/Images/frostservices/img1.jpg",
+    image: `${process.env.NEXT_PUBLIC_CDNURL}Images/frostservices/img1.jpg`,
   },
   {
     id: 3,
@@ -32,7 +32,7 @@ const blogPosts = [
       "Understand the difference between oven types and how it affects cooking.",
     author: "Food Tech Journal",
     date: "April 10, 2025",
-    image: "/Images/frostservices/img1.jpg",
+    image: `${process.env.NEXT_PUBLIC_CDNURL}Images/frostservices/img1.jpg`,
   },
 ];
 
