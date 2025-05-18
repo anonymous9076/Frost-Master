@@ -69,7 +69,9 @@ const FilterBar = (props: PropsType) => {
     }
   }
   return (
-    <div className="w-full px-[2rem] flex flex-col gap-4 h-fit">
+    <div className="w-[90%] xl:w-full mx-auto h-[100%] overflow-y-auto xl:shadow-[0] shadow-[inset_0_4px_4px_rgba(0,0,0,0.1),inset_0_-4px_4px_rgba(0,0,0,0.1)]">
+
+    <div className="w-full xl:px-[2rem] px-4  flex flex-col gap-4 h-fit">
       <div className="border border-gray-400 px-[2rem] py-[1rem] rounded-3xl ">
         <h1 className="text-[22px] border-l-3 border-[#35736E] text-[#35736E] px-[1rem] mb-2 font-bold">
           Categories
@@ -157,6 +159,8 @@ const FilterBar = (props: PropsType) => {
         </ul>
       </div> */}
     </div>
+    </div>
+
   );
 };
 

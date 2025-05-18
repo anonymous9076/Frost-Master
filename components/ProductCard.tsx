@@ -42,6 +42,8 @@ const ProductCard = ({
   const { user } = useContext(UserAuthContext)!;
   const addProductIntoCart = useCartStore((store) => store.addProductIntoCart);
   const [liked, setLiked] = React.useState(false);
+  const [added, setAdded] = React.useState(false);
+
   const handleLikeItem = () => {
     setLiked((curr) => !curr);
   };
@@ -56,6 +58,10 @@ const ProductCard = ({
   };
   function handleCartItem() {
     addProductIntoCart(data);
+    setAdded(true)
+    setTimeout(() => {
+      setAdded(false)
+    }, 2000);
   }
   console.log(process.env.NEXT_PUBLIC_CDNURL, image, "process.env.CDNURL");
   // const urlFriendly: string = category?.replace(/\s+/g, "");
@@ -95,13 +101,13 @@ const ProductCard = ({
           </span>
         </div>
         <div className="flex items-center justify-between mt-1 gap-2">
-          <Link
+          {/* may be need to review bcz there is no products shown to test  */}
+          <span
             className="flex-1  border border-[#35736E] whitespace-nowrap   text-[#35736E] hover:shadow-md rounded-md flex  justify-center items-center gap-2 px-4 py-2"
-            href="/customer/mycart"
             onClick={handleCartItem}
           >
-            <BsCart3></BsCart3> Add to cart
-          </Link>
+            <BsCart3></BsCart3> {added?'Added':'Add to cart'}
+          </span>
           <Link href="/customer/products/product-details/2" className="flex-1 ">
             <span className="olive  rounded-md flex whitespace-nowrap items-center justify-center hover:shadow-md gap-2 px-4 py-2">
               <BsCart3></BsCart3> Buy Now

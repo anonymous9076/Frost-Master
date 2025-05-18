@@ -163,10 +163,11 @@ const Navbar = ({ active }: navprops) => {
         className={`h-[10dvh] w-[full]  sticky z-90 top-0 left-0  bg-[#235753] text-white flex items-center justify-between px-[2rem] md:px-[2rem] lg:px-[5rem] `}
       >
         {/* <NavDrop></NavDrop> */}
-
-        <span className="text-[30px]">
-          <FaKitchenSet></FaKitchenSet>
-        </span>
+        <Link href="/customer/home">
+          <span className="text-[30px]">
+            <FaKitchenSet></FaKitchenSet>
+          </span>
+        </Link>
         <div className=" text-white lg:flex h-full items-start   md:gap-[35px] lg:gap-[20px] xl:gap-[40px]  text-[18px] hidden ">
           {navLinks.map((item, index) => (
             <div

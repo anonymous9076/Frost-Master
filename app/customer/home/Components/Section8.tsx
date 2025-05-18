@@ -14,7 +14,7 @@ const Section8 = () => {
         </p>
       </div>
       <div className="lg:w-[50%]  w-full flex items-center justify-center">
-        <div className="w-[70%] overflow-hidden bg-[#F9F9FB] min-w-[300px] rounded-lg p-[1rem] flex flex-col gap-3">
+        <div className="w-[70%] overflow-hidden  min-w-[300px] rounded-lg p-[1rem] flex flex-col gap-3">
           <input
           data-aos="fade-up"
             type="email"
