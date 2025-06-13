@@ -215,7 +215,7 @@ const ProductDetailSection = () => {
   }
   return (
     <>
-      <div className="w-full px-[3rem] light">
+      <div className="w-full px-[1rem] lg:px-[3rem] light">
       <EnquiryModel data={enquiryProp}></EnquiryModel>
 
         <div>
@@ -301,7 +301,7 @@ const ProductDetailSection = () => {
               width={500}
               className="w-[60%] h-[50dvh]"
             ></Image>
-            <div className="flex w-[70%] py-[1rem] items-center justify-center flex-cols-4 gap-2">
+            <div className="flex w-[90%] md:w-[70%] py-[1rem] items-center justify-center flex-cols-4 gap-2">
               {image?.map((item, index) => (
                 <span key={index}>
                   <Image
