@@ -322,7 +322,7 @@ const ProductDetailSection = () => {
               Product Specifications
             </h1>
             {productSpecification?.map((item: ProductSpecs, index) => (
-              <div key={index} className="w-[80%]">
+              <div key={index} className="md:w-[90%] w-[100%] ">
                 <h2 className="text-[16px] font-bold  border olive border-gray-400 py-1 px-3">
                   General Information
                 </h2>
