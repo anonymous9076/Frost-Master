@@ -31,7 +31,7 @@ const Services = () => {
         "Overall, Frost Master's new way of kitchen service and promise to ensure complete freedom from all worries related to their products reflect their dedication to quality, reliability, and customer service, and reinforces their position as a leader in the food service industry.",
       ],
       image: `${process.env.NEXT_PUBLIC_CDNURL}Images/frostservices/img2.jpg`,
-      align: "xl:flex-row-reverse  ",
+      align: "sm:flex-row-reverse  ",
       justify: "justify-end",
       border: "border-l-4 border-b-4 border-[#35736E]",
       anime: "fade-left",
@@ -59,7 +59,7 @@ const Services = () => {
         "The team also conducts rigorous testing and inspection of the pipeline system to ensure that it is functioning properly and in compliance with safety regulations. They provide training and guidance to clients on the safe use and maintenance of the L.P.G pipeline system, and they are always available to provide support and assistance in case of any issues or concerns.",
         "Overall, the Frost Master Installation team is committed to ensuring the safety and efficiency of L.P.G pipeline installation in kitchens. With their experience and expertise, clients can be confident that their kitchen's L.P.G pipeline is installed to the highest standards and will function safely and reliably for years to come.",
       ],
-      align: "xl:flex-row-reverse",
+      align: "sm:flex-row-reverse",
       image: `${process.env.NEXT_PUBLIC_CDNURL}Images/frostservices/img4.jpg`,
       justify: "justify-end",
       border: "border-l-4 border-b-4 border-[#35736E]",
@@ -84,37 +84,10 @@ const Services = () => {
   return (
     <>
       <Navbar active="/customer/services"></Navbar>
-      {/* <div className=' min-h-screen w-full light'>
-        {features.map((item,index)=>
-        <div key={index} className={`flex ${item.align} p-[4rem] items-center justify-center  h-[90dvh] `}>
-         <div className={`flex-1   h-full flex items-center ${item.justify} `}>
-         <Image
-            src='/Images/study.jpg'
-            alt=''
-            height={400}
-            width={400}
-            className='w-[90%] h-full   rounded-lg'
-            ></Image>
-         </div>
-            <div className='flex-1  h-full bg-red-300  text-[30px] font-bold   text-left'>
-            {item.title}
-            {
-                item.description.map((description,index)=>
-                <div key={index} className=' text-[14px]  font-normal flex-row'>
-                    <p>{description}</p>
-                    <br></br>
-                   
-                </div>
-                )
-            }
-            </div>
-        </div>
-    )}
-    </div> */}
-      <div className="h-fit light px-[1rem] md:px-[2rem] xl:px-[4rem] pb-[4rem] pt-[2rem] w-full overflow-hidden ">
+      <div className="h-fit light px-[1rem]  md:px-[2rem] xl:px-[4rem] pb-[4rem] pt-[2rem] w-full overflow-hidden ">
         {features.map((item, index) => (
           <div
-            className={`h-fit flex ${item.align} gap-5 items-center flex-col  xl:flex-row w-full ${item.border} p-[2rem] py-[4rem]`}
+            className={`h-fit  flex ${item.align} gap-5 sm:h-[62dvh]  items-center flex-col  sm:flex-row w-full ${item.border} p-[2rem] py-[4rem]`}
             key={index}
           >
             <Image
@@ -123,14 +96,14 @@ const Services = () => {
               height={400}
               width={400}
               data-aos={item.anime}
-              className="w-full h-[60dvh] rounded-md shadow-lg"
+              className="md:w-1/3 w-[90%] sm:w-1/2  h-[55dvh] rounded-md shadow-lg"
             ></Image>
-            <div className="flex flex-col" data-aos={item.anime}>
+            <div className="flex flex-col w-[90%]  sm:w-1/2 md:w-2/3 justify-center h-full" data-aos={item.anime}>
               <h2 className="font-bold text-[30px] py-[1rem] text-[#35736E]">
                 {" "}
                 {item.title}
               </h2>
-              <div className="flex flex-col ">
+              <div className="flex flex-col h-[80%] overflow-y-auto  ">
                 {item.description.map((description, index) => (
                   <div
                     key={index}
