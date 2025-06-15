@@ -45,91 +45,60 @@ const Navbar = ({ active }: navprops) => {
       label: "About Us",
       link: "/customer/about",
       list: [
-        "Explore Our Kitchen Solutions",
-        "Our Customer Service",
+        "Innovation Meets Perfection.",
+        "Our core ideology",
         "Connecting Cities",
-        "Experiences Shared by Our Clients",
         "Trusted by thousands Businesses",
-        "What Makes us prominent players",
-        "Why frostmaster.in?",
       ],
     },
     {
       label: "Our Products",
       link: "/customer/products",
       list: [
-        "Explore Our Kitchen Solutions",
-        "Our Customer Service",
-        "Connecting Cities",
-        "Experiences Shared by Our Clients",
-        "Trusted by thousands Businesses",
-        "What Makes us prominent players",
-        "Why frostmaster.in?",
+        "Cloud Kitchen Equipments",
+        "Commercial Refrigerators",
+        "Restaurant Equipment",
+        "Bakery Machinery",
       ],
     },
     {
       label: "Services",
       link: "/customer/services",
       list: [
-        "Explore Our Kitchen Solutions",
-        "Our Customer Service",
-        "Connecting Cities",
-        "Experiences Shared by Our Clients",
-        "Trusted by thousands Businesses",
-        "What Makes us prominent players",
-        "Why frostmaster.in?",
+        "Our Features",
+        "After Sale Service Or Amc",
+        "Installation",
+        "Lpg Pipeline Design Installation",
+        "Commercial Kitchen Layout Design",
       ],
     },
     {
       label: "My Orders",
       link: "/customer/myorders",
-      list: [
-        "Explore Our Kitchen Solutions",
-        "Our Customer Service",
-        "Connecting Cities",
-        "Experiences Shared by Our Clients",
-        "Trusted by thousands Businesses",
-        "What Makes us prominent players",
-        "Why frostmaster.in?",
-      ],
+      list: ["Your Order History", "Order Status"],
     },
     {
       label: "Career",
       link: "/customer/career",
-      list: [
-        "Explore Our Kitchen Solutions",
-        "Our Customer Service",
-        "Connecting Cities",
-        "Experiences Shared by Our Clients",
-        "Trusted by thousands Businesses",
-        "What Makes us prominent players",
-        "Why frostmaster.in?",
-      ],
+      list: ["Careers in Frost Master", "We're Hiring!"],
     },
     {
       label: "T&C",
       link: "/customer/T&C",
       list: [
-        "Explore Our Kitchen Solutions",
-        "Our Customer Service",
-        "Connecting Cities",
-        "Experiences Shared by Our Clients",
-        "Trusted by thousands Businesses",
-        "What Makes us prominent players",
-        "Why frostmaster.in?",
+        "Terms and Conditions",
+        "Refrigerated Display Case",
+        "Ice Cream Machine",
+        "Bakery Equipment",
       ],
     },
     {
       label: "Blogs",
       link: "/customer/blog",
       list: [
-        "Explore Our Kitchen Solutions",
-        "Our Customer Service",
-        "Connecting Cities",
-        "Experiences Shared by Our Clients",
-        "Trusted by thousands Businesses",
-        "What Makes us prominent players",
-        "Why frostmaster.in?",
+        "Convection vs. Conventional Ovens: What’s Right for You?",
+        "Kitchen Equipment Essentials for Modern Restaurants",
+        "Top 5 Electric Ovens for Home Baking in 2025",
       ],
     },
   ];
@@ -160,7 +129,7 @@ const Navbar = ({ active }: navprops) => {
   return (
     <>
       <div
-        className={`h-[10dvh] w-[full]  sticky z-90 top-0 left-0  bg-[#235753] text-white flex items-center justify-between px-[2rem] md:px-[2rem] lg:px-[5rem] `}
+        className={`h-[10dvh] w-[full]   sticky z-90 top-0 left-0  bg-[#235753] text-white flex items-center justify-between px-[2rem] md:px-[2rem] lg:px-[5rem] `}
       >
         {/* <NavDrop></NavDrop> */}
         <Link href="/customer/home">
