@@ -59,8 +59,8 @@ const NavDrop = ({ title, list, active ,handleCloseModel }: NavProp) => {
       
       className="absolute top-[10dvh] !z-0 transition-all duration-500 ease-in-out left-0 w-full h-[90dvh] bg-black/50"
     >
-      <div  data-aos="fade-down"
-     data-aos-anchor-placement="top-center" className="px-[6rem] py-[1rem]  min-h-[20dvh] light"
+      <div  
+      className="px-[6rem] py-[1rem]  min-h-[20dvh] light"
       onMouseLeave={handleCloseModel}
       >
         <div className="flex justify-between items-center">
