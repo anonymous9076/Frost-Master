@@ -40,6 +40,7 @@ const Navbar = ({ active }: navprops) => {
         "What Makes us prominent players",
         "Why frostmaster.in?",
       ],
+      img:'/Images/PremiumKitchenEquipments/img4.jpg'
     },
     {
       label: "About Us",
@@ -50,6 +51,7 @@ const Navbar = ({ active }: navprops) => {
         "Connecting Cities",
         "Trusted by thousands Businesses",
       ],
+      img:'/Images/PremiumKitchenEquipments/img14.jpg'
     },
     {
       label: "Our Products",
@@ -60,6 +62,7 @@ const Navbar = ({ active }: navprops) => {
         "Restaurant Equipment",
         "Bakery Machinery",
       ],
+      img:'/Images/PremiumKitchenEquipments/img24.jpg'
     },
     {
       label: "Services",
@@ -71,16 +74,19 @@ const Navbar = ({ active }: navprops) => {
         "Lpg Pipeline Design Installation",
         "Commercial Kitchen Layout Design",
       ],
+      img:'/Images/PremiumKitchenEquipments/img34.jpg'
     },
     {
       label: "My Orders",
       link: "/customer/myorders",
       list: ["Your Order History", "Order Status"],
+      img:'/Images/PremiumKitchenEquipments/img4.jpg'
     },
     {
       label: "Career",
       link: "/customer/career",
       list: ["Careers in Frost Master", "We're Hiring!"],
+      img:'/Images/PremiumKitchenEquipments/img14.jpg'
     },
     {
       label: "T&C",
@@ -91,6 +97,7 @@ const Navbar = ({ active }: navprops) => {
         "Ice Cream Machine",
         "Bakery Equipment",
       ],
+      img:'/Images/PremiumKitchenEquipments/img24.jpg'
     },
     {
       label: "Blogs",
@@ -100,6 +107,7 @@ const Navbar = ({ active }: navprops) => {
         "Kitchen Equipment Essentials for Modern Restaurants",
         "Top 5 Electric Ovens for Home Baking in 2025",
       ],
+      img:'/Images/PremiumKitchenEquipments/img34.jpg'
     },
   ];
   const [profile, setProfile] = useState<boolean>(false);
@@ -137,13 +145,13 @@ const Navbar = ({ active }: navprops) => {
             <FaKitchenSet></FaKitchenSet>
           </span>
         </Link>
-        <div className=" text-white lg:flex h-full items-start   md:gap-[35px] lg:gap-[20px] xl:gap-[40px]  text-[18px] hidden ">
+        <div className=" text-white lg:flex h-full items-start    text-[18px] hidden ">
           {navLinks.map((item, index) => (
             <div
               onMouseEnter={() => handleOpenModel(item)}
               onMouseLeave={handleCloseModel}
               key={index}
-              className=" flex items-center h-full"
+              className=" flex items-center  px-[23px] h-full"
             >
               <Link
                 href={item.link}
@@ -161,6 +169,7 @@ const Navbar = ({ active }: navprops) => {
               <NavDrop
                 title={item.label}
                 list={item.list}
+                image={item.img}
                 active={activeNavDrop && hoveredNavField?.label === item.label}
                 handleCloseModel={handleCloseModel}
               />

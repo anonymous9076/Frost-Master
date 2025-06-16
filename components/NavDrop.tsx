@@ -7,6 +7,7 @@ interface NavProp{
   title:string;
   list:string[];
   active:boolean;
+  image:string;
   handleCloseModel:()=>void
 }
 // const NavDrop = ({title,list,active}:NavProp) => {
@@ -50,7 +51,7 @@ interface NavProp{
 //     </div>
 //   );
 // };
-const NavDrop = ({ title, list, active ,handleCloseModel }: NavProp) => {
+const NavDrop = ({ title, list, active ,handleCloseModel,image }: NavProp) => {
   // remove local closeModel state entirely and rely on the `active` prop
   if (!active) return null;
 
@@ -81,7 +82,7 @@ const NavDrop = ({ title, list, active ,handleCloseModel }: NavProp) => {
           </ul>
 
           <Image
-            src="/Images/PremiumKitchenEquipments/img4.jpg"
+            src={image}
             alt=""
             height={400}
             width={400}
