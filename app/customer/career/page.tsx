@@ -1,9 +1,11 @@
 "use client";
 const Footer = dynamic(() => import("@/components/Footer"));
 const Navbar = dynamic(() => import("@/components/Navbar"));
+import { careerJob } from "@/app/api/Customer";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 interface FormData {
   name: string;
@@ -40,8 +42,19 @@ const Career = () => {
     const name = e.target.name;
     setFormdata((prev) => ({ ...prev, [name]: value }));
   };
-  const handleSubmit = () => {
-    console.log(formdata);
+  const handleSubmit = async () => {
+    try {
+      const data = await careerJob(formdata);
+      toast.success(data.message);
+      setFormdata({
+        name: "",
+        email: "",
+        phone: 91,
+        message: "",
+      });
+    } catch (error) {
+      toast.error("Job application failed");
+    }
   };
   return (
     <>
@@ -58,7 +71,10 @@ const Career = () => {
             data-aos="fade-right"
             className=" h-[40dvh] sm:w-[50%] w-full  md:h-[70dvh] rounded-md shadow-lg"
           ></Image>
-          <div data-aos="fade-left"  className="flex flex-1  md:px-[2rem] flex-col">
+          <div
+            data-aos="fade-left"
+            className="flex flex-1  md:px-[2rem] flex-col"
+          >
             <h2 className="font-bold leading-[40px] md:text-[40px] text-[35px] w-fit border-b-4 border-[#35736E] my-[1rem] text-[#35736E]">
               {" "}
               {features.title}
@@ -116,6 +132,7 @@ const Career = () => {
                   <input
                     type="text"
                     name="name"
+                    value={formdata.name}
                     onChange={(e) => handleChange(e)}
                     placeholder="Enter Your Name"
                     className="border border-[#35736E] text-[#35736E] outline-none w-full py-2 px-2 rounded-md "
@@ -124,6 +141,7 @@ const Career = () => {
                     type="text"
                     name="phone"
                     maxLength={10}
+                    value={formdata.phone}
                     onChange={(e) => {
                       const value = e.target.value;
                       if (/^\d*$/.test(value)) {
@@ -137,6 +155,7 @@ const Career = () => {
                   <input
                     type="text"
                     name="email"
+                    value={formdata.email}
                     onChange={handleChange}
                     placeholder="Enter Your Email"
                     className="border border-[#35736E] text-[#35736E] outline-none w-full py-2 px-2 rounded-md "
@@ -144,6 +163,7 @@ const Career = () => {
                   <textarea
                     placeholder="Enter Your Message"
                     name="message"
+                    value={formdata.message}
                     onChange={handleChange}
                     className="border border-[#35736E] text-[#35736E] outline-none w-full py-2 px-2 rounded-md "
                     rows={5}
