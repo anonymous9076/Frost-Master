@@ -53,6 +53,7 @@ const Career = () => {
         message: "",
       });
     } catch (error) {
+      console.log(error);
       toast.error("Job application failed");
     }
   };

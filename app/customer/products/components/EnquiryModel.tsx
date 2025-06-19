@@ -42,6 +42,7 @@ const EnquiryModel = ({ data }: { data: EnquiryPropField }) => {
       toast.success(res.message);
       setOpenModel(false);
     } catch (error) {
+      console.log(error);
       toast.error("Enquiry form Invalid");
     }
   };
