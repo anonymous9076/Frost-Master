@@ -4,20 +4,20 @@ import { IoSearch } from "react-icons/io5";
 const ProductCard = dynamic(() => import("../../../../components/ProductCard"));
 const Pagination = dynamic(() => import("@/components/Pagination"));
 import { FaFilter } from "react-icons/fa";
-import EnquiryModel from '../components/EnquiryModel'
+import EnquiryModel from "../components/EnquiryModel";
 
 interface ProductsProps {
   searchProduct: string;
   setSearchProduct: (value: string) => void;
-  handleToggleFilter:()=>void
+  handleToggleFilter: () => void;
   productsData: [];
   currentPage: number;
   totalPages: number;
   setCurrentPage: (value: number) => void;
 }
-interface EnquiryPropField{
-  id:string,
-  active:boolean
+interface EnquiryPropField {
+  id: string;
+  active: boolean;
 }
 interface ProductTypes {
   productTitle: string;
@@ -26,7 +26,7 @@ interface ProductTypes {
   numberOfRatings: number;
   _id: string;
   price: number;
-  category:string
+  category: string;
 }
 const ProductContainer = (props: ProductsProps) => {
   const {
@@ -39,10 +39,10 @@ const ProductContainer = (props: ProductsProps) => {
     setCurrentPage,
   } = props;
 
-  const [enquiryProp,setEnquiryProp]=useState<EnquiryPropField>({
-    id:'0',
-    active:false
-  })
+  const [enquiryProp, setEnquiryProp] = useState<EnquiryPropField>({
+    id: "",
+    active: false,
+  });
   // const products = [
   //   {
   //     title: "Large Mixing Bowl",
@@ -114,21 +114,27 @@ const ProductContainer = (props: ProductsProps) => {
       setCurrentPage(pageNo);
     }
   }
-  const handleEnquiryModel=(ids:string,active:boolean)=>{
-    console.log('data===>',typeof ids,active)
+  const handleEnquiryModel = (ids: string, active: boolean) => {
+    console.log("data===>", ids, active);
     // to make imidate change use funtional state
-    setEnquiryProp(()=>({
-      id:ids,
-      active:active
-    }))
-  }
+    setEnquiryProp(() => ({
+      id: ids,
+      active: active,
+    }));
+  };
 
   return (
     <div className="h-fit w-full  px-[2rem]">
-      <EnquiryModel data={enquiryProp}></EnquiryModel>
+      {enquiryProp.id !== "" && <EnquiryModel data={enquiryProp} />}
 
       <div className=" text-[25px] md:text-[35px] px-3   flex items-center justify-between font-bold">
-        Our Collection Of Products <span className="text-[#35736E] xl:hidden text-[25px]" onClick={()=>handleToggleFilter()}><FaFilter></FaFilter></span>{" "}
+        Our Collection Of Products{" "}
+        <span
+          className="text-[#35736E] xl:hidden text-[25px]"
+          onClick={() => handleToggleFilter()}
+        >
+          <FaFilter></FaFilter>
+        </span>{" "}
       </div>
 
       <span className="h-fit w-full relative">

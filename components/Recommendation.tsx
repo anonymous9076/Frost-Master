@@ -65,7 +65,7 @@ const Recommendation = ({ productSuggestion }: ProductSuggestionInterface) => {
   // ];
   // const [products, setProducts] = useState<Product[]>([...productSuggestion]);
   const [enquiryProp, setEnquiryProp] = useState<EnquiryPropField>({
-    id: "0",
+    id: "",
     active: false,
   });
 
@@ -103,7 +103,8 @@ const Recommendation = ({ productSuggestion }: ProductSuggestionInterface) => {
 
   return (
     <div className=" flex h-fit  items-center  w-full">
-      <EnquiryModel data={enquiryProp}></EnquiryModel>
+      {enquiryProp.id !== "" && <EnquiryModel data={enquiryProp} />}
+
       {/* 
       <span
         onClick={handleShiftLeft}
@@ -111,44 +112,44 @@ const Recommendation = ({ productSuggestion }: ProductSuggestionInterface) => {
       >
         <FaChevronLeft />
       </span> */}
-        <CardSlider
-          slides={productSuggestion}
-          slidesPerView={4}
-          spaceBetween={30}
-          navigation
-          pagination={false}
-          autoplay={false}
-          className="custom-swiper"
-          breakpoints={{
-            0: {slidesPerView:1},
-            640: { slidesPerView: 1 },
-            768: { slidesPerView: 2 },
-            1024: { slidesPerView: 3 },
-            1500: { slidesPerView: 4 },
-          }}
-        >
-          {(product) => (
-            <ProductCard
-              title={product?.productTitle}
-              image={product?.images[0]}
-              review={product?.avgRating}
-              totalReview={product?.numberOfRatings}
-              productId={product?._id}
-              price={product?.price}
-              rating={product?.avgRating}
-              category={product?.category}
-              handleEnquiryModel={handleEnquiryModel}
-            ></ProductCard>
-          )}
-        </CardSlider>
+      <CardSlider
+        slides={productSuggestion}
+        slidesPerView={4}
+        spaceBetween={30}
+        navigation
+        pagination={false}
+        autoplay={false}
+        className="custom-swiper"
+        breakpoints={{
+          0: { slidesPerView: 1 },
+          640: { slidesPerView: 1 },
+          768: { slidesPerView: 2 },
+          1024: { slidesPerView: 3 },
+          1500: { slidesPerView: 4 },
+        }}
+      >
+        {(product) => (
+          <ProductCard
+            title={product?.productTitle}
+            image={product?.images[0]}
+            review={product?.avgRating}
+            totalReview={product?.numberOfRatings}
+            productId={product?._id}
+            price={product?.price}
+            rating={product?.avgRating}
+            category={product?.category}
+            handleEnquiryModel={handleEnquiryModel}
+          ></ProductCard>
+        )}
+      </CardSlider>
 
-        {/* <span
+      {/* <span
         onClick={handleShiftRight}
         className="flex-1 scale-200 transform flex items-center justify-center"
       >
         <FaChevronRight></FaChevronRight>
       </span> */}
-      </div>
+    </div>
   );
 };
 

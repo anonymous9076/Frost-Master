@@ -12,7 +12,7 @@ const Section6 = dynamic(() => import("../../home/Components/Section6"));
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
-import EnquiryModel from '../components/EnquiryModel'
+import EnquiryModel from "../components/EnquiryModel";
 import {
   showProductDetails,
   showProductSpec,
@@ -39,9 +39,9 @@ export interface productSuggestionType {
   _id: string;
   __v: number;
 }
-interface EnquiryPropField{
-  id:string,
-  active:boolean
+interface EnquiryPropField {
+  id: string;
+  active: boolean;
 }
 
 interface ProductSpecs {
@@ -74,10 +74,10 @@ const ProductDetailSection = () => {
   const [productSuggestion, setProductSuggestion] = useState<
     productSuggestionType[]
   >([]);
-  const [enquiryProp,setEnquiryProp]=useState<EnquiryPropField>({
-    id:'0',
-    active:false
-  })
+  const [enquiryProp, setEnquiryProp] = useState<EnquiryPropField>({
+    id: "",
+    active: false,
+  });
   const [productSpecification, setProductSpecification] = useState<
     ProductSpecs[]
   >([]);
@@ -205,18 +205,18 @@ const ProductDetailSection = () => {
 
   console.log(productId, "productId");
 
-  const handleEnquiryModel=(ids:string,active:boolean)=>{
-    console.log('data===>',typeof ids,active)
+  const handleEnquiryModel = (ids: string, active: boolean) => {
+    console.log("data===>", typeof ids, active);
     // to make imidate change use funtional state
-    setEnquiryProp(()=>({
-      id:ids,
-      active:active
-    }))
-  }
+    setEnquiryProp(() => ({
+      id: ids,
+      active: active,
+    }));
+  };
   return (
     <>
       <div className="w-full px-[1rem] lg:px-[3rem] light">
-      <EnquiryModel data={enquiryProp}></EnquiryModel>
+        {enquiryProp.id !== "" && <EnquiryModel data={enquiryProp} />}
 
         <div>
           <Link
@@ -287,7 +287,10 @@ const ProductDetailSection = () => {
                   </span>
                 </Link>
               </div>
-              <span onClick={()=>handleEnquiryModel(productId,true)} className="border border-[#35736E] w-full hover:shadow-md  justify-center text-[#35736E] rounded-md flex items-center gap-2 px-4 py-3">
+              <span
+                onClick={() => handleEnquiryModel(productId, true)}
+                className="border border-[#35736E] w-full hover:shadow-md  justify-center text-[#35736E] rounded-md flex items-center gap-2 px-4 py-3"
+              >
                 <AiOutlineFileText></AiOutlineFileText> Make an Enquiry
               </span>
             </div>
