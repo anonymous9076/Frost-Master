@@ -1,14 +1,14 @@
-'use client'
+"use client";
 import Image from "next/image";
 // import React, { useEffect, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 
-interface NavProp{
-  title:string;
-  list:string[];
-  active:boolean;
-  image:string;
-  handleCloseModel:()=>void
+interface NavProp {
+  title: string;
+  list: string[];
+  active: boolean;
+  image: string;
+  handleCloseModel: () => void;
 }
 // const NavDrop = ({title,list,active}:NavProp) => {
 //   const [closeModel,setCloseModel]= useState<boolean>(active)
@@ -22,7 +22,6 @@ interface NavProp{
 //   useEffect(()=>{
 //     setCloseModel(active)
 //   },[active])
-
 
 //   return (
 //     <div className={`absolute h-[90dvh] w-full top-0 mt-[10dvh] bg-black/5 left-0 ${closeModel?'block':'hidden'}`}>
@@ -51,22 +50,22 @@ interface NavProp{
 //     </div>
 //   );
 // };
-const NavDrop = ({ title, list, active ,handleCloseModel,image }: NavProp) => {
+const NavDrop = ({ title, list, active, handleCloseModel, image }: NavProp) => {
   // remove local closeModel state entirely and rely on the `active` prop
   if (!active) return null;
 
   return (
-    <div
-      
-      className="absolute top-[10dvh] !z-0 transition-all duration-500 ease-in-out left-0 w-full h-[90dvh] bg-black/50"
-    >
-      <div  
-      className="px-[6rem] py-[1rem]  min-h-[20dvh] light"
-      onMouseLeave={handleCloseModel}
+    <div className="absolute top-[10dvh] !z-0 transition-all duration-500 ease-in-out left-0 w-full h-[90dvh] bg-black/50">
+      <div
+        className="px-[6rem] py-[1rem]  min-h-[20dvh] light"
+        onMouseLeave={handleCloseModel}
       >
         <div className="flex justify-between items-center">
           <h2 className="text-[35px]">{title}</h2>
-          <RxCross2 onClick={handleCloseModel} className="cursor-pointer text-[25px]" />
+          <RxCross2
+            onClick={handleCloseModel}
+            className="cursor-pointer text-[25px]"
+          />
         </div>
 
         <div className="flex justify-between items-start mt-4">
@@ -80,9 +79,8 @@ const NavDrop = ({ title, list, active ,handleCloseModel,image }: NavProp) => {
               </li>
             ))}
           </ul>
-
           <Image
-            src={image}
+            src={`${process.env.NEXT_PUBLIC_CDNURL}${image}`}
             alt=""
             height={400}
             width={400}
@@ -93,6 +91,5 @@ const NavDrop = ({ title, list, active ,handleCloseModel,image }: NavProp) => {
     </div>
   );
 };
-
 
 export default NavDrop;

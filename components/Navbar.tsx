@@ -40,7 +40,7 @@ const Navbar = ({ active }: navprops) => {
         "What Makes us prominent players",
         "Why frostmaster.in?",
       ],
-      img:'/Images/PremiumKitchenEquipments/img4.jpg'
+      img: "Images/PremiumKitchenEquipments/img4.jpg",
     },
     {
       label: "About Us",
@@ -51,7 +51,7 @@ const Navbar = ({ active }: navprops) => {
         "Connecting Cities",
         "Trusted by thousands Businesses",
       ],
-      img:'/Images/PremiumKitchenEquipments/img14.jpg'
+      img: "Images/PremiumKitchenEquipments/img14.jpg",
     },
     {
       label: "Our Products",
@@ -62,7 +62,7 @@ const Navbar = ({ active }: navprops) => {
         "Restaurant Equipment",
         "Bakery Machinery",
       ],
-      img:'/Images/PremiumKitchenEquipments/img24.jpg'
+      img: "Images/PremiumKitchenEquipments/img24.jpg",
     },
     {
       label: "Services",
@@ -74,19 +74,19 @@ const Navbar = ({ active }: navprops) => {
         "Lpg Pipeline Design Installation",
         "Commercial Kitchen Layout Design",
       ],
-      img:'/Images/PremiumKitchenEquipments/img34.jpg'
+      img: "Images/PremiumKitchenEquipments/img34.jpg",
     },
     {
       label: "My Orders",
       link: "/customer/myorders",
       list: ["Your Order History", "Order Status"],
-      img:'/Images/PremiumKitchenEquipments/img4.jpg'
+      img: "Images/PremiumKitchenEquipments/img4.jpg",
     },
     {
       label: "Career",
       link: "/customer/career",
       list: ["Careers in Frost Master", "We're Hiring!"],
-      img:'/Images/PremiumKitchenEquipments/img14.jpg'
+      img: "Images/PremiumKitchenEquipments/img14.jpg",
     },
     {
       label: "T&C",
@@ -97,7 +97,7 @@ const Navbar = ({ active }: navprops) => {
         "Ice Cream Machine",
         "Bakery Equipment",
       ],
-      img:'/Images/PremiumKitchenEquipments/img24.jpg'
+      img: "Images/PremiumKitchenEquipments/img24.jpg",
     },
     {
       label: "Blogs",
@@ -107,7 +107,7 @@ const Navbar = ({ active }: navprops) => {
         "Kitchen Equipment Essentials for Modern Restaurants",
         "Top 5 Electric Ovens for Home Baking in 2025",
       ],
-      img:'/Images/PremiumKitchenEquipments/img34.jpg'
+      img: "Images/PremiumKitchenEquipments/img34.jpg",
     },
   ];
   const [profile, setProfile] = useState<boolean>(false);
