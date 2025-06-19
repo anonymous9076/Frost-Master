@@ -2,7 +2,9 @@
 const Footer = dynamic(() => import("@/components/Footer"));
 const Navbar = dynamic(() => import("@/components/Navbar"));
 import React, { useEffect, useState } from "react";
-const ProductContainer = dynamic(() => import("../components/ProductContainer"));
+const ProductContainer = dynamic(
+  () => import("../components/ProductContainer")
+);
 const FilterBar = dynamic(() => import("../components/FilterBar"));
 import dynamic from "next/dynamic";
 import { getAllProducts } from "@/app/api/Product";
@@ -18,14 +20,17 @@ const ProductsPage = () => {
   const [searchProduct, setSearchProduct] = useState<string>("");
   const [productsData, setProductsData] = useState<[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [filterBar,setFilterBar]= useState<boolean>(false);
+  const [filterBar, setFilterBar] = useState<boolean>(false);
 
   // const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const [totalPages, setTotalPages] = useState(1);
   const deboundedData = useDebouncing(searchProduct, 800);
   async function showProducts() {
-    console.log(filterRating, "productwith dyamic category page filterRating9900");
+    console.log(
+      filterRating,
+      "productwith dyamic category page filterRating9900"
+    );
     const res = await getAllProducts(
       filterCategory,
       deboundedData as string,
@@ -39,21 +44,18 @@ const ProductsPage = () => {
     console.log(res, "data products customer791");
   }
 
-
   useEffect(() => {
     if (!router.isReady) return; // wait until the router is ready
 
     const { category } = router.query;
 
-    console.log(category,'chelcthisdhfoihsigi')
+    console.log(category, "chelcthisdhfoihsigi");
     // if (category) {
     //   setFilterCategory([category]);
     // }
   }, [router.isReady, router.query.category]);
 
-
   useEffect(() => {
-    
     showProducts();
   }, [
     filterCategory,
@@ -64,33 +66,42 @@ const ProductsPage = () => {
     deboundedData,
   ]);
 
-  const handleToggleFilter=()=>{
-    console.log('filter visible')
-    setFilterBar(curr=>!curr)
-  }
+  const handleToggleFilter = () => {
+    console.log("filter visible");
+    setFilterBar((curr) => !curr);
+  };
 
   return (
-    <div >
+    <div>
       <div>
         <Navbar active="/customer/products"></Navbar>
         <div className="flex w-full h-fit min-h-[55dvh] relative light py-[4rem] ">
-          {filterBar?
-          <div className="h-[100dvh] w-full bg-black/50 fixed top-0  z-60 flex justify-start ">
-          <div className={`w-[25%] min-w-[350px] xl:hidden light h-full py-[6rem] relative z-60 block`}>
-            <button className="text-red-500 pb-[1rem] w-full  flex items-center justify-end pr-[2rem] text-[25px]" onClick={()=>setFilterBar(curr=>!curr)}><RxCross2/></button>
-            <FilterBar
-              minProductPrice={minProductPrice}
-              setMinProductPrice={setMinProductPrice}
-              maxProductPrice={maxProductPrice}
-              setMaxProductPrice={setMaxProductPrice}
-              filterCategory={filterCategory}
-              setFilterCategory={setFilterCategory}
-              filterRating={filterRating}
-              setFilterRating={setFilterRating}
-            />
-          </div>
-          </div>
-          :''}
+          {filterBar ? (
+            <div className="h-[100dvh] w-full bg-black/50 fixed top-0  z-60 flex justify-start ">
+              <div
+                className={`w-[25%] min-w-[350px] xl:hidden light h-full py-[6rem] relative z-60 block`}
+              >
+                <button
+                  className="text-red-500 pb-[1rem] w-full  flex items-center justify-end pr-[2rem] text-[25px]"
+                  onClick={() => setFilterBar((curr) => !curr)}
+                >
+                  <RxCross2 />
+                </button>
+                <FilterBar
+                  minProductPrice={minProductPrice}
+                  setMinProductPrice={setMinProductPrice}
+                  maxProductPrice={maxProductPrice}
+                  setMaxProductPrice={setMaxProductPrice}
+                  filterCategory={filterCategory}
+                  setFilterCategory={setFilterCategory}
+                  filterRating={filterRating}
+                  setFilterRating={setFilterRating}
+                />
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
           <div className={`w-[25%] min-w-[350px] hidden xl:block`}>
             <FilterBar
               minProductPrice={minProductPrice}
@@ -104,7 +115,7 @@ const ProductsPage = () => {
             />
           </div>
           <ProductContainer
-          handleToggleFilter={handleToggleFilter}
+            handleToggleFilter={handleToggleFilter}
             searchProduct={searchProduct}
             setSearchProduct={setSearchProduct}
             productsData={productsData}
