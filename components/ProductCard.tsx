@@ -58,9 +58,9 @@ const ProductCard = ({
   };
   function handleCartItem() {
     addProductIntoCart(data);
-    setAdded(true)
+    setAdded(true);
     setTimeout(() => {
-      setAdded(false)
+      setAdded(false);
     }, 2000);
   }
   console.log(process.env.NEXT_PUBLIC_CDNURL, image, "process.env.CDNURL");
@@ -95,7 +95,9 @@ const ProductCard = ({
       </span>
       <div className=" h-[40%] flex flex-col  justify-evenly  ">
         <div>
-          <h5 className="text-lg tracking-tight whitespace-nowrap overflow-ellipsis ">{title}</h5>
+          <h5 className="text-lg tracking-tight whitespace-nowrap overflow-ellipsis ">
+            {title}
+          </h5>
           <span className="text-sm text-gray-600 ">
             {review} ({totalReview} reviews)
           </span>
@@ -106,10 +108,13 @@ const ProductCard = ({
             className="flex-1  border border-[#35736E] whitespace-nowrap   text-[#35736E] hover:shadow-md rounded-md flex  justify-center items-center gap-2 px-4 py-2"
             onClick={handleCartItem}
           >
-            <BsCart3></BsCart3> {added?'Added':'Add to cart'}
+            <BsCart3></BsCart3> {added ? "Added" : "Add to cart"}
           </span>
-          <Link href="/customer/products/product-details/2" className="flex-1 ">
-            <span className="olive  rounded-md flex whitespace-nowrap items-center justify-center hover:shadow-md gap-2 px-4 py-2">
+          <Link href={`/customer/mycart`} className="flex-1 ">
+            <span
+              onClick={handleCartItem}
+              className="olive  rounded-md flex whitespace-nowrap items-center justify-center hover:shadow-md gap-2 px-4 py-2"
+            >
               <BsCart3></BsCart3> Buy Now
             </span>
           </Link>
