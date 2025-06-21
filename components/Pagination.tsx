@@ -1,107 +1,80 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
-interface props {
+interface Props {
   handleOnChange: (pageNo: number) => void;
   currentPage: number;
   totalPages: number;
   user: string;
 }
 
-const Pagination = ({
-  handleOnChange,
-  currentPage,
-  totalPages,
-  user,
-}: props) => {
-  const [bg_color, setBgColor] = React.useState("");
+const Pagination = ({ handleOnChange, currentPage, totalPages, user }: Props) => {
+  const [bgColor, setBgColor] = useState("bg-[#35736E]");
+
   useEffect(() => {
-    if (user == "admin") {
-      setBgColor("bg-[#60A5FA]");
-    } else {
-      setBgColor("bg-[#35736E]");
-    }
-  }, []);
+    setBgColor(user === "admin" ? "bg-[#60A5FA]" : "bg-[#35736E]");
+  }, [user]);
 
   const getPaginationPages = () => {
-    const pages = [];
+    const pages: (number | string)[] = [];
 
-    if (totalPages <= 2) {
+    if (totalPages <= 5) {
       for (let i = 1; i <= totalPages; i++) {
         pages.push(i);
       }
-      return pages;
-    }
-
-    pages.push(1);
-
-    if (currentPage > 3) {
-      pages.push("...");
-    }
-
-    const start = Math.max(currentPage - 1, 2);
-    const end = Math.min(currentPage + 1, totalPages - 1);
-
-    for (let i = start; i <= end; i++) {
-      pages.push(i);
-    }
-
-    if (currentPage < totalPages - 2) {
-      pages.push("...");
-    }
-
-    if (totalPages > 1) {
-      pages.push(totalPages);
+    } else {
+      if (currentPage <= 3) {
+        pages.push(1, 2, 3, "...", totalPages);
+      } else if (currentPage >= totalPages - 2) {
+        pages.push(1, "...", totalPages - 2, totalPages - 1, totalPages);
+      } else {
+        pages.push(1, "...", currentPage - 1, currentPage, currentPage + 1, "...", totalPages);
+      }
     }
 
     return pages;
   };
+
   return (
-    <>
-      <div className="w-full bg-gray flex text-[12px] sm:text-[16px] flex-col-reverse sm:flex-row items-start sm:items-center cursor-pointer  justify-between sm:gap-2 my-3">
-        <div>
-          showing {currentPage} of {totalPages} pages
-        </div>
-        <div className="flex items-center py-2 sm:gap-1">
-          <button
-            className={`border-2 border-gray-300 px-3 py-1 rounded-md  ${
-              "hover:" + bg_color
-            } `}
-            onClick={() => handleOnChange(currentPage - 1)}
-            disabled={currentPage === 1}
-          >
-            Previous
-          </button>
-          {getPaginationPages().map((number, index) => (
-            <button
-              key={index}
-              className={`${
-                currentPage === number
-                  ? `${bg_color} text-white`
-                  : "light border border-gray-300"
-              } px-4 py-1 mx-1 rounded-lg ${
-                "hover:" + bg_color
-              } hover:text-white`}
-              disabled={number === "..."}
-            >
-              {number}
-            </button>
-          ))}
-          {/* <p className="border-2 border-gray-300 px-3 py-1 rounded-md text-white bg-blue-400 ">
-            {currentPage}/{totalPages}
-          </p> */}
-          <button
-            className={`border-2 border-gray-300 px-3 py-1 rounded-md  ${
-              "hover:" + bg_color
-            } `}
-            onClick={() => handleOnChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
-          >
-            Next
-          </button>
-        </div>
+    <div className="w-full flex text-[12px] sm:text-[16px] flex-col-reverse sm:flex-row items-start sm:items-center justify-between sm:gap-2 my-3">
+      <div>
+        Showing page {currentPage} of {totalPages}
       </div>
-    </>
+      <div className="flex items-center py-2 sm:gap-1 flex-wrap">
+        <button
+          className={`border-2 border-gray-300 px-3 py-1 rounded-md hover:opacity-80 ${
+            currentPage === 1 ? "opacity-50 cursor-not-allowed" : bgColor + " text-white"
+          }`}
+          onClick={() => currentPage > 1 && handleOnChange(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+
+        {getPaginationPages().map((number, index) => (
+          <button
+            key={index}
+            onClick={() => typeof number === "number" && handleOnChange(number)}
+            disabled={number === "..."}
+            className={`px-3 py-1 mx-1 rounded-md ${
+              number === currentPage ? `${bgColor} text-white` : "border border-gray-300"
+            } ${number !== "..." ? "hover:opacity-80" : "cursor-default"}`}
+          >
+            {number}
+          </button>
+        ))}
+
+        <button
+          className={`border-2 border-gray-300 px-3 py-1 rounded-md hover:opacity-80 ${
+            currentPage === totalPages ? "opacity-50 cursor-not-allowed" : bgColor + " text-white"
+          }`}
+          onClick={() => currentPage < totalPages && handleOnChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
+      </div>
+    </div>
   );
 };
 
