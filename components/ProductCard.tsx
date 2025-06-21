@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { FaHeart } from "react-icons/fa";
 import { BsCart3 } from "react-icons/bs";
 import { GrNotes } from "react-icons/gr";
@@ -43,10 +43,12 @@ const ProductCard = ({
   const addProductIntoCart = useCartStore((store) => store.addProductIntoCart);
   const [liked, setLiked] = React.useState(false);
   const [added, setAdded] = React.useState(false);
+  const [formattedTitle, setFormattedTitle] = React.useState('');
 
   const handleLikeItem = () => {
     setLiked((curr) => !curr);
   };
+
   const data: productTypes = {
     userId: user?.id || "Guest",
     productId: productId,
@@ -56,6 +58,7 @@ const ProductCard = ({
     rating: rating,
     image: image,
   };
+
   function handleCartItem() {
     addProductIntoCart(data);
     setAdded(true);
@@ -63,8 +66,20 @@ const ProductCard = ({
       setAdded(false);
     }, 2000);
   }
-  console.log(process.env.NEXT_PUBLIC_CDNURL, image, "process.env.CDNURL");
+  // console.log(process.env.NEXT_PUBLIC_CDNURL, image, "process.env.CDNURL");
   // const urlFriendly: string = category?.replace(/\s+/g, "");
+  const stringFormattingFun = (sent:string) => {
+    const a = sent.split(" ");
+    const b = a.map((ele) => ele.charAt(0).toUpperCase() + ele.slice(1));
+    const c = b.join(" ");
+    console.log(c,'===>')
+    setFormattedTitle(c)
+  }
+
+  useEffect(()=>{
+    stringFormattingFun(title)
+  },[])
+
   return (
     <div className=" relative p-4 rounded-lg shadow-md border w-full cursor-pointer h-fit  border-gray-300">
       <Link
@@ -95,8 +110,8 @@ const ProductCard = ({
       </span>
       <div className=" h-[40%] flex flex-col  justify-evenly  ">
         <div>
-          <h5 className="text-lg tracking-tight whitespace-nowrap overflow-ellipsis ">
-            {title}
+          <h5 className="text-lg tracking-tight whitespace-nowrap w-full overflow-clip " title={formattedTitle}>
+            {formattedTitle}
           </h5>
           <span className="text-sm text-gray-600 ">
             {review} ({totalReview} reviews)
