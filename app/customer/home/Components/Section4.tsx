@@ -36,18 +36,18 @@ const object = [
 
 
   return (
-    <div className="light py-[5rem]">
-      <div className="w-[70%] mx-auto flex md:flex-row flex-col items-center justify-center py-[3rem]">
-        <h1 data-aos="fade-up" className="flex-1 px-[1rem]  md:px-[2rem] leading-10 text-[40px]">
+    <div className="light py-[3rem]  md:py-[5rem]">
+      <div className="w-[100%] mx-auto flex md:flex-row px-[5%] flex-col items-center justify-center py-[3rem]">
+        <h1 data-aos="fade-up" className="flex-1  leading-10 responsive-heading">
           What Makes us prominent players
         </h1>
-        <p data-aos="fade-up" className="flex-1 px-[1rem] mt-2 md:mt-0 text-[20px]">
+        <p data-aos="fade-up" className="flex-1 mt-2 md:mt-0 responsive-subtext">
           FrostMaster excels in premium kitchen equipment distribution, offering
           top-quality products, reliable service, and innovative solutions for
           culinary professionals.
         </p>
       </div>
-      <div className="w-[70%] mx-auto grid md:grid-cols-2  grid-cols-1 lg:grid-cols-3 gap-7">
+      <div className="w-[100%] px-[5%] mx-auto grid md:grid-cols-2  grid-cols-1 lg:grid-cols-3 gap-7">
         {object.map((item, index) =>
           <div
           key={index}

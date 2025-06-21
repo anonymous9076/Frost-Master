@@ -19,25 +19,25 @@ const obj = [
 
   return (
     <div className="light h-fit w-full pb-[2rem]">
-      <h1 data-aos="fade-up" className="w-full text-[40px]  md:text-[50px] py-[3rem] text-center font-bold ">
+      <h1 data-aos="fade-up" className="w-full responsive-heading py-[3rem] text-center font-bold ">
         Connecting Cities, Delivering Quality
       </h1>
-      <div className="flex items-center   h-fit justify-center gap-3  flex-wrap  lg:gap-7 ">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 px-[8%]">
         {obj.map((item, index) => (
           <div
           
            data-aos="fade-up"
             data-aos-delay={`${(index + 2) * 100}`}
-            key={index} className="h-[60dvh] w-[60%] md:w-[25%] min-w-[300px]">
+            key={index} className="h-[60dvh]  !max-h-[500px] min-w-[300px]">
             <div className="h-full  w-full flex flex-col justify-between items-center ">
               <Image
                 src={item.image}
                 alt=""
                 height={400}
                 width={400}
-                className=" h-[85%] w-[80%] object-cover rounded-xl shadow-md"
+                className=" h-[90%] w-[100%] object-cover rounded-xl shadow-md"
               ></Image>
-              <p className="text-[20px] text-center font-bold">{item.label}</p>
+              <p className="text-[25px] text-gray-700 !font-semibold text-center">{item.label}</p>
             </div>
           </div>
         ))}

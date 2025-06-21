@@ -151,7 +151,7 @@ const Navbar = ({ active }: navprops) => {
               onMouseEnter={() => handleOpenModel(item)}
               onMouseLeave={handleCloseModel}
               key={index}
-              className=" flex items-center  px-[23px] h-full"
+              className=" flex items-center  px-[16px] h-full"
             >
               <Link
                 href={item.link}
@@ -169,7 +169,9 @@ const Navbar = ({ active }: navprops) => {
               <NavDrop
                 title={item.label}
                 list={item.list}
-                image={item.img}
+                image={item.img
+                  
+                }
                 active={activeNavDrop && hoveredNavField?.label === item.label}
                 handleCloseModel={handleCloseModel}
               />

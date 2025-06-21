@@ -2,12 +2,12 @@ import React from "react";
 
 const Section8 = () => {
   return (
-    <div className="light border-y border-gray-300 mb-[2rem] w-full flex-col lg:flex-row  flex py-[3rem] gap-4 lg:py-[6rem] px-[5rem]">
+    <div className="light border-y border-gray-300 mb-[2rem] w-full flex-col lg:flex-row  flex py-[3rem] gap-4 lg:py-[6rem] px-[5%]">
       <div className="lg:w-[50%] w-full text-gray-600 ">
-        <h2 data-aos="fade-up" className="text-gray-900 text-[35px] ">
+        <h2 data-aos="fade-up" className="text-gray-900 text-[35px] text-center lg:text-left ">
           Reach Our Customer Service Team
         </h2>
-        <p data-aos="fade-up">
+        <p data-aos="fade-up" className="text-center lg:text-left">
           {
             "Our dedicated customer service team is here to assist you with any questions, concerns, or inquiries you may have. Whether you need help with an order, have product-related queries, or require assistance with any aspect of our services, we're here to help."
           }
