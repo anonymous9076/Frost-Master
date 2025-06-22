@@ -8,7 +8,12 @@ interface Props {
   user: string;
 }
 
-const Pagination = ({ handleOnChange, currentPage, totalPages, user }: Props) => {
+const Pagination = ({
+  handleOnChange,
+  currentPage,
+  totalPages,
+  user,
+}: Props) => {
   const [bgColor, setBgColor] = useState("bg-[#35736E]");
 
   useEffect(() => {
@@ -28,7 +33,15 @@ const Pagination = ({ handleOnChange, currentPage, totalPages, user }: Props) =>
       } else if (currentPage >= totalPages - 2) {
         pages.push(1, "...", totalPages - 2, totalPages - 1, totalPages);
       } else {
-        pages.push(1, "...", currentPage - 1, currentPage, currentPage + 1, "...", totalPages);
+        pages.push(
+          1,
+          "...",
+          currentPage - 1,
+          currentPage,
+          currentPage + 1,
+          "...",
+          totalPages
+        );
       }
     }
 
@@ -40,10 +53,12 @@ const Pagination = ({ handleOnChange, currentPage, totalPages, user }: Props) =>
       <div>
         Showing page {currentPage} of {totalPages}
       </div>
-      <div className="flex items-center py-2 sm:gap-1 flex-wrap">
+      <div className="flex items-center py-2 sm:gap-1 flex-wrap cursor-pointer">
         <button
-          className={`border-2 border-gray-300 px-3 py-1 rounded-md hover:opacity-80 ${
-            currentPage === 1 ? "opacity-50 cursor-not-allowed" : bgColor + " text-white"
+          className={`border-2 cursor-pointer border-gray-300 px-3 py-1 rounded-md hover:opacity-80 ${
+            currentPage === 1
+              ? "opacity-50 cursor-not-allowed"
+              : bgColor + " text-white"
           }`}
           onClick={() => currentPage > 1 && handleOnChange(currentPage - 1)}
           disabled={currentPage === 1}
@@ -57,7 +72,9 @@ const Pagination = ({ handleOnChange, currentPage, totalPages, user }: Props) =>
             onClick={() => typeof number === "number" && handleOnChange(number)}
             disabled={number === "..."}
             className={`px-3 py-1 mx-1 rounded-md ${
-              number === currentPage ? `${bgColor} text-white` : "border border-gray-300"
+              number === currentPage
+                ? `${bgColor} text-white`
+                : "border border-gray-300"
             } ${number !== "..." ? "hover:opacity-80" : "cursor-default"}`}
           >
             {number}
@@ -66,9 +83,13 @@ const Pagination = ({ handleOnChange, currentPage, totalPages, user }: Props) =>
 
         <button
           className={`border-2 border-gray-300 px-3 py-1 rounded-md hover:opacity-80 ${
-            currentPage === totalPages ? "opacity-50 cursor-not-allowed" : bgColor + " text-white"
+            currentPage === totalPages
+              ? "opacity-50 cursor-not-allowed"
+              : bgColor + " text-white"
           }`}
-          onClick={() => currentPage < totalPages && handleOnChange(currentPage + 1)}
+          onClick={() =>
+            currentPage < totalPages && handleOnChange(currentPage + 1)
+          }
           disabled={currentPage === totalPages}
         >
           Next
