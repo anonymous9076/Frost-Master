@@ -3,9 +3,18 @@ const Footer = dynamic(() => import("@/components/Footer"));
 const Navbar = dynamic(() => import("@/components/Navbar"));
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 
 const Services = () => {
+  const [readMore, setReadMore] = useState<{ [key: number]: boolean }>({});
+
+  const toggleReadMore = (index: number) => {
+    setReadMore((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
+  };
+
   const features = [
     {
       title: "OUR FEATURES",
@@ -19,7 +28,7 @@ const Services = () => {
       image: `${process.env.NEXT_PUBLIC_CDNURL}Images/frostservices/img1.jpg`,
       align: "",
       justify: "justify-start",
-      border: "border-r-4 border-b-4 border-[#35736E]",
+      border: "border-r-4 border-b-4 border-[#35736E]/60",
       anime: "fade-right",
     },
     {
@@ -33,7 +42,7 @@ const Services = () => {
       image: `${process.env.NEXT_PUBLIC_CDNURL}Images/frostservices/img2.jpg`,
       align: "sm:flex-row-reverse  ",
       justify: "justify-end",
-      border: "border-l-4 border-b-4 border-[#35736E]",
+      border: "border-l-4 border-b-4 border-[#35736E]/60",
       anime: "fade-left",
     },
     {
@@ -48,7 +57,7 @@ const Services = () => {
       image: `${process.env.NEXT_PUBLIC_CDNURL}Images/frostservices/img3.jpg`,
       align: "",
       justify: "justify-start",
-      border: "border-r-4 border-b-4 border-[#35736E]",
+      border: "border-r-4 border-b-4 border-[#35736E]/60",
       anime: "fade-right",
     },
     {
@@ -62,7 +71,7 @@ const Services = () => {
       align: "sm:flex-row-reverse",
       image: `${process.env.NEXT_PUBLIC_CDNURL}Images/frostservices/img4.jpg`,
       justify: "justify-end",
-      border: "border-l-4 border-b-4 border-[#35736E]",
+      border: "border-l-4 border-b-4 border-[#35736E]/60",
       anime: "fade-left",
     },
     {
@@ -76,18 +85,20 @@ const Services = () => {
       image: `${process.env.NEXT_PUBLIC_CDNURL}Images/frostservices/img5.jpg`,
       align: "",
       justify: "justify-start",
-      border: "border-r-4 border-b-4 border-[#35736E]",
+      border: "border-r-4 border-b-4 border-[#35736E]/60",
       anime: "fade-right",
     },
   ];
 
   return (
     <>
+      {/* set the height of the container  */}
+
       <Navbar active="/customer/services"></Navbar>
       <div className="h-fit light px-[1rem]  md:px-[2rem] xl:px-[4rem] pb-[4rem] pt-[2rem] w-full overflow-hidden ">
         {features.map((item, index) => (
           <div
-            className={`h-fit  flex ${item.align} gap-5 sm:h-[62dvh]  items-center flex-col  sm:flex-row w-full ${item.border} p-[2rem] py-[4rem]`}
+            className={`h-fit  flex ${item.align} gap-10   items-center flex-col  sm:flex-row w-full ${item.border} p-[5%] py-[4rem]`}
             key={index}
           >
             <Image
@@ -96,24 +107,39 @@ const Services = () => {
               height={400}
               width={400}
               data-aos={item.anime}
-              className="md:w-1/3 w-[90%] sm:w-1/2  h-[55dvh] rounded-md shadow-lg"
+              className="md:w-1/2 w-[100%] sm:w-1/2  h-[55dvh] max-h-[350px] rounded-md shadow-lg"
             ></Image>
-            <div className="flex flex-col w-[90%]  sm:w-1/2 md:w-2/3 justify-center h-full" data-aos={item.anime}>
-              <h2 className="font-bold text-[30px] py-[1rem] text-[#35736E]">
+            <div
+              className="flex flex-col w-[100%]   sm:w-1/2 md:w-1/2 justify-center h-full"
+              data-aos={item.anime}
+            >
+              <h2 className="font-bold text-[30px] text-[#35736E]">
                 {" "}
                 {item.title}
               </h2>
-              <div className="flex flex-col h-[80%] overflow-y-auto  ">
-                {item.description.map((description, index) => (
-                  <div
-                    key={index}
-                    className=" text-[14px] text-slate-700  font-normal flex-row"
-                  >
-                    <p>{description}</p>
-                    <br></br>
-                  </div>
-                ))}
+              <div
+                className={`flex flex-col transition-all duration-1500 ease-in-out overflow-hidden ${
+                  readMore[index] ? "max-h-[500px]" : "max-h-[200px]"
+                } py-[1rem] pr-3`}
+              >
+                {readMore[index]
+                  ? item.description.map((description, index) => (
+                      <div
+                        key={index}
+                        className=" text-[14px] text-slate-700  font-normal flex-row"
+                      >
+                        <p>{description}</p>
+                        <br></br>
+                      </div>
+                    ))
+                  : item.description[0]}
               </div>
+              <button
+                onClick={() => toggleReadMore(index)}
+                className="px-4 py-2 w-fit rounded-md my-[1rem] olive"
+              >
+                {readMore[index] ? "Read Less" : "Read More"}
+              </button>
             </div>
           </div>
         ))}
