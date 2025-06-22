@@ -137,7 +137,7 @@ const Navbar = ({ active }: navprops) => {
   return (
     <>
       <div
-        className={`h-[10dvh] w-[full]   sticky z-90 top-0 left-0  bg-[#235753] text-white flex items-center justify-between px-[2rem] md:px-[2rem] lg:px-[5rem] `}
+        className={`h-[10dvh] w-[full]   sticky z-90 top-0 left-0  bg-[#235753] text-white flex items-center justify-between px-[5%]  `}
       >
         {/* <NavDrop></NavDrop> */}
         <Link href="/customer/home">
