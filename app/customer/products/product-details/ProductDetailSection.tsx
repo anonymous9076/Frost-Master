@@ -181,6 +181,7 @@ const ProductDetailSection = () => {
     const data = await showProductSpec(productId);
     console.log(data.data, "spec data");
     setProductSpecification(Array(data.data));
+    console.log('first check this out +++>>> ', data.data)
   }
 
   async function showProductSuggestionData() {
@@ -302,7 +303,7 @@ const ProductDetailSection = () => {
               alt=""
               height={500}
               width={500}
-              className="w-[60%] h-[50dvh]"
+              className="w-[60%] h-[50dvh] max-h-[370px]"
             ></Image>
             <div className="flex w-[90%] md:w-[70%] py-[1rem] items-center justify-center flex-cols-4 gap-2">
               {image?.map((item, index) => (
@@ -353,7 +354,7 @@ const ProductDetailSection = () => {
                           <span className="font-semibold flex-1">
                             {formatLabel(key)}:
                           </span>
-                          <span className="flex-1">
+                          <span className="flex-1 max-w-[45%] overflow-clip">
                             {value === false
                               ? "False"
                               : value === true
