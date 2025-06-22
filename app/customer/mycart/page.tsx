@@ -1,11 +1,13 @@
+"use client";
 import dynamic from "next/dynamic";
-import React from "react";
+import React, { useState } from "react";
 const Navbar = dynamic(() => import("@/components/Navbar"));
 const Footer = dynamic(() => import("@/components/Footer"));
 const PriceCard = dynamic(() => import("@/components/PriceCard"));
 const MycartItem = dynamic(() => import("./MycartItem"));
 
-const mycart = () => {
+const Mycart = () => {
+  const [totalPrice, setTotalPrice] = useState(0);
   return (
     <>
       <Navbar active="/customer/mycart"></Navbar>
@@ -14,10 +16,10 @@ const mycart = () => {
           <div className=" gap-4">
             <h1 className="text-[25px] font-bold  ">My Cart</h1>
           </div>
-          <MycartItem></MycartItem>
+          <MycartItem setTotalPrice={setTotalPrice}></MycartItem>
         </div>
         <div className="flex-1 p-[2rem]">
-          <PriceCard button={true}></PriceCard>
+          <PriceCard button={true} totalPrice={totalPrice}></PriceCard>
         </div>
       </div>
       <Footer></Footer>
@@ -25,4 +27,4 @@ const mycart = () => {
   );
 };
 
-export default mycart;
+export default Mycart;

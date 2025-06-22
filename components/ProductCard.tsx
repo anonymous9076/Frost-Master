@@ -1,12 +1,13 @@
 "use client";
 import Image from "next/image";
 import React, { useContext, useEffect } from "react";
-import { FaHeart } from "react-icons/fa";
+// import { FaHeart } from "react-icons/fa";
 import { BsCart3 } from "react-icons/bs";
 import { GrNotes } from "react-icons/gr";
 import Link from "next/link";
 import UserAuthContext from "@/app/context/userAuthContext";
 import { useCartStore } from "@/app/stores/CartStore";
+import { useRouter } from "next/navigation";
 
 interface productprops {
   title: string;
@@ -19,7 +20,7 @@ interface productprops {
   category: string;
   handleEnquiryModel: (a: string, b: boolean) => void;
 }
-interface productTypes {
+export interface productTypes {
   userId: string;
   productId: string;
   title: string;
@@ -39,12 +40,18 @@ const ProductCard = ({
   category,
   handleEnquiryModel,
 }: productprops) => {
+  const router = useRouter();
   const { user } = useContext(UserAuthContext)!;
   const addProductIntoCart = useCartStore((store) => store.addProductIntoCart);
+  const cartData = useCartStore((state) => state.cartData);
+  const isProductInCart = cartData.some(
+    (product) => product.productId === productId
+  );
+
   const [liked, setLiked] = React.useState(false);
   const [added, setAdded] = React.useState(false);
-  const [formattedTitle, setFormattedTitle] = React.useState('');
-
+  const [formattedTitle, setFormattedTitle] = React.useState("");
+  console.log(added);
   const handleLikeItem = () => {
     setLiked((curr) => !curr);
   };
@@ -68,17 +75,17 @@ const ProductCard = ({
   }
   // console.log(process.env.NEXT_PUBLIC_CDNURL, image, "process.env.CDNURL");
   // const urlFriendly: string = category?.replace(/\s+/g, "");
-  const stringFormattingFun = (sent:string) => {
+  const stringFormattingFun = (sent: string) => {
     const a = sent.split(" ");
     const b = a.map((ele) => ele.charAt(0).toUpperCase() + ele.slice(1));
     const c = b.join(" ");
-    console.log(c,'===>')
-    setFormattedTitle(c)
-  }
+    console.log(c, "===>");
+    setFormattedTitle(c);
+  };
 
-  useEffect(()=>{
-    stringFormattingFun(title)
-  },[])
+  useEffect(() => {
+    stringFormattingFun(title);
+  }, []);
 
   return (
     <div className=" relative p-4 rounded-lg shadow-md border w-full cursor-pointer h-fit  border-gray-300">
@@ -106,11 +113,14 @@ const ProductCard = ({
           handleLikeItem();
         }}
       >
-        <FaHeart></FaHeart>
+        {/* <FaHeart></FaHeart> */}
       </span>
       <div className=" h-[40%] flex flex-col  justify-evenly  ">
         <div>
-          <h5 className="text-lg tracking-tight whitespace-nowrap w-full overflow-clip " title={formattedTitle}>
+          <h5
+            className="text-lg tracking-tight whitespace-nowrap w-full overflow-clip "
+            title={formattedTitle}
+          >
             {formattedTitle}
           </h5>
           <span className="text-sm text-gray-600 ">
@@ -118,22 +128,31 @@ const ProductCard = ({
           </span>
         </div>
         <div className="flex items-center justify-between mt-1 gap-2">
-          {/* may be need to review bcz there is no products shown to test  */}
-          <span
-            className="flex-1  border border-[#35736E] whitespace-nowrap   text-[#35736E] hover:shadow-md rounded-md flex  justify-center items-center gap-2 px-4 py-2"
-            onClick={handleCartItem}
+          {/* Conditionally show Add or Go to Cart */}
+          <button
+            className="flex-1 border border-[#35736E] text-[#35736E] hover:shadow-md rounded-md flex justify-center items-center gap-2 px-4 py-2 cursor-pointer"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              if (!isProductInCart) {
+                handleCartItem(); // use your store action here
+              } else {
+                router.push("/customer/mycart");
+              }
+            }}
           >
-            <BsCart3></BsCart3> {added ? "Added" : "Add to cart"}
-          </span>
-          <Link href={`/customer/mycart`} className="flex-1 ">
-            <span
-              onClick={handleCartItem}
-              className="olive  rounded-md flex whitespace-nowrap items-center justify-center hover:shadow-md gap-2 px-4 py-2"
-            >
-              <BsCart3></BsCart3> Buy Now
+            <BsCart3 />
+            {isProductInCart ? "Go to cart" : "Add to cart"}
+          </button>
+
+          <Link href="/customer/mycart" className="flex-1">
+            <span className="olive rounded-md flex whitespace-nowrap items-center justify-center hover:shadow-md gap-2 px-4 py-2">
+              <BsCart3 />
+              Buy Now
             </span>
           </Link>
         </div>
+
         <span
           onClick={() => handleEnquiryModel(productId, true)}
           className="border border-[#35736E] mt-2 whitespace-nowrap w-full hover:shadow-md  justify-center text-[#35736E] rounded-md flex items-center gap-2 px-4 py-2"

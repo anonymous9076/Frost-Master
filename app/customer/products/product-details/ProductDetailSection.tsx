@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { TiArrowLeft } from "react-icons/ti";
 import Image from "next/image";
 import { AiOutlineShoppingCart } from "react-icons/ai";
@@ -11,19 +11,23 @@ const Recommendation = dynamic(() => import("@/components/Recommendation"));
 const Section6 = dynamic(() => import("../../home/Components/Section6"));
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import EnquiryModel from "../components/EnquiryModel";
 import {
   showProductDetails,
   showProductSpec,
   showProductSuggestion,
 } from "@/app/api/Product";
+import { useCartStore } from "@/app/stores/CartStore";
+// import { productTypes } from "@/components/ProductCard";
+import UserAuthContext from "@/app/context/userAuthContext";
 interface productDetailsType {
   productTitle: string;
   price: number;
   subCategory: string;
   category: string;
   productDescription: string;
+  images: [string];
 }
 
 export interface productSuggestionType {
@@ -63,10 +67,27 @@ interface ProductSpecs {
 }
 const ProductDetailSection = () => {
   const pathname = usePathname();
+  const { user } = useContext(UserAuthContext)!;
+  const router = useRouter();
+  const addProductIntoCart = useCartStore((store) => store.addProductIntoCart);
+  const cartData = useCartStore((state) => state.cartData);
 
   const [productId, setProductId] = useState(
     pathname.split("/")[pathname.split("/").length - 2]
   );
+  const isProductInCart = cartData.some(
+    (product) => product.productId === productId
+  );
+
+  const [addProductInCartData, setAddProductInCartData] = useState({
+    userId: "",
+    productId: "",
+    quantity: 1,
+    title: "",
+    price: 0,
+    rating: 0,
+    image: "",
+  });
   const [productCategory, setProductCategory] = useState(
     pathname.split("/")[pathname.split("/").length - 1]
   );
@@ -81,20 +102,8 @@ const ProductDetailSection = () => {
   const [productSpecification, setProductSpecification] = useState<
     ProductSpecs[]
   >([]);
-  const image = [
-    {
-      image: "/Images/bak8.jpg",
-    },
-    {
-      image: "/Images/bak8.jpg",
-    },
-    {
-      image: "/Images/bak8.jpg",
-    },
-    {
-      image: "/Images/bak8.jpg",
-    },
-  ];
+  const [selectedImage, setSelectedImage] = useState("");
+
   const quesAns = [
     {
       heading: "How do I place an order?",
@@ -174,14 +183,24 @@ const ProductDetailSection = () => {
   async function showProductData() {
     const res = await showProductDetails(productId);
     setProductDetails(res.data);
-    console.log(res, "res here data");
+    setSelectedImage(res?.data.images?.[0]);
+    setAddProductInCartData({
+      userId: user?.id || "Guest",
+      productId: productId,
+      quantity: 1,
+      title: res.data?.productTitle,
+      price: res.data.price,
+      rating: res.data.avgRating,
+      image: res.data.images[0],
+    });
+    console.log(res, "res here data0202");
   }
 
   async function showProductSpecDetails() {
     const data = await showProductSpec(productId);
     console.log(data.data, "spec data");
     setProductSpecification(Array(data.data));
-    console.log('first check this out +++>>> ', data.data)
+    console.log("first check this out +++>>> ", data.data);
   }
 
   async function showProductSuggestionData() {
@@ -214,6 +233,14 @@ const ProductDetailSection = () => {
       active: active,
     }));
   };
+
+  function handleCartItem() {
+    addProductIntoCart(addProductInCartData);
+    // setAdded(true);
+    // setTimeout(() => {
+    //   setAdded(false);
+    // }, 2000);
+  }
   return (
     <>
       <div className="w-full px-[1rem] lg:px-[3rem] light">
@@ -282,39 +309,66 @@ const ProductDetailSection = () => {
                     <FiPlus />
                   </span>
                 </div> */}
-                <Link className="flex-1" href="/customer/billing">
+                {/* <Link className="flex-1" href="/customer/mycart"> */}
+                {/* <div className="flex-1">
                   <span className="olive  rounded-md flex items-center  justify-center hover:shadow-md gap-2 px-4 py-3">
                     <AiOutlineShoppingCart></AiOutlineShoppingCart> Add to cart
                   </span>
-                </Link>
+                </div> */}
+
+                <div className="flex-1">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      if (!isProductInCart) {
+                        handleCartItem();
+                      } else {
+                        router.push("/customer/mycart");
+                      }
+                    }}
+                    className="olive rounded-md flex items-center justify-center hover:shadow-md gap-2 px-4 py-3 w-full"
+                  >
+                    <AiOutlineShoppingCart />
+                    {isProductInCart ? "Go to cart" : "Add to cart"}
+                  </button>
+                </div>
+
+                {/* </Link> */}
               </div>
               <span
                 onClick={() => handleEnquiryModel(productId, true)}
-                className="border border-[#35736E] w-full hover:shadow-md  justify-center text-[#35736E] rounded-md flex items-center gap-2 px-4 py-3"
+                className="border border-[#405351] w-full hover:shadow-md  justify-center text-[#35736E] rounded-md flex items-center gap-2 px-4 py-3"
               >
                 <AiOutlineFileText></AiOutlineFileText> Make an Enquiry
               </span>
             </div>
             <p>Free 3-5 day shipping • Tool-free assembly </p>
           </div>
-          <div className="flex-1 flex flex-col items-center  justify-start ">
+          <div className="flex-1 flex flex-col items-center justify-start">
             <Image
-              src="/Images/bak8.jpg"
-              alt=""
+              src={`${process.env.NEXT_PUBLIC_CDNURL}${selectedImage}`}
+              alt="Main Product Image"
               height={500}
               width={500}
-              className="w-[60%] h-[50dvh] max-h-[370px]"
-            ></Image>
+              className="w-[60%] h-[50dvh] object-contain"
+            />
+
             <div className="flex w-[90%] md:w-[70%] py-[1rem] items-center justify-center flex-cols-4 gap-2">
-              {image?.map((item, index) => (
-                <span key={index}>
+              {productDetails?.images?.map((item, index) => (
+                <span key={index} onClick={() => setSelectedImage(item)}>
                   <Image
-                    src={item.image}
-                    alt=""
+                    src={`${process.env.NEXT_PUBLIC_CDNURL}${item}`}
+                    alt={`Thumbnail ${index}`}
                     height={500}
                     width={500}
-                    className=" border-2 border-gray-200 p-2 rounded-md w-[7rem]  h-[5rem]"
-                  ></Image>
+                    className={`border-2 p-2 rounded-md w-[7rem] h-[5rem] cursor-pointer transition ${
+                      selectedImage === item
+                        ? "border-blue-500 scale-105"
+                        : "border-gray-200"
+                    }`}
+                  />
                 </span>
               ))}
             </div>
@@ -368,7 +422,7 @@ const ProductDetailSection = () => {
               </div>
             ))}
           </div>
-          <div className="py-[2rem]">
+          <div className="py-[2rem] cursor-pointer">
             <h1 className="text-[25px] font-bold">
               Frequently asked questions.
             </h1>
