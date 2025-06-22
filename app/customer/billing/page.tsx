@@ -15,7 +15,7 @@ const page = () => {
           <BillingForm></BillingForm>
         </div>
         <div className="flex-1 py-[2rem] lg:px-[1rem] px-[2rem] xl:px-[2rem]">
-          <PriceCard button={false}></PriceCard>
+          <PriceCard button={false} totalPrice={100}></PriceCard>
         </div>
       </div>
       <Footer></Footer>

@@ -29,8 +29,11 @@ interface cartDataTypes {
   _id: string;
   products: productTypes[];
 }
+interface PropsType {
+  setTotalPrice: (price: number) => void;
+}
 
-const MycartItem = () => {
+const MycartItem = ({ setTotalPrice }: PropsType) => {
   const [currentPage, setCurrentPage] = useState(1);
   const { user } = useContext(UserAuthContext)!;
   const [cartDataFromDataStore, setCartDataFromDataStore] = useState([]);
@@ -94,6 +97,16 @@ const MycartItem = () => {
     showCartDatas();
   };
 
+  interface FlattenedCartProduct {
+    userId: string;
+    productId: string;
+    title: string;
+    price: number;
+    quantity: number;
+    image: string | null;
+    rating: number;
+  }
+
   // using userId
   async function showCartDatas() {
     if (user) {
@@ -113,7 +126,24 @@ const MycartItem = () => {
       setCartDataFromDataStore(flattenData);
       // addProductIntoCart(...flattenData);
       setTotalPages(res.totalPages);
+
       // console.log(flattenedOrders, "Res cart here");
+    } else {
+      console.log(cartData, "cartData");
+      const totalPrice = cartData.reduce(
+        (acc: number, item: FlattenedCartProduct) =>
+          acc + item.price * item.quantity,
+        0
+      );
+
+      // // ✅ Calculate total price: sum of price * quantity
+      // const total: number = flattenData.reduce(
+      //   (acc: number, item: FlattenedCartProduct) =>
+      //     acc + item.price * item.quantity,
+      //   0
+      // );
+      // console.log(total, "total777777");
+      setTotalPrice(totalPrice);
     }
   }
   const flattenedData = cartData.flatMap((entry) => ({
@@ -146,7 +176,9 @@ const MycartItem = () => {
                 >
                   <Image
                     // src={product?.image}
-                    src={`${process.env.NEXT_PUBLIC_CDNURL}${product?.image?.replace(/^\/+/, '')}`}
+                    src={`${
+                      process.env.NEXT_PUBLIC_CDNURL
+                    }${product?.image?.replace(/^\/+/, "")}`}
                     alt=""
                     height={400}
                     width={400}

@@ -1,17 +1,21 @@
 "use client";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import UserAuthContext from "@/app/context/userAuthContext";
+import { useRouter } from "next/navigation";
+import React, { useContext, useEffect, useState } from "react";
 
 interface priceProps {
   button: boolean;
+  totalPrice: number;
 }
 
-const PriceCard = ({ button }: priceProps) => {
-  const [price, setPrice] = useState<number>(0);
+const PriceCard = ({ button, totalPrice }: priceProps) => {
+  const { user } = useContext(UserAuthContext)!;
+  const router = useRouter();
+  const [price, setPrice] = useState<number>(totalPrice);
   const [discount, setDiscount] = useState<number>(0);
   const [delivery, setDelivery] = useState<number>(0);
   const [netprice, setNetPrice] = useState<number>(0);
-  const [DeliveryDate, setDeliveryDate] = useState<string>('--/--/----');
+  const [DeliveryDate, setDeliveryDate] = useState<string>("--/--/----");
   const data = [{ price: 0 }, { price: 0 }, { price: 0 }];
 
   useEffect(() => {
@@ -29,7 +33,7 @@ const PriceCard = ({ button }: priceProps) => {
   }, []);
   useEffect(() => {
     setNetPrice(price + discount + delivery);
-    const date = getFormattedDateFiveDaysFromNow()
+    const date = getFormattedDateFiveDaysFromNow();
     setDeliveryDate(date);
   }, [price, discount, delivery]);
 
@@ -73,11 +77,20 @@ const PriceCard = ({ button }: priceProps) => {
         </li>
       </ul>
       {button ? (
-        <Link href="billing">
-          <button className="olive w-full text-center rounded-lg py-2 mt-7 ">
-            Proceed to Checkout
-          </button>
-        </Link>
+        <button
+          className="olive w-full text-center rounded-lg py-2 mt-7"
+          onClick={() => {
+            if (user) {
+              router.push("/billing");
+            } else {
+              // Show warning or redirect to login
+              // toast.warn("Please log in to proceed");
+              router.push("/signin");
+            }
+          }}
+        >
+          Proceed to Checkout
+        </button>
       ) : (
         ""
       )}
