@@ -23,34 +23,35 @@ const TermAndConditions = () => {
   ];
   const termsData = [
     {
-      name: "",
+      name: "Frost Master Bakery Equipment",
       category: "Bakery Equipment",
-      image: "",
-      desc: "",
+      image: "/tempcontrol.jpg",
+      desc: "If you're looking for high-quality bakery equipment to help you run your bakery business smoothly and efficiently, look no further than Frost Master Bakery Equipment.",
     },
     {
-      name: "",
+      name: "FRIED ICE CREAM MACHINE",
       category: "Ice Cream Machine",
-      image: "",
-      desc: "",
+      image: "/machine.jpg",
+      desc: "Ice cream is a beloved dessert around the world. People of all ages and backgrounds enjoy the creamy, cold treat, especially during the hot summer months.",
     },
     {
-      name: "",
+      name: "Our Frost Master Ice Cream Machine",
       category: "Ice Cream Machine",
-      image: "",
-      desc: "",
+      image: "/ice-machine2.jpg",
+      desc: "If you're in the market for an ice cream machine, you'll likely come across the Frost Master Ice Cream Machine. This popular ice cream maker has been making waves in the market due to its efficient performance and ease of use.",
+      
     },
     {
-      name: "",
+      name: "Our New Design of Frost Master Refrigerated Display Case",
       category: "Refrigerated Display Case",
-      image: "",
-      desc: "",
+      image: "/showcase.jpg",
+      desc: "If you own a bakery, restaurant, or any other type of food establishment that requires the display of perishable food items, you know how important it is to have a reliable and effective refrigerated display case.",
     },
     {
-      name: "",
+      name: "Terms and Conditions",
       category: "Terms and Conditions",
-      image: "",
-      desc: "",
+      image: "/terms.jpg",
+      desc: ". All goods & especially custom-made machines, once goods are sold cannot be returned or canceled after the manufacturing process has commenced.",
     },
   ];
   const [filterData, setFilterData] = useState<TermData[]>(termsData);
@@ -80,41 +81,34 @@ const TermAndConditions = () => {
             ))}
           </select>
         </div>
-        <div className=" w-full  gap-8 h-fit grid md:grid-cols-2 lg:grid-cols-3 grid-col-1  place-items-center items-center justify-evenly mx-auto">
+        <div className=" w-full  gap-8 h-fit grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1  place-items-center ">
           {filterData.map((item, index) => (
             <div
               key={index}
-              className="w-full  hover:shadow-lg   bg-white border border-gray-200 rounded-lg shadow-sm "
+              className=" w-full  hover:shadow-lg   bg-white border border-gray-200 rounded-lg shadow-sm "
             >
-              <div className="w-full rounded-t-lg overflow-hidden ">
+              <div className="w-full h-[300px] object-center rounded-t-lg  overflow-hidden ">
 
               <Image
-                className="rounded-t-lg w-full hover:scale-110 transition-all duration-500"
-                src={`${process.env.NEXT_PUBLIC_CDNURL}Images/team1.jpg`}
+                className="rounded-t-lg w-full object-center h-full hover:scale-110 transition-all duration-500"
+                src={item.image}
                 height={400}
                 width={400}
                 alt=""
                 />
                 </div>
               <div className="p-5">
-                <span className="flex gap-2 py-4 text-[#35736E]">
+                <span className="flex gap-2 py-4 overflow-clip whitespace-nowrap text-[#35736E]">
                   <p>21 January 2025</p>
-                  <p className="border-l-2 border-[#35736E] px-3">
+                  <p className="border-l-2 whitespace-nowrap border-[#35736E] px-3">
                     {item.category}
                   </p>
                 </span>
                 <h5 className="mb-2 lg:text-xl xl:text-3xl whitespace-nowrap overflow-clip  font-bold tracking-tight text-[#35736E]">
-                  {item.category}
+                  {item.name}
                 </h5>
                 <p className="mb-3  h-[7.6rem] overflow-hidden font-normal text-gray-700 dark:text-gray-400">
-                  Here are the biggest enterprise technology acquisitions of
-                  2021 so far, in reverse chronological order. Here are the
-                  biggest enterprise technology acquisitions of 2021 so far, in
-                  reverse chronological order. Here are the biggest enterprise
-                  technology acquisitions of 2021 so far, in reverse
-                  chronological order. Here are the biggest enterprise
-                  technology acquisitions of 2021 so far, in reverse
-                  chronological order.
+                  {item.desc}
                 </p>
                 <Link
                   href="#"
