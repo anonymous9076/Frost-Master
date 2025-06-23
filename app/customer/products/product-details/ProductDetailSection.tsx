@@ -312,7 +312,7 @@ const ProductDetailSection = () => {
                 {/* <Link className="flex-1" href="/customer/mycart"> */}
                 {/* <div className="flex-1">
                   <span className="olive  rounded-md flex items-center  justify-center hover:shadow-md gap-2 px-4 py-3">
-                    <AiOutlineShoppingCart></AiOutlineShoppingCart> Add to cart
+                    <AiOutli neShoppingCart></AiOutli> Add to cart
                   </span>
                 </div> */}
 
