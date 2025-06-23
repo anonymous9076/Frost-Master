@@ -52,7 +52,7 @@ export default function Blogs() {
       <div className="h-fit min-h-screen w-full light py-10 px-4 sm:px-6 lg:px-8">
         {/* Title Section */}
         <div className="mb-12 text-center">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#35736E]">
+          <h1 className="text-xl sm:text-2xl md:text-4xl font-bold text-[#35736E]">
             FROST MASTER BLOGS
           </h1>
         </div>
