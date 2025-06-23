@@ -65,8 +65,8 @@ const TermAndConditions = () => {
   return (
     <>
       <Navbar active="/customer/T&C"></Navbar>
-      <div className="h-fit min-h-screen w-full light py-[2rem]">
-        <div className="h-[4rem]  w-[90%] lg:w-[70%] mx-auto mb-[2rem] flex-col items-start  flex md:flex-row md:items-center justify-between text-[#35736E] text-[25px] md:text-[30px] font-bold">
+      <div className="h-fit min-h-screen w-full px-[5%] light py-[2rem]">
+        <div className="h-[4rem]  w-full  mx-auto mb-[2rem] flex-col items-start  flex md:flex-row md:items-center justify-between text-[#35736E] text-[25px] md:text-[30px] font-bold">
           FROST MASTER UPDATES :
           <select
             className="text-[18px] font-normal border rounded-md px-3 py-2"
@@ -80,25 +80,22 @@ const TermAndConditions = () => {
             ))}
           </select>
         </div>
-        <div className=" w-[90%] lg:w-[70%]  gap-8 h-fit grid md:grid-cols-2 grid-col-1  place-items-center items-center justify-evenly mx-auto">
+        <div className=" w-full  gap-8 h-fit grid md:grid-cols-2 lg:grid-cols-3 grid-col-1  place-items-center items-center justify-evenly mx-auto">
           {filterData.map((item, index) => (
             <div
               key={index}
-              className="w-full min-w-[350px]  bg-white border border-gray-200 rounded-lg shadow-sm "
+              className="w-full  hover:shadow-lg   bg-white border border-gray-200 rounded-lg shadow-sm "
             >
+              <div className="w-full rounded-t-lg overflow-hidden ">
+
               <Image
-                className="rounded-t-lg w-full"
-                // src="/Images/team1.jpg"
-                // src={
-                //   process.env.NEXT_PUBLIC_CDNURL
-                //     ? `${process.env.NEXT_PUBLIC_CDNURL}Images/team1.jpg`
-                //     : ""
-                // }
+                className="rounded-t-lg w-full hover:scale-110 transition-all duration-500"
                 src={`${process.env.NEXT_PUBLIC_CDNURL}Images/team1.jpg`}
                 height={400}
                 width={400}
                 alt=""
-              />
+                />
+                </div>
               <div className="p-5">
                 <span className="flex gap-2 py-4 text-[#35736E]">
                   <p>21 January 2025</p>
@@ -106,7 +103,7 @@ const TermAndConditions = () => {
                     {item.category}
                   </p>
                 </span>
-                <h5 className="mb-2 text-3xl font-bold tracking-tight text-[#35736E]">
+                <h5 className="mb-2 lg:text-xl xl:text-3xl whitespace-nowrap overflow-clip  font-bold tracking-tight text-[#35736E]">
                   {item.category}
                 </h5>
                 <p className="mb-3  h-[7.6rem] overflow-hidden font-normal text-gray-700 dark:text-gray-400">
@@ -121,7 +118,7 @@ const TermAndConditions = () => {
                 </p>
                 <Link
                   href="#"
-                  className="inline-flex items-center px-3 py-2 text-sm font-medium text-center olive rounded-md"
+                  className="transition-all duration-400 hover:translate-x-1 hover:translate-y-0.5 inline-flex items-center px-3 py-2 text-sm font-medium text-center olive rounded-md"
                 >
                   Read more
                 </Link>
