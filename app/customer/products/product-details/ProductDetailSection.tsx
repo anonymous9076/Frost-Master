@@ -4,6 +4,7 @@ import { TiArrowLeft } from "react-icons/ti";
 import Image from "next/image";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { AiOutlineFileText } from "react-icons/ai";
+import { PiCurrencyInrDuotone } from "react-icons/pi";
 // import { FiMinus } from "react-icons/fi";
 // import { FiPlus } from "react-icons/fi";
 const Accordion = dynamic(() => import("@/components/Accordion"));
@@ -261,9 +262,12 @@ const ProductDetailSection = () => {
             <h1 className="text-[40px] font-semibold">
               {productDetails?.productTitle}
             </h1>
-            <p className="py-1 text-[22px] font-medium">
-              {productDetails?.price}
-            </p>
+
+            <div className="flex p-2 items-center text-[22px] font-medium">
+              <PiCurrencyInrDuotone className="   " />
+              <p className="   ">{productDetails?.price}</p>
+            </div>
+
             <span className="flex flex-col gap-2 ">
               <p>
                 <span className="font-semibold">Warranty</span>: 1 Year

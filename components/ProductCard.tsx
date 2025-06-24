@@ -121,7 +121,8 @@ const ProductCard = ({
             className="text-lg tracking-tight whitespace-nowrap w-full overflow-clip "
             title={formattedTitle}
           >
-            {formattedTitle}
+            {/* {formattedTitle} */}
+            {title}
           </h5>
           <span className="text-sm text-gray-600 ">
             {review} ({totalReview} reviews)
