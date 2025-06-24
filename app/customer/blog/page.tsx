@@ -14,7 +14,7 @@ const blogPosts = [
       "Explore the best electric ovens with smart features and energy efficiency.",
     author: "Chef Anita",
     date: "April 15, 2025",
-    image: `${process.env.NEXT_PUBLIC_CDNURL}Images/frostservices/img1.jpg`,
+    image: `/oven1.jpg`,
   },
   {
     id: 2,
@@ -32,7 +32,7 @@ const blogPosts = [
       "Understand the difference between oven types and how it affects cooking.",
     author: "Food Tech Journal",
     date: "April 10, 2025",
-    image: `${process.env.NEXT_PUBLIC_CDNURL}Images/frostservices/img1.jpg`,
+    image: `/oven2.jpg`,
   },
 ];
 
@@ -52,7 +52,7 @@ export default function Blogs() {
       <div className="h-fit min-h-screen w-full light py-10 px-4 sm:px-6 lg:px-8">
         {/* Title Section */}
         <div className="mb-12 text-center">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#35736E]">
+          <h1 className="text-xl sm:text-2xl md:text-4xl font-bold text-[#35736E]">
             FROST MASTER BLOGS
           </h1>
         </div>

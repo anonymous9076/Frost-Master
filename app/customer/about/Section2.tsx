@@ -24,12 +24,12 @@ const items = [
 ];
 
   return (
-    <div className="light w-full overflow-hidden h-fit py-[4rem]">
-        <h1 className="text-[30px] lg:text-[45px] text-center w-[70%] pb-[3rem] mx-auto">Our core ideology is passion, persistence, and purpose-driven excellence.</h1>
-        <div className="w-[80%] h-fit flex flex-col md:flex-row gap-[2rem] items-center justify-center mx-auto">
+    <div className="light w-full overflow-hidden h-fit px-[5%] py-[4rem]">
+        <h1 className="text-[30px] lg:text-[45px] text-center w-full pb-[3rem] mx-auto">Our core ideology is passion, persistence, and purpose-driven excellence.</h1>
+        <div className="w-[100%] h-fit grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-3 place-items-center mx-auto">
 
         {items.map((item,index)=>
-      <div key={index} data-aos={item.anime} className="w-[350px] h-[85dvh] p-4 bg-white border hover:scale-103 hover:shadow-lg border-gray-200 rounded-lg shadow-sm ">
+      <div key={index} data-aos={item.anime} className="w-full max-h-[600px] h-[85dvh] p-4 bg-white border hover:scale-103 hover:shadow-lg border-gray-200 rounded-lg shadow-sm ">
         <a href="#">
           <Image
             className="rounded-t-lg !h-[50%]"
