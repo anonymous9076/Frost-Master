@@ -44,11 +44,11 @@ export default function CommonDetailPage({ params }: { params: Promise<{ section
     <>
       <div className=" bg-white min-h-screen">
         <Navbar active={rawSection=='tnc'?`/customer/T&C`:`/customer/${rawSection}`} />
-        <div className="h-fit w-full  px-[5%] ">
+        <div className="h-fit w-full  px-[4%] ">
           <Link href={rawSection=='tnc'?`/customer/T&C`:`/customer/${rawSection}`}>
           <button className='py-[2rem] text-lg flex items-center text-slate-700'><TiArrowLeft></TiArrowLeft> Back</button>
           </Link>
-          <div className=" flex w-full flex-col md:flex-row ">
+          <div className=" flex w-full flex-col lg:flex-row ">
             <div className="flex-1">
               <p className="responsive-heading text-[#35736E]">
                 {" "}
@@ -59,7 +59,7 @@ export default function CommonDetailPage({ params }: { params: Promise<{ section
                 <p>|</p>
                 {specificData?.category}
               </div>
-              <div className="h-[70dvh] p-5 rounded-lg overflow-hidden w-[100%] max-h-[400px] md:max-h-fit mx-auto">
+              <div className="h-[70dvh] p-5 rounded-lg overflow-hidden w-[100%] max-h-[350px] md:max-h-fit mx-auto">
                 <Image
                   className="h-full w-full"
                   src="/oven2.jpg"
@@ -79,18 +79,18 @@ export default function CommonDetailPage({ params }: { params: Promise<{ section
                   </div>
                 ))}
             </div>
-            <div className=" w-[30%] pl-[5%]">
+            <div className=" lg:w-[30%] w-full  lg:pl-[5%]">
               <p className="text-[#35736E] text-[25px] py-4">
                 Recommended Posts :
               </p>
-              <div className=" w-full   gap-3 h-fit grid grid-cols-1 pb-[2rem]  place-items-center ">
+              <div className=" w-full  h-fit flex flex-wrap gap-3 justify-center items-center pb-[2rem]   ">
                 {data.map((item :CommonData, index: number) => (
-                  <Link href={`/customer/${rawSection}/${item.title}`} className="w-full"
+                  <Link href={`/customer/${rawSection}/${item.title}`} className=""
                     key={index}>
                   <div
-                    className=" w-full  hover:shadow-lg   bg-white border border-gray-200 rounded-lg shadow-sm "
+                    className=" w-[270px]  hover:shadow-lg   bg-white border border-gray-200 rounded-lg shadow-sm "
                   >
-                    <div className="w-full h-[200px] p-3 object-center rounded-t-lg  overflow-hidden ">
+                    <div className=" h-[200px] w-full p-3 object-center rounded-t-lg  overflow-hidden ">
                       <Image
                         className="rounded-t-lg w-full object-center h-full "
                         src="/oven2.jpg"
