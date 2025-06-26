@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import rawData from "../../../../SpecificData.json";
-import { SectionData, CommonData } from "../../../../SpecificDataTypes";
+import {CommonData } from "../../../../SpecificDataTypes";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Image from "next/image";
