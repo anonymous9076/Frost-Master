@@ -1,19 +1,10 @@
-"use client";
 const Footer = dynamic(() => import("@/components/Footer"));
 const Navbar = dynamic(() => import("@/components/Navbar"));
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import React, { useState } from "react";
+import Link from "next/link";
 
 const Services = () => {
-  const [readMore, setReadMore] = useState<{ [key: number]: boolean }>({});
-
-  const toggleReadMore = (index: number) => {
-    setReadMore((prev) => ({
-      ...prev,
-      [index]: !prev[index],
-    }));
-  };
 
   const features = [
     {
@@ -118,28 +109,17 @@ const Services = () => {
                 {item.title}
               </h2>
               <div
-                className={`flex flex-col transition-all duration-1500 ease-in-out overflow-hidden ${
-                  readMore[index] ? "max-h-[500px]" : "max-h-[200px]"
-                } py-[1rem] pr-3`}
+                className={`flex flex-col transition-all duration-1500 ease-in-out overflow-hidden py-[1rem] pr-3`}
               >
-                {readMore[index]
-                  ? item.description.map((description, index) => (
-                      <div
-                        key={index}
-                        className=" text-[14px] text-slate-700  font-normal flex-row"
-                      >
-                        <p>{description}</p>
-                        <br></br>
-                      </div>
-                    ))
-                  : item.description[0]}
+                {item.description[0]}
               </div>
+              <Link href={`/customer/services/${item.title}`}>
               <button
-                onClick={() => toggleReadMore(index)}
                 className="px-4 py-2 w-fit rounded-md my-[1rem] olive"
-              >
-                {readMore[index] ? "Read Less" : "Read More"}
+                >
+                {"Read More"}
               </button>
+              </Link>
             </div>
           </div>
         ))}

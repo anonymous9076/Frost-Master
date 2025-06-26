@@ -3,6 +3,7 @@ import React from "react";
 import Head from "next/head";
 import Image from "next/image";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 const Navbar = dynamic(() => import("@/components/Navbar"));
 const Footer = dynamic(() => import("@/components/Footer"));
 
@@ -27,7 +28,7 @@ const blogPosts = [
   },
   {
     id: 3,
-    title: "Convection vs. Conventional Ovens: What’s Right for You?",
+    title: "Convection vs Conventional Ovens What's Right for You",
     description:
       "Understand the difference between oven types and how it affects cooking.",
     author: "Food Tech Journal",
@@ -80,12 +81,12 @@ export default function Blogs() {
                 </h2>
                 <p className="text-gray-700 mb-3">{post.description}</p>
                 <p className="text-sm text-gray-500 mb-3">By {post.author}</p>
-                <a
-                  href="#"
+                <Link
+                  href={`/customer/blog/${post.title}`}
                   className="inline-block text-sm text-white bg-[#35736E] px-4 py-2 rounded-md hover:bg-[#285a56] transition"
                 >
                   Read more
-                </a>
+                </Link>
               </div>
             </div>
           ))}

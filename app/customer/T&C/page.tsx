@@ -111,7 +111,7 @@ const TermAndConditions = () => {
                   {item.desc}
                 </p>
                 <Link
-                  href="#"
+                  href={`/customer/tnc/${item.name}`}
                   className="transition-all duration-400 hover:translate-x-1 hover:translate-y-0.5 inline-flex items-center px-3 py-2 text-sm font-medium text-center olive rounded-md"
                 >
                   Read more

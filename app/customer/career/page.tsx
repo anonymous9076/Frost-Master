@@ -62,7 +62,7 @@ const Career = () => {
       <Navbar active="/customer/career"></Navbar>
       <div className="h-fit w-full light">
         <div
-          className={`h-fit flex ${features.align} gap-8 items-center  w-[90%] mx-auto  p-[5%] py-[4rem]`}
+          className={`h-fit flex ${features.align} gap-8 items-center  w-[90%] mx-auto p-[5%] py-[4rem]`}
         >
           <Image
             src={features.image}
