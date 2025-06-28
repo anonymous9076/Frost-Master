@@ -104,7 +104,7 @@ const Services = () => {
               className="flex flex-col w-[100%]   sm:w-1/2 md:w-1/2 justify-center h-full"
               data-aos={item.anime}
             >
-              <h2 className="font-bold text-[30px] text-[#35736E]">
+              <h2 className="font-bold text-[30px] text-left text-[#35736E]">
                 {" "}
                 {item.title}
               </h2>

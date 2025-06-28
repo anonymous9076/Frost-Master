@@ -105,28 +105,29 @@ const ProductDetailSection = () => {
   >([]);
   const [selectedImage, setSelectedImage] = useState("");
 
-  const quesAns = [
-    {
-      heading: "How do I place an order?",
-      content:
-        "You can place an order by visiting our website, browsing our kitchen equipment, and adding your chosen items to the cart. Proceed to checkout, enter your details, make the payment, and receive an order confirmation.",
-    },
-    {
-      heading: " Can I request custom kitchen equipment?",
-      content:
-        "You can place an order by visiting our website, browsing our kitchen equipment, and adding your chosen items to the cart. Proceed to checkout, enter your details, make the payment, and receive an order confirmation.",
-    },
-    {
-      heading: " What is the warranty period?",
-      content:
-        "You can place an order by visiting our website, browsing our kitchen equipment, and adding your chosen items to the cart. Proceed to checkout, enter your details, make the payment, and receive an order confirmation.",
-    },
-    {
-      heading: "Do you offer installation services?",
-      content:
-        "You can place an order by visiting our website, browsing our kitchen equipment, and adding your chosen items to the cart. Proceed to checkout, enter your details, make the payment, and receive an order confirmation.",
-    },
-  ];
+ const quesAns = [
+  {
+    heading: "How do I place an order?",
+    content:
+      "You can place an order by visiting our website, browsing through our kitchen equipment collection, adding your desired items to the cart, and proceeding to checkout to complete your purchase.",
+  },
+  {
+    heading: "Can I request custom kitchen equipment?",
+    content:
+      "Yes, we offer custom kitchen equipment—simply visit our website to explore customization options and submit your request directly during the order process.",
+  },
+  {
+    heading: "What is the warranty period?",
+    content:
+      "Our kitchen equipment typically comes with a warranty that lasts for a few years, ensuring peace of mind and long-term product reliability.",
+  },
+  {
+    heading: "Do you offer installation services?",
+    content:
+      "Yes, we provide professional installation services to ensure your kitchen equipment is set up correctly and safely after delivery.",
+  },
+];
+
 
   // const productSpecifications = [
   //   {

@@ -76,7 +76,7 @@ const Career = () => {
             data-aos="fade-left"
             className="flex flex-1  md:px-[5%]  flex-col"
           >
-            <h2 className="font-bold leading-[40px] md:text-[40px] text-[35px] w-fit border-b-4 border-[#35736E] my-[1rem] text-[#35736E]">
+            <h2 className="font-bold !text-left leading-[40px] md:text-[40px] text-[35px] w-fit border-b-4 border-[#35736E] my-[1rem] text-[#35736E]">
               {" "}
               {features.title}
             </h2>

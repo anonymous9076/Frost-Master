@@ -28,14 +28,14 @@ const obj = [
           
            data-aos="fade-up"
             data-aos-delay={`${(index + 2) * 100}`}
-            key={index} className="h-[60dvh]  !max-h-[500px] min-w-[300px]">
-            <div className="h-full  w-full flex flex-col justify-between items-center ">
+            key={index} className="  !max-h-[500px] min-w-[300px]">
+            <div className="h-fit  w-full flex flex-col justify-between items-center ">
               <Image
                 src={item.image}
                 alt=""
                 height={400}
                 width={400}
-                className=" h-[90%] w-[100%] object-cover rounded-xl shadow-md"
+                className=" aspect-[3/3.5] object-cover rounded-xl shadow-md"
               ></Image>
               <p className="text-[25px] text-gray-700 !font-semibold text-center">{item.label}</p>
             </div>

@@ -47,7 +47,7 @@ const object = [
           culinary professionals.
         </p>
       </div>
-      <div className="w-[100%] px-[5%] mx-auto grid md:grid-cols-2  grid-cols-1 lg:grid-cols-3 gap-7">
+      <div className="w-[100%] px-[5%] mx-auto grid sm:grid-cols-2  grid-cols-1 lg:grid-cols-3 gap-7">
         {object.map((item, index) =>
           <div
           key={index}

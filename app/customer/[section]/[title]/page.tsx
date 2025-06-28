@@ -79,7 +79,7 @@ export default function CommonDetailPage({
         <div className="flex w-full flex-col lg:flex-row">
           {/* Left Section */}
           <div className="flex-1">
-            <p className="responsive-heading text-[#35736E]">
+            <p className="responsive-heading !text-left text-[#35736E]">
               {specificData?.title}
             </p>
             <div className="flex gap-4 text-slate-700">
