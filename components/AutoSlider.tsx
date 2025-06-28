@@ -27,7 +27,7 @@ const CardSlider = <T,>({
   children,
   spaceBetween = 20,
   centeredSlides = false,
-  // slidesPerView = 1,
+  slidesPerView = 1,
   autoplay = false,
   autoplayDelay = 3000,
   pagination = false,
@@ -39,7 +39,7 @@ const CardSlider = <T,>({
     <Swiper
       spaceBetween={spaceBetween}
       centeredSlides={centeredSlides}
-      slidesPerView={1}
+      slidesPerView={slidesPerView}
       autoplay={
         autoplay
           ? {

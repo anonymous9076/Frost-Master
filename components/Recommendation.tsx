@@ -102,16 +102,9 @@ const Recommendation = ({ productSuggestion }: ProductSuggestionInterface) => {
   console.log(productSuggestion, "chekkckt hios tojwoittooooo2");
 
   return (
-    <div className=" flex h-fit  items-center  w-full">
+    <div className=" flex h-fit  items-center w-screen">
       {enquiryProp.id !== "" && <EnquiryModel data={enquiryProp} />}
 
-      {/* 
-      <span
-        onClick={handleShiftLeft}
-        className="flex-1 scale-200 transform  flex items-center justify-center"
-      >
-        <FaChevronLeft />
-      </span> */}
       <CardSlider
         slides={productSuggestion}
         slidesPerView={4}

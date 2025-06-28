@@ -85,7 +85,7 @@ const ProductCard = ({
 
   useEffect(() => {
     stringFormattingFun(title);
-  }, []);
+  }, [title]);
 
   return (
     <div className=" relative p-4 rounded-lg shadow-md border w-full cursor-pointer h-fit  border-gray-300">

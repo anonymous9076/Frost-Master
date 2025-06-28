@@ -242,6 +242,7 @@ const ProductDetailSection = () => {
     //   setAdded(false);
     // }, 2000);
   }
+  console.log(productSuggestion,'chekc thso oout')
   return (
     <>
       <div className="w-full px-[1rem] lg:px-[3rem] light">
@@ -440,14 +441,16 @@ const ProductDetailSection = () => {
             ))}
           </div>
         </div>
+        {productSuggestion?
         <div>
           <h1 className="text-[25px] font-bold">Most Recommended Products:</h1>
           <div className="h-fit w-full py-[2rem]  ">
             <Recommendation
               productSuggestion={productSuggestion}
-            ></Recommendation>
+              ></Recommendation>
           </div>
         </div>
+              :''}
       </div>
       <Section6></Section6>
     </>

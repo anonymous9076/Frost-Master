@@ -87,7 +87,7 @@ const TermAndConditions = () => {
               key={index}
               className=" w-full  hover:shadow-lg   bg-white border border-gray-200 rounded-lg shadow-sm "
             >
-              <div className="w-full h-[300px] object-center rounded-t-lg  overflow-hidden ">
+              <div className="w-full aspect-16/10 object-center rounded-t-lg  overflow-hidden ">
 
               <Image
                 className="rounded-t-lg w-full object-center h-full hover:scale-110 transition-all duration-500"
