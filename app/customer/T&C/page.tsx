@@ -67,7 +67,7 @@ const TermAndConditions = () => {
     <>
       <Navbar active="/customer/T&C"></Navbar>
       <div className="h-fit min-h-screen w-full px-[5%] light py-[2rem]">
-        <div className="h-[4rem]  w-full  mx-auto mb-[2rem] flex-col items-start  flex md:flex-row md:items-center justify-between text-[#35736E] text-[25px] md:text-[30px] font-bold">
+        <div className="h-fit  w-full  mx-auto mb-[2rem] flex-col items-start  flex md:flex-row md:items-center justify-between text-[#35736E] text-[25px] md:text-[30px] font-bold">
           FROST MASTER UPDATES :
           <select
             className="text-[18px] font-normal border rounded-md px-3 py-2"
