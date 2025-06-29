@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
       "s3-alpha-sig.figma.com",
       "th.bing.com",
       "d2a7v7ze64lo1c.cloudfront.net",
+      "img1.wsimg.com"
     ],
   },
 };
