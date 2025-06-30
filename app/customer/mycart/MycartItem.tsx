@@ -172,7 +172,7 @@ const MycartItem = ({ setTotalPrice }: PropsType) => {
               (product, index) => (
                 <div
                   key={index}
-                  className="  w-full flex h-fit border-b py-[2rem] px-[2px] lg:px-[2rem] border-gray-400"
+                  className="  w-full flex h-fit  border-b py-[2rem]  border-gray-400"
                 >
                   <Image
                     // src={product?.image}
@@ -182,12 +182,12 @@ const MycartItem = ({ setTotalPrice }: PropsType) => {
                     alt=""
                     height={400}
                     width={400}
-                    className="w-min-[200px] w-[30%] h-[150px] "
+                    className="min-w-[150px] w-[30%] h-[150px] "
                   ></Image>
-                  <div className="px-[2rem] flex-1 flex flex-col gap-3">
+                  <div className=" px-[2%] md:px-[2rem] flex-1 flex flex-col gap-3">
                     <div className="flex-1 gap-1">
-                      <h1 className="text-[20px] font-bold overflow-hidden ">
-                        {product?.title}
+                      <h1 className="text-[16px] md:text-[20px] font-bold overflow-hidden ">
+                        {product?.title}{'this is foos i need more of this on write now '}
                       </h1>
                       <p className="text-[16px] flex gap-2 text-gray-500 items-center">
                         {[...Array(Math.floor(product?.rating))].map(
@@ -221,11 +221,11 @@ const MycartItem = ({ setTotalPrice }: PropsType) => {
                             <IoIosStarHalf></IoIosStarHalf>
                           </span>
                         ) : (
-                          ""
+                          "No Review Yet"
                         )}
-                        {product.rating}
+                        {product.rating? product.rating:''}
                       </p>
-                      <p className="text-[20px] ">{product?.price}</p>
+                      <p className="text-[20px] ">₹ {product?.price}</p>
                     </div>
                     <div className="w-[120px] relative">
                       <span
