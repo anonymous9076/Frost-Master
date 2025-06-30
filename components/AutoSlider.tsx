@@ -23,17 +23,17 @@ interface CardSliderProps<T> {
 }
 
 const CardSlider = <T,>({
-  slides = [],
+  slides ,
   children,
   spaceBetween = 20,
   centeredSlides = false,
-  slidesPerView = 1,
+  slidesPerView ,
   autoplay = false,
   autoplayDelay = 3000,
   pagination = false,
   navigation = false,
   className = "",
-  breakpoints = {}
+  breakpoints 
 }: CardSliderProps<T>) => {
   return (
     <Swiper
@@ -53,7 +53,7 @@ const CardSlider = <T,>({
       breakpoints={breakpoints}
       navigation={navigation}
       modules={[Autoplay, Pagination, Navigation]}
-      className={`mySwiper ${className}`}
+      className={`mySwiper ${className} w-full`}
     >
       {slides.map((slide, index) => (
         <SwiperSlide key={index}>{children(slide, index)}</SwiperSlide>

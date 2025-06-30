@@ -103,7 +103,7 @@ export default function CommonDetailPage({
                 (description: string, index: number) => (
                   <div
                     key={index}
-                    className="responsive-subtext text-slate-700 flex-row"
+                    className="responsive-subtext text-justify text-slate-700 flex-row"
                   >
                     <p>{description}</p>
                     <br />
@@ -138,7 +138,7 @@ export default function CommonDetailPage({
                       <h5 className="mb-2 text-[16px] whitespace-nowrap line-clamp-1 font-bold tracking-tight text-[#35736E]">
                         {item.title}
                       </h5>
-                      <p className="mb-3 text-[12px] line-clamp-4 font-normal text-gray-700 dark:text-gray-400">
+                      <p className="mb-3 text-[12px] text-justify line-clamp-4 font-normal text-gray-700 dark:text-gray-400">
                         {item.description[0]}
                       </p>
                     </div>

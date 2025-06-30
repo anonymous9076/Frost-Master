@@ -7,14 +7,14 @@ const Section3 = () => {
         <h2 data-aos="fade-up" className="text-gray-900 responsive-heading">
           Why frostmaster.in?
         </h2>
-        <p data-aos="fade-up" className="responsive-subtext w-[100%]">
+        <p data-aos="fade-up" className="responsive-subtext text-justify w-[100%]">
           Welcome to our unique platform for restaurant owners! We provide
           location analysis, premium kitchen tools, expert consultations, and
           comprehensive maintenance packages. Designed to address your
           challenges, ensure smooth operations, and drive success.
         </p>
         <br></br>
-        <p data-aos="fade-up" className="responsive-subtext w-[100%]">
+        <p data-aos="fade-up" className="responsive-subtext text-justify w-[100%]">
           {
             "Whether finding the ideal site, upgrading your kitchen, or maintaining equipment, we've got you covered. Elevate your restaurant business with our innovative solutions and support. Join us for growth and excellence in every aspect of your operation."
           }

@@ -82,13 +82,13 @@ const Section1 = () => {
         </div>
         <div className="h-fit px-[5%] min-w-[100vw] flex flex-col justify-center items-center  py-[3rem] ">
           <p
-            className={` leading-8 w-full lg:w-[50%] tracking-widest ${data[0].style} text-center responsive-heading`}
+            className={` leading-8 w-full !text-center !lg:text-left lg:w-[50%] tracking-widest ${data[0].style} responsive-heading`}
           >
             {data[0].title}
             <br></br>
             {data[0]?.title2}
           </p>
-          <p className="mt-3  lg:w-[50%]  text-center font-extralight responsive-subtext">
+          <p className="mt-3  lg:w-[50%]  !text-center font-extralight responsive-subtext">
             {data[0].desc}
           </p>
           {data[0]?.button ? (

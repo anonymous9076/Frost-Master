@@ -246,13 +246,13 @@ const ProductDetailSection = () => {
   console.log(productSuggestion,'chekc thso oout')
   return (
     <>
-      <div className="w-full px-[1rem] lg:px-[3rem] light">
+      <div className="w-full px-[5%]  light">
         {enquiryProp.id !== "" && <EnquiryModel data={enquiryProp} />}
 
         <div>
           <Link
             href="/customer/products"
-            className="flex items-center py-[2rem] gap-1"
+            className="flex items-center pt-[2rem]  gap-1"
           >
             <TiArrowLeft />
             Back
@@ -261,7 +261,7 @@ const ProductDetailSection = () => {
         </div>
         <div className="flex flex-col md:flex-row  items-start py-[2rem] border-b border-gray-400">
           <div className="flex-1 ">
-            <h1 className="text-[40px] font-semibold">
+            <h1 className="responsive-heading text-left font-semibold">
               {productDetails?.productTitle}
             </h1>
 
@@ -292,7 +292,7 @@ const ProductDetailSection = () => {
               }
             </span>
 
-            <div className="min-w-[350px] w-[60%] space-y-4 py-[1rem] mt-[1rem] ">
+            <div className="min-w-[280px] w-[60%] space-y-4 py-[1rem] mt-[1rem] ">
               <div className="flex items-center justify-between gap-2">
                 {/* <div className="w-[40%] relative">
                   <span
@@ -352,7 +352,7 @@ const ProductDetailSection = () => {
             </div>
             <p>Free 3-5 day shipping • Tool-free assembly </p>
           </div>
-          <div className="flex-1 flex flex-col items-center justify-start">
+          <div className="flex-1 pt-[2rem] gap-4 w-full flex flex-col items-center justify-start">
             <Image
               src={`${process.env.NEXT_PUBLIC_CDNURL}${selectedImage}`}
               alt="Main Product Image"
@@ -361,15 +361,15 @@ const ProductDetailSection = () => {
               className="w-[60%] h-[50dvh] object-contain"
             />
 
-            <div className="flex w-[90%] md:w-[70%] py-[1rem] items-center justify-center flex-cols-4 gap-2">
+            <div className="flex w-[90%] md:w-[70%]  h-[80px] items-center justify-center gap-2">
               {productDetails?.images?.map((item, index) => (
-                <span key={index} onClick={() => setSelectedImage(item)}>
+                <span key={index} onClick={() => setSelectedImage(item)} className="h-full w-[80px] ">
                   <Image
                     src={`${process.env.NEXT_PUBLIC_CDNURL}${item}`}
                     alt={`Thumbnail ${index}`}
-                    height={500}
-                    width={500}
-                    className={`border-2 p-2 rounded-md w-[7rem] h-[5rem] cursor-pointer transition ${
+                    height={400}
+                    width={400}
+                    className={`border-2 p-1 rounded-md w-full h-full cursor-pointer transition ${
                       selectedImage === item
                         ? "border-blue-500 scale-105"
                         : "border-gray-200"
@@ -444,7 +444,7 @@ const ProductDetailSection = () => {
         </div>
         {productSuggestion?
         <div>
-          <h1 className="text-[25px] font-bold">Most Recommended Products:</h1>
+          <h1 className="text-[25px] text-left font-bold">Most Recommended Products:</h1>
           <div className="h-fit w-full py-[2rem]  ">
             <Recommendation
               productSuggestion={productSuggestion}

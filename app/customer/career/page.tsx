@@ -62,26 +62,36 @@ const Career = () => {
       <Navbar active="/customer/career"></Navbar>
       <div className="h-fit w-full light">
         <div
-          className={`h-fit flex ${features.align} gap-8 items-center  w-[90%] mx-auto p-[5%] py-[4rem]`}
+          className={`h-fit flex ${features.align} gap-15 items-center  w-[100%] mx-auto p-[10%] py-[4rem]`}
         >
-          <Image
+          {/* <Image
             src={features.image}
             alt="t"
             height={400}
             width={400}
             data-aos="fade-right"
             className=" h-[40dvh] sm:w-[40%]  object-cover  max-h-[400px] md:h-[70dvh] rounded-md shadow-lg"
-          ></Image>
-          <div
-            data-aos="fade-left"
-            className="flex flex-1  md:px-[5%]  flex-col"
-          >
+          ></Image> */}
+          <div data-aos='fade-right' className=" relative w-[95%] sm:w-[80%] md:w-[40%]  h-[55dvh] max-h-[350px]">
+            <div className="h-[90%] w-[90%] relative z-20">
+              <Image
+                src={features.image}
+                alt="t"
+                height={400}
+                width={400}
+                // 
+                className=" h-full w-full   rounded-md "
+              ></Image>
+            </div>
+            <span className="rounded-md absolute  bottom-0 right-0 h-[95%] w-[95%] bg-[#35736E]"></span>
+          </div>
+          <div data-aos="fade-left" className="flex flex-1  flex-col">
             <h2 className="font-bold !text-left leading-[40px] md:text-[40px] text-[35px] w-fit border-b-4 border-[#35736E] my-[1rem] text-[#35736E]">
               {" "}
               {features.title}
             </h2>
             <div className="flex flex-col  md:h-[45dvh] overflow-hidden ">
-              <div className=" text-[18px] text-slate-700  font-normal flex-row">
+              <div className=" text-[18px] text-slate-700 text-justify  font-normal flex-row">
                 <p>{features.description}</p>
                 <br></br>
               </div>
@@ -112,17 +122,26 @@ const Career = () => {
           <div
             className={`h-fit flex flex-col lg:flex-row gap-8 items-center  w-[90%] mx-auto  p-[5%] pb-[4rem]`}
           >
-            <Image
-              src={`${process.env.NEXT_PUBLIC_CDNURL}Images/CareerPage/career.jpg`}
-              alt="t"
-              height={400}
-              width={400}
+            <div
               data-aos="fade-up-right"
-              className=" w-full  lg:w-[50%] h-[70dvh] max-h-[370px] lg:max-h-fit rounded-md shadow-lg"
-            ></Image>
+              className=" relative lg:w-[45%] h-[70dvh] max-h-[370px]  lg:max-h-full w-full"
+            >
+              <div className="h-[90%] w-[90%] relative z-20">
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_CDNURL}Images/CareerPage/career.jpg`}
+                  alt="t"
+                  height={400}
+                  width={400}
+                  data-aos="fade-up-right"
+                  className=" w-full h-full   rounded-md "
+                ></Image>
+              </div>
+              <span className="rounded-md absolute  bottom-0 right-0 h-[95%] w-[95%] bg-[#35736E]/90"></span>
+            </div>
+
             <div
               data-aos="fade-up-left"
-              className="flex lg:w-[50%]  w-full p-[5%] flex-col border-l-3 border-[#35736E]"
+              className="flex lg:w-[55%]  w-full pl-[5%] flex-col border-l-3 border-[#35736E]"
             >
               <h2 className="font-bold text-[40px] w-fit border-b-3 border-[#35736E] mb-[1rem] text-[#35736E]">
                 {" "}

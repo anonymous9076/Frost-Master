@@ -79,7 +79,7 @@ export default function Blogs() {
                 <h2 className="text-xl font-semibold text-[#35736E] mb-2">
                   {post.title}
                 </h2>
-                <p className="text-gray-700 mb-3">{post.description}</p>
+                <p className="text-gray-700 text-justify mb-3">{post.description}</p>
                 <p className="text-sm text-gray-500 mb-3">By {post.author}</p>
                 <Link
                   href={`/customer/blog/${post.title}`}

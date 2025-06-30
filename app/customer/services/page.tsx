@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 const Services = () => {
-
   const features = [
     {
       title: "OUR FEATURES",
@@ -92,33 +91,36 @@ const Services = () => {
             className={`h-fit  flex ${item.align} gap-10   items-center flex-col  sm:flex-row w-full ${item.border} p-[5%] py-[4rem]`}
             key={index}
           >
-            <Image
-              src={item.image}
-              alt="t"
-              height={400}
-              width={400}
-              data-aos={item.anime}
-              className="md:w-1/2 w-[100%] sm:w-1/2  h-[55dvh] max-h-[350px] rounded-md shadow-lg"
-            ></Image>
+            <div data-aos={item.anime} className="md:w-1/2 relative  w-[100%] sm:w-1/2  h-[55dvh] max-h-[350px]">
+              <div className="h-[90%] w-[90%] relative z-20">
+                <Image
+                  src={item.image}
+                  alt="t"
+                  height={400}
+                  width={400}
+                  // data-aos={item.anime}
+                  className=" h-full w-full   rounded-md "
+                ></Image>
+              </div>
+              <span  className="rounded-md absolute  bottom-0 right-0 h-[95%] w-[95%] bg-[#35736E]"></span>
+            </div>
             <div
               className="flex flex-col w-[100%]   sm:w-1/2 md:w-1/2 justify-center h-full"
               data-aos={item.anime}
             >
-              <h2 className="font-bold text-[30px] text-left text-[#35736E]">
+              <h2 className="font-bold text-2xl text-left text-[#35736E]">
                 {" "}
                 {item.title}
               </h2>
               <div
-                className={`flex flex-col transition-all duration-1500 ease-in-out overflow-hidden py-[1rem] pr-3`}
+                className={`flex flex-col transition-all text-justify duration-1500 ease-in-out overflow-hidden py-[1rem] pr-3`}
               >
                 {item.description[0]}
               </div>
               <Link href={`/customer/services/${item.title}`}>
-              <button
-                className="px-4 py-2 w-fit rounded-md my-[1rem] olive"
-                >
-                {"Read More"}
-              </button>
+                <button className="px-4 py-2 w-fit rounded-md my-[1rem] olive">
+                  {"Read More"}
+                </button>
               </Link>
             </div>
           </div>

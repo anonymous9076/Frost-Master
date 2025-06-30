@@ -107,7 +107,7 @@ const TermAndConditions = () => {
                 <h5 className="mb-2 lg:text-xl xl:text-3xl whitespace-nowrap overflow-clip  font-bold tracking-tight text-[#35736E]">
                   {item.name}
                 </h5>
-                <p className="mb-3  h-[7.6rem] overflow-hidden font-normal text-gray-700 dark:text-gray-400">
+                <p className="mb-3  h-[7.6rem] overflow-hidden text-justify font-normal text-gray-700 dark:text-gray-400">
                   {item.desc}
                 </p>
                 <Link

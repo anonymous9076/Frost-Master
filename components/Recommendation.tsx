@@ -99,10 +99,10 @@ const Recommendation = ({ productSuggestion }: ProductSuggestionInterface) => {
       active: active,
     }));
   };
-  console.log(productSuggestion, "chekkckt hios tojwoittooooo2");
+  console.log(productSuggestion, "chekkckt hios tojwoittoooosdo2");
 
   return (
-    <div className=" flex h-fit  items-center w-screen">
+    <div className=" flex h-fit  items-center w-full ">
       {enquiryProp.id !== "" && <EnquiryModel data={enquiryProp} />}
 
       <CardSlider
@@ -122,6 +122,7 @@ const Recommendation = ({ productSuggestion }: ProductSuggestionInterface) => {
         }}
       >
         {(product) => (
+          <div className="w-full ">
           <ProductCard
             title={product?.productTitle}
             image={product?.images[0]}
@@ -133,6 +134,7 @@ const Recommendation = ({ productSuggestion }: ProductSuggestionInterface) => {
             category={product?.category}
             handleEnquiryModel={handleEnquiryModel}
           ></ProductCard>
+          </div>
         )}
       </CardSlider>
 

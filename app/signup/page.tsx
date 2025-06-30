@@ -122,7 +122,7 @@ const Signup = () => {
                   Do you have an account?
                   <Link
                     href="/signin"
-                    className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                    className="font-medium text-primary-600 px-1 text-blue-400 hover:underline dark:text-primary-500"
                   >
                     Login here
                   </Link>

@@ -88,7 +88,7 @@ const ProductCard = ({
   }, [title]);
 
   return (
-    <div className=" relative p-4 rounded-lg shadow-md border w-full cursor-pointer h-fit  border-gray-300">
+    <div className=" relative p-4 rounded-lg shadow-md border !w-full cursor-pointer h-fit  border-gray-300">
       <Link
         href={`/customer/products/product-details/${productId}/${category}`}
         className="flex-1 "
