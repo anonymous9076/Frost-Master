@@ -1,5 +1,5 @@
 "use client";
-import { Formik, Field, Form } from "formik";
+import { Formik, Field, Form, ErrorMessage } from "formik";
 import Link from "next/link";
 import React from "react";
 import * as Yup from "yup";
@@ -68,7 +68,7 @@ const Signup = () => {
                 <div>
                   <label
                     htmlFor="userName"
-                    className="block mb-2 text-sm font-medium text-gray-900 "
+                    className="block mb-2 text-sm font-medium text-gray-900"
                   >
                     UserName
                   </label>
@@ -76,10 +76,19 @@ const Signup = () => {
                     type="text"
                     name="userName"
                     id="userName"
-                    className={`bg-gray-50 border ${"border-gray-300"}  text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500`}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     placeholder="adom"
                   />
+                  <ErrorMessage
+                    name="userName"
+                    component="div"
+                    className="text-red-500 text-xs mt-1"
+                  />
+                  {/* <div className="text-gray-500 text-xs mt-1">
+                    Username must be 4–8 characters
+                  </div> */}
                 </div>
+
                 <div>
                   <label
                     htmlFor="email"
@@ -99,7 +108,7 @@ const Signup = () => {
                 <div>
                   <label
                     htmlFor="password"
-                    className="block mb-2 text-sm font-medium text-gray-900 "
+                    className="block mb-2 text-sm font-medium text-gray-900"
                   >
                     Password
                   </label>
@@ -107,9 +116,17 @@ const Signup = () => {
                     type="password"
                     name="password"
                     id="password"
-                    className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5   dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     placeholder="••••••••"
                   />
+                  <ErrorMessage
+                    name="password"
+                    component="div"
+                    className="text-red-500 text-xs mt-1"
+                  />
+                  {/* <div className="text-gray-500 text-xs mt-1">
+                    Password must be 8–16 characters
+                  </div> */}
                 </div>
 
                 <button
