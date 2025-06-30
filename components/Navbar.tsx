@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaKitchenSet } from "react-icons/fa6";
 import { BsCart3 } from "react-icons/bs";
 import { GoPerson } from "react-icons/go";
@@ -11,6 +11,7 @@ import UserAuthContext from "@/app/context/userAuthContext";
 import { logout } from "@/app/api/Auth/routeData";
 import { toast } from "react-toastify";
 import NavDrop from "./NavDrop";
+import { useCartStore } from "@/app/stores/CartStore";
 
 interface navprops {
   active: string;
@@ -113,7 +114,11 @@ const Navbar = ({ active }: navprops) => {
   const [profile, setProfile] = useState<boolean>(false);
   const [menu, setMenu] = useState<boolean>(false);
   const { isAuthenticated, user } = useContext(UserAuthContext)!;
-  console.log(user, "user details");
+  const cartData = useCartStore((state) => state.cartData);
+  const [totalQuantity, setTotalQuantity] = useState(
+    cartData.reduce((total, item) => total + item.quantity, 0)
+  );
+  // console.log(user, cartData, "user details");
   async function handleLogout() {
     try {
       const res = await logout();
@@ -134,6 +139,12 @@ const Navbar = ({ active }: navprops) => {
     setActiveNavDrop(true);
     console.log("open");
   };
+
+  useEffect(() => {
+    setTotalQuantity(
+      cartData.reduce((total, item) => total + item.quantity, 0)
+    );
+  }, [cartData]);
   return (
     <>
       <div
@@ -169,9 +180,7 @@ const Navbar = ({ active }: navprops) => {
               <NavDrop
                 title={item.label}
                 list={item.list}
-                image={item.img
-                  
-                }
+                image={item.img}
                 active={activeNavDrop && hoveredNavField?.label === item.label}
                 handleCloseModel={handleCloseModel}
               />
@@ -222,13 +231,21 @@ const Navbar = ({ active }: navprops) => {
           </span>
           <Link
             href="/customer/mycart"
-            className={`${
+            className={`relative flex items-center gap-1 text-black ${
               active === "/customer/mycart"
                 ? "transform hover:scale-110 active"
-                : " "
+                : ""
             }`}
           >
-            <BsCart3></BsCart3>
+            {/* Cart Icon */}
+            <BsCart3 className="text-2xl" />
+
+            {/* Quantity Badge */}
+            {totalQuantity > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                {totalQuantity}
+              </span>
+            )}
           </Link>
           <span className="text-[25px] lg:hidden" title="logout">
             <TbLogout2></TbLogout2>
