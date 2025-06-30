@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
+import { useRouter } from 'next/navigation';
 // import React, { useEffect, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
-
 interface NavProp {
   title: string;
   list: string[];
@@ -51,9 +51,18 @@ interface NavProp {
 //   );
 // };
 const NavDrop = ({ title, list, active, handleCloseModel, image }: NavProp) => {
+  const router = useRouter();
   // remove local closeModel state entirely and rely on the `active` prop
+  
+  
+  const handleClick = (category:string) => {
+    if(title === 'Our Products'){
+      router.push(`/customer/products?category=${encodeURIComponent(category)}`);
+    }
+    handleCloseModel()
+  };
+  
   if (!active) return null;
-
   return (
     <div className="absolute top-[10dvh] !z-0 transition-all duration-500 ease-in-out left-0 w-full h-[90dvh] bg-black/50">
       <div
@@ -72,9 +81,10 @@ const NavDrop = ({ title, list, active, handleCloseModel, image }: NavProp) => {
           <ul className="w-[300px] md:w-[40%] text-[18px] space-y-2">
             {list.map((item, i) => (
               <li
-                key={i}
-                className="px-4 py-1 rounded-md hover:bg-gray-100 flex justify-between"
-              >
+              onClick={()=>handleClick(item)}
+              key={i}
+                className="px-4 py-1 rounded-md cursor-pointer hover:bg-gray-100 flex justify-between"
+                >
                 {item}
               </li>
             ))}

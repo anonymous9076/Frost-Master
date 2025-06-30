@@ -58,8 +58,8 @@ const Navbar = ({ active }: navprops) => {
       label: "Our Products",
       link: "/customer/products",
       list: [
-        "Cloud Kitchen Equipments",
-        "Commercial Refrigerators",
+        "Cloud kitchen equipment",
+        "Commercial Refrigerator",
         "Restaurant Equipment",
         "Bakery Machinery",
       ],

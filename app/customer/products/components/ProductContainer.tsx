@@ -150,29 +150,35 @@ const ProductContainer = (props: ProductsProps) => {
         </span>
       </span>
 
-      <div className="grid w-full  lg:grid-cols-3 md:grid-cols-2 grid-cols-1 h-full  py-[1rem] gap-5">
-        {productsData?.map((product: ProductTypes, index: number) => (
-          <span key={index} className="">
-            <ProductCard
-              title={product?.productTitle}
-              image={product?.images[0]}
-              review={product?.avgRating}
-              totalReview={product?.numberOfRatings}
-              productId={product?._id}
-              price={product?.price}
-              rating={product?.avgRating}
-              category={product?.category}
-              handleEnquiryModel={handleEnquiryModel}
-            ></ProductCard>
-          </span>
-        ))}
-      </div>
-      <Pagination
-        totalPages={totalPages}
-        currentPage={currentPage}
-        handleOnChange={handleOnChange}
-        user="customer"
-      ></Pagination>
+      {totalPages>0 ? (
+        <>
+          <div className="grid w-full  lg:grid-cols-3 md:grid-cols-2 grid-cols-1 h-full  py-[1rem] gap-5">
+            {productsData?.map((product: ProductTypes, index: number) => (
+              <span key={index} className="">
+                <ProductCard
+                  title={product?.productTitle}
+                  image={product?.images[0]}
+                  review={product?.avgRating}
+                  totalReview={product?.numberOfRatings}
+                  productId={product?._id}
+                  price={product?.price}
+                  rating={product?.avgRating}
+                  category={product?.category}
+                  handleEnquiryModel={handleEnquiryModel}
+                ></ProductCard>
+              </span>
+            ))}
+          </div>
+          <Pagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            handleOnChange={handleOnChange}
+            user="customer"
+          ></Pagination>
+        </>
+      ) : (
+        <div className="py-4 text-center text-xl">No Data Found</div>
+      )}
     </div>
   );
 };
