@@ -39,7 +39,7 @@ const Navbar = ({ active }: navprops) => {
         "Experiences Shared by Our Clients",
         "Trusted by thousands Businesses",
         "What Makes us prominent players",
-        "Why frostmaster.in?",
+        "Why frost master",
       ],
       img: "Images/PremiumKitchenEquipments/img4.jpg",
     },
