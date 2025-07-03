@@ -53,9 +53,19 @@ const ProductsPage = () => {
 
       <Suspense fallback={null}>
         <SearchParamsClient
-          onCategoryChange={(category) =>
-            setFilterCategory(category ? [category] : [])
-          }
+          onCategoryChange={(category) => {
+            setFilterCategory((prev) => {
+              const newCategory = category ? [category] : [];
+              // Only update state if different
+              if (
+                prev.length !== newCategory.length ||
+                prev[0] !== newCategory[0]
+              ) {
+                return newCategory;
+              }
+              return prev; // don't trigger state update
+            });
+          }}
         />
       </Suspense>
 
