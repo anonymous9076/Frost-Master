@@ -5,7 +5,7 @@ const Section3 = () => {
     <div className="bg-[#EAEAEA] w-full flex lg:flex-row flex-col py-[5rem] px-[5%]">
       <div className="w-full lg:w-[50%] text-gray-600 ">
         <h2 data-aos="fade-up" className="text-gray-900 responsive-heading">
-          Why frost master
+          Why Frost Master ?
         </h2>
         <p
           data-aos="fade-up"
