@@ -15,6 +15,7 @@ interface TermData {
 }
 
 const TermAndConditions = () => {
+  
   const categories = [
     { name: "Bakery Equipment" },
     { name: "Ice Cream Machine" },
@@ -63,6 +64,13 @@ const TermAndConditions = () => {
     );
     setFilterData(filter);
   };
+
+    const stringFormattingFun = (sent: string) => {
+    const a = sent.split(" ");
+    const b = a.map((ele) => ele.charAt(0).toUpperCase() + ele.slice(1));
+    const c = b.join(" ");
+    return (c)
+  };
   return (
     <>
       <Navbar active="/customer/T&C"></Navbar>
@@ -104,8 +112,8 @@ const TermAndConditions = () => {
                     {item.category}
                   </p>
                 </span>
-                <h5 className="mb-2 lg:text-xl xl:text-3xl whitespace-nowrap overflow-clip  font-bold tracking-tight text-[#35736E]">
-                  {item.name}
+                <h5 className="mb-2 lg:text-xl xl:text-2xl whitespace-nowrap overflow-clip  font-bold tracking-tight text-[#35736E]">
+                  {stringFormattingFun(item.name)}
                 </h5>
                 <p className="mb-3  h-[7.6rem] overflow-hidden text-justify font-normal text-gray-700 dark:text-gray-400">
                   {item.desc}

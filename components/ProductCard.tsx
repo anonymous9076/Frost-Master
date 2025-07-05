@@ -8,6 +8,7 @@ import Link from "next/link";
 import UserAuthContext from "@/app/context/userAuthContext";
 import { useCartStore } from "@/app/stores/CartStore";
 import { useRouter } from "next/navigation";
+import { IoIosStar, IoIosStarHalf } from "react-icons/io";
 
 interface productprops {
   title: string;
@@ -32,7 +33,7 @@ export interface productTypes {
 const ProductCard = ({
   title,
   image,
-  review,
+  // review,
   totalReview,
   productId,
   price,
@@ -73,8 +74,7 @@ const ProductCard = ({
       setAdded(false);
     }, 2000);
   }
-  // console.log(process.env.NEXT_PUBLIC_CDNURL, image, "process.env.CDNURL");
-  // const urlFriendly: string = category?.replace(/\s+/g, "");
+
   const stringFormattingFun = (sent: string) => {
     const a = sent.split(" ");
     const b = a.map((ele) => ele.charAt(0).toUpperCase() + ele.slice(1));
@@ -115,7 +115,7 @@ const ProductCard = ({
       >
         {/* <FaHeart></FaHeart> */}
       </span>
-      <div className=" h-[40%] flex flex-col  justify-evenly  ">
+      <div className=" h-[40%] py-4 flex flex-col  justify-evenly  ">
         <div>
           <h5
             className="text-lg tracking-tight whitespace-nowrap w-full overflow-clip "
@@ -124,14 +124,57 @@ const ProductCard = ({
             {/* {formattedTitle} */}
             {title}
           </h5>
-          <span className="text-sm text-gray-600 ">
-            {review} ({totalReview} reviews)
+          <span className="text-sm text-gray-600 flex justify-between py-1 ">
+            <p className="text-[16px] flex gap-2 text-gray-500 items-center">
+              {[...Array(Math.floor(rating))].map((_, index) => (
+                <span
+                  className={`${
+                    rating > 3
+                      ? "text-red-500"
+                      : rating <= 3
+                      ? "text-amber-400"
+                      : "text-green-400"
+                  }`}
+                  key={index}
+                >
+                  {" "}
+                  <IoIosStar></IoIosStar>
+                </span>
+              ))}
+              {rating % 1 != 0 ? (
+                <span
+                  className={`${
+                    rating <= 3
+                      ? "text-red-500"
+                      : rating < 4
+                      ? "text-amber-400"
+                      : "text-green-400"
+                  }`}
+                >
+                  {" "}
+                  <IoIosStarHalf></IoIosStarHalf>
+                </span>
+              ) : 
+                !rating?
+                Array.from({ length: 5 }).map((_, i) => (
+                  <span key={i} className="text-gray-200">
+                    <IoIosStar />
+                  </span>
+                ))
+                : Array.from({ length: Math.floor(5-rating) }).map((_, i) => (
+                  <span key={i} className="text-gray-200">
+                    <IoIosStar />
+                  </span>
+                ))
+              }
+            </p>
+            ({totalReview} reviews)
           </span>
         </div>
         <div className="flex items-center justify-between mt-1 gap-2">
           {/* Conditionally show Add or Go to Cart */}
           <button
-            className="flex-1 border border-[#35736E] text-[#35736E] hover:shadow-md rounded-md flex justify-center items-center gap-2 px-4 py-2 cursor-pointer"
+            className="flex-1 border whitespace-nowrap border-[#35736E] text-[#35736E] hover:shadow-md rounded-md flex justify-center items-center gap-2  py-2 cursor-pointer"
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();

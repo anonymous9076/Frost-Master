@@ -26,37 +26,41 @@ const items = [
   return (
     <div className="light w-full overflow-hidden h-fit px-[5%] py-[4rem]">
         <h1 className="text-[30px] lg:text-[45px] text-center w-full pb-[3rem] mx-auto">Our core ideology is passion, persistence, and purpose-driven excellence.</h1>
-        <div className="w-[100%] h-fit grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-3 place-items-center mx-auto">
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-auto">
+  {items.map((item, index) => (
+    <div
+      key={index}
+      data-aos={item.anime}
+      className="w-full h-full flex flex-col justify-between p-5 bg-white border border-gray-200 rounded-lg shadow-sm hover:scale-105 hover:shadow-lg transition-all duration-500 ease-in-out"
+    >
+      <Image
+        className="rounded-lg h-[280px] w-full object-cover"
+        src={item.image}
+        alt=""
+        width={400}
+        height={300}
+      />
 
-        {items.map((item,index)=>
-      <div key={index} data-aos={item.anime} className="w-full max-h-[600px] h-[85dvh] p-4 bg-white border hover:scale-103 hover:shadow-lg border-gray-200 rounded-lg shadow-sm ">
-        <a href="#">
-          <Image
-            className="rounded-t-lg !h-[50%]"
-            src={item.image}
-            alt=""
-            height={400}
-            width={400}
-          />
-        </a>
-        <div className="p-5 flex h-[17.3rem] flex-col justify-between items-start">
-          <a href="#">
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
-              {item.title}
-            </h5>
-          </a>
-          <p className="mb-3   flex-1  h-[16dvh] overflow-hidden font-normal text-gray-700 dark:text-gray-400">
+      {/* Content wrapper should fill the remaining vertical space */}
+      <div className="flex flex-col flex-1 pt-5 justify-between ">
+        <div>
+          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
+            {item.title}
+          </h5>
+          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
             {item.desc}
           </p>
-          <button
-            className=" items-center px-3 py-2 text-sm font-medium text-center olive rounded-md"
-          >
-            Read more
-          </button>
         </div>
+
+        {/* Optional CTA/Button can go here */}
+        {/* <button className="mt-auto items-center px-3 py-2 text-sm font-medium text-center olive rounded-md">
+          Read more
+        </button> */}
       </div>
-        )}
-        </div>
+    </div>
+  ))}
+ </div>
+
 
     </div>
   );

@@ -160,6 +160,7 @@ const MycartItem = ({ setTotalPrice }: PropsType) => {
   useEffect(() => {
     showCartDatas();
   }, [currentPage]);
+  
   console.log([...flattenedData, ...cartDataFromDataStore], "flattenedData");
   return (
     <div className="!cursor-pointer select-none">
@@ -184,12 +185,13 @@ const MycartItem = ({ setTotalPrice }: PropsType) => {
                     width={400}
                     className="min-w-[150px] w-[30%] h-[150px] "
                   ></Image>
-                  <div className=" px-[2%] md:px-[2rem] flex-1 flex flex-col gap-3">
+                  <div className=" px-[2%] pl-[4%] md:px-[2rem] flex-1 flex flex-col gap-3">
                     <div className="flex-1 gap-1">
-                      <h1 className="text-[16px] md:text-[20px] font-bold overflow-hidden ">
-                        {product?.title}{'this is foos i need more of this on write now '}
+                      <h1 className="text-[16px] md:text-[20px] line-clamp-2  font-bold overflow-hidden ">
+                        {product?.title}
+                        
                       </h1>
-                      <p className="text-[16px] flex gap-2 text-gray-500 items-center">
+                      <p className="text-[16px] flex gap-2 py-2 text-gray-500 items-center">
                         {[...Array(Math.floor(product?.rating))].map(
                           (_, index) => (
                             <span
@@ -220,14 +222,28 @@ const MycartItem = ({ setTotalPrice }: PropsType) => {
                             {" "}
                             <IoIosStarHalf></IoIosStarHalf>
                           </span>
+                        ) : !product.rating ? (
+                          Array.from({ length: 5 }).map((_, i) => (
+                            <span key={i} className="text-gray-200">
+                              <IoIosStar />
+                            </span>
+                          ))
                         ) : (
-                          "No Review Yet"
+                          Array.from({
+                            length: Math.floor(5 - product.rating),
+                          }).map((_, i) => (
+                            <span key={i} className="text-gray-200">
+                              <IoIosStar />
+                            </span>
+                          ))
                         )}
-                        {product.rating? product.rating:''}
                       </p>
                       <p className="text-[20px] ">₹ {product?.price}</p>
                     </div>
-                    <div className="w-[120px] relative">
+
+                    <div className="w-full  flex items-center gap-2">
+
+                    <div className=" w-[100px]  md:w-[120px] relative">
                       <span
                         onClick={() =>
                           handleUpdateItemnumber(
@@ -247,7 +263,7 @@ const MycartItem = ({ setTotalPrice }: PropsType) => {
                         onChange={(e) =>
                           handleChangeItemNumber(Number(e.target.value))
                         }
-                        className="border border-[#35736E] outline-none text-[18px] font-semibold text-[#35736E] hover:shadow-md rounded-md flex w-full  justify-center items-center py-1 text-center "
+                        className="border border-[#35736E] outline-none text-[18px] font-semibold text-[#35736E] hover:shadow-md rounded-md flex w-full  justify-center items-center md:py-1 text-center "
                       ></input>
                       <span
                         onClick={() =>
@@ -262,10 +278,22 @@ const MycartItem = ({ setTotalPrice }: PropsType) => {
                         <FiPlus />
                       </span>
                     </div>
+                    <div>
+                      <span
+                        className="text-[20px] md:hidden text-red-600  font-bold"
+                        onClick={() =>
+                          handleRemoveItem(product?.productId, product?.cartId)
+                        }
+                      >
+                        <MdDelete />
+                      </span>
+                    </div>
+                    </div>
+
                   </div>
                   <div>
                     <span
-                      className="text-[20px] text-red-600  font-bold"
+                      className="text-[20px] hidden md:block text-red-600  font-bold"
                       onClick={() =>
                         handleRemoveItem(product?.productId, product?.cartId)
                       }

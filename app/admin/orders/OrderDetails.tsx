@@ -143,7 +143,7 @@ const OrderDetails = ({handleCloseModel}:Props) => {
               <div className="border border-gray-500 my-[2rem]"></div>
               <ul className="text-[16px] space-y-[1rem]">
                 <li className=" flex items-center justify-between ">
-                  <span>Net Amnount </span>
+                  <span>Net Amount </span>
                   <span>$3059</span>
                 </li>
               </ul>

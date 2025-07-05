@@ -124,7 +124,7 @@ const ProductContainer = (props: ProductsProps) => {
   };
 
   return (
-    <div className="h-fit w-full  px-[2rem]">
+    <div className="h-fit w-full  px-[5%]">
       {enquiryProp.id !== "" && <EnquiryModel data={enquiryProp} />}
 
       <div className=" text-[25px] md:text-[35px] px-3   flex items-center justify-between font-bold">

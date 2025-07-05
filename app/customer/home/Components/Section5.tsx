@@ -33,14 +33,14 @@ const object = [
             <div
               key={index}
 
-              className="py-[2rem] responsive-subtext light text-left px-[10%] min-w-[300px] hover:shadow-md hover:scale-105 transition-transform duration-300 w-full flex items-center justify-start gap-2 font-bold border rounded-lg  shadow-md border-white"
+              className="py-[1rem] responsive-subtext light text-left px-[10%] min-w-[300px] hover:shadow-md hover:scale-105 transition-transform duration-300 w-full flex items-center justify-start gap-2 font-bold border rounded-lg  shadow-md border-white"
             >
               <Image
                 src={item.image}
                 alt="ew"
                 height={400}
                 width={400}
-                className=" w-[45px] object-contain object-center border border-gray-400 rounded-full h-[45px] "
+                className=" w-[60px] object-contain p-1 object-center h-[60px] "
               />
               {item.title}
             </div>

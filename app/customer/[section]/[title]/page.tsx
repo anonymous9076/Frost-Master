@@ -91,7 +91,7 @@ export default function CommonDetailPage({
             <div className="h-[70dvh] p-5 rounded-lg overflow-hidden w-full max-h-[350px] md:max-h-fit mx-auto">
               <Image
                 className="h-full w-full"
-                src="/oven2.jpg"
+                src={specificData?.image||''}
                 alt="no image found"
                 height={400}
                 width={400}
@@ -128,7 +128,7 @@ export default function CommonDetailPage({
                     <div className="h-[200px] w-full p-3 object-center rounded-t-lg overflow-hidden">
                       <Image
                         className="rounded-t-lg w-full object-center h-full"
-                        src="/oven2.jpg"
+                        src={item.image}
                         height={400}
                         width={400}
                         alt="thumbnail"

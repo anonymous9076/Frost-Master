@@ -11,14 +11,14 @@ const Mycart = () => {
   return (
     <>
       <Navbar active="/customer/mycart"></Navbar>
-      <div className="h-fit w-full bg-amber-300 px-[5%] flex flex-col lg:flex-row  light">
+      <div className="h-fit w-full  px-[5%] lg:px-[3%] flex flex-col lg:flex-row  light">
         <div className="lg:w-[65%] w-full h-full py-[2rem] ">
           <div className=" gap-4">
             <h1 className="text-[25px] font-bold  ">My Cart</h1>
           </div>
           <MycartItem setTotalPrice={setTotalPrice}></MycartItem>
         </div>
-        <div className="flex-1 py-[2rem] px-[2%]">
+        <div className="flex-1 py-[2rem] pl-[3%]">
           <PriceCard button={true} totalPrice={totalPrice}></PriceCard>
         </div>
       </div>

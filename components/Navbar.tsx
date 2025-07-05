@@ -231,7 +231,7 @@ const Navbar = ({ active }: navprops) => {
           </span>
           <Link
             href="/customer/mycart"
-            className={`relative flex items-center gap-1 text-black ${
+            className={`relative flex items-center gap-1  ${
               active === "/customer/mycart"
                 ? "transform hover:scale-110 active"
                 : ""

@@ -195,7 +195,7 @@ const EditProductForm = ({
   }, []);
 
   return (
-    <div className="h-screen  flex items-center fixed top-0 left-0 w-full  bg-opacity-90 justify-end bg-black/50">
+    <div className="h-screen  flex items-center z-90 fixed top-0 left-0 w-full  bg-opacity-90 justify-end bg-black/50">
       <div className="bg-white h-[100%]  py-4 rounded-sm shadow-2xl min-w-[350px] w-[45%] ">
         <div className="text-2xl font-bold text-blue-400 w-full  mt-4 mb-6  text-center">
           Edit {title}
