@@ -14,13 +14,13 @@ const Section1 = () => {
     },
     {
       title: "SPEED.COMPACT ECO",
-      desc: "The faster the Oven, The faster the profits",
+      desc: "The faster the Oven, the faster the profits. Maximize kitchen efficiency and reduce prep time. Serve more customers in less time with unbeatable speed. Designed for high performance, reliability, and energy-saving compact cooking operations.",
       image: `${process.env.NEXT_PUBLIC_CDNURL}Images/MainSliderinHome/img9.jpg`,
       style: "lg:text-[60px] lg:w-full",
     },
     {
       title: "OPTIC.COOKING",
-      desc: "From now on you can cook with your eyes closed",
+      desc: "From now on you can cook with your eyes closed. Precision sensors and guided controls make cooking effortless. Consistency and quality are now just a glance away. Experience automation that adapts to your needs, dish after delicious dish.",
       image: `${process.env.NEXT_PUBLIC_CDNURL}Images/MainSliderinHome/img3.jpg`,
       style: "lg:text-[60px] lg:w-full",
     },
