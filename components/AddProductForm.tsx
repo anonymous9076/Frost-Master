@@ -13,8 +13,6 @@ interface productProps {
   handleCloseModel: () => void;
 }
 
-
-
 const ProductForm = ({ handleCloseModel }: productProps) => {
   const [formData, setFormData] = useState({
     productTitle: "",
@@ -42,8 +40,14 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
     safety: "",
     usage: "",
   });
+  const [newCatObj, setNewCatObj] = useState({
+    category: "",
+    subcategory: "",
+  });
   const [dataUploaded, setDataUploaded] = useState<boolean>(false);
   const [dataUploaded2, setDataUploaded2] = useState<boolean>(false);
+  const [addNewCats, setAddNewCats] = useState<string>("");
+  const [addModelOpen, setAddModelOpen] = useState<boolean>(false);
   const [images, setImages] = useState<any>([]);
   const [addedProductId, setAddedProductId] = useState<string>("");
   const categories = [
@@ -76,16 +80,42 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    if (value === "addMore") {
+      setAddModelOpen(true);
+      // console.log(name)
+      setAddNewCats(name);
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
+
+  const handleAddNewCat = (e: any) => {
+    const { name, value } = e.target;
+    setNewCatObj((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+  const handleSubmitNewCat = () => {
+    console.log(newCatObj, "check this");
+    //call the api here and here is the data
+    //here only one can hold the data on hitting submit you have
+    //to take the key how have actual value and empty will be neglected
+    setNewCatObj({
+      category: "",
+      subcategory: "",
+    });
+    setAddModelOpen(false);
+  };
+
   const handleChangeProductSpec = (e: any) => {
-    const { name, value,checked,type } = e.target;
+    const { name, value, checked, type } = e.target;
     setFormDataProductSpec({
       ...formDataProductSpec,
-      [name]: type === "checkbox" ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     });
   };
 
@@ -130,7 +160,7 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
     // handleCloseModel();
   };
   const handleSubmit2 = async (e: any) => {
-  console.log(formDataProductSpec)
+    console.log(formDataProductSpec);
     e.preventDefault();
     await addProductSpecification(formDataProductSpec, addedProductId);
     setDataUploaded(true);
@@ -184,8 +214,42 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center fixed top-0 left-0 w-full h-screen  justify-end bg-black/50">
-      <div className="bg-white h-[100%]  py-4 rounded-lg shadow-2xl min-w-[350px] w-[45%] ">
+    <div className="min-h-screen flex items-center z-90 fixed top-0 left-0 w-full h-screen  justify-end bg-black/50">
+      <div className="bg-white h-[100%] relative  py-4 rounded-lg shadow-2xl min-w-[320px] w-[45%] ">
+        {addModelOpen ? (
+          <div className="absolute h-full w-full bg-black/10 flex items-center justify-center top-0 left-0">
+            <div className="h-fit rounded-lg w-[400px] bg-white shadow-lg shadow-gray-400 p-3">
+              <div className="text-xl font-bold text-blue-400 w-full text-center">
+                Add New {addNewCats}
+              </div>
+              <input
+                name={addNewCats}
+                onChange={handleAddNewCat}
+                className="w-full border px-2 py-1 rounded-lg my-4  focus:outline-blue-400 border-gray-300"
+                type="text"
+                placeholder={`Enter the ${addNewCats} `}
+              ></input>
+              <div className="w-full h-fit mt-3 flex justify-end space-x-3">
+                <button
+                  type="submit"
+                  className="px-4  text-gray-600 border border-gray-300 font-bold py-1 rounded-lg transition duration-300"
+                  onClick={() => setAddModelOpen(false)}
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleSubmitNewCat}
+                  type="submit"
+                  className="px-4 bg-blue-400 hover:bg-blue-500 text-white font-bold py-1 rounded-lg transition duration-300"
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
         <div className="text-2xl font-bold text-blue-400 w-full  mt-4 mb-6  text-center">
           Add New Product
         </div>
@@ -510,19 +574,29 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
               {/* Category */}
 
               <div className="w-full">
-                <label className="block text-gray-600 font-medium">
+                <label className="flex justify-between items-center text-gray-600 font-medium">
                   Category
+                  {/* <span className="bg-blue-400 h-5 w-5 text-white rounded-sm flex items-center justify-center">
+                  + 
+                  </span> */}
                 </label>
                 <select
                   name="category"
                   value={formData.category}
                   onChange={handleChange}
                   required
-                  className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  className="w-full p-2 border rounded-lg border-gray-400  focus:outline-none focus:ring-2 focus:ring-blue-400"
                 >
-                  <option value="">Select Category</option>
+                  <option value="">Category</option>
+                  <option className="bg-blue-400 text-white" value="addMore">
+                    + Add More
+                  </option>
                   {categories.map((category) => (
-                    <option key={category} value={category}>
+                    <option
+                      className="hover:bg-blue-400"
+                      key={category}
+                      value={category}
+                    >
                       {category}
                     </option>
                   ))}
@@ -531,8 +605,11 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
 
               {/* subcategories */}
               <div className="w-full">
-                <label className="block text-gray-600 font-medium">
+                <label className=" justify-between items-center text-gray-600 flex font-medium">
                   Sub-Category
+                  {/* <span className="bg-blue-400 h-5 w-5 text-white rounded-sm flex items-center justify-center">
+                  + 
+                  </span> */}
                 </label>
                 <select
                   name="subcategory"
@@ -541,7 +618,10 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
                   required
                   className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
                 >
-                  <option value="">Select Sub-Category</option>
+                  <option value="">Sub-Category</option>
+                  <option className="bg-blue-400 text-white" value="addMore">
+                    + Add More
+                  </option>
                   {subCategories.map((category) => (
                     <option key={category} value={category}>
                       {category}
@@ -561,7 +641,6 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
                   required
                   className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
                 >
-                  <option value="">Select Material</option>
                   {materials.map((material) => (
                     <option key={material} value={material}>
                       {material}
