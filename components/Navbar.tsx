@@ -180,6 +180,7 @@ const Navbar = ({ active }: navprops) => {
               <NavDrop
                 title={item.label}
                 list={item.list}
+                link={item.link}
                 image={item.img}
                 active={activeNavDrop && hoveredNavField?.label === item.label}
                 handleCloseModel={handleCloseModel}

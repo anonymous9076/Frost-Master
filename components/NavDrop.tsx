@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from 'next/navigation';
 // import React, { useEffect, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
@@ -8,6 +9,7 @@ interface NavProp {
   list: string[];
   active: boolean;
   image: string;
+  link: string;
   handleCloseModel: () => void;
 }
 // const NavDrop = ({title,list,active}:NavProp) => {
@@ -50,7 +52,7 @@ interface NavProp {
 //     </div>
 //   );
 // };
-const NavDrop = ({ title, list, active, handleCloseModel, image }: NavProp) => {
+const NavDrop = ({ title, list, active,link, handleCloseModel, image }: NavProp) => {
   const router = useRouter();
   // remove local closeModel state entirely and rely on the `active` prop
   
@@ -78,13 +80,25 @@ const NavDrop = ({ title, list, active, handleCloseModel, image }: NavProp) => {
         </div>
 
         <div className="flex justify-between items-start mt-4">
-          <ul className="w-[300px] md:w-[40%] text-[18px] space-y-2">
+          <ul className="w-[300px] md:w-[40%] text-[18px] space-y-1">
             {list.map((item, i) => (
+              title !== 'Our Products'?
+              <Link href={link}
+              className=" rounded-md"
+              key={i}
+              >
               <li
               onClick={()=>handleClick(item)}
+              className="px-4 py-1 rounded-md cursor-pointer hover:bg-gray-100 flex justify-between"
+              >
+                {item}
+              </li>
+              </Link>
+              :<li
               key={i}
-                className="px-4 py-1 rounded-md cursor-pointer hover:bg-gray-100 flex justify-between"
-                >
+              onClick={()=>handleClick(item)}
+              className="px-4 py-1 rounded-md cursor-pointer hover:bg-gray-100 flex justify-between"
+              >
                 {item}
               </li>
             ))}
