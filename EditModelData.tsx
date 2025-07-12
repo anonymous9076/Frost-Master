@@ -13,14 +13,14 @@ const productFields = [
     className:
       "w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400",
   },
-  {
-    name: "category",
-    label: "Category",
-    type: "select",
-    options: ["Cookware", "Bakeware", "Cutlery"],
-    className:
-      "w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400",
-  },
+  // {
+  //   name: "category",
+  //   label: "Category",
+  //   type: "select",
+  //   options: ["Cookware", "Bakeware", "Cutlery"],
+  //   className:
+  //     "w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400",
+  // },
   {
     name: "material",
     label: "Material",
@@ -62,67 +62,77 @@ const productFields = [
     className:
       "w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400",
   },
- 
+
   {
     name: "suitableFor",
     label: "Suitable For",
     type: "text",
-    className: "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400",
+    className:
+      "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400",
   },
   {
     name: "decks",
     label: "Decks",
     type: "text",
-    className: "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400",
+    className:
+      "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400",
   },
   {
     name: "trays",
     label: "Trays",
     type: "text",
-    className: "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400",
+    className:
+      "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400",
   },
   {
     name: "maximumTemperature",
     label: "Maximum Temperature (°C)",
     type: "number",
-    className: "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400",
+    className:
+      "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400",
   },
   {
     name: "materialFront",
     label: "Front Material",
     type: "text",
-    className: "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400",
+    className:
+      "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400",
   },
   {
     name: "materialBody",
     label: "Body Material",
     type: "text",
-    className: "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400",
+    className:
+      "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400",
   },
   {
     name: "powerType",
     label: "Power Type",
     type: "select",
     options: ["Electric", "Gas", "Dual Fuel"],
-    className: "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400",
+    className:
+      "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400",
   },
   {
     name: "ignitionType",
     label: "Ignition Type",
     type: "text",
-    className: "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400",
+    className:
+      "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400",
   },
   {
     name: "energyEfficiency",
     label: "Energy Efficiency",
     type: "text",
-    className: "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400",
+    className:
+      "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400",
   },
   {
     name: "fuelConsumption",
     label: "Fuel Consumption",
     type: "text",
-    className: "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400",
+    className:
+      "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400",
   },
   {
     name: "digitalDisplay",
@@ -134,19 +144,22 @@ const productFields = [
     name: "temperatureControl",
     label: "Temperature Control",
     type: "text",
-    className: "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400",
+    className:
+      "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400",
   },
   {
     name: "safety",
     label: "Safety Features",
     type: "text",
-    className: "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400",
+    className:
+      "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400",
   },
   {
     name: "usage",
     label: "Usage",
     type: "textarea",
-    className: "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400",
+    className:
+      "w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400",
   },
   {
     name: "images",
@@ -242,9 +255,7 @@ const enquiryFields = [
     className:
       "w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400",
   },
-  
 ];
-
 
 const enquiryData = {
   customerName: "John Doe",
@@ -258,4 +269,4 @@ const enquiryData = {
   description: "High-efficiency solar panel suitable for residential use.",
 };
 
-export default { productData, productFields, enquiryData,enquiryFields }; //default is removed
+export default { productData, productFields, enquiryData, enquiryFields }; //default is removed

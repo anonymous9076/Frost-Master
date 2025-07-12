@@ -106,7 +106,7 @@ const EditProductForm = ({
     formDataVal.append("price", price.toString());
     formDataVal.append("category", category);
     formDataVal.append("material", material);
-    formDataVal.append("stock", stock.toString());
+    formDataVal.append("stock", stock ? stock.toString() : "1");
 
     setDataUploaded(true);
     onsubmit(formDataVal);

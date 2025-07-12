@@ -74,3 +74,38 @@ export const showProductSuggestion = async (
   });
   return res.data;
 };
+
+export const addCategory = async (name: string) => {
+  try {
+    const res = await axiosInstance.post("/createCategory", { name });
+    return res;
+  } catch (error) {
+    throw error;
+  }
+};
+export const addSubCategory = async (name: string) => {
+  try {
+    const res = await axiosInstance.post("/createSubCategory", { name });
+    return res;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getCategory = async () => {
+  try {
+    const res = await axiosInstance.get("/categories");
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getSubCategory = async () => {
+  try {
+    const res = await axiosInstance.get("/subcategories");
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+};

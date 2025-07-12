@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdOpenInBrowser } from "react-icons/md";
 import { FaImage } from "react-icons/fa";
 import { IoMdTrash } from "react-icons/io";
@@ -9,6 +9,13 @@ import {
   addProductSpecification,
 } from "@/app/api/Admin/routeData";
 import imageCompression from "browser-image-compression";
+import { toast } from "react-toastify";
+import {
+  addCategory,
+  addSubCategory,
+  getCategory,
+  getSubCategory,
+} from "@/app/api/Product";
 interface productProps {
   handleCloseModel: () => void;
 }
@@ -50,23 +57,8 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
   const [addModelOpen, setAddModelOpen] = useState<boolean>(false);
   const [images, setImages] = useState<any>([]);
   const [addedProductId, setAddedProductId] = useState<string>("");
-  const categories = [
-    "Bakery machinery",
-    "Restaurant equipment",
-    "Commercial Refrigerator",
-    "Cloud kitchen equipment",
-    "others",
-  ];
-
-  const subCategories = [
-    "Cookware",
-    "Bakeware",
-    "Cutlery",
-    "Storage",
-    "Kitchen Appliances",
-    "Tableware",
-    "Others",
-  ];
+  const [categories, setCategories] = useState<string[]>([]);
+  const [subCategories, setSubCategories] = useState<string[]>([]);
 
   const materials = [
     "Stainless Steel",
@@ -100,10 +92,15 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
     }));
   };
   const handleSubmitNewCat = () => {
-    console.log(newCatObj, "check this");
-    //call the api here and here is the data
-    //here only one can hold the data on hitting submit you have
-    //to take the key how have actual value and empty will be neglected
+    console.log(newCatObj, "hellog");
+    if (newCatObj.category) {
+      createCategory(newCatObj.category);
+    } else if (newCatObj.subcategory) {
+      createSubCategory(newCatObj.subcategory);
+    } else {
+      toast.error(`Please enter a valid ${addNewCats} name`);
+    }
+
     setNewCatObj({
       category: "",
       subcategory: "",
@@ -213,6 +210,46 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
     setImages(newImageArray);
   };
 
+  async function getcategories() {
+    try {
+      const data: string[] = await getCategory();
+      setCategories(data);
+    } catch (err) {
+      toast.error("Failed to add category");
+    }
+  }
+  async function getSubCategories() {
+    try {
+      const data = await getSubCategory();
+      setSubCategories(data);
+    } catch (err) {
+      toast.error("Failed to add category");
+    }
+  }
+  async function createCategory(data: string) {
+    console.log(data, "ehrlo");
+    try {
+      await addCategory(data);
+      getcategories();
+      toast.success("Category added!");
+    } catch (err) {
+      toast.error("Failed to add category");
+    }
+  }
+  async function createSubCategory(data: string) {
+    try {
+      await addSubCategory(data);
+      getSubCategories();
+      toast.success("Category added!");
+    } catch (err) {
+      toast.error("Failed to add category");
+    }
+  }
+
+  useEffect(() => {
+    getcategories();
+    getSubCategories();
+  }, []);
   return (
     <div className="min-h-screen flex items-center z-90 fixed top-0 left-0 w-full h-screen  justify-end bg-black/50">
       <div className="bg-white h-[100%] relative  py-4 rounded-lg shadow-2xl min-w-[320px] w-[45%] ">
@@ -225,7 +262,7 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
               <input
                 name={addNewCats}
                 onChange={handleAddNewCat}
-                className="w-full border px-2 py-1 rounded-lg my-4  focus:outline-blue-400 border-gray-300"
+                className="w-full border px-2 py-1 rounded-lg my-4 text-black focus:outline-blue-400 border-gray-300"
                 type="text"
                 placeholder={`Enter the ${addNewCats} `}
               ></input>
@@ -591,7 +628,7 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
                   <option className="bg-blue-400 text-white" value="addMore">
                     + Add More
                   </option>
-                  {categories.map((category) => (
+                  {categories?.map((category) => (
                     <option
                       className="hover:bg-blue-400"
                       key={category}
@@ -622,7 +659,7 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
                   <option className="bg-blue-400 text-white" value="addMore">
                     + Add More
                   </option>
-                  {subCategories.map((category) => (
+                  {subCategories?.map((category) => (
                     <option key={category} value={category}>
                       {category}
                     </option>
