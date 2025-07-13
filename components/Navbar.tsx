@@ -12,9 +12,15 @@ import { logout } from "@/app/api/Auth/routeData";
 import { toast } from "react-toastify";
 import NavDrop from "./NavDrop";
 import { useCartStore } from "@/app/stores/CartStore";
+import { getCategory } from "@/app/api/Product";
 
 interface navprops {
   active: string;
+}
+
+interface catNSubCat {
+  name: string;
+  _id: string;
 }
 interface navfields {
   label: string;
@@ -28,6 +34,16 @@ const Navbar = ({ active }: navprops) => {
     link: "",
     list: [],
   });
+  const [categories, setCategories] = useState([]);
+  async function getcategories() {
+    try {
+      const data = await getCategory();
+      const dataData = data.map((val: catNSubCat) => val.name);
+      setCategories(dataData);
+    } catch (err) {
+      console.log(err);
+    }
+  }
   const navLinks = [
     {
       label: "Home",
@@ -57,12 +73,7 @@ const Navbar = ({ active }: navprops) => {
     {
       label: "Our Products",
       link: "/customer/products",
-      list: [
-        "Cloud kitchen equipment",
-        "Commercial Refrigerator",
-        "Restaurant Equipment",
-        "Bakery Machinery",
-      ],
+      list: categories,
       img: "Images/PremiumKitchenEquipments/img24.jpg",
     },
     {
@@ -141,6 +152,7 @@ const Navbar = ({ active }: navprops) => {
   };
 
   useEffect(() => {
+    getcategories();
     setTotalQuantity(
       cartData.reduce((total, item) => total + item.quantity, 0)
     );

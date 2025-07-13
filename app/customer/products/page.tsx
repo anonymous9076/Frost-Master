@@ -1,10 +1,11 @@
 "use client"; // You can keep this if needed
 import React, { useEffect, useState, Suspense } from "react";
 import dynamic from "next/dynamic";
-import { getAllProducts } from "@/app/api/Product";
+import { getAllProducts, getCategory } from "@/app/api/Product";
 import useDebouncing from "@/app/hooks/useDebouncing";
 import { RxCross2 } from "react-icons/rx";
 import SearchParamsClient from "./components/SearchParamsHandler";
+import { catNSubCatResponse } from "@/components/AddProductForm";
 
 const Footer = dynamic(() => import("@/components/Footer"));
 const Navbar = dynamic(() => import("@/components/Navbar"));
@@ -22,8 +23,17 @@ const ProductsPage = () => {
   const [filterBar, setFilterBar] = useState<boolean>(false);
   const [totalPages, setTotalPages] = useState(1);
   const debouncedData = useDebouncing(searchProduct, 800);
-
+  const [categories, setCategories] = useState<catNSubCatResponse>([]);
+  async function getcategories() {
+    try {
+      const data = await getCategory();
+      setCategories(data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
   useEffect(() => {
+    getcategories();
     async function showProducts() {
       const res = await getAllProducts(
         filterCategory,
@@ -88,6 +98,7 @@ const ProductsPage = () => {
                 setFilterCategory={setFilterCategory}
                 filterRating={filterRating}
                 setFilterRating={setFilterRating}
+                categories={categories}
               />
             </div>
           </div>
@@ -102,6 +113,7 @@ const ProductsPage = () => {
             setFilterCategory={setFilterCategory}
             filterRating={filterRating}
             setFilterRating={setFilterRating}
+            categories={categories}
           />
         </div>
         <ProductContainer

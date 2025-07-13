@@ -22,7 +22,7 @@ import {
 interface productProps {
   handleCloseModel: () => void;
 }
-type catNSubCatResponse = {
+export type catNSubCatResponse = {
   name: string;
   _id: string;
 }[];
