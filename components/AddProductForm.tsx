@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { MdOpenInBrowser } from "react-icons/md";
 import { FaImage } from "react-icons/fa";
 import { IoMdTrash } from "react-icons/io";
+import { MdDelete } from "react-icons/md";
 import {
   addProduct,
   addProductImages,
@@ -13,13 +14,18 @@ import { toast } from "react-toastify";
 import {
   addCategory,
   addSubCategory,
+  deleteCategory,
+  deleteSubCategory,
   getCategory,
   getSubCategory,
 } from "@/app/api/Product";
 interface productProps {
   handleCloseModel: () => void;
 }
-
+type catNSubCatResponse = {
+  name: string;
+  _id: string;
+}[];
 const ProductForm = ({ handleCloseModel }: productProps) => {
   const [formData, setFormData] = useState({
     productTitle: "",
@@ -57,8 +63,8 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
   const [addModelOpen, setAddModelOpen] = useState<boolean>(false);
   const [images, setImages] = useState<any>([]);
   const [addedProductId, setAddedProductId] = useState<string>("");
-  const [categories, setCategories] = useState<string[]>([]);
-  const [subCategories, setSubCategories] = useState<string[]>([]);
+  const [categories, setCategories] = useState<catNSubCatResponse>([]);
+  const [subCategories, setSubCategories] = useState<catNSubCatResponse>([]);
 
   const materials = [
     "Stainless Steel",
@@ -212,7 +218,7 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
 
   async function getcategories() {
     try {
-      const data: string[] = await getCategory();
+      const data = await getCategory();
       setCategories(data);
     } catch (err) {
       console.log(err);
@@ -252,6 +258,28 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
     }
   }
 
+  async function deleteCat(id: string) {
+    try {
+      await deleteCategory(id);
+      await getcategories();
+      toast.success("Category deleted!");
+    } catch (err) {
+      console.log(err);
+
+      toast.error("Failed to delete category");
+    }
+  }
+  async function deleteSubCat(id: string) {
+    try {
+      await deleteSubCategory(id);
+      await getSubCategories();
+      toast.success("Sub-Category deleted!");
+    } catch (err) {
+      console.log(err);
+
+      toast.error("Failed to delete sub-category");
+    }
+  }
   useEffect(() => {
     getcategories();
     getSubCategories();
@@ -637,13 +665,38 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
                   {categories?.map((category) => (
                     <option
                       className="hover:bg-blue-400"
-                      key={category}
-                      value={category}
+                      key={category?._id}
+                      value={category?.name}
                     >
-                      {category}
+                      {category?.name}
                     </option>
                   ))}
                 </select>
+                <div className="mt-4 ">
+                  <h4 className="text-gray-600 font-medium mb-2">
+                    Manage Categories
+                  </h4>
+                  <div className="border rounded-lg divide-y h-20 overflow-scroll">
+                    {categories.map((category) => (
+                      <div
+                        key={category?._id}
+                        className="flex justify-between items-center px-3 py-2 hover:bg-gray-50"
+                      >
+                        {/* Category Name */}
+                        <span className="break-words">{category?.name}</span>
+
+                        {/* Delete Button */}
+                        <button
+                          onClick={() => deleteCat(category?._id)}
+                          className="text-red-500 hover:text-red-700"
+                          title={`Delete ${category?.name}`}
+                        >
+                          <MdDelete className="w-5 h-5" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
 
               {/* subcategories */}
@@ -666,11 +719,33 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
                     + Add More
                   </option>
                   {subCategories?.map((category) => (
-                    <option key={category} value={category}>
-                      {category}
+                    <option key={category?._id} value={category?.name}>
+                      {category?.name}
                     </option>
                   ))}
                 </select>
+                <div className="mt-4">
+                  <h4 className="text-gray-600 font-medium mb-2">
+                    Manage Subcategories
+                  </h4>
+                  <div className="border rounded-lg divide-y h-20 overflow-scroll">
+                    {subCategories.map((sub) => (
+                      <div
+                        key={sub?._id}
+                        className="flex justify-between items-center px-3 py-2 hover:bg-gray-50"
+                      >
+                        <span className="break-words">{sub?.name}</span>
+                        <button
+                          onClick={() => deleteSubCat(sub?._id)}
+                          className="text-red-500 hover:text-red-700"
+                          title={`Delete ${sub?.name}`}
+                        >
+                          <MdDelete className="w-5 h-5" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
               {/* Material */}
               <div className="w-full">
@@ -690,6 +765,9 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
                     </option>
                   ))}
                 </select>
+                <div className="mt-4">
+                  <div className="h-20 mb-8"></div>
+                </div>
               </div>
             </div>
 

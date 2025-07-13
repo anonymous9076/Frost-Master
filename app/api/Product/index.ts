@@ -109,3 +109,21 @@ export const getSubCategory = async () => {
     throw error;
   }
 };
+
+export const deleteCategory = async (id: string) => {
+  try {
+    const res = await axiosInstance.delete(`/deleteCategory/${id}`);
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteSubCategory = async (id: string) => {
+  try {
+    const res = await axiosInstance.delete(`/deleteSubCategory/${id}`);
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+};
