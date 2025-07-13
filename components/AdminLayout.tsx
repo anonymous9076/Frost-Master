@@ -8,16 +8,18 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { user, userRole } = useContext(UserAuthContext)!;
+  const { user, userRole, isAuthenticated } = useContext(UserAuthContext)!;
   const router = useRouter();
 
   useEffect(() => {
-    if (!user) {
-      router.push("/signin");
-    } else if (userRole !== "admin") {
-      router.push("/403");
+    if (isAuthenticated) {
+      if (!user) {
+        router.push("/signin");
+      } else if (userRole !== "admin") {
+        router.push("/403");
+      }
     }
-  }, [user, userRole]);
+  }, [user, userRole, isAuthenticated]);
 
   return user && userRole === "admin" ? <>{children}</> : null;
 }
