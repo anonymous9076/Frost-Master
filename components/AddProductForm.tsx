@@ -215,6 +215,7 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
       const data: string[] = await getCategory();
       setCategories(data);
     } catch (err) {
+      console.log(err);
       toast.error("Failed to add category");
     }
   }
@@ -223,6 +224,7 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
       const data = await getSubCategory();
       setSubCategories(data);
     } catch (err) {
+      console.log(err);
       toast.error("Failed to add category");
     }
   }
@@ -233,6 +235,8 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
       getcategories();
       toast.success("Category added!");
     } catch (err) {
+      console.log(err);
+
       toast.error("Failed to add category");
     }
   }
@@ -242,6 +246,8 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
       getSubCategories();
       toast.success("Category added!");
     } catch (err) {
+      console.log(err);
+
       toast.error("Failed to add category");
     }
   }
