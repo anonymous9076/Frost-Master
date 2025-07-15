@@ -2,6 +2,7 @@
 "use client";
 
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { ReactNode } from "react";
 import { Doughnut } from "react-chartjs-2";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -16,7 +17,7 @@ interface PropData {
   text_color: string;
   category: string;
   numbers: number;
-  icons: React.JSX.Element;
+  icon: ReactNode;
 }
 
 export default function DonutChart({ dataValues }: DonutChartProps) {
@@ -41,7 +42,7 @@ export default function DonutChart({ dataValues }: DonutChartProps) {
     responsive: true,
     plugins: {
       legend: {
-        display:false
+        display: false,
       },
     },
   };

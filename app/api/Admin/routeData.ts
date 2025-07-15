@@ -195,6 +195,20 @@ export const deleteEnquiry = async (enquiryId: string) => {
     return error;
   }
 };
+
+// updateEnquiry
+export const updateEnquiry = async (enquiryId: string, status: string) => {
+  try {
+    const response = await axiosInstance.patch(
+      `/admin/updateEnquiryStatus/${enquiryId}/status`,
+      { status }
+    );
+    return response.data;
+  } catch (error: any) {
+    return error.response ? error.response.data : { message: "Unknown error" };
+  }
+};
+
 // payment
 export const showPaymentsData = async (
   filterTransactionId: string,
@@ -271,5 +285,28 @@ export const deleteProforma = async (id: string) => {
     return res;
   } catch (error) {
     return error;
+  }
+};
+
+// weekly enquiry data
+export const fetchWeeklyEnquiryGraph = async () => {
+  try {
+    const response = await axiosInstance.get("/enquiry/weeklyEnquiryGraphData");
+    return response.data.data;
+  } catch (error) {
+    console.error("Error fetching weekly enquiry graph:", error);
+    throw error;
+  }
+};
+
+// fetch enquiries type and its count
+export const fetchEnquiriesTypesWithCount = async () => {
+  try {
+    const response = await axiosInstance.get("/enquiry/enquiriesTypes");
+    console.log(response.data.data, "dddd");
+    return response.data.data; // { success, totalCount, data }
+  } catch (error: any) {
+    console.error("Failed to fetch enquiry types:", error);
+    throw error;
   }
 };

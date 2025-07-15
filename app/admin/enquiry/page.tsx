@@ -1,13 +1,19 @@
 "use client";
 import dynamic from "next/dynamic";
 const Sidebar = dynamic(() => import("@/components/Sidebar"));
-import React, { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 const Pagination = dynamic(() => import("@/components/Pagination"));
 import { FaRegTrashAlt } from "react-icons/fa";
 const DeleteModel = dynamic(() => import("@/components/DeleteModel"));
 const AddProductForm = dynamic(() => import("@/components/AddProductForm"));
 const AdminLayout = dynamic(() => import("@/components/AdminLayout"));
-import { deleteEnquiry, showEnquires } from "@/app/api/Admin/routeData";
+import {
+  deleteEnquiry,
+  fetchEnquiriesTypesWithCount,
+  fetchWeeklyEnquiryGraph,
+  showEnquires,
+  updateEnquiry,
+} from "@/app/api/Admin/routeData";
 import { dateFormate } from "@/app/utlis/dateFormate/dateFormating";
 import { FiEdit } from "react-icons/fi";
 import { toast } from "react-toastify";
@@ -19,6 +25,7 @@ import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import PolarChart from "@/components/PolarGraph";
 import LineChart from "@/components/LineGraph";
+import { EnquiryCardData, EnquiryTypeResponse } from "@/app/types/enquiry";
 interface EnquiryTypes {
   name: string;
   email: string;
@@ -27,8 +34,10 @@ interface EnquiryTypes {
   status: string;
   _id: string;
 }
+
 const ProductManagement = () => {
   const [showModel, setShowModel] = useState<boolean>(false);
+  const [editModel, setEditModel] = useState<boolean>(false);
   const [showModel1, setShowModel1] = useState<boolean>(false);
   const [showModel2, setShowModel2] = useState<boolean>(false);
   const [enquiries, setEnquiries] = useState([
@@ -79,6 +88,13 @@ const ProductManagement = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [enquiryId, setEnquiryId] = useState("");
   const [enquiryType, setEnquiryType] = useState("none");
+  const [numberOfEnquiriesInMonth, setNumberOfEnquiriesInMonth] = useState<
+    number[]
+  >([]);
+
+  const enquiryStatuses = ["pending", "resolved"];
+  const [selectedStatus, setSelectedStatus] = useState<string>("");
+  const [dataArray, setDataArray] = useState<EnquiryCardData[]>([]);
   const getStatusColor = (status: string) => {
     switch (status) {
       case "resolved":
@@ -90,41 +106,52 @@ const ProductManagement = () => {
         return "bg-gray-200"; // Gray for other cases
     }
   };
-  const numberOfEnquiriesInMonth = [45, 67, 33, 70];
-  const dataArray = [
+  // const numberOfEnquiriesInMonth = [45, 67, 33, 70];
+  const enquiryTypeStyles: Record<
+    string,
     {
+      color: string;
+      bg_color: string;
+      text_color: string;
+      icon: React.ReactNode;
+    }
+  > = {
+    Feedback: {
       color: "#FA812F",
       bg_color: "bg-[#FA812F]",
       text_color: "text-[#FA812F]",
-      category: "Feedback",
-      numbers: 120,
-      icons: <IoChatbubbleEllipsesOutline />,
+      icon: <IoChatbubbleEllipsesOutline />,
     },
-    {
+    Sales: {
       color: "#6EC207",
       bg_color: "bg-[#6EC207]",
       text_color: "text-[#6EC207]",
-      category: "Sales",
-      numbers: 152,
-      icons: <IoHelpCircleOutline />,
+      icon: <IoHelpCircleOutline />,
     },
-    {
+    General: {
       color: "#60B5FF",
       bg_color: "bg-[#60B5FF]",
       text_color: "text-[#60B5FF]",
-      category: "Marketing",
-      numbers: 78,
-      icons: <IoInformationCircleOutline />,
+      icon: <IoInformationCircleOutline />,
     },
-    {
+    Support: {
       color: "#FFD63A",
       bg_color: "bg-[#FFD63A]",
       text_color: "text-[#FFD63A]",
-      category: "Support",
-      numbers: 85,
-      icons: <IoCartOutline />,
+      icon: <IoCartOutline />,
     },
-  ];
+  };
+
+  const handleEdit = async () => {
+    try {
+      const response = await updateEnquiry(enquiryId, selectedStatus);
+      setEditModel(false);
+      loadCustomer();
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong while updating.");
+    }
+  };
 
   async function deleteEnquiryData() {
     const res = await deleteEnquiry(enquiryId);
@@ -157,9 +184,53 @@ const ProductManagement = () => {
     setTotalPages(data.totalPages);
     // setIsLoading(false);
   }
+
+  async function getWeeklyDataInGraph() {
+    try {
+      const data = await fetchWeeklyEnquiryGraph();
+      setNumberOfEnquiriesInMonth(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function getEnquiryTypeAndCount() {
+    try {
+      const data = await fetchEnquiriesTypesWithCount();
+
+      const allCategories = ["General", "Sales", "Feedback", "Support"];
+
+      const mappedData: EnquiryCardData[] = allCategories.map((type) => {
+        const apiItem = data.find(
+          (item: EnquiryTypeResponse) => item.typeName === type
+        );
+
+        const style = enquiryTypeStyles[type] || {
+          color: "#CCCCCC",
+          bg_color: "bg-[#CCCCCC]",
+          text_color: "text-[#CCCCCC]",
+          icons: <IoInformationCircleOutline />,
+        };
+
+        return {
+          ...style,
+          category: type,
+          numbers: apiItem ? apiItem.count : 0,
+        };
+      });
+
+      setDataArray(mappedData);
+      return mappedData;
+    } catch (error) {
+      console.log("Error fetching enquiry types:", error);
+      return [];
+    }
+  }
+
   useEffect(() => {
     // setIsLoading(true);
-
+    getWeeklyDataInGraph();
+    getEnquiryTypeAndCount();
     loadCustomer();
   }, [sortBy, currentPage]);
   return (
@@ -193,6 +264,42 @@ const ProductManagement = () => {
         ) : (
           ""
         )}
+
+        {editModel && (
+          <div className="absolute flex items-center justify-center h-full w-full top-0 left-0 bg-[#00000080]">
+            <div className="h-[200px] min-w-[300px] w-[30%] bg-white rounded-lg shadow-lg p-[1rem] px-[2rem] text-gray-600 flex items-start justify-evenly flex-col">
+              <div className="w-full mb-4">
+                <label className="block mb-1 font-medium">Change Status</label>
+                <select
+                  value={selectedStatus}
+                  onChange={(e) => setSelectedStatus(e.target.value)}
+                  className="w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:border-blue-500"
+                >
+                  {enquiryStatuses.map((status) => (
+                    <option key={status} value={status}>
+                      {status}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="flex gap-2 w-full justify-end">
+                <button
+                  className="px-3 py-1 cursor-pointer border-2 border-gray-300 rounded-md"
+                  onClick={() => setEditModel(false)}
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleEdit} // Call API here
+                  className="px-3 py-1 border-2 cursor-pointer bg-green-500 border-green-500 text-white rounded-md"
+                >
+                  Update
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
         <Sidebar></Sidebar>
         <div className="flex-1  h-[100dvh]  text-gray-700 ">
           <div className="bg-white w-full h-[8%] px-[2rem] sm:px-[4rem] flex items-center text-[20px] font-bold justify-between">
@@ -231,7 +338,7 @@ const ProductManagement = () => {
                       <span
                         className={`h-[65px] w-[65px] ${item.bg_color} text-white flex items-center justify-center text-[30px] rounded-full`}
                       >
-                        {item.icons}
+                        {item.icon}
                       </span>
                     </span>
                     <span
@@ -277,12 +384,12 @@ const ProductManagement = () => {
                     onChange={(e) => setsortBy(e.target.value)}
                     className="bg-gray-100 outline-none py-1 px-2 w-[160px] border-2 border-gray-200 rounded-md  "
                   >
-                    <option value="None">None</option>
+                    <option value="none">All</option>
                     <option value="resolved">Resolved</option>
                     <option value="pending">Pending</option>
                   </select>
                 </span>
-                <span className="flex items-start flex-col outline-none">
+                {/* <span className="flex items-start flex-col outline-none">
                   Enquiry Type
                   <select
                     onChange={(e) => setEnquiryType(e.target.value)}
@@ -294,7 +401,7 @@ const ProductManagement = () => {
                     <option value="Feedback">Feedback</option>
                     <option value="Support">Support</option>
                   </select>
-                </span>
+                </span> */}
               </div>
               <div className=" h-fit w-full max-h-[60dvh] overflow-y-auto pt-[2rem]">
                 <ul className=" m-0 p-0 flex items-center  px-[1.5rem]">
@@ -336,7 +443,7 @@ const ProductManagement = () => {
                             className="text-[16px] text-blue-400"
                             title="edit"
                             onClick={() => {
-                              setShowModel(true);
+                              setEditModel(true);
                               setEnquiryId(item?._id);
                             }}
                           >
