@@ -1,7 +1,7 @@
 "use client";
 import dynamic from "next/dynamic";
 const Sidebar = dynamic(() => import("@/components/Sidebar"));
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 const Pagination = dynamic(() => import("@/components/Pagination"));
 import { FaRegTrashAlt } from "react-icons/fa";
 const DeleteModel = dynamic(() => import("@/components/DeleteModel"));
@@ -144,7 +144,7 @@ const ProductManagement = () => {
 
   const handleEdit = async () => {
     try {
-      const response = await updateEnquiry(enquiryId, selectedStatus);
+      await updateEnquiry(enquiryId, selectedStatus);
       setEditModel(false);
       loadCustomer();
     } catch (err) {
@@ -178,6 +178,7 @@ const ProductManagement = () => {
     }
   }
   async function loadCustomer() {
+    setEnquiryType("none");
     const data = await showEnquires(sortBy, enquiryType, currentPage);
     console.log(data.data, "customer data");
     setEnquiries(data.data);

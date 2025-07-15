@@ -204,8 +204,8 @@ export const updateEnquiry = async (enquiryId: string, status: string) => {
       { status }
     );
     return response.data;
-  } catch (error: any) {
-    return error.response ? error.response.data : { message: "Unknown error" };
+  } catch (error) {
+    throw error;
   }
 };
 
@@ -262,7 +262,7 @@ export const createProforma = async (data: InvoiceFormData) => {
     const res = await axiosInstance.post("/createPerforma", data);
     return res;
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 
@@ -275,7 +275,7 @@ export const getProforma = async (pageNo: number) => {
     });
     return res.data;
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 
@@ -284,7 +284,7 @@ export const deleteProforma = async (id: string) => {
     const res = await axiosInstance.delete(`/deletePerforma/${id}`);
     return res;
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 
@@ -305,8 +305,7 @@ export const fetchEnquiriesTypesWithCount = async () => {
     const response = await axiosInstance.get("/enquiry/enquiriesTypes");
     console.log(response.data.data, "dddd");
     return response.data.data; // { success, totalCount, data }
-  } catch (error: any) {
-    console.error("Failed to fetch enquiry types:", error);
+  } catch (error) {
     throw error;
   }
 };
