@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { MdOpenInBrowser } from "react-icons/md";
 import { FaImage } from "react-icons/fa";
 import { IoMdTrash } from "react-icons/io";
-import { MdDelete } from "react-icons/md";
 import {
   addProduct,
   addProductImages,
@@ -19,6 +18,7 @@ import {
   getCategory,
   getSubCategory,
 } from "@/app/api/Product";
+import SubCategoryDropdown from "./DropDown";
 interface productProps {
   handleCloseModel: () => void;
 }
@@ -97,22 +97,34 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
       [name]: value,
     }));
   };
-  const handleSubmitNewCat = () => {
-    console.log(newCatObj, "hellog");
-    if (newCatObj.category) {
-      createCategory(newCatObj.category);
-    } else if (newCatObj.subcategory) {
-      createSubCategory(newCatObj.subcategory);
-    } else {
-      toast.error(`Please enter a valid ${addNewCats} name`);
-    }
+  // const handleSubmitNewCat = () => {
+  //   console.log(newCatObj, "hellog");
+  //   if (newCatObj.category) {
+  //     createCategory(newCatObj.category);
+  //   } else if (newCatObj.subcategory) {
+  //     createSubCategory(newCatObj.subcategory);
+  //   } else {
+  //     toast.error(`Please enter a valid ${addNewCats} name`);
+  //   }
 
-    setNewCatObj({
-      category: "",
-      subcategory: "",
-    });
-    setAddModelOpen(false);
-  };
+  //   setNewCatObj({
+  //     category: "",
+  //     subcategory: "",
+  //   });
+  //   setAddModelOpen(false);
+  // };
+
+  const handleSubmitNewCat = () => {
+  if (newCatObj.category) {
+    createCategory(newCatObj.category); 
+  } else if (newCatObj.subcategory) {
+    createSubCategory(newCatObj.subcategory); 
+  } else {
+    toast.error(`Please enter a valid ${addNewCats} name`);
+  }
+  setNewCatObj({ category: "", subcategory: "" });
+  setAddModelOpen(false);
+};
 
   const handleChangeProductSpec = (e: any) => {
     const { name, value, checked, type } = e.target;
@@ -288,7 +300,7 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
     <div className="min-h-screen flex items-center z-90 fixed top-0 left-0 w-full h-screen  justify-end bg-black/50">
       <div className="bg-white h-[100%] relative  py-4 rounded-lg shadow-2xl min-w-[320px] w-[45%] ">
         {addModelOpen ? (
-          <div className="absolute h-full w-full bg-black/10 flex items-center justify-center top-0 left-0">
+          <div className="absolute z-50 h-full w-full bg-black/10 flex items-center justify-center top-0 left-0">
             <div className="h-fit rounded-lg w-[400px] bg-white shadow-lg shadow-gray-400 p-3">
               <div className="text-xl font-bold text-blue-400 w-full text-center">
                 Add New {addNewCats}
@@ -641,112 +653,43 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
               />
             </div>
 
-            <div className="w-full flex items-center gap-3">
+            <div className="w-full flex  gap-3">
               {/* Category */}
 
               <div className="w-full">
                 <label className="flex justify-between items-center text-gray-600 font-medium">
                   Category
-                  {/* <span className="bg-blue-400 h-5 w-5 text-white rounded-sm flex items-center justify-center">
-                  + 
-                  </span> */}
+            
                 </label>
-                <select
-                  name="category"
-                  value={formData.category}
-                  onChange={handleChange}
-                  required
-                  className="w-full p-2 border rounded-lg border-gray-400  focus:outline-none focus:ring-2 focus:ring-blue-400"
-                >
-                  <option value="">Category</option>
-                  <option className="bg-blue-400 text-white" value="addMore">
-                    + Add More
-                  </option>
-                  {categories?.map((category) => (
-                    <option
-                      className="hover:bg-blue-400"
-                      key={category?._id}
-                      value={category?.name}
-                    >
-                      {category?.name}
-                    </option>
-                  ))}
-                </select>
-                <div className="mt-4 ">
-                  <h4 className="text-gray-600 font-medium mb-2">
-                    Manage Categories
-                  </h4>
-                  <div className="border rounded-lg divide-y h-20 overflow-scroll">
-                    {categories.map((category) => (
-                      <div
-                        key={category?._id}
-                        className="flex justify-between items-center px-3 py-2 hover:bg-gray-50"
-                      >
-                        {/* Category Name */}
-                        <span className="break-words">{category?.name}</span>
-
-                        {/* Delete Button */}
-                        <button
-                          onClick={() => deleteCat(category?._id)}
-                          className="text-red-500 hover:text-red-700"
-                          title={`Delete ${category?.name}`}
-                        >
-                          <MdDelete className="w-5 h-5" />
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
+                <SubCategoryDropdown
+                  subCategoriesProp={categories}
+                  onDelete={deleteCat}
+                  onAddMore={() => {
+                    setAddModelOpen(true);
+                    setAddNewCats("category"); 
+                  }}
+                  title="category"
+                />
+             </div>
 
               {/* subcategories */}
               <div className="w-full">
                 <label className=" justify-between items-center text-gray-600 flex font-medium">
                   Sub-Category
-                  {/* <span className="bg-blue-400 h-5 w-5 text-white rounded-sm flex items-center justify-center">
-                  + 
-                  </span> */}
+                 
                 </label>
-                <select
-                  name="subcategory"
-                  value={formData.subcategory}
-                  onChange={handleChange}
-                  required
-                  className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                >
-                  <option value="">Sub-Category</option>
-                  <option className="bg-blue-400 text-white" value="addMore">
-                    + Add More
-                  </option>
-                  {subCategories?.map((category) => (
-                    <option key={category?._id} value={category?.name}>
-                      {category?.name}
-                    </option>
-                  ))}
-                </select>
-                <div className="mt-4">
-                  <h4 className="text-gray-600 font-medium mb-2">
-                    Manage Subcategories
-                  </h4>
-                  <div className="border rounded-lg divide-y h-20 overflow-scroll">
-                    {subCategories.map((sub) => (
-                      <div
-                        key={sub?._id}
-                        className="flex justify-between items-center px-3 py-2 hover:bg-gray-50"
-                      >
-                        <span className="break-words">{sub?.name}</span>
-                        <button
-                          onClick={() => deleteSubCat(sub?._id)}
-                          className="text-red-500 hover:text-red-700"
-                          title={`Delete ${sub?.name}`}
-                        >
-                          <MdDelete className="w-5 h-5" />
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                <SubCategoryDropdown
+                  subCategoriesProp={subCategories}
+                  onDelete={deleteSubCat}
+                  onAddMore={() => {
+                    setAddModelOpen(true); 
+                    setAddNewCats("subcategory"); 
+                  }}
+                  title="subcategory"
+                />
+               
               </div>
+
               {/* Material */}
               <div className="w-full">
                 <label className="block text-gray-600 font-medium ">
@@ -757,7 +700,7 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
                   value={formData.material}
                   onChange={handleChange}
                   required
-                  className="w-full p-2 border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  className="w-full p-[10px] border rounded-lg border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
                 >
                   {materials.map((material) => (
                     <option key={material} value={material}>
@@ -765,9 +708,6 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
                     </option>
                   ))}
                 </select>
-                <div className="mt-4">
-                  <div className="h-20 mb-8"></div>
-                </div>
               </div>
             </div>
 
