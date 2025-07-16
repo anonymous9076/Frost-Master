@@ -18,6 +18,8 @@ import {
 import { dateFormate } from "@/app/utlis/dateFormate/dateFormating";
 import useDebouncing from "@/app/hooks/useDebouncing";
 import dynamic from "next/dynamic";
+import { getcategories } from "@/app/utlis/getCategoryData";
+import { catNSubCatResponse } from "@/components/AddProductForm";
 interface productsData {
   _id: string;
   productTitle: string;
@@ -37,6 +39,9 @@ const ProductManagement = () => {
   const [productCategory, setProductCategory] = useState("none");
   const [products, setProducts] = useState([]);
   const debouncedData: string | number = useDebouncing(searchProduct, 800);
+  const [productsCategory, setProductsCategory] = useState<catNSubCatResponse>(
+    []
+  );
   // const products = [
   //   {
   //     name: "Wireless Headphones 5G.hz",
@@ -61,15 +66,15 @@ const ProductManagement = () => {
   //   },
   // ];
 
-  const productsCategory = [
-    "Cookware",
-    "Bakeware",
-    "Cutlery",
-    "Storage",
-    "Kitchen Appliances",
-    "Tableware",
-    "Others",
-  ];
+  // const productsCategory = [
+  //   "Cookware",
+  //   "Bakeware",
+  //   "Cutlery",
+  //   "Storage",
+  //   "Kitchen Appliances",
+  //   "Tableware",
+  //   "Others",
+  // ];
 
   const handleCloseModel = () => {
     setShowModel(false);
@@ -96,6 +101,8 @@ const ProductManagement = () => {
     handleCloseModel();
   }
   async function loadProducts() {
+    const catData = await getcategories();
+    setProductsCategory(catData);
     const data = await showProducts(
       debouncedData as string,
       productCategory,
@@ -172,88 +179,87 @@ const ProductManagement = () => {
               + New Product
             </span>
           </div>
-        <div className=" max-w-[90dvw] mx-auto h-full overflow-x-auto overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+          <div className=" max-w-[90dvw] mx-auto h-full overflow-x-auto overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+            <div className="px-[2rem] sm:px-[4rem] w-full bg-gray-100 min-w-[900px] overflow-x-auto  h-[92%] py-[2rem] text-[14px] ">
+              <div className="bg-white h-[5rem] w-full rounded-lg px-[1.5rem] flex items-center gap-3">
+                <span className="w-full flex  items-start flex-col ">
+                  Search
+                  <input
+                    type="search"
+                    value={searchProduct}
+                    onChange={(e) => setSearchProduct(e.target.value)}
+                    placeholder="Search by Product Name"
+                    className="bg-gray-100 py-1 px-2 w-full border-2 border-gray-200 rounded-md  "
+                  ></input>
+                </span>
+                <span className="flex items-start flex-col ">
+                  Category
+                  <select
+                    onChange={(e) => setProductCategory(e.target.value)}
+                    className="bg-gray-100 py-1 px-2 w-[160px] border-2 border-gray-200 rounded-md  "
+                  >
+                    <option value="none">None</option>
+                    {productsCategory?.map((item, index) => (
+                      <option key={index} value={item?.name}>
+                        {item?.name}
+                      </option>
+                    ))}
+                  </select>
+                </span>
+              </div>
+              <div className=" h-fit max-h-[60dvh] overflow-y-auto  w-full  pt-[2rem]">
+                <ul className=" m-0 p-0 flex items-center  px-[1.5rem]">
+                  <li className="w-[35%]">Product Name</li>
+                  <li className="w-[25%]">Category</li>
+                  <li className="w-[16%]">Price</li>
+                  <li className="w-[18%]">Date</li>
+                  <li className="w-[11%]">Actions</li>
+                </ul>
 
-          <div className="px-[2rem] sm:px-[4rem] w-full bg-gray-100 min-w-[900px] overflow-x-auto  h-[92%] py-[2rem] text-[14px] ">
-            <div className="bg-white h-[5rem] w-full rounded-lg px-[1.5rem] flex items-center gap-3">
-              <span className="w-full flex  items-start flex-col ">
-                Search
-                <input
-                  type="search"
-                  value={searchProduct}
-                  onChange={(e) => setSearchProduct(e.target.value)}
-                  placeholder="Search by Product Name"
-                  className="bg-gray-100 py-1 px-2 w-full border-2 border-gray-200 rounded-md  "
-                ></input>
-              </span>
-              <span className="flex items-start flex-col ">
-                Category
-                <select
-                  onChange={(e) => setProductCategory(e.target.value)}
-                  className="bg-gray-100 py-1 px-2 w-[160px] border-2 border-gray-200 rounded-md  "
-                >
-                  <option value="none">None</option>
-                  {productsCategory?.map((item, index) => (
-                    <option key={index} value={item}>
-                      {item}
-                    </option>
-                  ))}
-                </select>
-              </span>
-            </div>
-            <div className=" h-fit max-h-[60dvh] overflow-y-auto  w-full  pt-[2rem]">
-              <ul className=" m-0 p-0 flex items-center  px-[1.5rem]">
-                <li className="w-[35%]">Product Name</li>
-                <li className="w-[25%]">Category</li>
-                <li className="w-[16%]">Price</li>
-                <li className="w-[18%]">Date</li>
-                <li className="w-[11%]">Actions</li>
-              </ul>
+                {products
+                  ? products.map((item: productsData, index: number) => (
+                      <ul
+                        className=" my-1 p-0 flex items-center py-3 px-[1.5rem] bg-white rounded-sm shadow-sm  "
+                        key={index}
+                      >
+                        <li className="w-[35%]  whitespace-nowrap overflow-ellipsis">
+                          {item?.productTitle}
+                        </li>
+                        <li className="w-[25%] whitespace-nowrap overflow-hidden">
+                          {item?.category}
+                        </li>
+                        <li className="w-[16%] flex h-full gap-1 items-center">
+                          {item?.price}
+                        </li>
 
-              {products
-                ? products.map((item: productsData, index: number) => (
-                    <ul
-                      className=" my-1 p-0 flex items-center py-3 px-[1.5rem] bg-white rounded-sm shadow-sm  "
-                      key={index}
-                    >
-                      <li className="w-[35%]  whitespace-nowrap overflow-ellipsis">
-                        {item?.productTitle}
-                      </li>
-                      <li className="w-[25%] whitespace-nowrap overflow-hidden">
-                        {item?.category}
-                      </li>
-                      <li className="w-[16%] flex h-full gap-1 items-center">
-                        {item?.price}
-                      </li>
-
-                      <li className="w-[18%]">{dateFormate(item.date)}</li>
-                      <li className="w-[11%] flex items-center gap-3">
-                        {/* <span className="text-[18px] text-blue-400" title="view"><LuEye></LuEye></span> */}
-                        <span
-                          className="text-[16px] text-blue-400"
-                          title="edit"
-                          onClick={() => {
-                            setShowModel2(true);
-                            setProductId(item?._id);
-                          }}
-                        >
-                          <FiEdit></FiEdit>
-                        </span>
-                        <span
-                          className="text-[16px] text-red-400"
-                          title="Delete"
-                          onClick={() => {
-                            setShowModel(true);
-                            setProductId(item?._id);
-                          }}
-                        >
-                          <FaRegTrashAlt></FaRegTrashAlt>
-                        </span>
-                      </li>
-                    </ul>
-                  ))
-                : ""}
-            </div>
+                        <li className="w-[18%]">{dateFormate(item.date)}</li>
+                        <li className="w-[11%] flex items-center gap-3">
+                          {/* <span className="text-[18px] text-blue-400" title="view"><LuEye></LuEye></span> */}
+                          <span
+                            className="text-[16px] text-blue-400 cursor-pointer"
+                            title="edit"
+                            onClick={() => {
+                              setShowModel2(true);
+                              setProductId(item?._id);
+                            }}
+                          >
+                            <FiEdit></FiEdit>
+                          </span>
+                          <span
+                            className="text-[16px] text-red-400 cursor-pointer"
+                            title="Delete"
+                            onClick={() => {
+                              setShowModel(true);
+                              setProductId(item?._id);
+                            }}
+                          >
+                            <FaRegTrashAlt></FaRegTrashAlt>
+                          </span>
+                        </li>
+                      </ul>
+                    ))
+                  : ""}
+              </div>
               <div className="  flex items-center justify-between  w-full">
                 <Pagination
                   totalPages={totalPages}
@@ -262,7 +268,7 @@ const ProductManagement = () => {
                   user="admin"
                 ></Pagination>
               </div>
-          </div>
+            </div>
           </div>
         </div>
       </div>

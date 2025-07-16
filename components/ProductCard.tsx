@@ -9,6 +9,7 @@ import UserAuthContext from "@/app/context/userAuthContext";
 import { useCartStore } from "@/app/stores/CartStore";
 import { useRouter } from "next/navigation";
 import { IoIosStar, IoIosStarHalf } from "react-icons/io";
+import { PiCurrencyInrDuotone } from "react-icons/pi";
 
 interface productprops {
   title: string;
@@ -117,13 +118,22 @@ const ProductCard = ({
       </span>
       <div className=" h-[40%] py-4 flex flex-col  justify-evenly  ">
         <div>
-          <h5
-            className="text-lg tracking-tight whitespace-nowrap w-full overflow-clip "
-            title={formattedTitle}
-          >
-            {/* {formattedTitle} */}
-            {title}
-          </h5>
+          <div className="flex flex-col gap-1 w-full">
+            {/* Title */}
+            <h5
+              className="text-lg font-semibold text-gray-800 tracking-tight truncate"
+              title={formattedTitle}
+            >
+              {title}
+            </h5>
+
+            {/* Price with Icon */}
+            <div className="flex items-center gap-1">
+              <PiCurrencyInrDuotone className="text-green-500 text-xl" />
+              <h5 className="text-lg font-medium text-gray-700">{price}</h5>
+            </div>
+          </div>
+
           <span className="text-sm text-gray-600 flex justify-between py-1 ">
             <p className="text-[16px] flex gap-2 text-gray-500 items-center">
               {[...Array(Math.floor(rating))].map((_, index) => (
@@ -154,19 +164,19 @@ const ProductCard = ({
                   {" "}
                   <IoIosStarHalf></IoIosStarHalf>
                 </span>
-              ) : 
-                !rating?
+              ) : !rating ? (
                 Array.from({ length: 5 }).map((_, i) => (
                   <span key={i} className="text-gray-200">
                     <IoIosStar />
                   </span>
                 ))
-                : Array.from({ length: Math.floor(5-rating) }).map((_, i) => (
+              ) : (
+                Array.from({ length: Math.floor(5 - rating) }).map((_, i) => (
                   <span key={i} className="text-gray-200">
                     <IoIosStar />
                   </span>
                 ))
-              }
+              )}
             </p>
             ({totalReview} reviews)
           </span>

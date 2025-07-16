@@ -16,7 +16,6 @@ interface UserAuthContextProviderProps {
   children: ReactNode;
 }
 
-
 const UserAuthContextProvider: React.FC<UserAuthContextProviderProps> = ({
   children,
 }) => {
@@ -54,6 +53,8 @@ const UserAuthContextProvider: React.FC<UserAuthContextProviderProps> = ({
     await axiosInstance.post("/auth/logout");
     setUser(null);
     setUserRole(null);
+    setIsAuthenticated(false);
+    window.location.href = "/signin";
   }
 
   useEffect(() => {
