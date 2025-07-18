@@ -1,6 +1,5 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
-import { FaKitchenSet } from "react-icons/fa6";
 import { BsCart3 } from "react-icons/bs";
 import { GoPerson } from "react-icons/go";
 import Link from "next/link";
@@ -45,20 +44,20 @@ const Navbar = ({ active }: navprops) => {
     }
   }
   const navLinks = [
-    {
-      label: "Home",
-      link: "/customer/home",
-      list: [
-        "Explore Our Kitchen Solutions",
-        "Our Customer Service",
-        "Connecting Cities",
-        "Experiences Shared by Our Clients",
-        "Trusted by thousands Businesses",
-        "What Makes us prominent players",
-        "Why Frost Master ?",
-      ],
-      img: "Images/PremiumKitchenEquipments/img4.jpg",
-    },
+    // {
+    //   label: "Home",
+    //   link: "/customer/home",
+    //   list: [
+    //     "Explore Our Kitchen Solutions",
+    //     "Our Customer Service",
+    //     "Connecting Cities",
+    //     "Experiences Shared by Our Clients",
+    //     "Trusted by thousands Businesses",
+    //     "What Makes us prominent players",
+    //     "Why Frost Master ?",
+    //   ],
+    //   img: "Images/PremiumKitchenEquipments/img4.jpg",
+    // },
     {
       label: "About Us",
       link: "/customer/about",
@@ -160,13 +159,19 @@ const Navbar = ({ active }: navprops) => {
   return (
     <>
       <div
-        className={`h-[10dvh] max-h-[90px] w-[full]   sticky z-90 top-0 left-0  bg-[#235753] text-white flex items-center justify-between px-[5%]  `}
+        className={`h-[10dvh] max-h-[90px] w-[full]   sticky z-90 top-0 left-0  bg-[#235753] text-white flex items-center justify-between px-[2%]  `}
       >
         {/* <NavDrop></NavDrop> */}
-        <Link href="/customer/home">
-          <span className="text-[30px]">
-            <FaKitchenSet></FaKitchenSet>
-          </span>
+        <Link href="/customer/home" className="h-full min-w-[160px] border-none outline-none p-4">
+          <div className="w-full h-full  ">
+            <Image
+            src='/LOGO.png'
+            alt=""
+            height={400}
+            width={400}
+            className="h-full w-full"
+            ></Image>
+          </div>
         </Link>
         <div className=" text-white lg:flex h-full items-start    text-[18px] hidden ">
           {navLinks.map((item, index) => (
@@ -174,7 +179,7 @@ const Navbar = ({ active }: navprops) => {
               onMouseEnter={() => handleOpenModel(item)}
               onMouseLeave={handleCloseModel}
               key={index}
-              className=" flex items-center  px-[16px] h-full"
+              className=" flex items-center  px-3 h-full"
             >
               <Link
                 href={item.link}

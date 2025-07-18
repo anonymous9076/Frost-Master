@@ -89,7 +89,7 @@ const NavDrop = ({ title, list, active,link, handleCloseModel, image }: NavProp)
               >
               <li
               onClick={()=>handleClick(item)}
-              className="px-4 py-1 rounded-md cursor-pointer hover:bg-gray-100 flex justify-between"
+              className={`px-4 py-1 rounded-md cursor-pointer hover:bg-gray-100 flex justify-between ${i===0?'bg-gray-100':''}`}
               >
                 {item}
               </li>
@@ -97,7 +97,7 @@ const NavDrop = ({ title, list, active,link, handleCloseModel, image }: NavProp)
               :<li
               key={i}
               onClick={()=>handleClick(item)}
-              className="px-4 py-1 rounded-md cursor-pointer hover:bg-gray-100 flex justify-between"
+              className={`px-4 py-1 rounded-md cursor-pointer hover:bg-gray-100 flex justify-between ${i===0?'bg-gray-100':''}`}
               >
                 {item}
               </li>
