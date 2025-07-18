@@ -123,17 +123,19 @@ const Navbar = ({ active }: navprops) => {
   ];
   const [profile, setProfile] = useState<boolean>(false);
   const [menu, setMenu] = useState<boolean>(false);
-  const { isAuthenticated, user } = useContext(UserAuthContext)!;
+  const { isAuthenticated, user, setUser } = useContext(UserAuthContext)!;
   const cartData = useCartStore((state) => state.cartData);
   const [totalQuantity, setTotalQuantity] = useState(
     cartData.reduce((total, item) => total + item.quantity, 0)
   );
+
   // console.log(user, cartData, "user details");
   async function handleLogout() {
     try {
       const res = await logout();
       localStorage.clear();
       console.log(res);
+      setUser(null);
       toast.success("logout successfully");
     } catch (error) {
       console.log(error);
@@ -156,55 +158,70 @@ const Navbar = ({ active }: navprops) => {
       cartData.reduce((total, item) => total + item.quantity, 0)
     );
   }, [cartData]);
+
   return (
     <>
       <div
         className={`h-[10dvh] max-h-[90px] w-[full]   sticky z-90 top-0 left-0  bg-[#235753] text-white flex items-center justify-between px-[2%]  `}
       >
         {/* <NavDrop></NavDrop> */}
-        <Link href="/customer/home" className="h-full min-w-[160px] border-none outline-none p-4">
+        <Link
+          href="/customer/home"
+          className="h-full min-w-[160px] border-none outline-none p-4"
+        >
           <div className="w-full h-full  ">
             <Image
-            src='/LOGO.png'
-            alt=""
-            height={400}
-            width={400}
-            className="h-full w-full"
+              src="/LOGO.png"
+              alt=""
+              height={400}
+              width={400}
+              className="h-full w-full"
             ></Image>
           </div>
         </Link>
         <div className=" text-white lg:flex h-full items-start    text-[18px] hidden ">
-          {navLinks.map((item, index) => (
-            <div
-              onMouseEnter={() => handleOpenModel(item)}
-              onMouseLeave={handleCloseModel}
-              key={index}
-              className=" flex items-center  px-3 h-full"
-            >
-              <Link
-                href={item.link}
-                className={`transform hover:scale-110 transition  whitespace-nowrap duration-200 ${
-                  active === item.link ? "active" : ""
-                }`}
+          {navLinks.map((item, index) => {
+            if (
+              item.label === "My Orders" &&
+              !(user?.roleType === "customer" && isAuthenticated)
+            ) {
+              return null; // Skip rendering "My Orders" if conditions not met
+            }
+
+            return (
+              <div
+                onMouseEnter={() => handleOpenModel(item)}
+                onMouseLeave={handleCloseModel}
+                key={index}
+                className=" flex items-center  px-[16px] h-full"
               >
-                {item.label}
-              </Link>
-              {/* <NavDrop
+                <Link
+                  href={item.link}
+                  className={`transform hover:scale-110 transition  whitespace-nowrap duration-200 ${
+                    active === item.link ? "active" : ""
+                  }`}
+                >
+                  {item.label}
+                </Link>
+                {/* <NavDrop
                 title={hoveredNavField?.label}
                 list={hoveredNavField?.list}
                 active={activeNavDrop}
               ></NavDrop> */}
-              <NavDrop
-                title={item.label}
-                list={item.list}
-                link={item.link}
-                image={item.img}
-                active={activeNavDrop && hoveredNavField?.label === item.label}
-                handleCloseModel={handleCloseModel}
-              />
-              {/* put the navdrip out  */}
-            </div>
-          ))}
+                <NavDrop
+                  title={item.label}
+                  list={item.list}
+                  link={item.link}
+                  image={item.img}
+                  active={
+                    activeNavDrop && hoveredNavField?.label === item.label
+                  }
+                  handleCloseModel={handleCloseModel}
+                />
+                {/* put the navdrip out  */}
+              </div>
+            );
+          })}
         </div>
         <div className="flex items-center text-white gap-3 text-[20px]">
           <span
@@ -292,23 +309,33 @@ const Navbar = ({ active }: navprops) => {
           </Link>
         </div>
         {menu ? (
-          <div className=" h-[90dvh] fixed flex flex-col z-1 top-[10dvh] right-0 bg-[#235753] text-white w-[300px]">
-            <ul className=" w-full  flex-1 space-y-3 py-[2rem] ">
-              {navLinks.map((item, index) => (
-                <li
-                  key={index}
-                  className="py-2 hover:bg-white text-[18px] hover:text-[#235753] text-center"
-                >
-                  <Link
-                    href={item.link}
-                    className={`transform hover:scale-110 transition duration-200 ${
-                      active === item.link ? "active " : ""
-                    }`}
+          <div className="h-[90dvh] fixed flex flex-col z-1 top-[10dvh] right-0 bg-[#235753] text-white w-[300px]">
+            <ul className="w-full flex-1 space-y-3 py-[2rem]">
+              {navLinks.map((item, index) => {
+                // Check if item.label === 'My Orders'
+                if (
+                  item.label === "My Orders" &&
+                  !(user?.roleType === "customer" && isAuthenticated)
+                ) {
+                  return null; // Skip rendering "My Orders" if conditions not met
+                }
+
+                return (
+                  <li
+                    key={index}
+                    className="py-2 hover:bg-white text-[18px] hover:text-[#235753] text-center"
                   >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+                    <Link
+                      href={item.link}
+                      className={`transform hover:scale-110 transition duration-200 ${
+                        active === item.link ? "active" : ""
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
             <p className="w-full text-white text-center py-5 border-t border-white text-[22px]">
               The Frost Pvt Ltd.
