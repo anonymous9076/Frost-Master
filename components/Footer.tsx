@@ -19,8 +19,7 @@ const Footer = () => {
           <h1 className="py-2 border-b-3 border-white text-[30px]">Details</h1>
           <ul className="flex flex-col py-[1rem]">
             <li className="py-2">
-              Plot no B-307/a Kh no 16/5 Ground floor Block-b Rajeev nagar
-              Begampur New delhi 110086
+              PLOT NO B-307/A KH NO 16/5 GROUND FLOOR BLOCK-B RAJEEV NAGAR NEW DELHI 110086
             </li>
             <li className="flex items-center gap-4 mt-[2rem]">
               <span className="text-[30px]">

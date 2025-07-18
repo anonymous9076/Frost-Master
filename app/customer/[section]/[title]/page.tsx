@@ -91,13 +91,16 @@ export default function CommonDetailPage({
             <div className="h-[70dvh] p-5 rounded-lg overflow-hidden w-full max-h-[350px] md:max-h-fit mx-auto">
               <Image
                 className="h-full w-full"
-                src={specificData?.image||''}
+                // src={specificData?.image||''}
+                src={
+                  `${process.env.NEXT_PUBLIC_CDNURL}${specificData?.image}` ||
+                  ""
+                }
                 alt="no image found"
                 height={400}
                 width={400}
               />
             </div>
-
             {Array.isArray(specificData?.description) &&
               specificData.description.map(
                 (description: string, index: number) => (
@@ -127,11 +130,15 @@ export default function CommonDetailPage({
                   <div className="w-[270px] hover:shadow-lg bg-white border border-gray-200 rounded-lg shadow-sm">
                     <div className="h-[200px] w-full p-3 object-center rounded-t-lg overflow-hidden">
                       <Image
-                        className="rounded-t-lg w-full object-center h-full"
-                        src={item.image}
+                        className="h-full w-full"
+                        // src={specificData?.image||''}
+                        src={
+                          `${process.env.NEXT_PUBLIC_CDNURL}${item?.image}` ||
+                          ""
+                        }
+                        alt="no image found"
                         height={400}
                         width={400}
-                        alt="thumbnail"
                       />
                     </div>
                     <div className="px-5">
