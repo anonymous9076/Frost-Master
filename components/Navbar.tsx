@@ -143,13 +143,11 @@ const Navbar = ({ active }: navprops) => {
     }
   }
   const handleCloseModel = () => {
-    console.log("close");
     setActiveNavDrop(false);
   };
   const handleOpenModel = (item: navfields) => {
     setHoveredNavField(item);
     setActiveNavDrop(true);
-    console.log("open");
   };
 
   useEffect(() => {

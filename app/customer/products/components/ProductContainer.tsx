@@ -1,10 +1,12 @@
+'use client'
 import dynamic from "next/dynamic";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoSearch } from "react-icons/io5";
 const ProductCard = dynamic(() => import("../../../../components/ProductCard"));
 const Pagination = dynamic(() => import("@/components/Pagination"));
 import { FaFilter } from "react-icons/fa";
 import EnquiryModel from "../components/EnquiryModel";
+import Loader from "@/components/Loader";
 
 interface ProductsProps {
   searchProduct: string;
@@ -29,6 +31,7 @@ interface ProductTypes {
   category: string;
 }
 const ProductContainer = (props: ProductsProps) => {
+  const [showLoader, setShowLoader] = useState(true);
   const {
     searchProduct,
     setSearchProduct,
@@ -43,72 +46,6 @@ const ProductContainer = (props: ProductsProps) => {
     id: "",
     active: false,
   });
-  // const products = [
-  //   {
-  //     title: "Large Mixing Bowl",
-  //     image: "/Images/bak1.jpg",
-  //     category: "Mixing",
-  //     in_stock: true,
-  //     review: 4.5,
-  //   },
-  //   {
-  //     title: "Wooden Rolling Pin",
-  //     image: "/Images/bak2.jpg",
-  //     category: "Baking",
-  //     in_stock: false,
-  //     review: 4.7,
-  //   },
-  //   {
-  //     title: "Heavy-Duty Whisk",
-  //     image: "/Images/bak3.jpg",
-  //     category: "Whisking",
-  //     in_stock: true,
-  //     review: 4.3,
-  //   },
-  //   {
-  //     title: "Metal Spatula",
-  //     image: "/Images/bak4.jpg",
-  //     category: "Flipping",
-  //     in_stock: true,
-  //     review: 4.6,
-  //   },
-  //   {
-  //     title: "Large Strainer",
-  //     image: "/Images/bak5.png",
-  //     category: "Straining",
-  //     in_stock: false,
-  //     review: 4.4,
-  //   },
-  //   {
-  //     title: "Big Soup Ladle",
-  //     image: "/Images/bak6.jpg",
-  //     category: "Serving",
-  //     in_stock: true,
-  //     review: 4.8,
-  //   },
-  //   // {
-  //   //   title: "Oversized Cutting Board",
-  //   //   image: "/Images/bak7.png",
-  //   //   category: "Cutting",
-  //   //   in_stock: false,
-  //   //   review: 4.2,
-  //   // },
-  //   // {
-  //   //   title: "Large Chef’s Knife",
-  //   //   image: "/Images/bak8.jpg",
-  //   //   category: "Chopping",
-  //   //   in_stock: true,
-  //   //   review: 4.9,
-  //   // },
-  //   // {
-  //   //   title: "Big Pasta Strainer",
-  //   //   image: "/Images/bak9.jpg",
-  //   //   category: "Draining",
-  //   //   in_stock: false,
-  //   //   review: 4.5,
-  //   // },
-  // ];
-
   function handleOnChange(pageNo: number) {
     if (pageNo >= 1 && pageNo <= totalPages) {
       setCurrentPage(pageNo);
@@ -122,6 +59,14 @@ const ProductContainer = (props: ProductsProps) => {
       active: active,
     }));
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShowLoader(false);
+    }, 3000); 
+
+    
+  }, [productsData]);
 
   return (
     <div className="h-fit w-full  px-[5%]">
@@ -150,7 +95,7 @@ const ProductContainer = (props: ProductsProps) => {
         </span>
       </span>
 
-      {totalPages>0 ? (
+      {totalPages > 0 && !showLoader ? (
         <>
           <div className="grid w-full  lg:grid-cols-3 md:grid-cols-2 grid-cols-1 h-full  py-[1rem] gap-5">
             {productsData?.map((product: ProductTypes, index: number) => (
@@ -176,6 +121,10 @@ const ProductContainer = (props: ProductsProps) => {
             user="customer"
           ></Pagination>
         </>
+      ) : showLoader ? (
+        <div className=" py-4 w-full justify-center flex items-center">
+          <Loader />
+        </div>
       ) : (
         <div className="py-4 text-center text-xl">No Data Found</div>
       )}

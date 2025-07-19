@@ -13,7 +13,7 @@ interface Titles {
 interface Props {
   subCategoriesProp: Titles[];
   title: string;
-  onDelete: (id: string) => void;
+  onRequestDelete: (id: string) => void;
   onAddMore: () => void;
 }
 
@@ -21,13 +21,13 @@ export default function SubCategoryDropdown({
   subCategoriesProp,
   title,
   onAddMore,
-  onDelete,
+  onRequestDelete,
 }: Props) {
   const [selected, setSelected] = useState<Titles | null>(null);
 
   const handleDelete = (id: string) => {
-    onDelete(id);
-  };
+  onRequestDelete(id); 
+};
 
   return (
     <div className="w-full max-w-md ">
@@ -37,7 +37,7 @@ export default function SubCategoryDropdown({
             {selected?.name || `Select ${title}`}
           </Listbox.Button>
 
-          <Listbox.Options className="absolute w-full mt-1 max-h-60 overflow-auto bg-white border border-gray-300 rounded-lg shadow-md z-50">
+          <Listbox.Options className="absolute w-full mt-1 max-h-60 overflow-auto bg-white border border-gray-300 rounded-lg shadow-md z-40">
             {subCategoriesProp.map((category) => (
               <Listbox.Option
                 key={category._id}

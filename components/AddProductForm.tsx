@@ -19,6 +19,7 @@ import {
   getSubCategory,
 } from "@/app/api/Product";
 import SubCategoryDropdown from "./DropDown";
+import DeleteModel from "./DeleteModel";
 interface productProps {
   handleCloseModel: () => void;
 }
@@ -65,6 +66,9 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
   const [addedProductId, setAddedProductId] = useState<string>("");
   const [categories, setCategories] = useState<catNSubCatResponse>([]);
   const [subCategories, setSubCategories] = useState<catNSubCatResponse>([]);
+  const [showModel, setShowModel] = useState<boolean>(false);
+  const [showModel2, setShowModel2] = useState<boolean>(false);
+  const [deleteId, setDeleteId] = useState<string | null>(null);
 
   const materials = [
     "Stainless Steel",
@@ -115,16 +119,16 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
   // };
 
   const handleSubmitNewCat = () => {
-  if (newCatObj.category) {
-    createCategory(newCatObj.category); 
-  } else if (newCatObj.subcategory) {
-    createSubCategory(newCatObj.subcategory); 
-  } else {
-    toast.error(`Please enter a valid ${addNewCats} name`);
-  }
-  setNewCatObj({ category: "", subcategory: "" });
-  setAddModelOpen(false);
-};
+    if (newCatObj.category) {
+      createCategory(newCatObj.category);
+    } else if (newCatObj.subcategory) {
+      createSubCategory(newCatObj.subcategory);
+    } else {
+      toast.error(`Please enter a valid ${addNewCats} name`);
+    }
+    setNewCatObj({ category: "", subcategory: "" });
+    setAddModelOpen(false);
+  };
 
   const handleChangeProductSpec = (e: any) => {
     const { name, value, checked, type } = e.target;
@@ -296,9 +300,37 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
     getcategories();
     getSubCategories();
   }, []);
+  const handleCloseDelModel = () => {
+    setShowModel(false);
+    setShowModel2(false);
+  };
   return (
     <div className="min-h-screen flex items-center z-90 fixed top-0 left-0 w-full h-screen  justify-end bg-black/50">
       <div className="bg-white h-[100%] relative  py-4 rounded-lg shadow-2xl min-w-[320px] w-[45%] ">
+        {/* for category delete  */}
+        {showModel && (
+          <DeleteModel
+            handleCloseModel={handleCloseDelModel}
+            category={"category"}
+            deleteData={() => {
+              deleteCat(deleteId||'');
+              setShowModel(false);
+              setDeleteId(null);
+            }}
+          ></DeleteModel>
+        )}
+        {/* for subcategory delete  */}
+        {showModel2 && (
+          <DeleteModel
+            handleCloseModel={handleCloseDelModel}
+            category={"sub-category"}
+            deleteData={() => {
+              deleteSubCat(deleteId||'');
+              setShowModel(false);
+              setDeleteId(null);
+            }}
+          ></DeleteModel>
+        )}
         {addModelOpen ? (
           <div className="absolute z-50 h-full w-full bg-black/10 flex items-center justify-center top-0 left-0">
             <div className="h-fit rounded-lg w-[400px] bg-white shadow-lg shadow-gray-400 p-3">
@@ -659,35 +691,38 @@ const ProductForm = ({ handleCloseModel }: productProps) => {
               <div className="w-full">
                 <label className="flex justify-between items-center text-gray-600 font-medium">
                   Category
-            
                 </label>
                 <SubCategoryDropdown
                   subCategoriesProp={categories}
-                  onDelete={deleteCat}
+                  onRequestDelete={(id) => {
+                    setDeleteId(id); // store id to delete
+                    setShowModel(true); // show the modal
+                  }}
                   onAddMore={() => {
                     setAddModelOpen(true);
-                    setAddNewCats("category"); 
+                    setAddNewCats("category");
                   }}
                   title="category"
                 />
-             </div>
+              </div>
 
               {/* subcategories */}
               <div className="w-full">
                 <label className=" justify-between items-center text-gray-600 flex font-medium">
                   Sub-Category
-                 
                 </label>
                 <SubCategoryDropdown
                   subCategoriesProp={subCategories}
-                  onDelete={deleteSubCat}
+                  onRequestDelete={(id) => {
+                    setDeleteId(id); // store id to delete
+                    setShowModel2(true); // show the modal
+                  }}
                   onAddMore={() => {
-                    setAddModelOpen(true); 
-                    setAddNewCats("subcategory"); 
+                    setAddModelOpen(true);
+                    setAddNewCats("subcategory");
                   }}
                   title="subcategory"
                 />
-               
               </div>
 
               {/* Material */}

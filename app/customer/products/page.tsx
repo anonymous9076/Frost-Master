@@ -1,11 +1,12 @@
 "use client"; // You can keep this if needed
-import React, { useEffect, useState, Suspense } from "react";
+import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { getAllProducts, getCategory } from "@/app/api/Product";
 import useDebouncing from "@/app/hooks/useDebouncing";
 import { RxCross2 } from "react-icons/rx";
-import SearchParamsClient from "./components/SearchParamsHandler";
+// import SearchParamsClient from "./components/SearchParamsHandler";
 import { catNSubCatResponse } from "@/components/AddProductForm";
+import { useSearchParams } from "next/navigation";
 
 const Footer = dynamic(() => import("@/components/Footer"));
 const Navbar = dynamic(() => import("@/components/Navbar"));
@@ -24,6 +25,9 @@ const ProductsPage = () => {
   const [totalPages, setTotalPages] = useState(1);
   const debouncedData = useDebouncing(searchProduct, 800);
   const [categories, setCategories] = useState<catNSubCatResponse>([]);
+  const searchParams = useSearchParams();
+  const category = searchParams.get("category");
+
   async function getcategories() {
     try {
       const data = await getCategory();
@@ -32,8 +36,17 @@ const ProductsPage = () => {
       console.log(err);
     }
   }
+
+  useEffect(() => {
+    if (category) {
+      setFilterCategory((prev) => [...prev, category]);
+    }
+    
+  }, [category]);
+
   useEffect(() => {
     getcategories();
+
     async function showProducts() {
       const res = await getAllProducts(
         filterCategory,
@@ -61,10 +74,11 @@ const ProductsPage = () => {
     <div>
       <Navbar active="/customer/products" />
 
-      <Suspense fallback={null}>
+      {/* <Suspense fallback={null}>
         <SearchParamsClient
           onCategoryChange={(category) => {
-            setFilterCategory((prev) => {
+            if(category){
+              setFilterCategory((prev) => {
               const newCategory = category ? [category] : [];
               // Only update state if different
               if (
@@ -75,9 +89,10 @@ const ProductsPage = () => {
               }
               return prev; // don't trigger state update
             });
+            }
           }}
         />
-      </Suspense>
+      </Suspense> */}
 
       <div className="flex w-full h-fit min-h-[55dvh] relative light py-[4rem]">
         {filterBar && (

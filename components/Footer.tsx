@@ -1,17 +1,33 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaLinkedinIn } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
+import { getCategory } from "@/app/api/Product";
+import { catNSubCatResponse } from "@/components/AddProductForm";
+
 const Footer = () => {
-  const category = [
-    { title: "Cloud Kitchen Equipments", value: "Cloudkitchenequipment" },
-    { title: "Commercial Refrigerators", value: "CommercialRefrigerator" },
-    { title: "Restaurant Equipment", value: "RestaurantEquipment" },
-    { title: "Bakery Machinery", value: "BakeryMachinery" },
-  ];
+
+    const [categories, setCategories] = useState<catNSubCatResponse>([]);
+  
+
+   async function getcategories() {
+      try {
+        const data = await getCategory();
+        setCategories(data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    useEffect(()=>{
+      getcategories()
+    },[])
+
+    console.log(categories)
+
   return (
     <div className="olive w-full h-fit min-h-[2rem] pt-[3rem] pb-[1rem] px-[5%] cursor-pointer">
       <div className="grid w-full gap-5 pb-[3rem] justify-evenly lg:grid-cols-4 md:grid-cols-2 grid-cols-1">
@@ -66,10 +82,10 @@ const Footer = () => {
             <li className='py-2'>Commercial Refrigerator</li>
             <li className='py-2'>Cloud Kitchen Equipment</li>
             <li className='py-2'>Cloud Kitchen Equipment</li> */}
-            {category
-              ? category.map((item, index) => (
-                  <Link href={`products?category=${item.value}`} key={index}>
-                    <li className="py-2">{item.title}</li>
+            {categories
+              ? categories.map((item, index) => (
+                  <Link href={`products?category=${item.name}`} key={index}>
+                    <li className="py-2">{item.name}</li>
                   </Link>
                 ))
               : ""}
