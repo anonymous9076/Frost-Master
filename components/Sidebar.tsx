@@ -81,19 +81,19 @@ const Sidebar = () => {
     <>
       {active ? (
         <div className="h-full w-[15%] min-w-[250px] relative flex flex-col  !transition-all duration-500 ease-in-out   bg-white">
-          <div className="  w-full bg-blue-400  text-left  text-white text-[18px] font-black flex items-center justify-between px-3 ">
+          <div className="  w-full bg-blue-400 max-h-[60px] text-left h-fit gap-2 py-2 text-white text-[18px] font-black flex items-center overflow-hidden justify-between px-3 ">
             
-            <div className="flex items-center p-3 gap-3 whitespace-nowrap">
+            <span className="flex items-center  whitespace-nowrap flex-1 h-fit ">
               <Image
                 src="/Logo.png"
                 alt="Logo"
                 height={400}
                 width={400}
-                className=""
+                className="h-full w-full"
               ></Image>
-            </div>
+            </span>
             <span
-              className="text-white  text-[22px]"
+              className="text-white w-[10%] text-[22px]"
               onClick={() => setActive(false)}
             >
               <TbLayoutSidebarLeftCollapseFilled />
@@ -281,7 +281,7 @@ const Sidebar = () => {
         <div className="h-full w-[60px] min-w-[60px] flex flex-col  !transition-all duration-500 ease-in-out relative bg-white">
           <div
             onClick={() => setActive(true)}
-            className="pt-[33px] pb-[15px] w-full   text-center  text-blue-400 text-[25px] font-black flex items-center justify-center gap-3"
+            className="h-[60px] w-full   text-center  bg-blue-400 text-white text-[25px] font-black flex items-center justify-center "
           >
             <TbLayoutSidebarLeftExpandFilled />{" "}
           </div>
@@ -414,17 +414,17 @@ const Sidebar = () => {
               </span>{" "}
             </Link>
             <Link
-              href="/admin/proforma"
+              href="/admin/blog"
               className={`py-3  w-[90%] mx-auto flex items-center justify-center rounded-lg hover:shadow-lg hover:bg-blue-400 hover:text-white ${
-                activePage === "/admin/proforma"
+                activePage === "/admin/blog"
                   ? "bg-blue-400 text-white"
                   : "text-blue-400"
               }  gap-3 text-[16px] group`}
-              title="proforma"
+              title="blog"
             >
               <span
                 className={`group-hover:text-white  ${
-                  activePage === "/admin/proforma"
+                  activePage === "/admin/blog"
                     ? "bg-blue-400 text-white"
                     : "text-blue-400"
                 }  text-[22px]`}

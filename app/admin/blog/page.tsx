@@ -34,7 +34,7 @@ interface Article {
   category: string;
 }
 const BlogCreation = () => {
-  const [filterTransactionId, setFilterTransactionId] = useState("");
+  const [filterBlogId, setFilterBlogId] = useState("");
   const [filterDate, setFilterDate] = useState("");
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
@@ -135,8 +135,8 @@ const BlogCreation = () => {
                   Search
                   <input
                     type="search"
-                    onChange={(e) => setFilterTransactionId(e.target.value)}
-                    value={filterTransactionId}
+                    onChange={(e) => setFilterBlogId(e.target.value)}
+                    value={filterBlogId}
                     placeholder="Search by Blog Name"
                     className="bg-gray-100 py-1 px-2 w-full border-2 border-gray-200 rounded-md  "
                   ></input>
