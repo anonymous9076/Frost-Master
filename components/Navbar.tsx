@@ -280,9 +280,21 @@ const Navbar = ({ active }: navprops) => {
               </span>
             )}
           </Link>
-          <span className="text-[25px] lg:hidden" title="logout">
+
+          <Link
+            className="lg:hidden"
+            href="/signin"
+          >
+          <span className="text-[25px] " title="logout"  onClick={() => {
+                if (isAuthenticated) {
+                  handleLogout();
+                } else {
+                }
+              }}>
             <TbLogout2></TbLogout2>
           </span>
+          </Link>
+
           <span
             className="text-[25px] lg:hidden"
             onClick={() => setMenu((curr: boolean) => !curr)}
@@ -291,7 +303,7 @@ const Navbar = ({ active }: navprops) => {
           </span>
           <Link
             className="hidden lg:block"
-            href={isAuthenticated ? "/customer/home" : "/signin"}
+            href="/signin"
           >
             <button
               className="px-3 py-1 rounded-md olive ml-5 cursor-pointer"

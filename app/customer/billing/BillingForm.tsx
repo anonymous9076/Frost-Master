@@ -13,6 +13,8 @@ interface BillingFormValues {
   gst: string;
   address: string;
   country: string;
+  city: string;
+  state: string;
   postal: string;
   cardHolder: string;
   cardNumber: string;
@@ -38,6 +40,8 @@ const billingFormValidation = Yup.object({
     .required("GST number is required"),
   address: Yup.string().required("Address is required"),
   country: Yup.string().required("Country is required"),
+  city: Yup.string().required("city is required"),
+  state: Yup.string().required("state is required"),
   postal: Yup.string()
     .matches(/^\d{4,10}$/, "Invalid postal code")
     .required("Postal code is required"),
@@ -57,12 +61,15 @@ const billingFormValidation = Yup.object({
 
 const BillingForm = () => {
   const [billingStatus, setBillingStatus] = useState<number>(1);
+
   useEffect(() => {
     setBillingStatus(1);
   }, [billingStatus]);
 
   const handleFormSubmit = (values: BillingFormValues) => {
-    console.log(values, "values");
+    console.log("Form submitted successfully:");
+    console.log(values);
+    setBillingStatus(2);
   };
 
   return (
@@ -119,6 +126,8 @@ const BillingForm = () => {
               company: "",
               gst: "",
               address: "",
+              city: "",
+              state: "",
               country: "",
               postal: "",
               cardHolder: "",
@@ -127,7 +136,10 @@ const BillingForm = () => {
               expiry: "",
             }}
             validationSchema={billingFormValidation}
-            onSubmit={handleFormSubmit}
+            onSubmit={(values) => {
+              console.log("submitted");
+              handleFormSubmit(values);
+            }}
           >
             <Form className="flex flex-col gap-6">
               <div>
@@ -183,7 +195,13 @@ const BillingForm = () => {
                       type="tel"
                       name="phone"
                       id="phone"
+                      pattern="[0-9]*"
+                      maxLength={15}
+                      inputMode="numeric"
                       className="border shadow-sm px-3 py-2 rounded-md border-[#35736E]"
+                      onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        e.target.value = e.target.value.replace(/\D/g, ""); // allow only digits
+                      }}
                     />
                     <ErrorMessage
                       name="phone"
@@ -236,6 +254,34 @@ const BillingForm = () => {
                       className="text-red-500 text-sm mt-1"
                     />
                   </span>
+                  <span className="flex flex-col col-span-1 gap-2">
+                    <label htmlFor="city">City</label>
+                    <Field
+                      type="text"
+                      name="city"
+                      id="city"
+                      className="border shadow-sm px-3 py-2 rounded-md border-[#35736E]"
+                    />
+                    <ErrorMessage
+                      name="city"
+                      component="div"
+                      className="text-red-500 text-sm mt-1"
+                    />
+                  </span>
+                  <span className="flex flex-col col-span-1 gap-2">
+                    <label htmlFor="state">State</label>
+                    <Field
+                      type="text"
+                      name="state"
+                      id="state"
+                      className="border shadow-sm px-3 py-2 rounded-md border-[#35736E]"
+                    />
+                    <ErrorMessage
+                      name="state"
+                      component="div"
+                      className="text-red-500 text-sm mt-1"
+                    />
+                  </span>
 
                   <span className="flex flex-col col-span-2 gap-2">
                     <label htmlFor="country">Country</label>
@@ -258,7 +304,13 @@ const BillingForm = () => {
                       type="text"
                       name="postal"
                       id="postal"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      maxLength={6}
                       className="border shadow-sm px-3 py-2 rounded-md border-[#35736E]"
+                      onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        e.target.value = e.target.value.replace(/\D/g, ""); // Only digits
+                      }}
                     />
                     <ErrorMessage
                       name="postal"
