@@ -165,15 +165,22 @@ const Navbar = ({ active }: navprops) => {
         {/* <NavDrop></NavDrop> */}
         <Link
           href="/customer/home"
-          className="h-full min-w-[160px] border-none outline-none p-4"
+          className="h-full min-w-[160px] w-[17%]   border-none outline-none "
         >
-          <div className="w-full h-full  ">
+          <div className="w-full h-full flex items-center sm:py-3 justify-start px-2  ">
             <Image
               src="/LOGO.png"
               alt=""
-              height={400}
-              width={400}
-              className="h-full w-full"
+              height={300}
+              width={300}
+              className="h-full hidden sm:block w-full"
+            ></Image>
+            <Image
+              src="/LOGO2.png"
+              alt=""
+              height={300}
+              width={300}
+              className="h-[40px] sm:hidden  w-[40px] "
             ></Image>
           </div>
         </Link>
