@@ -1,11 +1,12 @@
 import { MdOpenInBrowser } from "react-icons/md";
 import { IoMdTrash } from "react-icons/io";
-import {  useState } from "react";
+import { useState } from "react";
+import { createBlog } from "@/app/api/Blog";
+import { toast } from "react-toastify";
 
-interface Props{
-  handleCloseModel1:() => void;
+interface Props {
+  handleCloseModel1: () => void;
 }
-
 
 export default function BlogForm({ handleCloseModel1 }: Props) {
   const [title, setTitle] = useState("");
@@ -14,25 +15,21 @@ export default function BlogForm({ handleCloseModel1 }: Props) {
   const [status, setStatus] = useState("draft");
   const [image, setImage] = useState<File | null>(null);
 
-
-
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setImage(e.target.files[0]);
     }
   };
 
-  const handleFormSubmit = () => {
-    const blogData = {
-      title,
-      content,
-      category,
-      status,
-      imagePath: image ? image.name : "",
-    };
-    console.log('here the data', blogData)
-    // handleSubmitBlog(blogData, image);
-    handleCloseModel1();
+  const handleFormSubmit = async () => {
+    try {
+      await createBlog({ title, content, category, status, image });
+      toast.success("Blog created successfully!");
+      handleCloseModel1();
+    } catch (err) {
+      console.log(err);
+      toast.error("Failed to create blog");
+    }
   };
 
   return (
