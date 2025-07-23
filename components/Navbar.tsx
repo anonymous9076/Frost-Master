@@ -136,6 +136,7 @@ const Navbar = ({ active }: navprops) => {
       localStorage.clear();
       console.log(res);
       setUser(null);
+      location.reload();
       toast.success("logout successfully");
     } catch (error) {
       console.log(error);
@@ -169,7 +170,8 @@ const Navbar = ({ active }: navprops) => {
         >
           <div className="w-full h-full flex items-center sm:py-3 justify-start px-2  ">
             <Image
-              src="/LOGO.png"
+              // src="/LOGO.png"
+              src={`${process.env.NEXT_PUBLIC_CDNURL}${"LOGO.png"}` || ""}
               alt=""
               height={300}
               width={300}

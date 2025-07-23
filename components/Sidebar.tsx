@@ -51,7 +51,7 @@ const Sidebar = () => {
       label: "Proforma",
       icon: <LiaWpforms />,
     },
-     {
+    {
       href: "/admin/blog",
       label: "Blog",
       icon: <RiBloggerLine />,
@@ -85,7 +85,8 @@ const Sidebar = () => {
             
             <span className="flex items-center  whitespace-nowrap flex-1 h-fit ">
               <Image
-                src="/Logo.png"
+                // src="/Logo.png"
+                src={`${process.env.NEXT_PUBLIC_CDNURL}${"LOGO.png"}` || ""}
                 alt="Logo"
                 height={400}
                 width={400}
@@ -298,7 +299,9 @@ const Sidebar = () => {
               {" "}
               <span
                 className={`group-hover:text-white  ${
-                  activePage === "/admin/users" ? " text-white" : "text-blue-400"
+                  activePage === "/admin/users"
+                    ? " text-white"
+                    : "text-blue-400"
                 }  text-[22px]`}
               >
                 <RiCustomerService2Fill />
