@@ -2,6 +2,7 @@
 import UserAuthContext from "@/app/context/userAuthContext";
 import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
+import { PiCurrencyInrDuotone } from "react-icons/pi";
 
 interface priceProps {
   button: boolean;
@@ -9,30 +10,31 @@ interface priceProps {
 }
 
 const PriceCard = ({ button, totalPrice }: priceProps) => {
+  console.log(totalPrice, "hello gaurab");
   const { user } = useContext(UserAuthContext)!;
   const router = useRouter();
   const [price, setPrice] = useState<number>(totalPrice);
   const [discount, setDiscount] = useState<number>(0);
   const [delivery, setDelivery] = useState<number>(0);
-  const [netprice, setNetPrice] = useState<number>(0);
+  // const [netprice, setNetPrice] = useState<number>(0);
   const [DeliveryDate, setDeliveryDate] = useState<string>("--/--/----");
-  const data = [{ price: 0 }, { price: 0 }, { price: 0 }];
-
+  // const data = [{ price: 0 }, { price: 0 }, { price: 0 }];
+  console.log(price, "price data----");
   useEffect(() => {
-    let initialPrice = 0;
-    const initialDiscount = 254;
+    const initialPrice = price;
+    const initialDiscount = 0;
     const initialDelivery = 85;
 
-    data.map((item) => {
-      initialPrice = initialPrice + item.price;
-    });
+    // data.map((item) => {
+    //   initialPrice = initialPrice + item.price;
+    // });
     console.log(initialPrice);
     setPrice(initialPrice);
     setDelivery(initialDelivery);
     setDiscount(initialDiscount);
   }, []);
   useEffect(() => {
-    setNetPrice(price + discount + delivery);
+    // setNetPrice(totalPrice + discount + delivery);
     const date = getFormattedDateFiveDaysFromNow();
     setDeliveryDate(date);
   }, [price, discount, delivery]);
@@ -54,22 +56,33 @@ const PriceCard = ({ button, totalPrice }: priceProps) => {
       <ul className="text-[16px] space-y-[1rem]">
         <li className=" flex items-center justify-between ">
           <span>Price</span>
-          <span>${price}</span>
+          <span className="flex">
+            <PiCurrencyInrDuotone className="text-green-500 text-xl" />
+            {totalPrice}
+          </span>
         </li>
-        <li className=" flex items-center justify-between">
+        {/* <li className=" flex items-center justify-between">
           <span>Discount</span>
           <span>${discount}</span>
-        </li>
+        </li> */}
         <li className="flex items-center justify-between ">
           <span>Delivery Fee</span>
-          <span>${delivery}</span>
+          <span className="flex">
+            <PiCurrencyInrDuotone className="text-green-500 text-xl" />
+
+            {delivery}
+          </span>
         </li>
       </ul>
       <div className="border border-gray-500 my-[2rem]"></div>
       <ul className="text-[16px] space-y-[1rem]">
         <li className=" flex items-center justify-between ">
           <span>Net Amnount </span>
-          <span>${netprice}</span>
+          <span className="flex">
+            <PiCurrencyInrDuotone className="text-green-500 text-xl" />
+
+            {totalPrice + discount + delivery}
+          </span>
         </li>
         <li className=" flex items-center justify-between">
           <span>Est. Delivery Time</span>
@@ -81,7 +94,7 @@ const PriceCard = ({ button, totalPrice }: priceProps) => {
           className="olive w-full text-center rounded-lg py-2 mt-7"
           onClick={() => {
             if (user) {
-              router.push("/billing");
+              router.push("/customer/billing");
             } else {
               // Show warning or redirect to login
               // toast.warn("Please log in to proceed");

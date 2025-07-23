@@ -130,11 +130,11 @@ const MycartItem = ({ setTotalPrice }: PropsType) => {
       // console.log(flattenedOrders, "Res cart here");
     } else {
       console.log(cartData, "cartData");
-      const totalPrice = cartData.reduce(
-        (acc: number, item: FlattenedCartProduct) =>
-          acc + item.price * item.quantity,
-        0
-      );
+      // const totalPrice = cartData.reduce(
+      //   (acc: number, item: FlattenedCartProduct) =>
+      //     acc + item.price * item.quantity,
+      //   0
+      // );
 
       // // ✅ Calculate total price: sum of price * quantity
       // const total: number = flattenData.reduce(
@@ -143,8 +143,18 @@ const MycartItem = ({ setTotalPrice }: PropsType) => {
       //   0
       // );
       // console.log(total, "total777777");
-      setTotalPrice(totalPrice);
+      // setTotalPrice(totalPrice);
     }
+
+    console.log(cartData, "cartData");
+    const totalPrice = cartData.reduce(
+      (acc: number, item: FlattenedCartProduct) =>
+        acc + item.price * item.quantity,
+      0
+    );
+
+    console.log(totalPrice, cartData, "price totak");
+    setTotalPrice(totalPrice);
   }
   const flattenedData = cartData.flatMap((entry) => ({
     userId: entry.userId,
@@ -159,8 +169,8 @@ const MycartItem = ({ setTotalPrice }: PropsType) => {
 
   useEffect(() => {
     showCartDatas();
-  }, [currentPage]);
-  
+  }, [currentPage, cartData]);
+
   console.log([...flattenedData, ...cartDataFromDataStore], "flattenedData");
   return (
     <div className="!cursor-pointer select-none">
@@ -189,7 +199,6 @@ const MycartItem = ({ setTotalPrice }: PropsType) => {
                     <div className="flex-1 gap-1">
                       <h1 className="text-[16px] md:text-[20px] line-clamp-2  font-bold overflow-hidden ">
                         {product?.title}
-                        
                       </h1>
                       <p className="text-[16px] flex gap-2 py-2 text-gray-500 items-center">
                         {[...Array(Math.floor(product?.rating))].map(
@@ -242,54 +251,55 @@ const MycartItem = ({ setTotalPrice }: PropsType) => {
                     </div>
 
                     <div className="w-full  flex items-center gap-2">
-
-                    <div className=" w-[100px]  md:w-[120px] relative">
-                      <span
-                        onClick={() =>
-                          handleUpdateItemnumber(
-                            product?.productId,
-                            product?.cartId,
-                            "sub"
-                          )
-                        }
-                        className="text-[16px] absolute top-1/2 left-2 transform -translate-y-1/2 font-semibold text-[#35736E] flex items-center justify-center "
-                      >
-                        <FiMinus />
-                      </span>
-                      <input
-                        type="number"
-                        min={1}
-                        value={product?.quantity}
-                        onChange={(e) =>
-                          handleChangeItemNumber(Number(e.target.value))
-                        }
-                        className="border border-[#35736E] outline-none text-[18px] font-semibold text-[#35736E] hover:shadow-md rounded-md flex w-full  justify-center items-center md:py-1 text-center "
-                      ></input>
-                      <span
-                        onClick={() =>
-                          handleUpdateItemnumber(
-                            product?.productId,
-                            product?.cartId,
-                            "add"
-                          )
-                        }
-                        className="text-[16px] absolute  font-semibold top-1/2 right-2 transform -translate-y-1/2 text-[#35736E] "
-                      >
-                        <FiPlus />
-                      </span>
+                      <div className=" w-[100px]  md:w-[120px] relative">
+                        <span
+                          onClick={() =>
+                            handleUpdateItemnumber(
+                              product?.productId,
+                              product?.cartId,
+                              "sub"
+                            )
+                          }
+                          className="text-[16px] absolute top-1/2 left-2 transform -translate-y-1/2 font-semibold text-[#35736E] flex items-center justify-center "
+                        >
+                          <FiMinus />
+                        </span>
+                        <input
+                          type="number"
+                          min={1}
+                          value={product?.quantity}
+                          onChange={(e) =>
+                            handleChangeItemNumber(Number(e.target.value))
+                          }
+                          className="border border-[#35736E] outline-none text-[18px] font-semibold text-[#35736E] hover:shadow-md rounded-md flex w-full  justify-center items-center md:py-1 text-center "
+                        ></input>
+                        <span
+                          onClick={() =>
+                            handleUpdateItemnumber(
+                              product?.productId,
+                              product?.cartId,
+                              "add"
+                            )
+                          }
+                          className="text-[16px] absolute  font-semibold top-1/2 right-2 transform -translate-y-1/2 text-[#35736E] "
+                        >
+                          <FiPlus />
+                        </span>
+                      </div>
+                      <div>
+                        <span
+                          className="text-[20px] md:hidden text-red-600  font-bold"
+                          onClick={() =>
+                            handleRemoveItem(
+                              product?.productId,
+                              product?.cartId
+                            )
+                          }
+                        >
+                          <MdDelete />
+                        </span>
+                      </div>
                     </div>
-                    <div>
-                      <span
-                        className="text-[20px] md:hidden text-red-600  font-bold"
-                        onClick={() =>
-                          handleRemoveItem(product?.productId, product?.cartId)
-                        }
-                      >
-                        <MdDelete />
-                      </span>
-                    </div>
-                    </div>
-
                   </div>
                   <div>
                     <span
