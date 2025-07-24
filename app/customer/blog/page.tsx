@@ -1,43 +1,76 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 const Navbar = dynamic(() => import("@/components/Navbar"));
 const Footer = dynamic(() => import("@/components/Footer"));
+import { getAllBlogs } from "@/app/api/Blog";
+import { dateFormate } from "@/app/utlis/dateFormate/dateFormating";
 
-const blogPosts = [
+const InitialsblogPosts: Blog[] = [
   {
-    id: 1,
+    _id: "1",
     title: "Top 5 Electric Ovens for Home Baking in 2025",
-    description:
+    content:
       "Explore the best electric ovens with smart features and energy efficiency.",
-    author: "Chef Anita",
-    date: "April 15, 2025",
-    image: `/oven1.jpg`,
+    category: "Home",
+    status: "published",
+    createdAt: "2025-04-15T00:00:00Z",
+    updatedAt: "2025-04-15T00:00:00Z",
+    imagePath: "/oven1.jpg",
   },
   {
-    id: 2,
+    _id: "2",
     title: "Kitchen Equipment Essentials for Modern Restaurants",
-    description:
+    content:
       "A complete guide to setting up your commercial kitchen with the latest appliances.",
-    author: "KitchenPro",
-    date: "April 12, 2025",
-    image: `${process.env.NEXT_PUBLIC_CDNURL}Images/frostservices/img1.jpg`,
+    category: "Commercial",
+    status: "published",
+    createdAt: "2025-04-12T00:00:00Z",
+    updatedAt: "2025-04-12T00:00:00Z",
+    imagePath: "Images/frostservices/img1.jpg",
   },
   {
-    id: 3,
+    _id: "3",
     title: "Convection vs Conventional Ovens What's Right for You",
-    description:
+    content:
       "Understand the difference between oven types and how it affects cooking.",
-    author: "Food Tech Journal",
-    date: "April 10, 2025",
-    image: `/oven2.jpg`,
+    category: "Technology",
+    status: "published",
+    createdAt: "2025-04-10T00:00:00Z",
+    updatedAt: "2025-04-10T00:00:00Z",
+    imagePath: "/oven2.jpg",
   },
 ];
 
+
+export interface Blog {
+  _id: string;
+  title: string;
+  content: string;
+  category: string;
+  status: string;
+  imagePath?: string;
+  createdAt?: string|undefined;
+  updatedAt?: string;
+}
+
 export default function Blogs() {
+
+  const [blogPosts, setBlogPosts] = React.useState<Blog[]>(InitialsblogPosts);
+
+  useEffect(() => {
+    const fetchBlogData = async () => {
+      const response = await getAllBlogs();
+      console.log(response,process.env.NEXT_PUBLIC_CDNURL);
+      setBlogPosts(response)
+
+    };
+    fetchBlogData();
+  }, []);
+
   return (
     <>
       <Head>
@@ -60,27 +93,30 @@ export default function Blogs() {
 
         {/* Blog Posts Grid */}
         <div className="max-w-7xl mx-auto grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          {blogPosts.map((post) => (
+          {blogPosts.map((post,index:number) => (
             <div
-              key={post.id}
+              key={index}
               className="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden"
             >
               <Image
                 className="w-full h-48 sm:h-56 md:h-60 object-cover"
-                src={post.image}
+                src={`${process.env.NEXT_PUBLIC_CDNURL}${post?.imagePath}`}
                 height={300}
                 width={400}
                 alt={post.title}
               />
               <div className="p-5">
-                <span className="flex gap-2 py-2 text-[#35736E] text-sm">
-                  <p>{post.date}</p>
-                </span>
-                <h2 className="text-xl font-semibold text-[#35736E] mb-2">
+                <p className="text-sm text-gray-500 pb-2"> {post.category}</p>
+               
+                <h2 className="text-xl  font-semibold text-[#35736E] mb-2">
                   {post.title}
                 </h2>
-                <p className="text-gray-700 text-justify mb-3">{post.description}</p>
-                <p className="text-sm text-gray-500 mb-3">By {post.author}</p>
+                <p className="text-gray-700 text-justify mb-3">
+                  {post.content}
+                </p>
+                 <span className="flex gap-2 py-2 text-[#35736E] text-sm">
+                  <p> Created on {dateFormate(post?.createdAt || "")}</p>
+                </span>
                 <Link
                   href={`/customer/blog/${post.title}`}
                   className="inline-block text-sm text-white bg-[#35736E] px-4 py-2 rounded-md hover:bg-[#285a56] transition"
