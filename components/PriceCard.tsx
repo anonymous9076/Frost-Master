@@ -33,6 +33,7 @@ const PriceCard = ({ button, totalPrice }: priceProps) => {
     setDelivery(initialDelivery);
     setDiscount(initialDiscount);
   }, []);
+
   useEffect(() => {
     // setNetPrice(totalPrice + discount + delivery);
     const date = getFormattedDateFiveDaysFromNow();
@@ -56,9 +57,9 @@ const PriceCard = ({ button, totalPrice }: priceProps) => {
       <ul className="text-[16px] space-y-[1rem]">
         <li className=" flex items-center justify-between ">
           <span>Price</span>
-          <span className="flex">
-            <PiCurrencyInrDuotone className="text-green-500 text-xl" />
-            {totalPrice}
+          <span className="flex items-center">
+            <PiCurrencyInrDuotone className="text-[#35736E] text-lg" />
+            {totalPrice.toFixed(2)}
           </span>
         </li>
         {/* <li className=" flex items-center justify-between">
@@ -67,9 +68,8 @@ const PriceCard = ({ button, totalPrice }: priceProps) => {
         </li> */}
         <li className="flex items-center justify-between ">
           <span>Delivery Fee</span>
-          <span className="flex">
-            <PiCurrencyInrDuotone className="text-green-500 text-xl" />
-
+          <span className="flex items-center">
+            <PiCurrencyInrDuotone className="text-[#35736E] text-lg" />
             {delivery}
           </span>
         </li>
@@ -78,10 +78,10 @@ const PriceCard = ({ button, totalPrice }: priceProps) => {
       <ul className="text-[16px] space-y-[1rem]">
         <li className=" flex items-center justify-between ">
           <span>Net Amnount </span>
-          <span className="flex">
-            <PiCurrencyInrDuotone className="text-green-500 text-xl" />
+          <span className="flex items-center">
+            <PiCurrencyInrDuotone className="text-[#35736E] text-lg" />
 
-            {totalPrice + discount + delivery}
+            {(totalPrice + discount + delivery).toFixed(2)}
           </span>
         </li>
         <li className=" flex items-center justify-between">
@@ -94,10 +94,15 @@ const PriceCard = ({ button, totalPrice }: priceProps) => {
           className="olive w-full text-center rounded-lg py-2 mt-7"
           onClick={() => {
             if (user) {
-              router.push("/customer/billing");
+              if(totalPrice){
+                router.push("/customer/billing");
+              }
+              else{
+                alert("Please add items to your cart");
+              }
+
             } else {
-              // Show warning or redirect to login
-              // toast.warn("Please log in to proceed");
+             
               router.push("/signin");
             }
           }}

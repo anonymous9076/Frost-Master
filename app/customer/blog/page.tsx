@@ -3,11 +3,11 @@ import React, { useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import Link from "next/link";
 const Navbar = dynamic(() => import("@/components/Navbar"));
 const Footer = dynamic(() => import("@/components/Footer"));
 import { getAllBlogs } from "@/app/api/Blog";
 import { dateFormate } from "@/app/utlis/dateFormate/dateFormating";
+import BlogDetailPage from "./ShowDetailsSec";
 
 const InitialsblogPosts: Blog[] = [
   {
@@ -60,6 +60,9 @@ export interface Blog {
 export default function Blogs() {
 
   const [blogPosts, setBlogPosts] = React.useState<Blog[]>(InitialsblogPosts);
+  const [selectedPost,setSelectedPost] = React.useState<Blog>(InitialsblogPosts[0]);
+  const [recomendedPost,setRecommendedPost] = React.useState<Blog[]>(InitialsblogPosts);
+  const [detailModel,setDetailModel] = React.useState<boolean>(false)
 
   useEffect(() => {
     const fetchBlogData = async () => {
@@ -70,6 +73,13 @@ export default function Blogs() {
     };
     fetchBlogData();
   }, []);
+
+  const handleReadMore=(post:Blog)=>{
+    setSelectedPost(post)
+    setDetailModel(true)
+    const recomendedData = blogPosts.filter((item)=>item.title !== post.title)
+    setRecommendedPost(recomendedData)
+  }
 
   return (
     <>
@@ -83,7 +93,13 @@ export default function Blogs() {
 
       <Navbar active="/customer/blog" />
 
-      <div className="h-fit min-h-screen w-full light py-10 px-4 sm:px-6 lg:px-8">
+    {detailModel&&detailModel ?
+    <BlogDetailPage
+    blog={selectedPost}
+    recommendedBlogs={recomendedPost}
+    setDetailModel={setDetailModel}
+    ></BlogDetailPage>
+    : <div className="h-fit min-h-screen w-full light py-10 px-4 sm:px-6 lg:px-8">
         {/* Title Section */}
         <div className="mb-12 text-center">
           <h1 className="text-xl sm:text-2xl md:text-4xl font-bold text-[#35736E]">
@@ -111,23 +127,25 @@ export default function Blogs() {
                 <h2 className="text-xl  font-semibold text-[#35736E] mb-2">
                   {post.title}
                 </h2>
-                <p className="text-gray-700 text-justify mb-3">
+                <p className="text-gray-700 line-clamp-3 text-justify mb-3">
                   {post.content}
                 </p>
                  <span className="flex gap-2 py-2 text-[#35736E] text-sm">
                   <p> Created on {dateFormate(post?.createdAt || "")}</p>
                 </span>
-                <Link
-                  href={`/customer/blog/${post.title}`}
+                <button
+                onClick={()=>{
+                  handleReadMore(post)
+                }}
                   className="inline-block text-sm text-white bg-[#35736E] px-4 py-2 rounded-md hover:bg-[#285a56] transition"
                 >
                   Read more
-                </Link>
+                </button>
               </div>
             </div>
           ))}
         </div>
-      </div>
+      </div>}
 
       <Footer />
     </>

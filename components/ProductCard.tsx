@@ -51,9 +51,7 @@ const ProductCard = ({
   );
 
   const [liked, setLiked] = React.useState(false);
-  const [added, setAdded] = React.useState(false);
   const [formattedTitle, setFormattedTitle] = React.useState("");
-  console.log(added);
   const handleLikeItem = () => {
     setLiked((curr) => !curr);
   };
@@ -70,17 +68,12 @@ const ProductCard = ({
 
   function handleCartItem() {
     addProductIntoCart(data);
-    setAdded(true);
-    setTimeout(() => {
-      setAdded(false);
-    }, 2000);
   }
 
   const stringFormattingFun = (sent: string) => {
     const a = sent.split(" ");
     const b = a.map((ele) => ele.charAt(0).toUpperCase() + ele.slice(1));
     const c = b.join(" ");
-    console.log(c, "===>");
     setFormattedTitle(c);
   };
 

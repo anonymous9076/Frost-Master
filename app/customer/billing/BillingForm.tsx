@@ -1,10 +1,11 @@
 "use client";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
+import React, { useState } from "react";
 import * as Yup from "yup";
-interface BillingFormValues {
+import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
+
+export interface PersonalInfoValues {
   firstName: string;
   lastName: string;
   email: string;
@@ -12,111 +13,106 @@ interface BillingFormValues {
   company: string;
   gst: string;
   address: string;
-  country: string;
   city: string;
   state: string;
+  country: string;
   postal: string;
-  cardHolder: string;
-  cardNumber: string;
-  cvv: string;
-  expiry: string;
 }
 
-const billingFormValidation = Yup.object({
-  firstName: Yup.string().required("First name is required"),
-  lastName: Yup.string().required("Last name is required"),
-  email: Yup.string()
-    .email("Invalid email address")
-    .required("Email is required"),
-  phone: Yup.string()
-    .matches(/^[0-9]{10,15}$/, "Phone number is not valid")
-    .required("Phone number is required"),
-  company: Yup.string().required("Company name is required"),
+export interface CardInfoValues {
+  cardHolder: string;
+  cardNumber: string;
+  expiry: string;
+  cvv: string;
+}
+
+const personalInfoSchema = Yup.object({
+  firstName: Yup.string().required("Required"),
+  lastName: Yup.string().required("Required"),
+  email: Yup.string().email("Invalid email").required("Required"),
+  phone: Yup.string().matches(/^\d{10,15}$/, "Invalid").required("Required"),
+  company: Yup.string().required("Required"),
   gst: Yup.string()
     .matches(
       /^(\d{2}[A-Z]{5}\d{4}[A-Z]{1}[A-Z\d]{1}[Z]{1}[A-Z\d]{1})$/,
-      "Invalid GST number"
+      "Invalid GST"
     )
-    .required("GST number is required"),
-  address: Yup.string().required("Address is required"),
-  country: Yup.string().required("Country is required"),
-  city: Yup.string().required("city is required"),
-  state: Yup.string().required("state is required"),
+    .required("Required"),
+  address: Yup.string().required("Required"),
+  city: Yup.string().required("Required"),
+  state: Yup.string().required("Required"),
+  country: Yup.string().required("Required"),
   postal: Yup.string()
     .matches(/^\d{4,10}$/, "Invalid postal code")
-    .required("Postal code is required"),
-
-  // Payment Fields
-  cardHolder: Yup.string().required("Card holder name is required"),
-  cardNumber: Yup.string()
-    .matches(/^\d{16}$/, "Card number must be 16 digits")
-    .required("Card number is required"),
-  cvv: Yup.string()
-    .matches(/^\d{3,4}$/, "CVV must be 3 or 4 digits")
-    .required("CVV is required"),
-  expiry: Yup.string()
-    .matches(/^(0[1-9]|1[0-2])\/?([0-9]{2})$/, "Expiry must be in MM/YY format")
-    .required("Expiry date is required"),
+    .required("Required"),
 });
 
-const BillingForm = () => {
-  const [billingStatus, setBillingStatus] = useState<number>(1);
+const cardInfoSchema = Yup.object({
+  cardHolder: Yup.string().required("Required"),
+  cardNumber: Yup.string()
+    .matches(/^\d{16}$/, "Must be 16 digits")
+    .required("Required"),
+  expiry: Yup.string()
+    .matches(/^(0[1-9]|1[0-2])\/\d{2}$/, "MM/YY format")
+    .required("Required"),
+  cvv: Yup.string()
+    .matches(/^\d{3,4}$/, "3 or 4 digits")
+    .required("Required"),
+});
 
-  useEffect(() => {
-    setBillingStatus(1);
-  }, [billingStatus]);
+export default function BillingForm() {
+  const [billingStatus, setBillingStatus] = useState(1);
 
-  const handleFormSubmit = (values: BillingFormValues) => {
-    console.log("Form submitted successfully:");
-    console.log(values);
+  const handlePersonalSubmit = (values: PersonalInfoValues) => {
+    console.log("Personal Info Submitted:", values);
     setBillingStatus(2);
   };
 
-  return (
-    <>
-      {billingStatus === 3 ? (
-        <div className="bg-black/80 w-screen h-screen fixed top-0 left-0 flex items-center justify-center ">
-          <div className="min-h-[50%] py-[2rem] md:py-[1rem] h-fit  items-center flex flex-col justify-center w-[90%]  md:w-[50%] bg-white rounded-lg">
-            <span className="text-[#35736E] text-[50px]">
-              <IoCheckmarkDoneCircleSharp></IoCheckmarkDoneCircleSharp>
-            </span>
-            <h1 className="text-[35px] font-bold">Thank you!</h1>
-            <p className="w-[60%] text-center">
-              Your order has been confirmed & it is on the way. Check your email
-              for the details
-            </p>
-            <div className="flex md:flex-row flex-col gap-2">
-              {" "}
-              <Link href={"/customer/home"}>
-                <button className="olive text-center rounded-lg py-2 mt-4 w-[180px]">
-                  Go to Home
-                </button>
-              </Link>
-              <Link href={"/customer/products"}>
-                <button className="light text-center border border-[#35736E] rounded-lg py-2 md:mt-4 w-[180px]">
-                  Check Order Details
-                </button>
-              </Link>
-            </div>
+  const handleCardSubmit = (values: CardInfoValues) => {
+    console.log("Card Info Submitted:", values);
+    setBillingStatus(3);
+  };
+
+  if (billingStatus === 3) {
+    return (
+      <div className="bg-black/80 w-screen h-screen fixed top-0 left-0 flex items-center justify-center">
+        <div className="w-fit h-fit py-[2rem] px-[2rem]  mx-w-[300px] bg-white rounded-lg flex flex-col items-center">
+          <span className="text-[#35736E] text-[50px]">
+            <IoCheckmarkDoneCircleSharp />
+          </span>
+          <h1 className="text-[30px] font-bold">Thank you!</h1>
+          <p className="w-[100%] text-center">
+            Your order is confirmed. Check your email for details.
+          </p>
+          <div className="grid grid-cols-2 gap-3 mt-4">
+            <Link href="/customer/home">
+              <button className="olive w-full py-2 px-3 rounded-lg">Home</button>
+            </Link>
+            <Link href="/customer/myorders">
+              <button className="light border border-[#35736E] w-full py-2 px-3 rounded-lg">
+                Order Details
+              </button>
+            </Link>
           </div>
         </div>
-      ) : (
-        ""
-      )}
-      <div className="rounded-lg overflow-hidden border-2 border-[#35736E] ">
-        <div className="olive flex items-center justify-between px-4 py-3">
-          <h1 className={`${billingStatus === 1 ? "text-amber-400" : ""}`}>
-            Personal Info
-          </h1>
-          <h1 className={`${billingStatus === 2 ? "text-amber-400" : ""}`}>
-            Payment
-          </h1>
-          <h1 className={`${billingStatus === 3 ? "text-amber-400" : ""}`}>
-            Confirmation
-          </h1>
-        </div>
+      </div>
+    );
+  }
 
-        <div className="px-[2rem] py-[2rem] grid gap-6">
+  return (
+    <div className="rounded-lg overflow-hidden border-2 border-[#35736E]">
+      <div className="olive flex items-center justify-between px-4 py-3">
+        <h1 className={billingStatus === 1 ? "text-amber-400" : ""}>
+          Personal Info
+        </h1>
+        <h1 className={billingStatus === 2 ? "text-amber-400" : ""}>Payment</h1>
+        <h1 className={billingStatus === 3 ? "text-amber-400" : ""}>
+          Confirmation
+        </h1>
+      </div>
+
+      <div className="p-6">
+        {billingStatus === 1 && (
           <Formik
             initialValues={{
               firstName: "",
@@ -129,16 +125,12 @@ const BillingForm = () => {
               city: "",
               state: "",
               country: "",
-              postal: "",
-              cardHolder: "",
-              cardNumber: "",
-              cvv: "",
-              expiry: "",
+              postal:""
             }}
-            validationSchema={billingFormValidation}
+            validationSchema={personalInfoSchema}
             onSubmit={(values) => {
               console.log("submitted");
-              handleFormSubmit(values);
+              handlePersonalSubmit(values);
             }}
           >
             <Form className="flex flex-col gap-6">
@@ -329,68 +321,83 @@ const BillingForm = () => {
               </button>
             </Form>
           </Formik>
-          {/* {billingStatus === 1 ? (
-            <></>
-          ) : 
-          (
-            <Formik
-            >
-              <form>
-                <div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <span className="flex flex-col gap-2 col-span-2">
-                      <label htmlFor="cardHolder">Card Holder Name</label>
-                      <Field
-                        type="text"
-                        name="cardHolder"
-                        id="cardHolder"
-                        value={formData.cardHolder}
-                                                className="border shadow-sm px-3 py-2 rounded-md border-[#35736E]"
-                      />
-                    </span>
+        )}
 
-                    <span className="flex flex-col gap-2 col-span-2">
-                      <label htmlFor="cardNumber">Card Number</label>
-                      <Field
-                        type="text"
-                        name="cardNumber"
-                        id="cardNumber"
-                        value={formData.cardNumber}
-                                                className="border shadow-sm px-3 py-2 rounded-md border-[#35736E]"
-                      />
-                    </span>
-
-                    <span className="flex flex-col gap-2">
-                      <label htmlFor="expiry">Expiry Date</label>
-                      <Field
-                        type="text"
-                        name="expiry"
-                        id="expiry"
-                        placeholder="MM/YY"
-                        value={formData.expiry}
-                                                className="border shadow-sm px-3 py-2 rounded-md border-[#35736E]"
-                      />
-                    </span>
-
-                    <span className="flex flex-col gap-2">
-                      <label htmlFor="cvv">CVV</label>
-                      <Field
-                        type="password"
-                        name="cvv"
-                        id="cvv"
-                        value={formData.cvv}
-                                                className="border shadow-sm px-3 py-2 rounded-md border-[#35736E]"
-                      />
-                    </span>
-                  </div>
-                </div>
-              </form>
-            </Formik>
-          )} */}
-        </div>
+        {billingStatus === 2 && (
+          <Formik
+            initialValues={{
+              cardHolder: "",
+              cardNumber: "",
+              expiry: "",
+              cvv: "",
+            }}
+            validationSchema={cardInfoSchema}
+            onSubmit={handleCardSubmit}
+          >
+            <Form className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <span className="flex flex-col col-span-2">
+                <label htmlFor="cardHolder">Card Holder</label>
+                <Field
+                  name="cardHolder"
+                  type="text"
+                  className="border shadow-sm px-3 py-2 rounded-md border-[#35736E]"
+                />
+                <ErrorMessage
+                  name="cardHolder"
+                  component="div"
+                  className="text-red-500 text-sm"
+                />
+              </span>
+              <span className="flex flex-col col-span-2">
+                <label htmlFor="cardNumber">Card Number</label>
+                <Field
+                  name="cardNumber"
+                  type="text"
+                  className="border shadow-sm px-3 py-2 rounded-md border-[#35736E]"
+                />
+                <ErrorMessage
+                  name="cardNumber"
+                  component="div"
+                  className="text-red-500 text-sm"
+                />
+              </span>
+              <span className="flex flex-col">
+                <label htmlFor="expiry">Expiry (MM/YY)</label>
+                <Field
+                  name="expiry"
+                  type="text"
+                  placeholder="MM/YY"
+                  className="border shadow-sm px-3 py-2 rounded-md border-[#35736E]"
+                />
+                <ErrorMessage
+                  name="expiry"
+                  component="div"
+                  className="text-red-500 text-sm"
+                />
+              </span>
+              <span className="flex flex-col">
+                <label htmlFor="cvv">CVV</label>
+                <Field
+                  name="cvv"
+                  type="password"
+                  className="border shadow-sm px-3 py-2 rounded-md border-[#35736E]"
+                />
+                <ErrorMessage
+                  name="cvv"
+                  component="div"
+                  className="text-red-500 text-sm"
+                />
+              </span>
+              <button
+                type="submit"
+                className="olive col-span-2 w-[200px] py-2 mt-4 rounded-lg"
+              >
+                Confirm Payment
+              </button>
+            </Form>
+          </Formik>
+        )}
       </div>
-    </>
+    </div>
   );
-};
-
-export default BillingForm;
+}

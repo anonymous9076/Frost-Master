@@ -12,7 +12,7 @@ const Mycart = () => {
     <>
       <Navbar active="/customer/mycart"></Navbar>
       <div className="h-fit w-full  px-[5%] lg:px-[3%] flex flex-col lg:flex-row  light">
-        <div className="lg:w-[65%] w-full h-full py-[2rem] ">
+        <div className="lg:w-[65%] w-full h-[80dvh] overflow-y-auto py-[2rem] ">
           <div className=" gap-4">
             <h1 className="text-[25px] font-bold  ">My Cart</h1>
           </div>

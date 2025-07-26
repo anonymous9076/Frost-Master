@@ -6,8 +6,9 @@ import {
 } from "@/app/api/MyCart";
 import UserAuthContext from "@/app/context/userAuthContext";
 import { CartState, useCartStore } from "@/app/stores/CartStore";
-import Pagination from "@/components/Pagination";
+// import Pagination from "@/components/Pagination";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
 import { FiPlus } from "react-icons/fi";
 import { FiMinus } from "react-icons/fi";
@@ -34,7 +35,7 @@ interface PropsType {
 }
 
 const MycartItem = ({ setTotalPrice }: PropsType) => {
-  const [currentPage, setCurrentPage] = useState(1);
+  // const [currentPage, setCurrentPage] = useState(1);
   const { user } = useContext(UserAuthContext)!;
   const [cartDataFromDataStore, setCartDataFromDataStore] = useState([]);
   const { cartData, removeProductFromCart, updateProductInCart } = useCartStore(
@@ -47,12 +48,12 @@ const MycartItem = ({ setTotalPrice }: PropsType) => {
   );
   console.log(cartData, "cartData here");
   // const [isLoading, setIsLoading] = useState(false);
-  const [totalPages, setTotalPages] = useState(1);
-  function handleOnChange(pageNo: number) {
-    if (pageNo >= 1 && pageNo <= totalPages) {
-      setCurrentPage(pageNo);
-    }
-  }
+  // const [totalPages, setTotalPages] = useState(1);
+  // function handleOnChange(pageNo: number) {
+  //   if (pageNo >= 1 && pageNo <= totalPages) {
+  //     setCurrentPage(pageNo);
+  //   }
+  // }
   const [numberOfItems, setNumberOfItems] = useState<number>(1);
   const handleChangeItemNumber = (e: number) => {
     setNumberOfItems(e);
@@ -88,7 +89,7 @@ const MycartItem = ({ setTotalPrice }: PropsType) => {
     }
   };
   const handleRemoveItem = async (productId: string, cartId: string) => {
-    console.log(currentPage, "remove item");
+    // console.log(currentPage, "remove item");
     if (cartId !== "none") {
       await removeItemFromCart(cartId);
     } else {
@@ -110,7 +111,7 @@ const MycartItem = ({ setTotalPrice }: PropsType) => {
   // using userId
   async function showCartDatas() {
     if (user) {
-      const res = await showCartData(currentPage);
+      const res = await showCartData(0);
       const flattenData = res.data.flatMap((cartData: cartDataTypes) =>
         cartData.products.map((product: productTypes) => ({
           userId: cartData.userId,
@@ -125,7 +126,7 @@ const MycartItem = ({ setTotalPrice }: PropsType) => {
       );
       setCartDataFromDataStore(flattenData);
       // addProductIntoCart(...flattenData);
-      setTotalPages(res.totalPages);
+      // setTotalPages(res.totalPages);
 
       // console.log(flattenedOrders, "Res cart here");
     } else {
@@ -169,7 +170,7 @@ const MycartItem = ({ setTotalPrice }: PropsType) => {
 
   useEffect(() => {
     showCartDatas();
-  }, [currentPage, cartData]);
+  }, [cartData]);
 
   console.log([...flattenedData, ...cartDataFromDataStore], "flattenedData");
   return (
@@ -316,16 +317,21 @@ const MycartItem = ({ setTotalPrice }: PropsType) => {
             )}
           </>
         ) : (
-          "No data is Available,Add Product into Cart"
+          <div>
+            No Product Selected <Link href="/customer/products" className="text-[#35736E] underline ">Browse Products </Link>
+          </div>
         )}
       </div>
-
-      <Pagination
-        totalPages={totalPages}
-        currentPage={currentPage}
-        handleOnChange={handleOnChange}
-        user="customer"
-      ></Pagination>
+      {/* {[...flattenedData, ...cartDataFromDataStore]?.length > 0 ? (
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          handleOnChange={handleOnChange}
+          user="customer"
+        ></Pagination>
+      ) : (
+        ""
+      )} */}
     </div>
   );
 };
