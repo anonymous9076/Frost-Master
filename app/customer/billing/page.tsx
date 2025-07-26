@@ -17,7 +17,7 @@ interface FlattenedCartProduct {
   image: string | null;
   rating: number;
 }
-const page = () => {
+const Page = () => {
   const { cartData } = useCartStore(
     useShallow((state: CartState) => ({
       cartData: state.cartData,
@@ -53,4 +53,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
