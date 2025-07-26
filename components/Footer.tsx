@@ -2,11 +2,12 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { FaLinkedinIn } from "react-icons/fa";
-import { FaYoutube } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { getCategory } from "@/app/api/Product";
 import { catNSubCatResponse } from "@/components/AddProductForm";
+import { FaPinterest } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
 
@@ -37,19 +38,24 @@ const Footer = () => {
             <li className="py-2">
               PLOT NO B-307/A KH NO 16/5 GROUND FLOOR BLOCK-B RAJEEV NAGAR NEW DELHI 110086
             </li>
-            <li className="flex items-center gap-4 mt-[2rem]">
-              <span className="text-[30px]">
-                <FaInstagram></FaInstagram>
-              </span>
-              <span className="text-[25px]">
-                <FaFacebookF></FaFacebookF>
-              </span>
-              <span className="text-[30px]">
-                <FaYoutube></FaYoutube>
-              </span>
-              <span className="text-[30px]">
-                <FaLinkedinIn></FaLinkedinIn>
-              </span>
+            
+            <li className="flex items-center flex-wrap gap-4 mt-[1rem]">
+              <Link href='https://www.instagram.com/frostmaster_ltd/#' target="_blank" className="aspect-square h-[30px]">
+                <FaInstagram className="h-full w-full"></FaInstagram>
+              </Link>
+              <Link href='https://www.facebook.com/frostmaster.ltd' target="_blank" className="aspect-square h-[27px]">
+                <FaFacebookF className="h-full w-full"></FaFacebookF>
+              </Link>
+              <Link href='https://www.linkedin.com/company/frostmaster' target="_blank" className="aspect-square h-[30px]">
+                <FaLinkedinIn className="h-full w-full"></FaLinkedinIn>
+              </Link>
+              <Link href='https://www.pinterest.com/frostmaster_ltd/' target="_blank" className="aspect-square h-[28px]">
+                <FaPinterest className="h-full w-full"></FaPinterest>
+              </Link>
+              <Link href='https://x.com/frostmaster_ltd' target="_blank" className="aspect-square h-[26px]">
+                <FaXTwitter className="h-full w-full"></FaXTwitter>
+              </Link>
+          
             </li>
           </ul>
         </div>
