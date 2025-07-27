@@ -110,42 +110,42 @@ const MycartItem = ({ setTotalPrice }: PropsType) => {
 
   // using userId
   async function showCartDatas() {
-    if (user) {
-      const res = await showCartData(0);
-      const flattenData = res.data.flatMap((cartData: cartDataTypes) =>
-        cartData.products.map((product: productTypes) => ({
-          userId: cartData.userId,
-          productId: product.productId,
-          title: product.productTitle,
-          price: product.price,
-          quantity: product.quantity,
-          image: product.images[0] ?? null,
-          rating: product.rating,
-          cartId: cartData._id,
-        }))
-      );
-      setCartDataFromDataStore(flattenData);
-      // addProductIntoCart(...flattenData);
-      // setTotalPages(res.totalPages);
+    // if (user) {
+    //   const res = await showCartData(0);
+    //   const flattenData = res.data.flatMap((cartData: cartDataTypes) =>
+    //     cartData.products.map((product: productTypes) => ({
+    //       userId: cartData.userId,
+    //       productId: product.productId,
+    //       title: product.productTitle,
+    //       price: product.price,
+    //       quantity: product.quantity,
+    //       image: product.images[0] ?? null,
+    //       rating: product.rating,
+    //       cartId: cartData._id,
+    //     }))
+    //   );
+    //   setCartDataFromDataStore(flattenData);
+    //   // addProductIntoCart(...flattenData);
+    //   // setTotalPages(res.totalPages);
 
-      // console.log(flattenedOrders, "Res cart here");
-    } else {
-      console.log(cartData, "cartData");
-      // const totalPrice = cartData.reduce(
-      //   (acc: number, item: FlattenedCartProduct) =>
-      //     acc + item.price * item.quantity,
-      //   0
-      // );
+    //   // console.log(flattenedOrders, "Res cart here");
+    // } else {
+    //   console.log(cartData, "cartData");
+    //   // const totalPrice = cartData.reduce(
+    //   //   (acc: number, item: FlattenedCartProduct) =>
+    //   //     acc + item.price * item.quantity,
+    //   //   0
+    //   // );
 
-      // // ✅ Calculate total price: sum of price * quantity
-      // const total: number = flattenData.reduce(
-      //   (acc: number, item: FlattenedCartProduct) =>
-      //     acc + item.price * item.quantity,
-      //   0
-      // );
-      // console.log(total, "total777777");
-      // setTotalPrice(totalPrice);
-    }
+    //   // // ✅ Calculate total price: sum of price * quantity
+    //   // const total: number = flattenData.reduce(
+    //   //   (acc: number, item: FlattenedCartProduct) =>
+    //   //     acc + item.price * item.quantity,
+    //   //   0
+    //   // );
+    //   // console.log(total, "total777777");
+    //   // setTotalPrice(totalPrice);
+    // }
 
     console.log(cartData, "cartData");
     const totalPrice = cartData.reduce(
@@ -318,7 +318,13 @@ const MycartItem = ({ setTotalPrice }: PropsType) => {
           </>
         ) : (
           <div>
-            No Product Selected <Link href="/customer/products" className="text-[#35736E] underline ">Browse Products </Link>
+            No Product Selected{" "}
+            <Link
+              href="/customer/products"
+              className="text-[#35736E] underline "
+            >
+              Browse Products{" "}
+            </Link>
           </div>
         )}
       </div>
