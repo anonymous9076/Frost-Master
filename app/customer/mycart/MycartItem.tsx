@@ -9,7 +9,7 @@ import { CartState, useCartStore } from "@/app/stores/CartStore";
 // import Pagination from "@/components/Pagination";
 import Image from "next/image";
 import Link from "next/link";
-import React, {  useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FiPlus } from "react-icons/fi";
 import { FiMinus } from "react-icons/fi";
 import { IoIosStar, IoIosStarHalf } from "react-icons/io";
@@ -157,7 +157,8 @@ const MycartItem = ({ setTotalPrice }: PropsType) => {
     console.log(totalPrice, cartData, "price totak");
     setTotalPrice(totalPrice);
 
-    console.log(totalPrice)
+    console.log(totalPrice);
+    setCartDataFromDataStore([]);
   }
 
   const flattenedData = cartData.flatMap((entry) => ({
@@ -178,7 +179,9 @@ const MycartItem = ({ setTotalPrice }: PropsType) => {
   console.log([...flattenedData, ...cartDataFromDataStore], "flattenedData");
   return (
     <div className="!cursor-pointer select-none h-full flex flex-col ">
-      <p className="h-[5%]">{[...flattenedData, ...cartDataFromDataStore]?.length} Items</p>
+      <p className="h-[5%]">
+        {[...flattenedData, ...cartDataFromDataStore]?.length} Items
+      </p>
       <div className="grid coloredScroll pr-3 overflow-y-auto flex-1 w-full grid-cols-1  ">
         {[...flattenedData, ...cartDataFromDataStore]?.length > 0 ? (
           <>
