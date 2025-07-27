@@ -28,7 +28,7 @@ export interface CardInfoValues {
 
 const personalInfoSchema = Yup.object({
   firstName: Yup.string().required("Required"),
-  lastName: Yup.string().required("Required"),
+  lastName: Yup.string(),
   email: Yup.string().email("Invalid email").required("Required"),
   phone: Yup.string().matches(/^\d{10,15}$/, "Invalid").required("Required"),
   company: Yup.string().required("Required"),
@@ -36,8 +36,7 @@ const personalInfoSchema = Yup.object({
     .matches(
       /^(\d{2}[A-Z]{5}\d{4}[A-Z]{1}[A-Z\d]{1}[Z]{1}[A-Z\d]{1})$/,
       "Invalid GST"
-    )
-    .required("Required"),
+    ),
   address: Yup.string().required("Required"),
   city: Yup.string().required("Required"),
   state: Yup.string().required("Required"),
