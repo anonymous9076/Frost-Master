@@ -1,42 +1,42 @@
 "use client";
 import {
   removeItemFromCart,
-  showCartData,
+  // showCartData,
   updateItemQuantityInCart,
 } from "@/app/api/MyCart";
-import UserAuthContext from "@/app/context/userAuthContext";
+// import UserAuthContext from "@/app/context/userAuthContext";
 import { CartState, useCartStore } from "@/app/stores/CartStore";
 // import Pagination from "@/components/Pagination";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useContext, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { FiPlus } from "react-icons/fi";
 import { FiMinus } from "react-icons/fi";
 import { IoIosStar, IoIosStarHalf } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
 import { useShallow } from "zustand/shallow";
 
-interface productTypes {
-  productId: string;
-  productTitle: string;
-  price: number;
-  quantity: number;
-  images: [string];
-  rating: number;
-}
+// interface productTypes {
+//   productId: string;
+//   productTitle: string;
+//   price: number;
+//   quantity: number;
+//   images: [string];
+//   rating: number;
+// }
 
-interface cartDataTypes {
-  userId: string;
-  _id: string;
-  products: productTypes[];
-}
+// interface cartDataTypes {
+//   userId: string;
+//   _id: string;
+//   products: productTypes[];
+// }
 interface PropsType {
   setTotalPrice: (price: number) => void;
 }
 
 const MycartItem = ({ setTotalPrice }: PropsType) => {
   // const [currentPage, setCurrentPage] = useState(1);
-  const { user } = useContext(UserAuthContext)!;
+  // const { user } = useContext(UserAuthContext)!;
   const [cartDataFromDataStore, setCartDataFromDataStore] = useState([]);
   const { cartData, removeProductFromCart, updateProductInCart } = useCartStore(
     useShallow((state: CartState) => ({
@@ -156,7 +156,10 @@ const MycartItem = ({ setTotalPrice }: PropsType) => {
 
     console.log(totalPrice, cartData, "price totak");
     setTotalPrice(totalPrice);
+
+    console.log(totalPrice)
   }
+
   const flattenedData = cartData.flatMap((entry) => ({
     userId: entry.userId,
     productId: entry.productId,
@@ -174,9 +177,9 @@ const MycartItem = ({ setTotalPrice }: PropsType) => {
 
   console.log([...flattenedData, ...cartDataFromDataStore], "flattenedData");
   return (
-    <div className="!cursor-pointer select-none">
-      <p>{[...flattenedData, ...cartDataFromDataStore]?.length} Items</p>
-      <div className="grid w-full grid-cols-1 py-2 gap-4 ">
+    <div className="!cursor-pointer select-none h-full flex flex-col ">
+      <p className="h-[5%]">{[...flattenedData, ...cartDataFromDataStore]?.length} Items</p>
+      <div className="grid coloredScroll pr-3 overflow-y-auto flex-1 w-full grid-cols-1  ">
         {[...flattenedData, ...cartDataFromDataStore]?.length > 0 ? (
           <>
             {" "}

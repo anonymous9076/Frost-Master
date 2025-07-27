@@ -12,11 +12,13 @@ const Mycart = () => {
     <>
       <Navbar active="/customer/mycart"></Navbar>
       <div className="h-fit w-full  px-[5%] lg:px-[3%] flex flex-col lg:flex-row  light">
-        <div className="lg:w-[65%] w-full h-[80dvh] overflow-y-auto py-[2rem] ">
+        <div className="lg:w-[65%] w-full h-[80dvh] py-[2rem] ">
           <div className=" gap-4">
             <h1 className="text-[25px] font-bold  ">My Cart</h1>
           </div>
+          <div className=" h-[95%]  ">
           <MycartItem setTotalPrice={setTotalPrice}></MycartItem>
+          </div>
         </div>
         <div className="flex-1 py-[2rem] pl-[3%]">
           <PriceCard button={true} totalPrice={totalPrice}></PriceCard>
